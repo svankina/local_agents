@@ -1,0 +1,398 @@
+{
+  "config": "C5-gemma26b-cmoe",
+  "gpu_contended": false,
+  "vram_loaded": "3020 MiB",
+  "toolcall": {
+    "config": "C5-gemma26b-cmoe",
+    "suite": "toolcall",
+    "temps": {
+      "0.2": {
+        "valid_rate": 0.917,
+        "n": 36,
+        "results": [
+          {
+            "id": "simple-read",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "simple-read",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "simple-read",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 0,
+            "ok": false,
+            "why": "wrong tool: list_dir"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 1,
+            "ok": false,
+            "why": "wrong tool: run_bash"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 2,
+            "ok": false,
+            "why": "wrong tool: list_dir"
+          },
+          {
+            "id": "long-path",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          }
+        ]
+      }
+    }
+  },
+  "throughput": {
+    "config": "C5-gemma26b-cmoe",
+    "suite": "throughput",
+    "single": {
+      "p1k": {
+        "prefill_tps": 13.9,
+        "decode_tps": 14.6,
+        "trials": [
+          {
+            "prefill_tps": 37.85688430500229,
+            "decode_tps": 14.346285713004796,
+            "prompt_n": 990,
+            "predicted_n": 256,
+            "wall_s": 44.007
+          },
+          {
+            "prefill_tps": 13.03298387559235,
+            "decode_tps": 14.629001939199924,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 17.893
+          },
+          {
+            "prefill_tps": 13.927615397257373,
+            "decode_tps": 15.237078525891219,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 17.167
+          }
+        ]
+      },
+      "p8k": {
+        "prefill_tps": 13.4,
+        "decode_tps": 15.2,
+        "trials": [
+          {
+            "prefill_tps": 43.99193412778444,
+            "decode_tps": 15.497453423342058,
+            "prompt_n": 7286,
+            "predicted_n": 256,
+            "wall_s": 182.174
+          },
+          {
+            "prefill_tps": 13.417775869471875,
+            "decode_tps": 14.11683222696337,
+            "prompt_n": 1,
+            "predicted_n": 256,
+            "wall_s": 18.243
+          },
+          {
+            "prefill_tps": 13.097233864207878,
+            "decode_tps": 15.238585049757553,
+            "prompt_n": 1,
+            "predicted_n": 256,
+            "wall_s": 16.909
+          }
+        ]
+      }
+    },
+    "concurrent": {
+      "x2": {
+        "per_stream_decode_tps": 9.6,
+        "aggregate_tps": 7.8,
+        "wall_s": 65.5,
+        "trials": [
+          {
+            "prefill_tps": 25.707960888167978,
+            "decode_tps": 9.690343557503786,
+            "prompt_n": 990,
+            "predicted_n": 256,
+            "wall_s": 65.524
+          },
+          {
+            "prefill_tps": 13.561349367377478,
+            "decode_tps": 9.57425566426616,
+            "prompt_n": 517,
+            "predicted_n": 256,
+            "wall_s": 65.458
+          }
+        ]
+      },
+      "x4": {
+        "per_stream_decode_tps": 4.9,
+        "aggregate_tps": 9.5,
+        "wall_s": 107.9,
+        "trials": [
+          {
+            "prefill_tps": 16.706727091917223,
+            "decode_tps": 6.002141310804358,
+            "prompt_n": 990,
+            "predicted_n": 256,
+            "wall_s": 107.865
+          },
+          {
+            "prefill_tps": 19.303432706040017,
+            "decode_tps": 6.002537338185603,
+            "prompt_n": 990,
+            "predicted_n": 256,
+            "wall_s": 107.866
+          },
+          {
+            "prefill_tps": 0.16680862080297,
+            "decode_tps": 3.7780969023413014,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 107.638
+          },
+          {
+            "prefill_tps": 0.1473941061047131,
+            "decode_tps": 3.778067573926304,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 107.637
+          }
+        ]
+      }
+    }
+  },
+  "agentic": {
+    "config": "C5-gemma26b-cmoe",
+    "suite": "agentic",
+    "temps": {
+      "0.2": {
+        "passed": 4,
+        "of": 5,
+        "tasks": [
+          {
+            "id": "fix-test",
+            "passed": true,
+            "turns": 15,
+            "wall_s": 256.9,
+            "check_out": ""
+          },
+          {
+            "id": "bulk-rename",
+            "passed": true,
+            "turns": 15,
+            "wall_s": 270.4,
+            "check_out": ""
+          },
+          {
+            "id": "csv-script",
+            "passed": false,
+            "turns": 12,
+            "wall_s": 259.5,
+            "check_out": ""
+          },
+          {
+            "id": "code-qa",
+            "passed": true,
+            "turns": 6,
+            "wall_s": 126.8,
+            "check_out": ""
+          },
+          {
+            "id": "add-flag",
+            "passed": true,
+            "turns": 9,
+            "wall_s": 290.7,
+            "check_out": ""
+          }
+        ]
+      }
+    }
+  }
+}
