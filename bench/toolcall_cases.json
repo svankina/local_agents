@@ -1,0 +1,14 @@
+[
+  {"id":"simple-read","prompt":"Read the file src/main.py and tell me what it does.","expect_tool":"read_file","expect_args":{"path":{"eq":"src/main.py"}}},
+  {"id":"arg-fidelity","prompt":"Open the file named 'data/2026-06 report (final).csv' exactly as written.","expect_tool":"read_file","expect_args":{"path":{"eq":"data/2026-06 report (final).csv"}}},
+  {"id":"pick-grep","prompt":"Find every occurrence of the string TODO anywhere in this project.","expect_tool":"run_bash","expect_args":{"command":{"re":"grep|rg"}}},
+  {"id":"pick-list","prompt":"What files are in the tests directory?","expect_tool":"list_dir","expect_args":{"path":{"re":"tests/?$"}}},
+  {"id":"no-tool","prompt":"What does the acronym YAML stand for?","expect_tool":null},
+  {"id":"no-tool-2","prompt":"Briefly explain the difference between a thread and a process.","expect_tool":null},
+  {"id":"write-exact","prompt":"Create a file called notes.txt containing exactly the text: hello fleet","expect_tool":"write_file","expect_args":{"path":{"eq":"notes.txt"},"content":{"contains":"hello fleet"}}},
+  {"id":"nested-json","prompt":"Run the bash command to print the value of the HOME environment variable.","expect_tool":"run_bash","expect_args":{"command":{"re":"echo\\s+\"?\\$\\{?HOME"}}},
+  {"id":"numeric-arg","prompt":"Show me the last 25 lines of build.log using a shell command.","expect_tool":"run_bash","expect_args":{"command":{"re":"tail\\s+(-n\\s*)?25\\s+build\\.log"}}},
+  {"id":"quote-trap","prompt":"Write a file greeting.py whose content is: print(\"it's working\")","expect_tool":"write_file","expect_args":{"path":{"eq":"greeting.py"},"content":{"contains":"it's working"}}},
+  {"id":"chain-first-step","prompt":"I need to know if config.yaml mentions 'redis'. Start by reading it.","expect_tool":"read_file","expect_args":{"path":{"eq":"config.yaml"}}},
+  {"id":"long-path","prompt":"Read deeply/nested/path/to/the/module/handlers/event_router.py","expect_tool":"read_file","expect_args":{"path":{"eq":"deeply/nested/path/to/the/module/handlers/event_router.py"}}}
+]

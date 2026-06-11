@@ -1,0 +1,7 @@
+[
+  {"id":"fix-test","check":"python3 -m pytest -q 2>&1 | grep -q '2 passed'"},
+  {"id":"bulk-rename","check":"! grep -rn fetch_record . --include='*.py' && python3 -c 'from app.api import get; assert get(7)[\"id\"]==7' && grep -q load_record app/db.py"},
+  {"id":"csv-script","check":"python3 sum_by_region.py | tr -d ' ' | grep -qx 'east,80' && python3 sum_by_region.py | tr -d ' ' | grep -qx 'west,320'"},
+  {"id":"code-qa","check":"grep -qi 'workers\\[0\\]\\|first worker' ANSWERS.md && grep -q '64' ANSWERS.md && grep -qiE 'full|timeout|queue.Full|block' ANSWERS.md"},
+  {"id":"add-flag","check":"python3 tool.py --shout bob | grep -qx 'HELLO BOB' && python3 tool.py alice | grep -qx 'hello alice'"}
+]
