@@ -1,7 +1,7 @@
 {
   "_common": "--host 127.0.0.1 --port 8089 -ngl 99 --jinja -fa on -dev Vulkan1",
   "C1-gemma12b-base": "-m <CACHE>/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf -c 32768 --temp 0.2",
-  "C2-gemma12b-mtp": "-m <CACHE>/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf -md <CACHE>/mtp-gemma-4-12B-it.gguf --spec-type draft-mtp --spec-draft-n-max 2 -c 32768 --temp 0.2",
+  "C2-gemma12b-mtp": "-m <CACHE>/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf -md <CACHE>/mtp-gemma-4-12b-it.gguf --spec-type draft-mtp --spec-draft-n-max 2 -c 32768 --temp 0.2",
   "C3-gemma12b-par3": "-m <CACHE>/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf -c 49152 --parallel 3 --cache-type-k q8_0 --cache-type-v q8_0 --temp 0.2",
   "C4-gemma26b-gpu": "-m <CACHE>/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf -c 32768 --temp 0.2",
   "C5-gemma26b-cmoe": "-m <CACHE>/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf -cmoe -c 65536 --cache-type-k q8_0 --cache-type-v q8_0 --temp 0.2",
