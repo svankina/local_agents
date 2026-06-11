@@ -21,9 +21,6 @@ for i in $(seq 1 30); do
 done
 [ "$UTIL" -lt 10 ] || echo "WARN: gpu_contended" | tee "$RAW/contended.flag"
 
-# evict everything Ollama has resident (external agents on this box reload models ad hoc)
-ollama ps 2>/dev/null | awk 'NR>1 {print $1}' | while read -r m; do ollama stop "$m" 2>/dev/null || true; done
-sleep 3
 nvidia-smi --query-gpu=memory.used --format=csv,noheader | tee "$RAW/vram_before.txt"
 
 FLAGS=$(python3 -c "import json;c=json.load(open('bench/configs.json'));print(c['_common'],c['$CFG'].replace('<CACHE>','$CACHE'))")
@@ -32,12 +29,36 @@ SRV=$!
 echo $SRV > results/.server.pid
 trap 'kill $SRV 2>/dev/null || true' EXIT
 
-python3 - <<'PY'
+if ! python3 - <<'PY'
 import sys
 sys.path.insert(0, "bench")
 from common import wait_healthy
 wait_healthy()
 PY
+then
+  python3 - "$CFG" <<'PY'
+import json
+import pathlib
+import sys
+
+cfg = sys.argv[1]
+raw = pathlib.Path(f"results/raw/{cfg}")
+server_log = raw / "server.log"
+tail = ""
+if server_log.exists():
+    tail = "\n".join(server_log.read_text(errors="replace").splitlines()[-80:])
+merged = {
+    "config": cfg,
+    "gpu_contended": (raw / "contended.flag").exists(),
+    "vram_before": (raw / "vram_before.txt").read_text().strip() if (raw / "vram_before.txt").exists() else None,
+    "error": "server failed to become healthy",
+    "server_log_tail": tail,
+}
+pathlib.Path(f"results/{cfg}.json").write_text(json.dumps(merged, indent=2))
+print("wrote", f"results/{cfg}.json")
+PY
+  exit 0
+fi
 nvidia-smi --query-gpu=memory.used --format=csv,noheader | tee "$RAW/vram_loaded.txt"
 
 for s in "${SUITES[@]}"; do
