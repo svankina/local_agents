@@ -21,7 +21,8 @@ for i in $(seq 1 30); do
 done
 [ "$UTIL" -lt 10 ] || echo "WARN: gpu_contended" | tee "$RAW/contended.flag"
 
-ollama stop gemma4:12b-it-qat 2>/dev/null || true
+# evict everything Ollama has resident (external agents on this box reload models ad hoc)
+ollama ps 2>/dev/null | awk 'NR>1 {print $1}' | while read -r m; do ollama stop "$m" 2>/dev/null || true; done
 sleep 3
 nvidia-smi --query-gpu=memory.used --format=csv,noheader | tee "$RAW/vram_before.txt"
 
