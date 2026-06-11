@@ -1,0 +1,47 @@
+{
+  "config": "C1-gemma12b-base",
+  "suite": "agentic",
+  "temps": {
+    "0.2": {
+      "passed": 3,
+      "of": 5,
+      "tasks": [
+        {
+          "id": "fix-test",
+          "passed": false,
+          "turns": 8,
+          "wall_s": 42.3,
+          "check_out": ""
+        },
+        {
+          "id": "bulk-rename",
+          "passed": true,
+          "turns": 13,
+          "wall_s": 19.5,
+          "check_out": ""
+        },
+        {
+          "id": "csv-script",
+          "passed": true,
+          "turns": 6,
+          "wall_s": 12.8,
+          "check_out": ""
+        },
+        {
+          "id": "code-qa",
+          "passed": true,
+          "turns": 5,
+          "wall_s": 12.4,
+          "check_out": ""
+        },
+        {
+          "id": "add-flag",
+          "passed": false,
+          "turns": 4,
+          "wall_s": 35.7,
+          "check_out": ""
+        }
+      ]
+    }
+  }
+}

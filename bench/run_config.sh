@@ -102,6 +102,8 @@ if server_log.exists():
         merged["notes"] = "\n".join(accept_lines)
 for f in raw.glob("*.json"):
     body = json.loads(f.read_text())
+    if "suite" not in body:
+        continue
     merged[body["suite"]] = body
 pathlib.Path(f"results/{cfg}.json").write_text(json.dumps(merged, indent=2))
 print("wrote", f"results/{cfg}.json")
