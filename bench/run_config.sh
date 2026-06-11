@@ -46,7 +46,11 @@ for s in "${SUITES[@]}"; do
     agentic) script="bench/miniagent.py" ;;
     *) script="bench/$s.py" ;;
   esac
-  python3 "$script" "$CFG" | tee "$RAW/$s.json"
+  EXTRA_ARGS=()
+  if [ "$CFG" = "C8-nex-mini-q3" ] && { [ "$s" = "toolcall" ] || [ "$s" = "agentic" ]; }; then
+    EXTRA_ARGS=(--temps 0.2 0.7)
+  fi
+  python3 "$script" "$CFG" "${EXTRA_ARGS[@]}" | tee "$RAW/$s.json"
 done
 
 python3 - "$CFG" <<'PY'
@@ -61,6 +65,11 @@ merged = {
     "gpu_contended": (raw / "contended.flag").exists(),
     "vram_loaded": (raw / "vram_loaded.txt").read_text().strip(),
 }
+server_log = raw / "server.log"
+if server_log.exists():
+    accept_lines = [line.rstrip() for line in server_log.read_text(errors="replace").splitlines() if "accept" in line.lower()]
+    if accept_lines:
+        merged["notes"] = "\n".join(accept_lines)
 for f in raw.glob("*.json"):
     body = json.loads(f.read_text())
     merged[body["suite"]] = body
