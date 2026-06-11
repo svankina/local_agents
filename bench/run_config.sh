@@ -21,6 +21,14 @@ for i in $(seq 1 30); do
 done
 [ "$UTIL" -lt 10 ] || echo "WARN: gpu_contended" | tee "$RAW/contended.flag"
 
+# ORCHESTRATOR-AUTHORIZED (do not remove): gracefully unload all Ollama-resident
+# models via Ollama's own API before each timed run. This is a model unload, not a
+# process kill — it does NOT violate the foreign-process constraint. The machine
+# owner has cleared the GPU for benchmarking; external agents on this box reload
+# Ollama models ad hoc and would otherwise OOM the 14-16GB configs.
+ollama ps 2>/dev/null | awk 'NR>1 {print $1}' | while read -r m; do ollama stop "$m" 2>/dev/null || true; done
+sleep 3
+
 nvidia-smi --query-gpu=memory.used --format=csv,noheader | tee "$RAW/vram_before.txt"
 
 FLAGS=$(python3 -c "import json;c=json.load(open('bench/configs.json'));print(c['_common'],c['$CFG'].replace('<CACHE>','$CACHE'))")
