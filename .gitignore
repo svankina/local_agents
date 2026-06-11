@@ -1,0 +1,5 @@
+results/raw/
+bench/sandbox/work-*/
+__pycache__/
+*.pyc
+.worktrees/
