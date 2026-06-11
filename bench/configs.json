@@ -8,6 +8,8 @@
   "C6-gemma26b-cmoe-mtp": "-m <CACHE>/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf -cmoe -md <CACHE>/mtp-gemma-4-26B-A4B-it.gguf --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-device Vulkan1 --spec-draft-ngl 99 --no-spec-draft-backend-sampling -c 65536 --cache-type-k q8_0 --cache-type-v q8_0 --temp 0.2",
   "C7-qwen27b-q3": "-m <CACHE>/Qwen3.6-27B-Q3_K_M.gguf -c 32768 --temp 0.2",
   "C8-nex-mini-q3": "-m <CACHE>/nex-agi_Nex-N2-mini-Q3_K_M.gguf -c 32768 --temp 0.2",
+  "C12-byteshape-35b": "-m <CACHE>/Qwen3.6-35B-A3B-IQ4_XS-4.19bpw.gguf --spec-type draft-mtp --spec-draft-n-max 2 --no-spec-draft-backend-sampling -c 32768 --temp 0.2",
+  "C13-qwopus-27b": "-m <CACHE>/Qwopus3.6-27B-v2-MTP-Q4_K_M.gguf --spec-type draft-mtp --spec-draft-n-max 2 --no-spec-draft-backend-sampling -c 32768 --temp 0.2",
   "C9-qwen27b-q4": "-m <CACHE>/Qwen3.6-27B-Q4_K_M.gguf -c 32768 --temp 0.2",
   "C10-qwen35b-a3b": "-m <CACHE>/Qwen3.6-35B-A3B-Q4_K_M.gguf -c 32768 --temp 0.2",
   "C11-phi4mini": "-m <CACHE>/phi-4-mini-Q4_K_M.gguf -c 16384 --temp 0.2"
