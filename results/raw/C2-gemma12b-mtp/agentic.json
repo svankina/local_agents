@@ -1,0 +1,47 @@
+{
+  "config": "C2-gemma12b-mtp",
+  "suite": "agentic",
+  "temps": {
+    "0.2": {
+      "passed": 5,
+      "of": 5,
+      "tasks": [
+        {
+          "id": "fix-test",
+          "passed": true,
+          "turns": 15,
+          "wall_s": 21.9,
+          "check_out": ""
+        },
+        {
+          "id": "bulk-rename",
+          "passed": true,
+          "turns": 13,
+          "wall_s": 17.9,
+          "check_out": ""
+        },
+        {
+          "id": "csv-script",
+          "passed": true,
+          "turns": 6,
+          "wall_s": 12.7,
+          "check_out": ""
+        },
+        {
+          "id": "code-qa",
+          "passed": true,
+          "turns": 5,
+          "wall_s": 10.1,
+          "check_out": ""
+        },
+        {
+          "id": "add-flag",
+          "passed": true,
+          "turns": 8,
+          "wall_s": 50.5,
+          "check_out": ""
+        }
+      ]
+    }
+  }
+}
