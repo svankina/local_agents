@@ -73,7 +73,18 @@ local_agents/
 | C10* | Qwen3.6-35B-A3B Q4_K_M (22GB) | full GPU | MoE senior comparison |
 | C11* | phi4-mini 3.8B | full GPU | micro-worker floor |
 
-\* = stretch (Task 14). **Excluded:** DiffusionGemma (no llama.cpp support yet, no tool-calling story, quality below Gemma 4 — revisit when llama.cpp lands), Nex-N2-Pro (397B, not local-feasible).
+\* = stretch (Task 14). **Excluded:** DiffusionGemma (no llama.cpp support yet, no tool-calling story, quality below Gemma 4 — revisit when llama.cpp lands), Nex-N2-Pro (397B, not local-feasible), GLM-4.7-Flash and Carnice/Claude-distill fine-tunes (weak or protocol-narrow per the r/hermesagent 3090 community benchmark).
+
+**Addendum (community-benchmark imports, run as part of Phase 2 after C8):** per the r/hermesagent full-suite 3090 results (reddit 1twjvs8; CUDA, temp 0.6 — relative rankings only):
+
+| Config | Model | Serving | Why |
+|---|---|---|---|
+| C12 | byteshape Qwen3.6-35B-A3B IQ4_XS (+MTP, no separate drafter needed) | full GPU | their overall winner: 73.5%, 115 TPS, 262K ctx, ~18GB |
+| C13 | Qwopus3.6-27B-v2 (Q4-class GGUF) + MTP n=2 | full GPU | their CLI-40 leader (20/40, zero variance) — closest pack to our subagent workload |
+
+Verify exact HF repos at download time (Task 3 Step 1 pattern; expect `byteshape/...Qwen3.6-35B-A3B...IQ4_XS` and a `Qwopus3.6-27B-v2` GGUF repo, else nearest bartowski/unsloth mirror). Qwen-family MTP uses built-in drafting (`--spec-type draft-mtp` without `-md`) — confirm flag shape against llama-server docs at run time. Add `"C12-byteshape-35b"` and `"C13-qwopus-27b"` entries to `bench/configs.json` following the existing pattern (`-c 32768 --temp 0.2`).
+
+**C14 (stretch, alongside Task 14):** Gemma 4 31B QAT + MTP — weights already local via the Ollama pull (`ollama show gemma4:31b-it-qat --modelfile` → blob path), only the `mtp-` drafter GGUF needs downloading (~1–2GB from the 31B QAT repo). Unsloth measured 2.21× MTP speedup on this variant; ~18–21GB total, solo-tenant. Strongest dense-Gemma senior; mainly a reference point against C7/C12.
 
 Exact HF repo names for downloads are *verified at runtime* (Task 3 step 1) because they're young releases; expected names with fallbacks are listed there.
 
@@ -673,7 +684,7 @@ Each task is the same shape; run them strictly in order. **Task 7:** C1, C2 (12B
 - [ ] **Step 2 (repeat per config):** sanity-read the numbers: decode_tps within 2× of public reports (12B ≈ 40–70; 26B cmoe ≈ 15–30); toolcall valid_rate not 0 (a 0 usually means chat-template/`--jinja` issues, not a dumb model — check `server.log` before blaming the model and rerun once fixed).
 - [ ] **Step 3 (after each task's configs):** `git add results/*.json && git commit -m "bench: results for <configs>"` (raw/ is gitignored).
 
-**MTP comparison note (C2, C6):** decode_tps speedup = C2/C1 and C6/C5 single-stream `p1k`. Record drafter acceptance rate from server.log into the result JSON's `"notes"` field by hand-extraction (grep `accept` in the log — exact line format varies by build; quote it verbatim).
+**MTP comparison note (C2, C6):** decode_tps speedup = C2/C1 and C6/C5 single-stream `p1k`. Calibration reference (Unsloth, CUDA GPUs, June 2026): QAT+MTP speedups of 1.94× (12B), 1.83× (26B-A4B), 2.21× (31B). If our Vulkan numbers land far below ~1.5×, suspect harness/backend issues before concluding MTP doesn't help. Drafter GGUFs are the `mtp-` prefixed files inside the regular model repos. Record drafter acceptance rate from server.log into the result JSON's `"notes"` field by hand-extraction (grep `accept` in the log — exact line format varies by build; quote it verbatim).
 
 ### Task 12: Coexistence test (the actual fleet layout)
 
