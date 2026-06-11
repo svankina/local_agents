@@ -1,0 +1,47 @@
+{
+  "config": "C4-gemma26b-gpu",
+  "suite": "agentic",
+  "temps": {
+    "0.2": {
+      "passed": 5,
+      "of": 5,
+      "tasks": [
+        {
+          "id": "fix-test",
+          "passed": true,
+          "turns": 8,
+          "wall_s": 7.8,
+          "check_out": ""
+        },
+        {
+          "id": "bulk-rename",
+          "passed": true,
+          "turns": 15,
+          "wall_s": 15.0,
+          "check_out": ""
+        },
+        {
+          "id": "csv-script",
+          "passed": true,
+          "turns": 9,
+          "wall_s": 24.4,
+          "check_out": ""
+        },
+        {
+          "id": "code-qa",
+          "passed": true,
+          "turns": 6,
+          "wall_s": 8.6,
+          "check_out": ""
+        },
+        {
+          "id": "add-flag",
+          "passed": true,
+          "turns": 9,
+          "wall_s": 31.4,
+          "check_out": ""
+        }
+      ]
+    }
+  }
+}

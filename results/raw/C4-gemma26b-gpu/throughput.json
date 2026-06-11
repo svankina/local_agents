@@ -1,0 +1,118 @@
+{
+  "config": "C4-gemma26b-gpu",
+  "suite": "throughput",
+  "single": {
+    "p1k": {
+      "prefill_tps": 16.7,
+      "decode_tps": 118.1,
+      "trials": [
+        {
+          "prefill_tps": 61.10981347062754,
+          "decode_tps": 87.53321817244318,
+          "prompt_n": 990,
+          "predicted_n": 256,
+          "wall_s": 19.154
+        },
+        {
+          "prefill_tps": 16.692094290302226,
+          "decode_tps": 118.3419370078813,
+          "prompt_n": 5,
+          "predicted_n": 256,
+          "wall_s": 2.47
+        },
+        {
+          "prefill_tps": 16.354246052902713,
+          "decode_tps": 118.09812200919967,
+          "prompt_n": 5,
+          "predicted_n": 256,
+          "wall_s": 2.485
+        }
+      ]
+    },
+    "p8k": {
+      "prefill_tps": 74.3,
+      "decode_tps": 108.7,
+      "trials": [
+        {
+          "prefill_tps": 2451.94791209198,
+          "decode_tps": 108.27477261240381,
+          "prompt_n": 7286,
+          "predicted_n": 256,
+          "wall_s": 5.39
+        },
+        {
+          "prefill_tps": 73.5456350665588,
+          "decode_tps": 108.71868657634239,
+          "prompt_n": 1,
+          "predicted_n": 256,
+          "wall_s": 2.419
+        },
+        {
+          "prefill_tps": 74.2831674342594,
+          "decode_tps": 109.21445794646101,
+          "prompt_n": 1,
+          "predicted_n": 256,
+          "wall_s": 2.393
+        }
+      ]
+    }
+  },
+  "concurrent": {
+    "x2": {
+      "per_stream_decode_tps": 64.5,
+      "aggregate_tps": 66.0,
+      "wall_s": 7.8,
+      "trials": [
+        {
+          "prefill_tps": 311.39919206064167,
+          "decode_tps": 74.48945625024733,
+          "prompt_n": 990,
+          "predicted_n": 256,
+          "wall_s": 7.757
+        },
+        {
+          "prefill_tps": 271.02600906076117,
+          "decode_tps": 54.508746311610324,
+          "prompt_n": 517,
+          "predicted_n": 256,
+          "wall_s": 7.745
+        }
+      ]
+    },
+    "x4": {
+      "per_stream_decode_tps": 38.2,
+      "aggregate_tps": 48.2,
+      "wall_s": 21.3,
+      "trials": [
+        {
+          "prefill_tps": 0.5704425207854993,
+          "decode_tps": 33.81591908167588,
+          "prompt_n": 5,
+          "predicted_n": 256,
+          "wall_s": 21.22
+        },
+        {
+          "prefill_tps": 95.54102324049866,
+          "decode_tps": 42.622765218491615,
+          "prompt_n": 990,
+          "predicted_n": 256,
+          "wall_s": 21.252
+        },
+        {
+          "prefill_tps": 0.9493183609372963,
+          "decode_tps": 33.81565107214767,
+          "prompt_n": 5,
+          "predicted_n": 256,
+          "wall_s": 21.22
+        },
+        {
+          "prefill_tps": 413.19709793731175,
+          "decode_tps": 42.63508117736111,
+          "prompt_n": 990,
+          "predicted_n": 256,
+          "wall_s": 21.252
+        }
+      ]
+    }
+  }
+}

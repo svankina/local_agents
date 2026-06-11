@@ -1,0 +1,398 @@
+{
+  "config": "C4-gemma26b-gpu",
+  "gpu_contended": false,
+  "vram_loaded": "15287 MiB",
+  "toolcall": {
+    "config": "C4-gemma26b-gpu",
+    "suite": "toolcall",
+    "temps": {
+      "0.2": {
+        "valid_rate": 0.917,
+        "n": 36,
+        "results": [
+          {
+            "id": "simple-read",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "simple-read",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "simple-read",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 1,
+            "ok": false,
+            "why": "arg command: 'ls build.log' !~ /tail\\s+(-n\\s*)?25\\s+build\\.log/"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 1,
+            "ok": false,
+            "why": "wrong tool: list_dir"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 2,
+            "ok": false,
+            "why": "wrong tool: run_bash"
+          },
+          {
+            "id": "long-path",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          }
+        ]
+      }
+    }
+  },
+  "throughput": {
+    "config": "C4-gemma26b-gpu",
+    "suite": "throughput",
+    "single": {
+      "p1k": {
+        "prefill_tps": 16.7,
+        "decode_tps": 118.1,
+        "trials": [
+          {
+            "prefill_tps": 61.10981347062754,
+            "decode_tps": 87.53321817244318,
+            "prompt_n": 990,
+            "predicted_n": 256,
+            "wall_s": 19.154
+          },
+          {
+            "prefill_tps": 16.692094290302226,
+            "decode_tps": 118.3419370078813,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 2.47
+          },
+          {
+            "prefill_tps": 16.354246052902713,
+            "decode_tps": 118.09812200919967,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 2.485
+          }
+        ]
+      },
+      "p8k": {
+        "prefill_tps": 74.3,
+        "decode_tps": 108.7,
+        "trials": [
+          {
+            "prefill_tps": 2451.94791209198,
+            "decode_tps": 108.27477261240381,
+            "prompt_n": 7286,
+            "predicted_n": 256,
+            "wall_s": 5.39
+          },
+          {
+            "prefill_tps": 73.5456350665588,
+            "decode_tps": 108.71868657634239,
+            "prompt_n": 1,
+            "predicted_n": 256,
+            "wall_s": 2.419
+          },
+          {
+            "prefill_tps": 74.2831674342594,
+            "decode_tps": 109.21445794646101,
+            "prompt_n": 1,
+            "predicted_n": 256,
+            "wall_s": 2.393
+          }
+        ]
+      }
+    },
+    "concurrent": {
+      "x2": {
+        "per_stream_decode_tps": 64.5,
+        "aggregate_tps": 66.0,
+        "wall_s": 7.8,
+        "trials": [
+          {
+            "prefill_tps": 311.39919206064167,
+            "decode_tps": 74.48945625024733,
+            "prompt_n": 990,
+            "predicted_n": 256,
+            "wall_s": 7.757
+          },
+          {
+            "prefill_tps": 271.02600906076117,
+            "decode_tps": 54.508746311610324,
+            "prompt_n": 517,
+            "predicted_n": 256,
+            "wall_s": 7.745
+          }
+        ]
+      },
+      "x4": {
+        "per_stream_decode_tps": 38.2,
+        "aggregate_tps": 48.2,
+        "wall_s": 21.3,
+        "trials": [
+          {
+            "prefill_tps": 0.5704425207854993,
+            "decode_tps": 33.81591908167588,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 21.22
+          },
+          {
+            "prefill_tps": 95.54102324049866,
+            "decode_tps": 42.622765218491615,
+            "prompt_n": 990,
+            "predicted_n": 256,
+            "wall_s": 21.252
+          },
+          {
+            "prefill_tps": 0.9493183609372963,
+            "decode_tps": 33.81565107214767,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 21.22
+          },
+          {
+            "prefill_tps": 413.19709793731175,
+            "decode_tps": 42.63508117736111,
+            "prompt_n": 990,
+            "predicted_n": 256,
+            "wall_s": 21.252
+          }
+        ]
+      }
+    }
+  },
+  "agentic": {
+    "config": "C4-gemma26b-gpu",
+    "suite": "agentic",
+    "temps": {
+      "0.2": {
+        "passed": 5,
+        "of": 5,
+        "tasks": [
+          {
+            "id": "fix-test",
+            "passed": true,
+            "turns": 8,
+            "wall_s": 7.8,
+            "check_out": ""
+          },
+          {
+            "id": "bulk-rename",
+            "passed": true,
+            "turns": 15,
+            "wall_s": 15.0,
+            "check_out": ""
+          },
+          {
+            "id": "csv-script",
+            "passed": true,
+            "turns": 9,
+            "wall_s": 24.4,
+            "check_out": ""
+          },
+          {
+            "id": "code-qa",
+            "passed": true,
+            "turns": 6,
+            "wall_s": 8.6,
+            "check_out": ""
+          },
+          {
+            "id": "add-flag",
+            "passed": true,
+            "turns": 9,
+            "wall_s": 31.4,
+            "check_out": ""
+          }
+        ]
+      }
+    }
+  }
+}
