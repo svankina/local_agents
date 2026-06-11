@@ -1,0 +1,351 @@
+{
+  "config": "C3-gemma12b-par3",
+  "gpu_contended": false,
+  "vram_loaded": "7744 MiB",
+  "toolcall": {
+    "config": "C3-gemma12b-par3",
+    "suite": "toolcall",
+    "temps": {
+      "0.2": {
+        "valid_rate": 0.806,
+        "n": 36,
+        "results": [
+          {
+            "id": "simple-read",
+            "trial": 0,
+            "ok": false,
+            "why": "wrong tool: list_dir"
+          },
+          {
+            "id": "simple-read",
+            "trial": 1,
+            "ok": false,
+            "why": "wrong tool: list_dir"
+          },
+          {
+            "id": "simple-read",
+            "trial": 2,
+            "ok": false,
+            "why": "wrong tool: list_dir"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 2,
+            "ok": false,
+            "why": "wrong tool: list_dir"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 0,
+            "ok": false,
+            "why": "wrong tool: list_dir"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 1,
+            "ok": false,
+            "why": "wrong tool: list_dir"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 2,
+            "ok": false,
+            "why": "wrong tool: list_dir"
+          },
+          {
+            "id": "long-path",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          }
+        ]
+      }
+    }
+  },
+  "throughput": {
+    "config": "C3-gemma12b-par3",
+    "suite": "throughput",
+    "single": {
+      "p1k": {
+        "prefill_tps": 18.0,
+        "decode_tps": 59.2,
+        "trials": [
+          {
+            "prefill_tps": 42.388638303529625,
+            "decode_tps": 59.171187329969506,
+            "prompt_n": 990,
+            "predicted_n": 256,
+            "wall_s": 27.694
+          },
+          {
+            "prefill_tps": 17.964416084619586,
+            "decode_tps": 59.20420756902667,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 4.61
+          },
+          {
+            "prefill_tps": 17.581737497626463,
+            "decode_tps": 59.06339301658436,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 4.626
+          }
+        ]
+      },
+      "p8k": {
+        "prefill_tps": 45.6,
+        "decode_tps": 57.3,
+        "trials": [
+          {
+            "prefill_tps": 1588.818000963409,
+            "decode_tps": 57.25583517476449,
+            "prompt_n": 7286,
+            "predicted_n": 256,
+            "wall_s": 9.113
+          },
+          {
+            "prefill_tps": 45.647509928333406,
+            "decode_tps": 57.40920767444494,
+            "prompt_n": 1,
+            "predicted_n": 256,
+            "wall_s": 4.519
+          },
+          {
+            "prefill_tps": 44.599054500044595,
+            "decode_tps": 57.04632406635111,
+            "prompt_n": 1,
+            "predicted_n": 256,
+            "wall_s": 4.563
+          }
+        ]
+      }
+    },
+    "concurrent": {
+      "x2": {
+        "per_stream_decode_tps": 46.6,
+        "aggregate_tps": 63.6,
+        "wall_s": 8.1,
+        "trials": [
+          {
+            "prefill_tps": 359.90680015008877,
+            "decode_tps": 44.986310806203896,
+            "prompt_n": 517,
+            "predicted_n": 256,
+            "wall_s": 8.034
+          },
+          {
+            "prefill_tps": 537.6659432615794,
+            "decode_tps": 48.244994110718494,
+            "prompt_n": 990,
+            "predicted_n": 256,
+            "wall_s": 8.053
+          }
+        ]
+      },
+      "x4": {
+        "per_stream_decode_tps": 40.0,
+        "aggregate_tps": 74.0,
+        "wall_s": 13.8,
+        "trials": [
+          {
+            "prefill_tps": 17.934388831897387,
+            "decode_tps": 59.10209147526208,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 13.837
+          },
+          {
+            "prefill_tps": 8.973132646230654,
+            "decode_tps": 40.01852107178354,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 8.085
+          },
+          {
+            "prefill_tps": 15.574334742291482,
+            "decode_tps": 40.01943443784888,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 8.085
+          },
+          {
+            "prefill_tps": 6.301046351757172,
+            "decode_tps": 40.018189517704215,
+            "prompt_n": 5,
+            "predicted_n": 256,
+            "wall_s": 8.083
+          }
+        ]
+      }
+    }
+  }
+}

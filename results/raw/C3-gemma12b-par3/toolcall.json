@@ -1,0 +1,228 @@
+{
+  "config": "C3-gemma12b-par3",
+  "suite": "toolcall",
+  "temps": {
+    "0.2": {
+      "valid_rate": 0.806,
+      "n": 36,
+      "results": [
+        {
+          "id": "simple-read",
+          "trial": 0,
+          "ok": false,
+          "why": "wrong tool: list_dir"
+        },
+        {
+          "id": "simple-read",
+          "trial": 1,
+          "ok": false,
+          "why": "wrong tool: list_dir"
+        },
+        {
+          "id": "simple-read",
+          "trial": 2,
+          "ok": false,
+          "why": "wrong tool: list_dir"
+        },
+        {
+          "id": "arg-fidelity",
+          "trial": 0,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "arg-fidelity",
+          "trial": 1,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "arg-fidelity",
+          "trial": 2,
+          "ok": false,
+          "why": "wrong tool: list_dir"
+        },
+        {
+          "id": "pick-grep",
+          "trial": 0,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "pick-grep",
+          "trial": 1,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "pick-grep",
+          "trial": 2,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "pick-list",
+          "trial": 0,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "pick-list",
+          "trial": 1,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "pick-list",
+          "trial": 2,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "no-tool",
+          "trial": 0,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "no-tool",
+          "trial": 1,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "no-tool",
+          "trial": 2,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "no-tool-2",
+          "trial": 0,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "no-tool-2",
+          "trial": 1,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "no-tool-2",
+          "trial": 2,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "write-exact",
+          "trial": 0,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "write-exact",
+          "trial": 1,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "write-exact",
+          "trial": 2,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "nested-json",
+          "trial": 0,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "nested-json",
+          "trial": 1,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "nested-json",
+          "trial": 2,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "numeric-arg",
+          "trial": 0,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "numeric-arg",
+          "trial": 1,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "numeric-arg",
+          "trial": 2,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "quote-trap",
+          "trial": 0,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "quote-trap",
+          "trial": 1,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "quote-trap",
+          "trial": 2,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "chain-first-step",
+          "trial": 0,
+          "ok": false,
+          "why": "wrong tool: list_dir"
+        },
+        {
+          "id": "chain-first-step",
+          "trial": 1,
+          "ok": false,
+          "why": "wrong tool: list_dir"
+        },
+        {
+          "id": "chain-first-step",
+          "trial": 2,
+          "ok": false,
+          "why": "wrong tool: list_dir"
+        },
+        {
+          "id": "long-path",
+          "trial": 0,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "long-path",
+          "trial": 1,
+          "ok": true,
+          "why": "ok"
+        },
+        {
+          "id": "long-path",
+          "trial": 2,
+          "ok": true,
+          "why": "ok"
+        }
+      ]
+    }
+  }
+}
