@@ -137,10 +137,14 @@ def draw_meter(
     frame: int,
     cap: float,
     streams: int,
+    readout_tps: float | None = None,
 ) -> None:
+    # tps drives the needle (eased display value); readout_tps is the measured
+    # sample printed in the digital readout, so printed numbers are never eased.
     x1, y1, x2, y2 = box
     cap = max(cap, 1.0)
     tps = min(tps, cap)
+    readout_val = min(cap, tps if readout_tps is None else readout_tps)
 
     cx, cy = (x1 + x2) // 2, y1 + 126
     r = min((x2 - x1) // 3, 78)
@@ -181,12 +185,22 @@ def draw_meter(
     draw.line([tail_x, tail_y, nx, ny], fill="#fb7185", width=3)
     draw.ellipse([cx - 12, cy - 12, cx + 12, cy + 12], fill="#020617", outline=CYAN, width=3)
 
-    readout = f"{tps:05.1f}"
+    readout = f"{readout_val:05.1f}"
     read_box = [x1 + 18, y1 + 168, x2 - 18, y1 + 221]
     draw.rounded_rectangle(read_box, radius=12, fill="#020617", outline="#22d3ee66", width=1)
     draw.text((x1 + 58, y1 + 174), readout, font=F34B, fill=GREEN)
     draw.text((x1 + 190, y1 + 185), "tok/s", font=F18, fill=CYAN)
-    draw.text((x1 + 103, y1 + 207), f"{streams}x - {tps / streams:04.1f} tok/s each", font=F14, fill=MUTED)
+    draw.text((x1 + 103, y1 + 207), f"{streams}x - {readout_val / streams:04.1f} tok/s each", font=F14, fill=MUTED)
+
+
+def draw_max_pane(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], run_max: float, is_new: bool) -> None:
+    # Running maximum of the measured per-second samples seen so far in the replay.
+    x1, y1, x2, y2 = box
+    draw.text((x1 + 16, y1 + 12), "max tok/s (this replay)", font=F14, fill=MUTED)
+    color = YELLOW if is_new else GREEN
+    draw.text((x2 - 196, y1 + 4), f"{run_max:06.1f}", font=F34B, fill=color)
+    if is_new:
+        draw.text((x2 - 40, y1 + 12), "NEW", font=F14, fill=YELLOW)
 
 
 def ease(t: float) -> float:
@@ -250,7 +264,14 @@ def draw_metric_bar(
     draw.rounded_rectangle([bx, by, bx + int(bw * max(0, min(frac, 1))), by + bh], radius=4, fill=color)
 
 
-def draw_telemetry(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], row: dict[str, float | str]) -> None:
+def draw_telemetry(
+    draw: ImageDraw.ImageDraw,
+    box: tuple[int, int, int, int],
+    row: dict[str, float | str],
+    eased: dict[str, float] | None = None,
+) -> None:
+    # Text always shows the measured sample; the bar widths glide on the eased
+    # display values so motion is smooth without ever printing an unmeasured number.
     x1, y1, _x2, _y2 = box
     gpu = float(row["gpu_util_pct"])
     vram_mib = float(row["vram_used_mib"])
@@ -258,13 +279,14 @@ def draw_telemetry(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], ro
     temp = float(row["temp_c"])
     cpu = float(row["cpu_util_pct"])
     ram = float(row["ram_used_gib"])
+    e = eased or {"gpu": gpu, "vram": vram_mib, "power": power, "temp": temp, "cpu": cpu, "ram": ram}
     metrics = [
-        ("GPU", f"{gpu:05.1f}%", gpu / 100, GREEN),
-        ("VRAM", f"{vram_mib / 1024:05.2f}G", vram_mib / 24564, PURPLE),
-        ("CPU", f"{cpu:05.1f}%", cpu / 100, CYAN),
-        ("RAM", f"{ram:05.2f}G", ram / 62.68, CYAN),
-        ("POWER", f"{power:05.1f}W", power / 450, YELLOW),
-        ("TEMP", f"{temp:05.1f}C", temp / 90, GREEN if temp < 75 else YELLOW),
+        ("GPU", f"{gpu:05.1f}%", e["gpu"] / 100, GREEN),
+        ("VRAM", f"{vram_mib / 1024:05.2f}G", e["vram"] / 24564, PURPLE),
+        ("CPU", f"{cpu:05.1f}%", e["cpu"] / 100, CYAN),
+        ("RAM", f"{ram:05.2f}G", e["ram"] / 62.68, CYAN),
+        ("POWER", f"{power:05.1f}W", e["power"] / 450, YELLOW),
+        ("TEMP", f"{temp:05.1f}C", e["temp"] / 90, GREEN if temp < 75 else YELLOW),
     ]
     y = y1 + 40
     for label, value, frac, color in metrics:
@@ -275,9 +297,10 @@ def draw_telemetry(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], ro
 def render_demo(lines: list[str]) -> None:
     # 16:9, small enough for X/Twitter GIF upload while still readable in article.
     w, h = 960, 540
-    left = (18, 36, 590, 486)
+    left = (18, 36, 590, 440)
+    maxbox = (18, 452, 590, 510)
     rtop = (622, 36, 942, 258)
-    rbot = (622, 276, 942, 486)
+    rbot = (622, 276, 942, 510)
 
     series = load_replay_series()
     summary = load_capture_summary()
@@ -326,36 +349,67 @@ def render_demo(lines: list[str]) -> None:
 
     frames: list[Image.Image] = []
     n = len(series)
+    # Motion: SUB eased sub-frames per measured second. The needle and telemetry
+    # bars follow each new sample with a critically-damped chase (convex blend of
+    # measured values - they can never exceed the running measured range). All
+    # printed numbers step on the raw samples only.
+    SUB = 4
+    EASE_NEEDLE = 0.30
+    EASE_BARS = 0.22
+    display_tps = max(0.0, min(cap, float(series[0]["decode_tok_s"])))
+    eased_tel = {
+        "gpu": float(series[0]["gpu_util_pct"]),
+        "vram": float(series[0]["vram_used_mib"]),
+        "power": float(series[0]["power_w"]),
+        "temp": float(series[0]["temp_c"]),
+        "cpu": float(series[0]["cpu_util_pct"]),
+        "ram": float(series[0]["ram_used_gib"]),
+    }
+    run_max = 0.0
+    poster_master_index = {}
     for f in range(n):
         phase = f / (n - 1)
         row = series[f]
-        # The meter is capped to the measured ceiling from this capture.
-        tps = max(0, min(cap, float(row["decode_tok_s"])))
-
-        im = Image.new("RGB", (w, h), BG)
-        dr = ImageDraw.Draw(im)
-        dr.rectangle([0, 0, w, 30], fill="#020617")
-        dr.text((18, 8), "measured replay  |  RTX 3090 Ti  |  vLLM x24", font=F15, fill=CYAN)
-        dr.text((w - 268, 8), "Qwen3-30B-A3B GPTQ-Int4", font=F15, fill=MUTED)
-
-        draw_pane(dr, left, "0: fanout run", GREEN)
-        draw_pane(dr, rtop, "1: aggregate decode meter", CYAN)
-        draw_pane(dr, rbot, "2: measured telemetry", PURPLE)
+        sample_tps = max(0, min(cap, float(row["decode_tok_s"])))
+        new_max = sample_tps > run_max
+        run_max = max(run_max, sample_tps)
+        targets = {
+            "gpu": float(row["gpu_util_pct"]),
+            "vram": float(row["vram_used_mib"]),
+            "power": float(row["power_w"]),
+            "temp": float(row["temp_c"]),
+            "cpu": float(row["cpu_util_pct"]),
+            "ram": float(row["ram_used_gib"]),
+        }
 
         n_worker = int(max(0, (phase - 0.18)) / 0.70 * len(workers))
         n_worker = max(0, min(len(workers), n_worker))
         logs = base_log + workers[:n_worker]
         if 0.14 < phase < 0.95:
-            logs.append(f"$ decode sample {f + 1:03d}: {tps:05.1f} tok/s aggregate")
-        draw_text_lines(dr, left, logs, start_y=40, font=F14, max_lines=18)
+            logs.append(f"$ decode sample {f + 1:03d}: {sample_tps:05.1f} tok/s aggregate")
 
-        draw_meter(dr, rtop, tps, f, cap, streams)
-        draw_telemetry(dr, rbot, row)
+        for sub in range(SUB):
+            display_tps += (sample_tps - display_tps) * EASE_NEEDLE
+            for k in eased_tel:
+                eased_tel[k] += (targets[k] - eased_tel[k]) * EASE_BARS
 
-        dr.rectangle([0, h - 24, w, h], fill="#16a34a")
-        dr.text((18, h - 20), f"[0] measured peak {cap:.1f} decode tok/s from one RTX 3090 Ti", font=F14, fill="#03150a")
-        dr.text((w - 178, h - 20), f"{active_seconds}s  {total_tokens:,} tok", font=F14, fill="#03150a")
-        frames.append(im)
+            im = Image.new("RGB", (w, h), BG)
+            dr = ImageDraw.Draw(im)
+            dr.rectangle([0, 0, w, 30], fill="#020617")
+            dr.text((18, 8), "measured replay  |  RTX 3090 Ti  |  vLLM x24", font=F15, fill=CYAN)
+            dr.text((w - 268, 8), "Qwen3-30B-A3B GPTQ-Int4", font=F15, fill=MUTED)
+
+            draw_pane(dr, left, "0: fanout run", GREEN)
+            draw_pane(dr, maxbox, "3: peak", YELLOW)
+            draw_pane(dr, rtop, "1: aggregate decode meter", CYAN)
+            draw_pane(dr, rbot, "2: measured telemetry", PURPLE)
+
+            draw_text_lines(dr, left, logs, start_y=40, font=F14, max_lines=16)
+            draw_meter(dr, rtop, display_tps, f, cap, streams, readout_tps=sample_tps)
+            draw_max_pane(dr, maxbox, run_max, new_max and sub < SUB // 2)
+            draw_telemetry(dr, rbot, row, eased=eased_tel)
+            frames.append(im)
+        poster_master_index[f] = len(frames) - 1
 
     out_frames = [frame.resize((1920, 1080), Image.Resampling.LANCZOS) for frame in frames]
     poster_candidates = [
@@ -366,15 +420,17 @@ def render_demo(lines: list[str]) -> None:
         and float(row["power_w"]) >= 400
         and float(row["decode_tok_s"]) >= cap * 0.85
     ]
-    peak_frame = max(poster_candidates or range(len(series)), key=lambda i: float(series[i]["decode_tok_s"]))
-    out_frames[peak_frame].save(ASSET / "800-toks-tmux-demo-poster.png")
+    peak_row = max(poster_candidates or range(len(series)), key=lambda i: float(series[i]["decode_tok_s"]))
+    out_frames[poster_master_index[peak_row]].save(ASSET / "800-toks-tmux-demo-poster.png")
 
-    gif_frames = [out_frames[0]] * 6 + out_frames + [out_frames[-1]] * 10
-    gif_frames[0].save(
+    # GIF: every other sub-frame at 30ms -> ~16.5 fps with eased deltas (smooth),
+    # holds on first/last frame. MP4 below carries the full 30 fps version.
+    gif_seq = [out_frames[0]] * 8 + out_frames[::2] + [out_frames[-1]] * 14
+    gif_seq[0].save(
         ASSET / "800-toks-tmux-demo.gif",
         save_all=True,
-        append_images=gif_frames[1:],
-        duration=67,
+        append_images=gif_seq[1:],
+        duration=60,
         loop=0,
         optimize=True,
     )
@@ -389,7 +445,7 @@ def render_demo(lines: list[str]) -> None:
                 "ffmpeg",
                 "-y",
                 "-framerate",
-                "15",
+                "30",
                 "-i",
                 str(tmp_dir / "frame-%04d.png"),
                 "-vf",
