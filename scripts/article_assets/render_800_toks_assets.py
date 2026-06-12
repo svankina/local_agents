@@ -111,7 +111,7 @@ def draw_text_lines(
     font: ImageFont.FreeTypeFont = F16,
     max_lines: int | None = None,
 ) -> None:
-    x1, y1, _x2, _y2 = box
+    x1, y1, _x2, y2 = box
     line_h = 23
     max_fit = int((y2 - y1 - start_y - 12) / line_h)
     visible = lines[-(max_lines or max_fit) :]
