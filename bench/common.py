@@ -11,6 +11,13 @@ BASE = os.environ.get("BENCH_BASE", "http://127.0.0.1:8089")
 MODEL = os.environ.get("BENCH_MODEL", "local")
 
 
+def v1_url(base, path):
+    base = base.rstrip("/")
+    if base.endswith("/v1"):
+        return base + path
+    return base + "/v1" + path
+
+
 def chat(messages, tools=None, temperature=0.2, max_tokens=1024, base=None, timeout=600):
     base = base or BASE
     payload = {
@@ -23,7 +30,7 @@ def chat(messages, tools=None, temperature=0.2, max_tokens=1024, base=None, time
     if tools:
         payload["tools"] = tools
     req = urllib.request.Request(
-        base + "/v1/chat/completions",
+        v1_url(base, "/chat/completions"),
         data=json.dumps(payload).encode(),
         headers={"Content-Type": "application/json"},
     )
@@ -44,11 +51,26 @@ def tool_calls_of(body):
 
 def parse_timings(body):
     t = body.get("timings") or {}
+    if t:
+        return {
+            "prefill_tps": t.get("prompt_per_second"),
+            "decode_tps": t.get("predicted_per_second"),
+            "prompt_n": t.get("prompt_n"),
+            "predicted_n": t.get("predicted_n"),
+            "timing_source": "server_timings",
+        }
+    usage = body.get("usage") or {}
+    wall_s = body.get("_wall_s") or 0
+    prompt_n = usage.get("prompt_tokens")
+    predicted_n = usage.get("completion_tokens")
+    prefill_tps = (prompt_n / wall_s) if prompt_n is not None and wall_s > 0 else None
+    decode_tps = (predicted_n / wall_s) if predicted_n is not None and wall_s > 0 else None
     return {
-        "prefill_tps": t.get("prompt_per_second"),
-        "decode_tps": t.get("predicted_per_second"),
-        "prompt_n": t.get("prompt_n"),
-        "predicted_n": t.get("predicted_n"),
+        "prefill_tps": prefill_tps,
+        "decode_tps": decode_tps,
+        "prompt_n": prompt_n,
+        "predicted_n": predicted_n,
+        "timing_source": "client_wall_usage",
     }
 
 
@@ -82,9 +104,9 @@ def score_toolcall(case, calls):
 def wait_healthy(base=None, tries=120):
     base = base or BASE
     for _ in range(tries):
-        for path in ("/health", "/v1/models"):
+        for url in (base.rstrip("/") + "/health", v1_url(base, "/models")):
             try:
-                with urllib.request.urlopen(base + path, timeout=5) as r:
+                with urllib.request.urlopen(url, timeout=5) as r:
                     if r.status == 200:
                         return True
             except urllib.error.HTTPError:

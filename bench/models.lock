@@ -13,3 +13,12 @@ docker llama.cpp version: 9592 (ac4cddeb0)
 docker llama.cpp build: built with GNU 14.2.0 for Linux x86_64
 docker image label org.opencontainers.image.version: b9592
 docker image label org.opencontainers.image.revision: ac4cddeb0dbd778f650bf568f6f08344a06abe3a
+
+huggingface mattbucci/Qwen3.6-35B-A3B-AWQ revision 7525d0f423bd615da6cc3cf3ae6fdae42941ea05
+huggingface mattbucci/Qwen3.6-35B-A3B-AWQ total_bytes 20487590591
+huggingface mattbucci/Qwen3.6-35B-A3B-AWQ weights_bytes 20457664144
+huggingface mattbucci/Qwen3.6-35B-A3B-AWQ quantization awq bits=4 group_size=128 zero_point=true version=gemm
+docker vllm/vllm-openai:latest@sha256:953d3a06d5e64ab582985cd7401289d3abf2a2c14ef2158e9a84313daeec77d7
+docker vllm version: 0.22.1
+docker vllm image label org.opencontainers.image.version: vllm/vllm-openai:v0.22.1
+docker vllm image label org.opencontainers.image.revision: 0decac0d96c42b49572498019f0a0e3600f50398
