@@ -1,0 +1,11 @@
+{
+  "model": "C15-awq35b-think",
+  "n": 30,
+  "strict_pass_rate": 0.0,
+  "lenient_pass_rate": 0.0,
+  "violations": {
+    "no-def": 30
+  },
+  "aggregate_tok_s": 349.4,
+  "wall_s": 167.9
+}

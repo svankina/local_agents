@@ -28,6 +28,8 @@ Built from every episodes*.json in this directory. 1.00 = always solves first tr
 | C18-nothink | 60 | 0.40 | 0.00 | 1.00 | 0.83 | 0.00 | 1.00 | 1.00 | 0.17 | 0.00 | 0.00 | 0.00 | 0.00 |
 | C18-nothink (fixloop) | 120 | 0.38 | 0.00 | 1.00 | 0.50 | 0.00 | 0.92 | 1.00 | 0.42 | 0.00 | 0.00 | 0.00 | 0.00 |
 | C18-think (plan=terse) | 30 | 0.30 | 0.67 | 0.00 | 0.00 | 1.00 | 0.67 | 1.00 | 0.33 | 0.00 | 0.00 | 0.00 | 0.00 |
+| C15-awq35b-nothink | 30 | 0.00 | 1.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+| C15-awq35b-think | 30 | 0.00 | 1.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 | C8-nex-mini-think | 30 | 0.00 | 1.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 
 ## Per-model notes (auto-derived)
@@ -56,4 +58,6 @@ Built from every episodes*.json in this directory. 1.00 = always solves first tr
 - **C18-nothink** (40% first-pass, 0% format violations): always solves: balanced-brackets, flatten-nested, gcd. struggles: chunk-list, int-to-roman, merge-intervals, run-length-encode, two-sum-indices, word-frequency.
 - **C18-nothink (fixloop)** (38% first-pass, 0% format violations): always solves: balanced-brackets, gcd. struggles: chunk-list, int-to-roman, merge-intervals, run-length-encode, two-sum-indices, word-frequency.
 - **C18-think (plan=terse)** (30% first-pass, 67% format violations): always solves: chunk-list, gcd. struggles: balanced-brackets, camel-to-snake, int-to-roman, merge-intervals, run-length-encode, two-sum-indices, word-frequency.
+- **C15-awq35b-nothink** (0% first-pass, 100% format violations): always solves: none. struggles: balanced-brackets, camel-to-snake, chunk-list, flatten-nested, gcd, int-to-roman, merge-intervals, run-length-encode, two-sum-indices, word-frequency.
+- **C15-awq35b-think** (0% first-pass, 100% format violations): always solves: none. struggles: balanced-brackets, camel-to-snake, chunk-list, flatten-nested, gcd, int-to-roman, merge-intervals, run-length-encode, two-sum-indices, word-frequency.
 - **C8-nex-mini-think** (0% first-pass, 100% format violations): always solves: none. struggles: balanced-brackets, camel-to-snake, chunk-list, flatten-nested, gcd, int-to-roman, merge-intervals, run-length-encode, two-sum-indices, word-frequency.
