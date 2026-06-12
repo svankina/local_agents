@@ -19,7 +19,10 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from fanout_common import extract_json_object, item_file, now_iso, read_json, sha256_text, write_json, write_tokens  # noqa: E402
 
-HAIKU_MODEL = "claude-haiku-4-5-20251001"
+# Default is Haiku; FANOUT_CLAUDE_MODEL overrides so the same worker can run
+# the Fable-workers control arm (identical harness, only the model differs).
+import os
+HAIKU_MODEL = os.environ.get("FANOUT_CLAUDE_MODEL", "claude-haiku-4-5-20251001")
 
 
 def load_fanout_worker_module():
