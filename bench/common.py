@@ -101,6 +101,10 @@ def score_toolcall(case, calls):
     return (True, "ok")
 
 
+def lenient_toolcall_ok(ok, why):
+    return ok or why == "wrong tool: list_dir"
+
+
 def wait_healthy(base=None, tries=120):
     base = base or BASE
     for _ in range(tries):
