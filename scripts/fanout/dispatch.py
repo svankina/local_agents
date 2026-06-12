@@ -63,10 +63,6 @@ class Dispatcher:
         cmd = [
             sys.executable,
             str(self.worker),
-            "--base-url",
-            self.base_url,
-            "--model",
-            self.model,
             "--item",
             str(self.items_dir / f"{item_id}.json"),
             "--corpus",
@@ -74,6 +70,8 @@ class Dispatcher:
             "--out",
             str(out),
         ]
+        if self.worker.name != "haiku-worker":
+            cmd[2:2] = ["--base-url", self.base_url, "--model", self.model]
         if work.feedback:
             cmd.extend(["--feedback", work.feedback])
         self.event("job_start", item_id=item_id, attempt=work.attempt, out=str(out))
@@ -258,18 +256,59 @@ class Dispatcher:
     def token_totals(self) -> dict[str, Any]:
         prompt = 0
         completion = 0
+        cache_creation = 0
+        cache_read = 0
         requests = 0
+        worker_cloud_cost = 0.0
+        saw_worker_cloud_cost = False
         for path in sorted((self.run_dir / "workers").glob("*/tokens.json")):
             body = read_json(path)
             prompt += int(body.get("prompt_tokens") or 0)
             completion += int(body.get("completion_tokens") or 0)
+            cache_creation += int(body.get("cache_creation_input_tokens") or 0)
+            cache_read += int(body.get("cache_read_input_tokens") or 0)
             requests += len(body.get("requests") or [])
-        return {
+            cost = body.get("total_cost_usd")
+            if isinstance(cost, (int, float)):
+                worker_cloud_cost += float(cost)
+                saw_worker_cloud_cost = True
+        supervisor_cloud_cost = self.supervisor_cloud_cost()
+        totals: dict[str, Any] = {
             "prompt_tokens": prompt,
             "completion_tokens": completion,
             "total_tokens": prompt + completion,
+            "cache_creation_input_tokens": cache_creation,
+            "cache_read_input_tokens": cache_read,
             "requests": requests,
+            "worker_cloud_cost_usd": worker_cloud_cost if saw_worker_cloud_cost else None,
+            "supervisor_cloud_cost_usd": supervisor_cloud_cost,
         }
+        if saw_worker_cloud_cost or supervisor_cloud_cost is not None:
+            totals["cloud_cost_usd"] = worker_cloud_cost + float(supervisor_cloud_cost or 0.0)
+        return totals
+
+    def supervisor_cloud_cost(self) -> float | None:
+        total = 0.0
+        seen = False
+        logs = self.run_dir / "logs"
+        if not logs.exists():
+            return None
+        for path in sorted(logs.glob("supervisor-*.jsonl")):
+            for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+                if not line.strip():
+                    continue
+                try:
+                    row = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                cost = row.get("total_cost_usd")
+                if row.get("type") == "result" and isinstance(cost, (int, float)):
+                    total += float(cost)
+                    seen = True
+        return {
+            True: total,
+            False: None,
+        }[seen]
 
 
 def main() -> int:
@@ -281,7 +320,7 @@ def main() -> int:
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--concurrency", type=int, default=8)
     parser.add_argument("--timeout-s", type=int, default=300)
-    parser.add_argument("--worker", default=str(SCRIPT_DIR / "fanout-worker"))
+    parser.add_argument("--worker", "--worker-script", dest="worker", default=str(SCRIPT_DIR / "fanout-worker"))
     args = parser.parse_args()
     return asyncio.run(Dispatcher(args).run())
 

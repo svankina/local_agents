@@ -159,8 +159,8 @@ def derive_request_metrics(responses: list[dict[str, Any]], log_metrics: dict[st
         timings = rec["timings"] or {}
         usage = rec["usage"] or {}
         wall = rec.get("wall_s")
-        prompt_n = timings.get("prompt_n") or usage.get("prompt_tokens")
-        completion_n = timings.get("predicted_n") or usage.get("completion_tokens")
+        prompt_n = timings.get("prompt_n") or usage.get("prompt_tokens") or usage.get("input_tokens")
+        completion_n = timings.get("predicted_n") or usage.get("completion_tokens") or usage.get("output_tokens")
         prefill_s = timing_seconds(timings, "prompt_ms")
         decode_s = timing_seconds(timings, "predicted_ms")
         prefill_tps = timings.get("prompt_per_second")

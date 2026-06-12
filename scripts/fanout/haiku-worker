@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""Single-shot Claude Haiku worker for one fan-out docstring item."""
+
+from __future__ import annotations
+
+import argparse
+import importlib.machinery
+import importlib.util
+import json
+import pathlib
+import subprocess
+import sys
+import time
+from typing import Any
+
+SCRIPT_DIR = pathlib.Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from fanout_common import extract_json_object, item_file, now_iso, read_json, sha256_text, write_json, write_tokens  # noqa: E402
+
+HAIKU_MODEL = "claude-haiku-4-5-20251001"
+
+
+def load_fanout_worker_module():
+    loader = importlib.machinery.SourceFileLoader("fanout_worker_prompt", str(SCRIPT_DIR / "fanout-worker"))
+    spec = importlib.util.spec_from_loader(loader.name, loader)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("could not load fanout-worker prompt module")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+_FANOUT_WORKER = load_fanout_worker_module()
+SYSTEM = _FANOUT_WORKER.SYSTEM
+prompt_for = _FANOUT_WORKER.prompt_for
+
+
+def claude_command(system: str, prompt: str) -> list[str]:
+    return [
+        "claude",
+        "-p",
+        prompt,
+        "--system-prompt",
+        system,
+        "--model",
+        HAIKU_MODEL,
+        "--output-format",
+        "json",
+        "--strict-mcp-config",
+        "--mcp-config",
+        '{"mcpServers":{}}',
+        "--tools",
+        "",
+    ]
+
+
+def parse_claude_stdout(stdout: str) -> dict[str, Any]:
+    body = json.loads(stdout)
+    if not isinstance(body, dict):
+        raise ValueError("claude output is not a JSON object")
+    return body
+
+
+def result_text(body: dict[str, Any]) -> str:
+    result = body.get("result")
+    if isinstance(result, str):
+        return result
+    raise ValueError("claude JSON result missing result text")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Run one Haiku fan-out worker request.")
+    parser.add_argument("--item", required=True)
+    parser.add_argument("--corpus", required=True)
+    parser.add_argument("--out", required=True)
+    parser.add_argument("--feedback")
+    args = parser.parse_args()
+
+    out = pathlib.Path(args.out).resolve()
+    out.mkdir(parents=True, exist_ok=True)
+    item = read_json(pathlib.Path(args.item))
+    source_path = item_file(pathlib.Path(args.corpus), item)
+    source = source_path.read_text(encoding="utf-8")
+    if sha256_text(source) != item["file_sha256"]:
+        raise SystemExit(f"file hash mismatch for {item['path']}")
+
+    prompt = prompt_for(item, source, args.feedback)
+    responses: list[dict[str, Any]] = []
+
+    try:
+        with (out / "transcript.jsonl").open("w", encoding="utf-8") as transcript:
+            cmd = claude_command(SYSTEM, prompt)
+            transcript.write(json.dumps({"ts": now_iso(), "type": "request", "argv": cmd}) + "\n")
+            transcript.flush()
+            t0 = time.monotonic()
+            proc = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+            wall_s = time.monotonic() - t0
+            (out / "claude.stdout").write_text(proc.stdout, encoding="utf-8")
+            (out / "claude.stderr").write_text(proc.stderr, encoding="utf-8")
+            if proc.returncode != 0:
+                raise RuntimeError(f"claude exited {proc.returncode}")
+            body = parse_claude_stdout(proc.stdout)
+            body["_client_wall_s"] = wall_s
+            responses.append(body)
+            transcript.write(json.dumps({"ts": now_iso(), "type": "response", "body": body}) + "\n")
+            transcript.flush()
+            parsed = extract_json_object(result_text(body))
+            write_json(out / "response.json", parsed)
+        write_tokens(out, responses)
+        return 0
+    except Exception as exc:
+        write_json(out / "error.json", {"error": str(exc), "type": exc.__class__.__name__})
+        write_tokens(out, responses)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

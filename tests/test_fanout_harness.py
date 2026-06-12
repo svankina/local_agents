@@ -25,6 +25,13 @@ assert WORKER_SPEC is not None and WORKER_SPEC.loader is not None
 fanout_worker = importlib.util.module_from_spec(WORKER_SPEC)
 WORKER_SPEC.loader.exec_module(fanout_worker)
 
+HAIKU_WORKER_SPEC = importlib.util.spec_from_loader(
+    "haiku_worker", importlib.machinery.SourceFileLoader("haiku_worker", str(FANOUT / "haiku-worker"))
+)
+assert HAIKU_WORKER_SPEC is not None and HAIKU_WORKER_SPEC.loader is not None
+haiku_worker = importlib.util.module_from_spec(HAIKU_WORKER_SPEC)
+HAIKU_WORKER_SPEC.loader.exec_module(haiku_worker)
+
 
 def test_normalize_docstring_keys_exact() -> None:
     assert normalize_docstring_keys({"Foo.bar": "doc"}, ["Foo.bar"]) == {"Foo.bar": "doc"}
@@ -42,6 +49,18 @@ def test_normalize_docstring_keys_ambiguous_suffix_errors() -> None:
 def test_extract_json_object_accepts_prose_fences_and_direct_map() -> None:
     text = 'Here is the JSON:\n```json\n{"Foo": "documents Foo"}\n```\nDone.'
     assert extract_json_object(text) == {"docstrings": {"Foo": "documents Foo"}}
+
+
+def test_haiku_worker_extracts_canned_claude_json_result() -> None:
+    fixture = ROOT / "tests" / "fixtures" / "fanout" / "haiku-claude-result.json"
+    body = haiku_worker.parse_claude_stdout(fixture.read_text(encoding="utf-8"))
+
+    assert haiku_worker.result_text(body).startswith("Here is the JSON:")
+    assert extract_json_object(haiku_worker.result_text(body)) == {
+        "docstrings": {"Foo.bar": "Return value for name after validating name."}
+    }
+    assert body["usage"]["input_tokens"] == 100
+    assert body["total_cost_usd"] == 0.00012
 
 
 def test_item_28_dotted_response_inserts_after_normalization() -> None:
