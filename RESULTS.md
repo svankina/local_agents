@@ -58,6 +58,21 @@ C14 uses the official Docker CUDA image `ghcr.io/ggml-org/llama.cpp:server-cuda@
 
 MTP ratio on CUDA is 143.4 / 138.0 = 1.04x for single-stream p1k decode. Verdict: CUDA improves single-stream speed over the C12 Vulkan run and the no-spec CUDA control has better x4 aggregate behavior, but neither CUDA result proves a real parallel worker pool by the >=1.5x x4 aggregate rubric. CUDA+MTP reaches only 114.6 aggregate t/s at x4 with 33.7 t/s per stream, while CUDA without MTP reaches 174.8 aggregate t/s at x4 with 54.4 t/s per stream; the control is the better parallel shape, but still short of the worker-pool threshold.
 
+## C15 vLLM Addendum
+
+C15 uses `vllm/vllm-openai:v0.22.1` (local image digest `sha256:953d3a06d5e64ab582985cd7401289d3abf2a2c14ef2158e9a84313daeec77d7`) with `mattbucci/Qwen3.6-35B-A3B-AWQ`. The original 32k startup OOMed during CUDA graph/KV profiling; the successful run used `--max-model-len 16384 --max-num-seqs 4 --gpu-memory-utilization 0.92`.
+
+| Config | Backend | Timing source | p1k single decode t/s | x2 aggregate t/s | x2 scaling | x4 aggregate t/s | x4 scaling | x4 per-stream t/s | Toolcall @0.2 | Agentic @0.2 | VRAM loaded |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| C14-cuda-35b-nospec | llama.cpp CUDA Docker b9592 | server timings | 138.0 | 131.7 | 0.95x | 174.8 | 1.27x | 54.4 | n/a | n/a | 18897 MiB |
+| C15-vllm-35b | vLLM 0.22.1 AWQ Marlin | client wall usage | 130.6 | 180.6 | 1.38x | 360.3 | 2.76x | 90.3 | 0.167 (`qwen3_xml`) | 0/5 | 21811 MiB |
+
+C15 throughput uses client-measured wall time from OpenAI-compatible usage counts because vLLM does not return llama.cpp's `timings` field. Therefore the C15 single-stream decode number is not directly comparable to C12/C14 server-side decode numbers. The apples-to-apples metric for the C15 question is the aggregate scaling ratio within the same client-measured run: x2 is 180.6 / 130.6 = 1.38x, and x4 is 360.3 / 130.6 = 2.76x.
+
+Tool use did not recover with parser selection. `qwen3_coder` scored 0.167 because only the two no-tool cases passed; all required tool-call cases made no tool call. The required rerun with `qwen3_xml` produced the same 0.167 and agentic remained 0/5. Treat the mattbucci community AWQ quantizer as quality-unknown for this harness; the measured toolcall/agentic results fail the worker quality bar even though throughput scales.
+
+Verdict on the parallel-worker question: vLLM continuous batching does deliver real parallel throughput scaling on this RTX 3090 Ti for this model/config, unlike queue-serial llama.cpp. C14-nospec reached 174.8 aggregate t/s at x4, 1.27x over its 138.0 single-stream rate, with 54.4 t/s per stream. C15 reached 360.3 aggregate t/s at x4, 2.76x over its 130.6 client-measured single-stream rate, with 90.3 t/s per stream. The throughput answer is yes; the practical worker answer is no until tool calling is fixed.
+
 ## Coexistence
 
 Task 12 pair: C5-style 26B `-cmoe` senior on port 8089 plus C1-style 12B worker with `--parallel 2` on port 8090, both on the resolved RTX 3090 Ti device.
