@@ -1,11 +1,10 @@
-# A Local Subagent Fleet on One RTX 3090 Ti
+# [N×] faster, [K%] fewer cloud tokens: running Claude Code with local subagents (byteshape Qwen3.6-35B-A3B on a $700 used GPU) instead of Fable 5 doing everything itself
 
-**TL;DR**
+*[N×] and [K%] are placeholders — they land when the M1 replay experiment at the bottom finishes. Every other number in this post is already measured and committed with raw logs.*
 
-- One 24 GB gaming GPU now serves a coding agent that tool-calls at **100%** and decodes at **127–143 tok/s**: byteshape's Qwen3.6-35B-A3B IQ4_XS quant.
-- We benchmarked **16 configs** (Gemma 4 12B/26B, Qwen3.6-27B/35B, Nex-N2-mini, Qwopus) across llama.cpp Vulkan, llama.cpp CUDA (Docker + bare metal), and vLLM. Every number is committed with raw logs.
-- llama.cpp does **not** scale across parallel slots (1.27× at 4 streams). vLLM does (**2.76×** — four workers at ~90 tok/s each), but its serving path corrupted this model's output. Details below.
-- Next: replaying a real CAD-engine milestone with cloud-senior + local-worker arms to measure wall-clock and cloud-token savings. Results pending.
+The bet: keep Claude Fable 5 as the senior — it plans, reviews, merges — and push the grunt work (search, edits, test loops) to a local model on a used RTX 3090 Ti (~$700, 24 GB). The winner of the benchmark campaign below is byteshape's Qwen3.6-35B-A3B IQ4_XS quant: **100% toolcall, 5/5 agentic, 127–143 tok/s decode**. The baseline it has to beat is Fable 5 doing everything itself.
+
+We benchmarked Gemma 4 12B/26B, Qwen3.6-27B/35B, Nex-N2-mini, and Qwopus across llama.cpp Vulkan, llama.cpp CUDA (Docker and bare metal), and vLLM.
 
 ## The scoreboard
 
@@ -28,43 +27,41 @@ Single 3090 Ti, one server at a time, three suites: throughput, 36 tool-call tri
 
 \* not a model problem — see "the one that got away."
 
-## Five things we learned the hard way
+## Five lessons
 
-1. **llama.cpp slot-parallelism barely scales.** 4 concurrent streams = 1.25× (Vulkan) to 1.27× (CUDA) aggregate. One fast queue-serial server beats a slot pool.
-2. **MTP speculative decoding helps solo, hurts batched.** +28% single-stream on Gemma 12B, but on CUDA the x4 aggregate drops 34% with speculation on. Turn it off the moment you serve more than one stream.
-3. **vLLM continuous batching is the real parallel unlock**: 360 tok/s aggregate at x4, 2.76× scaling, ~90 tok/s per worker — on the same card where llama.cpp managed 1.27×.
-4. **Read the failures, not just the score.** Gemma 12B's "0.806 toolcall" was entirely the model cautiously calling `list_dir` before `read_file` — zero malformed calls. Lenient score: 1.000. One prompt line fixes it.
-5. **Trust nothing you didn't cache-bust.** Our suite's prefill medians were up to **77× off** (49.9 vs 2305 tok/s) because prompt cache leaked into trials. And throughput suites can't see output corruption: 360 tok/s of garbage measures exactly like 360 tok/s of code.
+1. **llama.cpp slot-parallelism barely scales**: 4 streams gives 1.25× (Vulkan) to 1.27× (CUDA) aggregate — one fast queue-serial server beats a slot pool.
+2. **MTP speculative decoding helps solo, hurts batched**: +28% single-stream on Gemma 12B, −34% x4 aggregate on CUDA — turn it off past one stream.
+3. **vLLM continuous batching is the real parallel path**: 2.76× at x4 (360 tok/s aggregate, ~90 per stream) on the same card where llama.cpp managed 1.27×.
+4. **Read the failures, not the score**: Gemma 12B's 0.806 toolcall was entirely the model calling `list_dir` before `read_file` — zero malformed calls, a prompting fix.
+5. **Cache-bust everything**: cached prefill medians read 49.9 tok/s where the true number was 2305 (46× off), and throughput suites can't see output corruption.
 
-## War stories, briefly
-
-Vulkan device enumeration **flipped order mid-campaign** and pinned a 13 GB model to the 8 GB second GPU (0.8 tok/s). Resolve devices by name, never index. A subagent died silently mid-run and we salvaged partial raws. vLLM took five startup attempts to fit 24 GB — `--max-num-seqs 4` was the knob that mattered. Building CUDA llama.cpp with zero sudo via pip-wheel nvcc works, after four toolchain quirks.
+Two operational rules earned the hard way: resolve GPUs by name, never enumeration index — Vulkan flipped device order mid-campaign and silently re-ran one config on the wrong card — and `--max-num-seqs 4` is the flag that got vLLM to fit in 24 GB after the 32k-context startup OOMed.
 
 ## The one that got away
 
-vLLM posted the best parallel scaling **and** scored zero on quality — because it generated gibberish for every prompt. Temperature-0 "say hello" → multi-script token salad. We eliminated the tool parser (both candidates fail identically), the chat template (passed explicitly, no change), and mrope config loss (re-injected via `--hf-overrides`, warning gone, garbage stayed). Remaining suspects: vLLM 0.22.1's quantized-MoE path for this VL-flavored architecture, or the community AWQ quant. Same weights are flawless through llama.cpp. Elimination log in the repo.
+vLLM posted the best parallel scaling and scored zero on quality — because it generated gibberish for every prompt; a temperature-0 "say hello" returned multi-script token salad. We ruled out the tool parser (both candidates fail identically), the chat template (passed explicitly), and mrope config loss (re-injected via `--hf-overrides`). Remaining suspects: vLLM 0.22.1's quantized-MoE path for this VL-flavored architecture, or the community AWQ quant itself. The same weights score 1.000 toolcall through llama.cpp; the elimination log is in the repo.
 
-## The fleet we're actually running
+## The fleet
 
-- **Senior + default worker: byteshape 35B-A3B via llama.cpp, queue-serial.** 100% toolcall, 5/5 agentic, ~130 tok/s. One model, both jobs.
-- **Budget coexistence**: 26B `-cmoe` senior (3 GB!) + 12B worker = 11.1 GB peak, measured working under concurrent load.
-- **Parallel pool**: vLLM architecture, parked until the serving bug is resolved or a vLLM-first model takes the slot.
+- **Senior + default worker**: byteshape 35B-A3B via llama.cpp, queue-serial. 100% toolcall, 5/5 agentic, 127–143 tok/s. One model, both jobs.
+- **Budget coexistence**: 26B `-cmoe` senior (3.0 GB) + 12B worker, 11.1 GB peak, measured under concurrent load.
+- **Parallel pool**: vLLM architecture, parked until the serving bug is fixed or a vLLM-first model takes the slot.
 
-## What's next
+## The experiment that fills in the headline
 
-We're replaying a real milestone — a CAD engine's "box I can orbit" (B-rep kernel → tessellation → three.js viewport, with a hard test gate) — three arms, N≥3 each: Claude solo, Claude + cloud subagents, Claude + **local** subagents (bare-metal serving, cloud senior reviewing). Measuring wall-clock, cloud tokens/$, local tokens, idle/thinking time split, and full hardware telemetry down to GPU watt-hours per task.
+We replay M1, a real CAD-engine milestone — B-rep kernel → tessellation → three.js viewport, with a hard test gate. Three arms, N≥3 runs each: Fable 5 solo, Fable 5 + cloud subagents, Fable 5 + local subagents. Measured: wall-clock, cloud tokens/$, local tokens, repair loops, GPU watt-hours per task.
 
 | | wall-clock | cloud $ | repair loops |
 |---|---:|---:|---:|
-| Claude solo | TBD | TBD | TBD |
+| Fable 5 solo | TBD | TBD | TBD |
 | + cloud subagents | TBD | TBD | TBD |
 | + local subagents | TBD | TBD | TBD |
 
-If local workers save money but lose wall-clock to the serial queue, we'll publish that too.
+If local workers save tokens but lose wall-clock to the serial queue, we publish that too.
 
 ## Reproduce it
 
-RTX 3090 Ti (24 GB), driver 580.159.03, llama.cpp b9592/b9596, vLLM 0.22.1. Everything — harness, configs, raw logs, model SHAs, failure diagnoses — is in the repo:
+RTX 3090 Ti (24 GB), driver 580.159.03, llama.cpp b9592/b9596, vLLM 0.22.1. Harness, configs, raw logs, model SHAs, and failure diagnoses are all in the repo:
 
 ```bash
 bench/run_config.sh C12-byteshape-35b            # Vulkan champion
