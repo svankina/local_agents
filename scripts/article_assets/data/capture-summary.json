@@ -1,0 +1,15 @@
+{
+  "counter_name": "vllm:generation_tokens_total",
+  "metric_samples": 140,
+  "telemetry_samples": 152,
+  "aligned_rows": 140,
+  "first_ts": "2026-06-12T20:23:53+05:30",
+  "last_ts": "2026-06-12T20:26:12+05:30",
+  "active_seconds": 90,
+  "peak_decode_tok_s": 865.0,
+  "sustained_decode_tok_s_active_mean": 773.6888888888889,
+  "sustained_decode_tok_s_active_mean_excluding_first_positive": 772.6629213483146,
+  "total_generation_tokens_delta": 69632.0,
+  "client_workload_wall_s": 90.82701041999826,
+  "client_workload_completion_tokens_usage": 69632
+}
