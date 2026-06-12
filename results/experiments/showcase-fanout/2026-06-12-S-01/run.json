@@ -1,0 +1,11 @@
+{
+  "schema": "showcase-fanout.run.v1",
+  "run_id": "2026-06-12-S-01",
+  "arm": "S",
+  "run_dir": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-S-01",
+  "local_server": null,
+  "fanout": {
+    "items_total": 32,
+    "concurrency": null
+  }
+}

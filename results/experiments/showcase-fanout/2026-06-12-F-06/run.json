@@ -1,0 +1,20 @@
+{
+  "schema": "showcase-fanout.run.v1",
+  "run_id": "2026-06-12-F-06",
+  "arm": "F",
+  "run_dir": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-F-06",
+  "corpus": "scrapy",
+  "local_server": {
+    "kind": "vllm-openai",
+    "image": "vllm/vllm-openai:v0.22.1",
+    "model_revision": "9b534e4318b7ebc3c961a839f13eb18b1833f441",
+    "served_model": "C18-qwen3-30b-vllm",
+    "flags": "--model Qwen/Qwen3-30B-A3B-GPTQ-Int4 --revision 9b534e4318b7ebc3c961a839f13eb18b1833f441 --served-model-name C18-qwen3-30b-vllm --max-model-len 16384 --gpu-memory-utilization 0.92 --max-num-seqs 8 --quantization gptq_marlin --enable-auto-tool-choice --tool-call-parser hermes --reasoning-parser qwen3",
+    "max_num_seqs": 8,
+    "base_url": "http://127.0.0.1:8091/v1"
+  },
+  "fanout": {
+    "items_total": 32,
+    "concurrency": 8
+  }
+}
