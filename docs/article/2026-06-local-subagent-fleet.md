@@ -1,6 +1,6 @@
-# 23× faster, 74% cheaper: Claude Code with local subagents on an RTX 3090 Ti vs Fable 5 doing everything itself
+# 3× faster, 74% cheaper: Claude Code with local subagents on one RTX 3090 Ti
 
-Scope up front, because unbiased benchmarking is the whole point. The 23×/−74% is work-phase only, on an embarrassingly-parallel fan-out, at quality parity — 32/32 verified in both arms. End-to-end the same run is 3.2× faster. Every number ships with raw logs in the repo.
+Same task, same quality bar — 32/32 machine-verified docstrings in both arms. Fable 5 working alone: 9.5 minutes, $9.22. Fable 5 supervising 8 local workers on one RTX 3090 Ti: 3 minutes, $2.40. Inside the work phase the gap is 23× — the locals wrote all 32 docstrings in 24.7 seconds. Every number ships with raw logs in the repo.
 
 The setup: Fable 5 keeps the senior chair — planning, review, merges — and the grunt work goes local on an RTX 3090 Ti (24 GB). Two local configs earned a seat: byteshape's Qwen3.6-35B-A3B IQ4_XS under llama.cpp for queue-serial agentic work (**100% toolcall, 5/5 agentic, 127–143 tok/s**), and Qwen3-30B-A3B GPTQ under vLLM for parallel fan-out. Baseline: Fable 5 doing everything itself.
 
@@ -29,19 +29,20 @@ Solo-vs-fleet changes two things at once, so we ran the control: same supervisor
 | 8× local Qwen3-30B | 32/32 | 7 | **24.7 s** | ~$0 | 8,525 | 345 | 512 |
 | 8× Fable 5 | 32/32 | 0 | 80.6 s | $6.28 | 21,222 | 263 | 426 |
 | 8× Haiku 4.5 | 32/32 | 1 | 160.9 s | $1.42 | 154,003 | 957* | 1,221* |
-| 1× Fable 5 solo (no dispatcher) | 32/32 | 0 | 569 s | $9.22 total | 39,454 | 69 | — |
+| 1× Fable 5 solo (no dispatcher) | 32/32 | 0 | 569 s | $9.22 total | 39,454 | 69 | ~90† |
 
 \* Haiku's rates count billed thinking tokens, not useful output — it emits fast and discards most of it.
+† from a 5-minute arrival-timestamped probe run; per-turn emission estimate, not billed-usage based.
 
-The solo row is the same model as the Fable workers doing the same work in series — 569 s alone, 80.6 s as a pool of 8 (88% parallel efficiency; the items sum to exactly 569 s of work either way). Local workers: 3.3× faster than Fable workers, and the $6.28 worker bill drops to electricity. Fable earns its price one way — zero retries. The locals needed 7; all recovered on feedback.
+The solo row is the same model as the Fable workers doing the same work in series — 569 s alone, 80.6 s as a pool of 8 (88% parallel efficiency; both arms sum to the same 569 s of work). Local workers: 3.3× faster than Fable workers, and the $6.28 worker bill drops to electricity. Fable earns its price one way — zero retries. The locals needed 7; all recovered on feedback.
 
 Haiku is the surprise. Slowest of the three, and billed for 154k output tokens to write what the locals wrote in 8.5k — CLI worker sessions think before answering, and you pay for every thought. Cheap per token, expensive per docstring.
 
 The harness took five runs to be fair to a real model: 1/32 (rejected a dotted-qualname dialect) → 12/32 (implicit parameter requirement) → 30/32 (undisclosed length threshold) → 31/32 (underscore-variant key crashed the inserter) → 32/32. Every fix deterministic, regression-tested against the real failed responses. The model was never incoherent. The harness was unfair.
 
-## Benchmark results
+## How the locals were picked
 
-One GPU, one server at a time, three suites — throughput, 36 tool-call trials, 5 agentic repo-editing tasks — across llama.cpp Vulkan, llama.cpp CUDA (Docker and bare metal), and vLLM.
+Those two fleet seats were earned in a bake-off. One GPU, one server at a time, three suites — throughput, 36 tool-call trials, 5 agentic repo-editing tasks — across llama.cpp Vulkan, llama.cpp CUDA (Docker and bare metal), and vLLM.
 
 | Config | decode t/s | x4 agg | toolcall strict/lenient† | agentic | VRAM |
 |---|---:|---:|---:|---:|---:|
