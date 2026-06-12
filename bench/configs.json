@@ -18,5 +18,5 @@
   "C11-phi4mini": "-m <CACHE>/phi-4-mini-Q4_K_M.gguf -c 16384 --temp 0.2",
   "C15-vllm-35b": "--model mattbucci/Qwen3.6-35B-A3B-AWQ --served-model-name C15-vllm-35b --max-model-len 16384 --gpu-memory-utilization 0.92 --max-num-seqs 4 --quantization awq_marlin --language-model-only --enable-auto-tool-choice --tool-call-parser qwen3_xml",
   "C17-north-mini-vllm": "--model cyankiwi/North-Mini-Code-1.0-AWQ-INT4 --revision 69f25e86d2b35d04837388514bec4eff729d1b30 --served-model-name C17-north-mini-vllm --max-model-len 16384 --gpu-memory-utilization 0.90 --max-num-seqs 8 --quantization compressed-tensors --enable-auto-tool-choice --tool-call-parser cohere_command4 --reasoning-parser cohere_command4",
-  "C18-qwen3-30b-vllm": "--model Qwen/Qwen3-30B-A3B-GPTQ-Int4 --revision 9b534e4318b7ebc3c961a839f13eb18b1833f441 --served-model-name C18-qwen3-30b-vllm --max-model-len 16384 --gpu-memory-utilization 0.92 --max-num-seqs 8 --quantization gptq_marlin --enable-auto-tool-choice --tool-call-parser hermes --reasoning-parser qwen3"
+  "C18-qwen3-30b-vllm": "--model Qwen/Qwen3-30B-A3B-GPTQ-Int4 --revision 9b534e4318b7ebc3c961a839f13eb18b1833f441 --served-model-name C18-qwen3-30b-vllm --max-model-len 16384 --gpu-memory-utilization 0.92 --max-num-seqs 16 --quantization gptq_marlin --enable-auto-tool-choice --tool-call-parser hermes --reasoning-parser qwen3"
 }
