@@ -1,0 +1,10 @@
+{
+  "docstrings": {
+    "LogStats.calculate_final_stats": "Calculate the final rates for the spider based on total time elapsed.",
+    "LogStats.calculate_stats": "Update the current page and item rates based on the stats collector.",
+    "LogStats.from_crawler": "Create a LogStats instance from the crawler settings and signals.",
+    "LogStats.log": "Log the current scraping statistics for the spider.",
+    "LogStats.spider_closed": "Handle the spider closed signal and record the final reason for completion.",
+    "LogStats.spider_opened": "Initialize the logging task when the spider is opened."
+  }
+}

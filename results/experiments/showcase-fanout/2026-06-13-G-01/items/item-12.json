@@ -1,0 +1,17 @@
+{
+  "est_prompt_tokens": 3564,
+  "file_sha256": "69a2889e73d015d460935881fd0ec6335bbc3610b6ebc810370a9b6508fcee44",
+  "id": "item-12",
+  "line_count": 284,
+  "path": "scrapy/core/downloader/__init__.py",
+  "targets": [
+    "Downloader",
+    "Downloader.close",
+    "Downloader.fetch",
+    "Downloader.get_slot_key",
+    "Downloader.needs_backout",
+    "Slot.close",
+    "Slot.download_delay",
+    "Slot.free_transfer_slots"
+  ]
+}

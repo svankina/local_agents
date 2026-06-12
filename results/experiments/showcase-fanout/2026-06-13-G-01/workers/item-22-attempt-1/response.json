@@ -1,0 +1,11 @@
+{
+  "docstrings": {
+    "Response.body": "The body of the HTTP response as bytes.",
+    "Response.cb_kwargs": "The callback keyword arguments from the request associated with this response.",
+    "Response.flags": "The flags of the response, where each flag is a string value.",
+    "Response.headers": "The headers of the response, where each header is a key-value pair.",
+    "Response.meta": "The meta dictionary from the request associated with this response.",
+    "Response.replace": "Create a new Response with the same attributes except for those given new values using args and kwargs.",
+    "Response.url": "The URL of the response."
+  }
+}

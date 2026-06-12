@@ -1,0 +1,28 @@
+{
+  "est_prompt_tokens": 1714,
+  "file_sha256": "a4c91d55a881fc757f246129f84ecc737c2ae05c246424f0209b227364d4f3b8",
+  "id": "item-02",
+  "line_count": 134,
+  "path": "scrapy/statscollectors.py",
+  "targets": [
+    "DummyStatsCollector",
+    "DummyStatsCollector.get_value",
+    "DummyStatsCollector.inc_value",
+    "DummyStatsCollector.max_value",
+    "DummyStatsCollector.min_value",
+    "DummyStatsCollector.set_stats",
+    "DummyStatsCollector.set_value",
+    "MemoryStatsCollector",
+    "StatsCollector",
+    "StatsCollector.clear_stats",
+    "StatsCollector.close_spider",
+    "StatsCollector.get_stats",
+    "StatsCollector.get_value",
+    "StatsCollector.inc_value",
+    "StatsCollector.max_value",
+    "StatsCollector.min_value",
+    "StatsCollector.open_spider",
+    "StatsCollector.set_stats",
+    "StatsCollector.set_value"
+  ]
+}

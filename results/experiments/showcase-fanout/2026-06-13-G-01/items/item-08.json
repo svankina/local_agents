@@ -1,0 +1,18 @@
+{
+  "est_prompt_tokens": 1926,
+  "file_sha256": "c691b8a5f43a4bd8eed2a35057e2a091583e0fe2ae62d198382c76351cea81cd",
+  "id": "item-08",
+  "line_count": 141,
+  "path": "scrapy/http/headers.py",
+  "targets": [
+    "Headers.appendlist",
+    "Headers.get",
+    "Headers.getlist",
+    "Headers.items",
+    "Headers.setlist",
+    "Headers.setlistdefault",
+    "Headers.to_string",
+    "Headers.update",
+    "Headers.values"
+  ]
+}

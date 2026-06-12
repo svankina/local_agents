@@ -1,0 +1,14 @@
+{
+  "docstrings": {
+    "_scrapy_non_serialization_queue.ScrapyRequestQueue": "A queue class for Scrapy requests that does not perform serialization.",
+    "_scrapy_non_serialization_queue.ScrapyRequestQueue.from_crawler": "Create a ScrapyRequestQueue instance from a crawler, args, and kwargs.",
+    "_scrapy_serialization_queue.ScrapyRequestQueue": "A queue class for Scrapy requests that performs serialization.",
+    "_scrapy_serialization_queue.ScrapyRequestQueue.from_crawler": "Create a ScrapyRequestQueue instance from a crawler, key, args, and kwargs.",
+    "_scrapy_serialization_queue.ScrapyRequestQueue.pop": "Pop a request from the queue.",
+    "_scrapy_serialization_queue.ScrapyRequestQueue.push": "Push a request onto the queue.",
+    "_serializable_queue.SerializableQueue": "A queue class that handles serialization and deserialization of objects.",
+    "_serializable_queue.SerializableQueue.pop": "Pop and deserialize an object from the queue.",
+    "_serializable_queue.SerializableQueue.push": "Serialize and push an obj onto the queue.",
+    "_with_mkdir.DirectoriesCreated": "A queue class that ensures the parent directory exists before initialization."
+  }
+}

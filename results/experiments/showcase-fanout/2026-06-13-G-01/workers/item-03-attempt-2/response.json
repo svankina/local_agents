@@ -1,0 +1,15 @@
+{
+  "docstrings": {
+    "Contract.add_post_hook": "Add a post-processing hook to the request and record the results.",
+    "Contract.add_pre_hook": "Add a pre-processing hook to the request and record the results.",
+    "Contract.adjust_request_args": "Adjust the request arguments provided in args.",
+    "ContractsManager": "A manager class to handle and extract contracts from spiders.",
+    "ContractsManager._clean_req.cb_wrapper": "A wrapper for the callback that handles the response and cb_kwargs.",
+    "ContractsManager._clean_req.eb_wrapper": "A wrapper for the errback that handles the failure.",
+    "ContractsManager.extract_contracts": "Extract contracts from the provided method docstring.",
+    "ContractsManager.from_method": "Create requests from a method and record the results.",
+    "ContractsManager.from_spider": "Create requests from a spider and record the results.",
+    "ContractsManager.tested_methods_from_spidercls": "Identify methods decorated with contracts in the spidercls.",
+    "_create_testcase.ContractTestCase": "A custom test case class for contract testing."
+  }
+}

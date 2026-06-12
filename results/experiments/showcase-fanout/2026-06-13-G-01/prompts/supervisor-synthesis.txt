@@ -1,0 +1,4 @@
+You are the Fable 5 supervisor for the pinned showcase fan-out benchmark, arm G.
+Read /home/svankina/src/local_agents/.worktrees/fable-fleet-bench/results/experiments/showcase-fanout/2026-06-13-G-01/scorecard.json and /home/svankina/src/local_agents/.worktrees/fable-fleet-bench/results/experiments/showcase-fanout/2026-06-13-G-01/metrics.json only, then write
+/home/svankina/src/local_agents/.worktrees/fable-fleet-bench/results/experiments/showcase-fanout/2026-06-13-G-01/summary.md with pass rate, retries, wall clock, token totals, and
+notable instrumentation caveats. Do not inspect individual worker transcripts.

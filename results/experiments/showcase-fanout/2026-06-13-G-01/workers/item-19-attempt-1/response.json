@@ -1,0 +1,11 @@
+{
+  "docstrings": {
+    "HttpCacheMiddleware": "A middleware class for handling HTTP caching in Scrapy.",
+    "HttpCacheMiddleware.from_crawler": "Create a HttpCacheMiddleware instance from the crawler object.",
+    "HttpCacheMiddleware.process_exception": "Handle exceptions during request processing, potentially returning a cached response for the request if an exception occurs, involving the spider.",
+    "HttpCacheMiddleware.process_request": "Process the incoming request to check for cached responses, interacting with the spider.",
+    "HttpCacheMiddleware.process_response": "Process the response from the server, handling caching logic for the request and response, and interacting with the spider.",
+    "HttpCacheMiddleware.spider_closed": "Handle the spider closed signal to close the storage.",
+    "HttpCacheMiddleware.spider_opened": "Handle the spider opened signal to open the storage."
+  }
+}

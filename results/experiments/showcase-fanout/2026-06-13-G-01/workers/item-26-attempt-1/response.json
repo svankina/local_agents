@@ -1,0 +1,10 @@
+{
+  "docstrings": {
+    "Command": "A Scrapy command class for the interactive shell.",
+    "Command.add_options": "Add command-line options to the parser.",
+    "Command.long_desc": "A long description of the shell command.",
+    "Command.run": "Execute the shell command using the provided args and opts.",
+    "Command.short_desc": "A short description of the shell command.",
+    "Command.syntax": "The syntax for the shell command."
+  }
+}

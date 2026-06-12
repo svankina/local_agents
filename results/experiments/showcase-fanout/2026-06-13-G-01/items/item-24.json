@@ -1,0 +1,16 @@
+{
+  "est_prompt_tokens": 1970,
+  "file_sha256": "8910eb069c2d0f8b69ff6e945e6925a302a45155b37c145c485e30e82176f75a",
+  "id": "item-24",
+  "line_count": 153,
+  "path": "scrapy/utils/_download_handlers.py",
+  "targets": [
+    "NullCookieJar.extract_cookies",
+    "NullCookieJar.set_cookie",
+    "get_dataloss_msg",
+    "get_maxsize_msg",
+    "get_warnsize_msg",
+    "make_response",
+    "normalize_bind_address"
+  ]
+}

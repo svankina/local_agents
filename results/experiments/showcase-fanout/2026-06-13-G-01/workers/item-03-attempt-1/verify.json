@@ -1,0 +1,5 @@
+{
+  "failed_check": "parameter_mention",
+  "passed": false,
+  "reason": "Contract.adjust_request_args missing parameter mention(s): args"
+}

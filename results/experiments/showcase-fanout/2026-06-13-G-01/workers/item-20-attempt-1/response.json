@@ -1,0 +1,11 @@
+{
+  "docstrings": {
+    "DownloaderStats": "A class to collect statistics related to the downloader's activity.",
+    "DownloaderStats.from_crawler": "Create a DownloaderStats instance from the provided crawler.",
+    "DownloaderStats.process_exception": "Record statistics when a request encounters an exception during the spider's execution.",
+    "DownloaderStats.process_request": "Increment request counts and record request size for the spider.",
+    "DownloaderStats.process_response": "Increment response counts and record response size for the spider after a request.",
+    "get_header_size": "Calculate the total size of the provided headers.",
+    "get_status_size": "Calculate the size of the response_status line."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "docstrings": {
+    "CachingHostnameResolver.from_crawler": "Create a CachingHostnameResolver instance from the provided crawler and reactor.",
+    "CachingHostnameResolver.install_on_reactor": "Install the CachingHostnameResolver on the reactor.",
+    "CachingHostnameResolver.resolveHostName": "Resolve the hostName using the resolutionReceiver, considering portNumber, addressTypes, and transportSemantics.",
+    "CachingThreadedResolver.from_crawler": "Create a CachingThreadedResolver instance from the provided crawler and reactor.",
+    "CachingThreadedResolver.getHostByName": "Get the host name for a given name with a specific timeout.",
+    "CachingThreadedResolver.install_on_reactor": "Install the CachingThreadedResolver on the reactor.",
+    "HostResolution": "A class representing a host resolution process.",
+    "HostResolution.cancel": "Cancel the current host resolution.",
+    "_CachingResolutionReceiver.addressResolved": "Handle the address resolved during the resolution process.",
+    "_CachingResolutionReceiver.resolutionBegan": "Handle the start of the resolution process.",
+    "_CachingResolutionReceiver.resolutionComplete": "Handle the completion of the resolution process."
+  }
+}

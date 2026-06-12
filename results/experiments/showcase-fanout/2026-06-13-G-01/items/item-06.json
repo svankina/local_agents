@@ -1,0 +1,19 @@
+{
+  "est_prompt_tokens": 2319,
+  "file_sha256": "a37c26201f1ee2d2c3164d44bbc57fe04e14f159446af11f0d756e40f6ed3dc9",
+  "id": "item-06",
+  "line_count": 176,
+  "path": "scrapy/squeues.py",
+  "targets": [
+    "_scrapy_non_serialization_queue.ScrapyRequestQueue",
+    "_scrapy_non_serialization_queue.ScrapyRequestQueue.from_crawler",
+    "_scrapy_serialization_queue.ScrapyRequestQueue",
+    "_scrapy_serialization_queue.ScrapyRequestQueue.from_crawler",
+    "_scrapy_serialization_queue.ScrapyRequestQueue.pop",
+    "_scrapy_serialization_queue.ScrapyRequestQueue.push",
+    "_serializable_queue.SerializableQueue",
+    "_serializable_queue.SerializableQueue.pop",
+    "_serializable_queue.SerializableQueue.push",
+    "_with_mkdir.DirectoriesCreated"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "docstrings": {
+    "Shell": "A shell for interacting with Scrapy's crawler and engine.",
+    "Shell.fetch": "Fetch a request_or_url using the spider, handling redirect logic and other kwargs.",
+    "Shell.get_help": "Generate a help string containing available objects and shortcuts.",
+    "Shell.inthread": "A property indicating whether the shell is running in a separate thread.",
+    "Shell.populate_vars": "Populate the shell's local variables using the response, request, and spider.",
+    "Shell.print_help": "Print the help string to the standard output.",
+    "Shell.start": "Start the shell, processing the url, request, response, spider, and redirect settings."
+  }
+}

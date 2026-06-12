@@ -1,0 +1,10 @@
+{
+  "docstrings": {
+    "MemoryUsage": "A Scrapy extension to monitor and report memory usage during crawling.",
+    "MemoryUsage.engine_started": "Signal handler called when the Scrapy engine starts to initialize memory monitoring tasks.",
+    "MemoryUsage.engine_stopped": "Signal handler called when the Scrapy engine stops to clean up monitoring tasks.",
+    "MemoryUsage.from_crawler": "Factory method to create a MemoryUsage instance from a crawler object.",
+    "MemoryUsage.get_virtual_size": "Retrieve the current virtual memory size in bytes.",
+    "MemoryUsage.update": "Update the maximum memory usage recorded in the crawler stats."
+  }
+}

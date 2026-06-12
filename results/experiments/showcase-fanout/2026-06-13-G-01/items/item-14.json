@@ -1,0 +1,17 @@
+{
+  "est_prompt_tokens": 2268,
+  "file_sha256": "260dbcef4c339eec9ef0ba679275a8360ebfaf7cbf1d6f2843def1afe87447e0",
+  "id": "item-14",
+  "line_count": 169,
+  "path": "scrapy/extensions/periodic_log.py",
+  "targets": [
+    "PeriodicLog.from_crawler",
+    "PeriodicLog.log",
+    "PeriodicLog.log_crawler_stats",
+    "PeriodicLog.log_delta",
+    "PeriodicLog.log_timing",
+    "PeriodicLog.param_allowed",
+    "PeriodicLog.spider_closed",
+    "PeriodicLog.spider_opened"
+  ]
+}

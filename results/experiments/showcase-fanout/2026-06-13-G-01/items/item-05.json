@@ -1,0 +1,20 @@
+{
+  "est_prompt_tokens": 1846,
+  "file_sha256": "a962b0451aa27072ab3ff11ca2885338af43a79d171e7739ec4a92bd517ad7f7",
+  "id": "item-05",
+  "line_count": 123,
+  "path": "scrapy/robotstxt.py",
+  "targets": [
+    "ProtegoRobotParser",
+    "ProtegoRobotParser.allowed",
+    "ProtegoRobotParser.from_crawler",
+    "PythonRobotParser",
+    "PythonRobotParser.allowed",
+    "PythonRobotParser.from_crawler",
+    "RerpRobotParser",
+    "RerpRobotParser.allowed",
+    "RerpRobotParser.from_crawler",
+    "RobotParser",
+    "decode_robotstxt"
+  ]
+}

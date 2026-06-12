@@ -1,0 +1,12 @@
+{
+  "docstrings": {
+    "BaseDupeFilter.close": "Close the filter and provide a reason for closing.",
+    "BaseDupeFilter.from_crawler": "Create a new instance of the filter from the crawler.",
+    "BaseDupeFilter.open": "Open the filter for use.",
+    "BaseDupeFilter.request_seen": "Check if the given request has been seen before.",
+    "RFPDupeFilter.close": "Close the filter and provide a reason for closing.",
+    "RFPDupeFilter.from_crawler": "Create a new instance of the filter from the crawler.",
+    "RFPDupeFilter.log": "Log that a request was filtered by the spider.",
+    "RFPDupeFilter.request_seen": "Check if the given request has been seen before."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "docstrings": {
+    "CookieJar": "A class to manage cookies for Scrapy requests.",
+    "CookieJar.add_cookie_header": "Add the Cookie header to the request based on the jar's contents.",
+    "CookieJar.clear": "Clear cookies matching the specified domain, path, and name.",
+    "CookieJar.clear_session_cookies": "Clear all session cookies from the jar.",
+    "CookieJar.extract_cookies": "Extract cookies from the response for the given request.",
+    "CookieJar.make_cookies": "Make cookies from the response and request.",
+    "CookieJar.set_cookie": "Set a specific cookie in the jar.",
+    "CookieJar.set_cookie_if_ok": "Set a cookie in the jar if the request is okay.",
+    "CookieJar.set_policy": "Set the cookie policy for the jar using pol.",
+    "WrappedRequest.add_unredirected_header": "Add a header with name and value to the request.",
+    "WrappedRequest.full_url": "The full URL of the request.",
+    "WrappedRequest.get_full_url": "Get the full URL of the request.",
+    "WrappedRequest.get_header": "Get the header value for name, with a default value.",
+    "WrappedRequest.get_host": "Get the host of the request.",
+    "WrappedRequest.get_type": "Get the type of the request.",
+    "WrappedRequest.has_header": "Check if the request has a header with name.",
+    "WrappedRequest.header_items": "Get all header items from the request.",
+    "WrappedRequest.host": "The host of the request.",
+    "WrappedRequest.origin_req_host": "The host of the original request.",
+    "WrappedRequest.type": "The type of the request.",
+    "WrappedRequest.unverifiable": "Whether the request is unverifiable.",
+    "WrappedResponse": "A wrapper for the Scrapy response object.",
+    "WrappedResponse.get_all": "Get all values for the header name, with a default.",
+    "WrappedResponse.info": "Return the info of the wrapped response.",
+    "_DummyLock.acquire": "Acquire the dummy lock.",
+    "_DummyLock.release": "Release the dummy lock."
+  }
+}

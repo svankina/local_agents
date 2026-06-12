@@ -1,0 +1,15 @@
+{
+  "est_prompt_tokens": 1575,
+  "file_sha256": "43afe7056eaeaac190ee28b0408c2f38a77e2727a1181ff2b09f9f55db30c458",
+  "id": "item-31",
+  "line_count": 100,
+  "path": "scrapy/extensions/logstats.py",
+  "targets": [
+    "LogStats.calculate_final_stats",
+    "LogStats.calculate_stats",
+    "LogStats.from_crawler",
+    "LogStats.log",
+    "LogStats.spider_closed",
+    "LogStats.spider_opened"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "docstrings": {
+    "Command": "A Scrapy command to fetch a URL using the Scrapy downloader.",
+    "Command.add_options": "Add command-specific options to the argparse parser.",
+    "Command.long_desc": "Fetch a URL using the Scrapy downloader and print its content to stdout. You may want to use --nolog to disable logging",
+    "Command.run": "Execute the command using the provided args and opts.",
+    "Command.run.start": "An asynchronous generator that yields the request for the spider.",
+    "Command.short_desc": "Fetch a URL using the Scrapy downloader",
+    "Command.syntax": "The command line syntax for this command."
+  }
+}

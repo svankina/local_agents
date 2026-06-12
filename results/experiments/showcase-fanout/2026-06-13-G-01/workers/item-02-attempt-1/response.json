@@ -1,0 +1,23 @@
+{
+  "docstrings": {
+    "DummyStatsCollector": "A dummy implementation of StatsCollector that does not persist any data.",
+    "DummyStatsCollector.get_value": "Retrieve a value for a given key from the dummy collector, returning default if not found, for a spider.",
+    "DummyStatsCollector.inc_value": "Increment a value for a key by a count starting from start for a specific spider.",
+    "DummyStatsCollector.max_value": "Update the maximum value for a key based on the provided value for a spider.",
+    "DummyStatsCollector.min_value": "Update the minimum value for a key based on the provided value for a spider.",
+    "DummyStatsCollector.set_stats": "Replace the current stats with a new stats dictionary for the spider.",
+    "DummyStatsCollector.set_value": "Set a specific value for a key in the dummy collector for a spider.",
+    "MemoryStatsCollector": "A stats collector that persists statistics in memory for each spider.",
+    "StatsCollector": "A base class for collecting and managing spider statistics.",
+    "StatsCollector.clear_stats": "Clear all collected statistics for the given spider.",
+    "StatsCollector.close_spider": "Finalize and dump the statistics for the spider, optionally providing a reason.",
+    "StatsCollector.get_stats": "Return the current dictionary of statistics for the spider.",
+    "StatsCollector.get_value": "Retrieve the value for a specific key, returning default if missing, for the spider.",
+    "StatsCollector.inc_value": "Increment the value of a key by count, starting from start, for the spider.",
+    "StatsCollector.max_value": "Update the maximum value for a key with the new value for the spider.",
+    "StatsCollector.min_value": "Update the minimum value for a key with the new value for the spider.",
+    "StatsCollector.open_spider": "Initialize the statistics collection for the spider.",
+    "StatsCollector.set_stats": "Set the statistics for the spider to a new stats dictionary.",
+    "StatsCollector.set_value": "Set the value for a specific key for the spider."
+  }
+}

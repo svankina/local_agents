@@ -1,0 +1,13 @@
+{
+  "docstrings": {
+    "LogCounterHandler.emit": "Increment the crawler stats for the specific level of the provided record.",
+    "SpiderLoggerAdapter": "A LoggerAdapter that provides a way to augment logs with extra data.",
+    "StreamLogger.flush": "Flush all handlers associated with the logger.",
+    "StreamLogger.write": "Write the provided buf to the logger by splitting it into lines.",
+    "TopLevelFormatter.filter": "Filter the record to ensure only top-level logger names are used.",
+    "get_scrapy_root_handler": "Return the current Scrapy root log handler.",
+    "install_scrapy_root_handler": "Install the Scrapy root logging handler based on the provided settings.",
+    "log_reactor_info": "Log information about the current Twisted reactor.",
+    "log_scrapy_info": "Log Scrapy version and software versions based on the provided settings."
+  }
+}

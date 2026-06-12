@@ -1,0 +1,17 @@
+{
+  "est_prompt_tokens": 1785,
+  "file_sha256": "2e818df4b450cbc61162b00aa59484fc42aa51c72645d6b22c985638352eff74",
+  "id": "item-11",
+  "line_count": 122,
+  "path": "scrapy/commands/check.py",
+  "targets": [
+    "Command",
+    "Command.add_options",
+    "Command.run",
+    "Command.run.start",
+    "Command.short_desc",
+    "Command.syntax",
+    "TextTestResult",
+    "TextTestResult.printSummary"
+  ]
+}

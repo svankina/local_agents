@@ -1,0 +1,12 @@
+{
+  "docstrings": {
+    "PeriodicLog.from_crawler": "Create a PeriodicLog instance from a crawler configuration.",
+    "PeriodicLog.log": "Log the current stats, deltas, and timing information.",
+    "PeriodicLog.log_crawler_stats": "Retrieve the current crawler statistics.",
+    "PeriodicLog.log_delta": "Calculate and return the delta of the statistics since the last log.",
+    "PeriodicLog.log_timing": "Calculate and return the timing information.",
+    "PeriodicLog.param_allowed": "Check if a stat_name is allowed based on include and exclude lists.",
+    "PeriodicLog.spider_closed": "Handle the spider closed signal with the provided reason.",
+    "PeriodicLog.spider_opened": "Handle the spider opened signal to initialize the logging task."
+  }
+}

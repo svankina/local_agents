@@ -1,0 +1,15 @@
+{
+  "est_prompt_tokens": 2519,
+  "file_sha256": "c6ac56ac049b22b2b07c4464c26edd1ed9ff956bac68988c178b6d0255dc3d47",
+  "id": "item-32",
+  "line_count": 173,
+  "path": "scrapy/extensions/memusage.py",
+  "targets": [
+    "MemoryUsage",
+    "MemoryUsage.engine_started",
+    "MemoryUsage.engine_stopped",
+    "MemoryUsage.from_crawler",
+    "MemoryUsage.get_virtual_size",
+    "MemoryUsage.update"
+  ]
+}

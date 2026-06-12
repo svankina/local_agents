@@ -1,0 +1,11 @@
+{
+  "docstrings": {
+    "NullCookieJar.extract_cookies": "Extract cookies from the response for the given request.",
+    "NullCookieJar.set_cookie": "Set a cookie in the jar.",
+    "get_dataloss_msg": "Generate a message indicating data loss for the given url.",
+    "get_maxsize_msg": "Generate a message when the size exceeds the limit for the request, noting if the size was expected.",
+    "get_warnsize_msg": "Generate a message when the size exceeds the limit for the request, noting if the size was expected.",
+    "make_response": "Create a response object using url, status, headers, body, flags, certificate, ip_address, protocol, and stop_download.",
+    "normalize_bind_address": "Normalize the bind address value into a tuple of string and integer."
+  }
+}

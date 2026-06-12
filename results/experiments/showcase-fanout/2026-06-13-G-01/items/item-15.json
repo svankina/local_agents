@@ -1,0 +1,17 @@
+{
+  "est_prompt_tokens": 2000,
+  "file_sha256": "dad21e4c2bd9ff25ae06455ae2024f8e41e3a41028fe846aa1758b2e61903f85",
+  "id": "item-15",
+  "line_count": 166,
+  "path": "scrapy/extensions/postprocessing.py",
+  "targets": [
+    "Bz2Plugin.close",
+    "Bz2Plugin.write",
+    "GzipPlugin.close",
+    "GzipPlugin.write",
+    "LZMAPlugin.close",
+    "LZMAPlugin.write",
+    "PostProcessingManager.tell",
+    "PostProcessingManager.writable"
+  ]
+}

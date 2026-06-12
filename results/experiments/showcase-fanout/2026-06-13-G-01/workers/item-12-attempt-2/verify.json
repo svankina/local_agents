@@ -1,0 +1,5 @@
+{
+  "failed_check": "worker",
+  "passed": false,
+  "reason": "worker exited 1"
+}

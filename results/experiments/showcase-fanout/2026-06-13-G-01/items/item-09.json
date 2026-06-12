@@ -1,0 +1,18 @@
+{
+  "est_prompt_tokens": 3113,
+  "file_sha256": "6550a437551b9efd497840256e003d15c71328992a1db792463229beff645fce",
+  "id": "item-09",
+  "line_count": 261,
+  "path": "scrapy/pipelines/images.py",
+  "targets": [
+    "ImagesPipeline.convert_image",
+    "ImagesPipeline.file_downloaded",
+    "ImagesPipeline.file_path",
+    "ImagesPipeline.from_crawler",
+    "ImagesPipeline.get_images",
+    "ImagesPipeline.get_media_requests",
+    "ImagesPipeline.image_downloaded",
+    "ImagesPipeline.item_completed",
+    "ImagesPipeline.thumb_path"
+  ]
+}

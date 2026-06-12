@@ -1,0 +1,16 @@
+{
+  "est_prompt_tokens": 1288,
+  "file_sha256": "da08a5306d08213a0acc478ba90e8e20c439bc49b4c6b027e78570a1173d0297",
+  "id": "item-21",
+  "line_count": 61,
+  "path": "scrapy/extensions/corestats.py",
+  "targets": [
+    "CoreStats",
+    "CoreStats.from_crawler",
+    "CoreStats.item_dropped",
+    "CoreStats.item_scraped",
+    "CoreStats.response_received",
+    "CoreStats.spider_closed",
+    "CoreStats.spider_opened"
+  ]
+}

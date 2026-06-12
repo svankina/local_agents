@@ -1,0 +1,12 @@
+{
+  "docstrings": {
+    "Bz2Plugin.close": "Closes the Bzip2 file stream.",
+    "Bz2Plugin.write": "Writes the provided data to the Bzip2 compressed file.",
+    "GzipPlugin.close": "Closes the Gzip file stream.",
+    "GzipPlugin.write": "Writes the provided data to the Gzip compressed file.",
+    "LZMAPlugin.close": "Closes the LZMA file stream.",
+    "LZMAPlugin.write": "Writes the provided data to the LZMA compressed file.",
+    "PostProcessingManager.tell": "Returns the current position of the file pointer.",
+    "PostProcessingManager.writable": "Returns whether the manager is writable."
+  }
+}

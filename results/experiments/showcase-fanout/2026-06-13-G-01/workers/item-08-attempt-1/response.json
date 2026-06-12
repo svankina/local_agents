@@ -1,0 +1,13 @@
+{
+  "docstrings": {
+    "Headers.appendlist": "Append a list of values to the header associated with the given key and value.",
+    "Headers.get": "Return the value for the specified key, or def_val if the key is not found.",
+    "Headers.getlist": "Return the list of values for the specified key, or def_val if the key is not found.",
+    "Headers.items": "Return an iterable of the header items as tuples of keys and lists of values.",
+    "Headers.setlist": "Set the header for the given key to the provided list_ of values.",
+    "Headers.setlistdefault": "Return the value for the given key, setting it to default_list if it does not exist.",
+    "Headers.to_string": "Convert the headers dictionary into a raw byte string.",
+    "Headers.update": "Update the headers with the provided sequence of key-value pairs.",
+    "Headers.values": "Return a list of the values for all headers in the dictionary."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "est_prompt_tokens": 4412,
+  "file_sha256": "4db13eee2c0479e5b2afc5b562f0cd552a4a18d8d979fa33efa8156bcd18c628",
+  "id": "item-23",
+  "line_count": 340,
+  "path": "scrapy/shell.py",
+  "targets": [
+    "Shell",
+    "Shell.fetch",
+    "Shell.get_help",
+    "Shell.inthread",
+    "Shell.populate_vars",
+    "Shell.print_help",
+    "Shell.start"
+  ]
+}
