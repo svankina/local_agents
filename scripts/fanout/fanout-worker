@@ -22,6 +22,8 @@ from fanout_common import (  # noqa: E402
     extract_json_object,
     item_file,
     now_iso,
+    parse_source,
+    qualname_targets,
     read_json,
     sha256_text,
     v1_url,
@@ -42,7 +44,22 @@ Do not restate the code. Do not include reasoning."""
 
 
 def prompt_for(item: dict[str, Any], source: str, feedback: str | None = None) -> str:
-    required_keys = "\n".join(f"- {target}" for target in item["targets"])
+    # The verifier requires every parameter name to appear verbatim in that
+    # target's docstring; the model can only comply reliably if the prompt
+    # states each target's required parameters explicitly (F-03: 40 of 42
+    # failures were parameter_mention misses with the names left implicit).
+    target_params = {
+        q: t.params for q, t in qualname_targets(parse_source(source, item["path"])).items()
+    }
+    required_keys = "\n".join(
+        f"- {target}"
+        + (
+            f"  (docstring MUST contain each of these words: {', '.join(target_params[target])})"
+            if target_params.get(target)
+            else ""
+        )
+        for target in item["targets"]
+    )
     text = "\n".join(
         [
             f"File: {item['path']}",
