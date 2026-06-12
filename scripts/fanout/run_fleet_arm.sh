@@ -112,10 +112,10 @@ body = {
         "model_revision": "9b534e4318b7ebc3c961a839f13eb18b1833f441",
         "served_model": served_model,
         "flags": flags,
-        "max_num_seqs": 8,
+        "max_num_seqs": 16,
         "base_url": "http://127.0.0.1:8091/v1",
     },
-    "fanout": {"items_total": 32, "concurrency": 8},
+    "fanout": {"items_total": 32, "concurrency": 16},
 }
 pathlib.Path(run_dir, "run.json").write_text(json.dumps(body, indent=2), encoding="utf-8")
 PY
@@ -138,7 +138,7 @@ python3 scripts/fanout/dispatch.py \
   --corpus "$CORPUS" \
   --base-url "$BASE_URL" \
   --model "$SERVED_MODEL" \
-  --concurrency 8
+  --concurrency 16
 
 python3 scripts/compute_run_metrics.py "$RUN_DIR"
 
