@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+"""Single-shot OpenAI-compatible worker for one fan-out docstring item."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import pathlib
+import sys
+import time
+import urllib.error
+import urllib.request
+from typing import Any
+
+SCRIPT_DIR = pathlib.Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from fanout_common import (  # noqa: E402
+    DEFAULT_BASE_URL,
+    DEFAULT_MODEL,
+    extract_json_object,
+    item_file,
+    now_iso,
+    read_json,
+    sha256_text,
+    v1_url,
+    write_json,
+    write_tokens,
+)
+
+
+SYSTEM = """You write Python docstrings. You will receive one Python source file and a list
+of target symbols (functions, methods, classes) that lack docstrings. Respond
+with a single JSON object and nothing else:
+{"docstrings": {"<qualname>": "<docstring text>", ...}}
+Rules: one entry per target, no extra keys. Docstrings must be plain text
+(no surrounding quotes), accurate to the code, and for every function or
+method must mention each named parameter (excluding self and cls). Do not
+restate the code. Do not include reasoning."""
+
+
+def prompt_for(item: dict[str, Any], source: str, feedback: str | None = None) -> str:
+    text = "\n".join(
+        [
+            f"File: {item['path']}",
+            f"Targets ({len(item['targets'])}): {', '.join(item['targets'])}",
+            "",
+            "<file>",
+            source,
+            "</file>",
+        ]
+    )
+    if feedback:
+        text += "\n\nPrevious verification failure to fix in this fresh single-shot attempt:\n" + feedback
+    return text
+
+
+def payload(model: str, messages: list[dict[str, str]], include_response_format: bool, include_template_kwargs: bool) -> dict[str, Any]:
+    body: dict[str, Any] = {
+        "model": model,
+        "messages": messages,
+        "temperature": 0.2,
+        "max_tokens": 2048,
+    }
+    if include_response_format:
+        body["response_format"] = {"type": "json_object"}
+    if include_template_kwargs:
+        body["chat_template_kwargs"] = {"enable_thinking": False}
+    return body
+
+
+def post_chat(base_url: str, payload_body: dict[str, Any], transcript) -> dict[str, Any]:
+    transcript.write(json.dumps({"ts": now_iso(), "type": "request", "payload": payload_body}) + "\n")
+    transcript.flush()
+    req = urllib.request.Request(
+        v1_url(base_url, "/chat/completions"),
+        data=json.dumps(payload_body).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+    )
+    t0 = time.monotonic()
+    with urllib.request.urlopen(req, timeout=300) as response:
+        body = json.loads(response.read())
+    body["_client_wall_s"] = time.monotonic() - t0
+    transcript.write(json.dumps({"ts": now_iso(), "type": "response", "body": body}) + "\n")
+    transcript.flush()
+    return body
+
+
+def chat(base_url: str, model: str, messages: list[dict[str, str]], transcript) -> tuple[dict[str, Any], dict[str, Any]]:
+    attempts = [
+        (True, True, "response_format+chat_template_kwargs"),
+        (False, True, "chat_template_kwargs"),
+        (False, False, "slash_no_think"),
+    ]
+    last_error: Exception | None = None
+    for include_response_format, include_template_kwargs, mode in attempts:
+        req_messages = messages
+        if mode == "slash_no_think":
+            req_messages = [*messages, {"role": "user", "content": "/no_think"}]
+        body = payload(model, req_messages, include_response_format, include_template_kwargs)
+        try:
+            response = post_chat(base_url, body, transcript)
+            return response, {
+                "request_mode": mode,
+                "response_format_accepted": include_response_format,
+                "thinking_disable": "chat_template_kwargs" if include_template_kwargs else "slash_no_think",
+            }
+        except urllib.error.HTTPError as exc:
+            if exc.code not in {400, 422}:
+                raise
+            last_error = exc
+            transcript.write(
+                json.dumps({"ts": now_iso(), "type": "request_rejected", "mode": mode, "status": exc.code}) + "\n"
+            )
+            transcript.flush()
+    assert last_error is not None
+    raise last_error
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Run one fan-out worker request.")
+    parser.add_argument("--base-url", default=DEFAULT_BASE_URL)
+    parser.add_argument("--model", default=DEFAULT_MODEL)
+    parser.add_argument("--item", required=True)
+    parser.add_argument("--corpus", required=True)
+    parser.add_argument("--out", required=True)
+    parser.add_argument("--feedback")
+    args = parser.parse_args()
+
+    out = pathlib.Path(args.out).resolve()
+    out.mkdir(parents=True, exist_ok=True)
+    item = read_json(pathlib.Path(args.item))
+    source_path = item_file(pathlib.Path(args.corpus), item)
+    source = source_path.read_text(encoding="utf-8")
+    if sha256_text(source) != item["file_sha256"]:
+        raise SystemExit(f"file hash mismatch for {item['path']}")
+
+    messages = [
+        {"role": "system", "content": SYSTEM},
+        {"role": "user", "content": prompt_for(item, source, args.feedback)},
+    ]
+    responses: list[dict[str, Any]] = []
+    try:
+        with (out / "transcript.jsonl").open("w", encoding="utf-8") as transcript:
+            body, mode = chat(args.base_url, args.model, messages, transcript)
+            responses.append(body)
+            content = body["choices"][0]["message"].get("content") or ""
+            parsed = extract_json_object(content)
+            write_json(out / "response.json", parsed)
+            write_json(out / "request_mode.json", mode)
+        write_tokens(out, responses)
+        return 0
+    except Exception as exc:
+        write_json(out / "error.json", {"error": str(exc), "type": exc.__class__.__name__})
+        write_tokens(out, responses)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
