@@ -129,7 +129,8 @@ transcripts or do per-item docstring work.
 EOF
 
 claude -p "$(cat "$RUN_DIR/prompts/supervisor-decomposition.txt")" \
-  --output-format stream-json --verbose | tee "$RUN_DIR/logs/supervisor-decomposition.jsonl"
+  --output-format stream-json --verbose \
+  --mcp-config '{"mcpServers":{}}' --strict-mcp-config > "$RUN_DIR/logs/supervisor-decomposition.jsonl" 2>&1
 
 python3 scripts/fanout/dispatch.py \
   --run-dir "$RUN_DIR" \
@@ -149,7 +150,8 @@ notable instrumentation caveats. Do not inspect individual worker transcripts.
 EOF
 
 claude -p "$(cat "$RUN_DIR/prompts/supervisor-synthesis.txt")" \
-  --output-format stream-json --verbose | tee "$RUN_DIR/logs/supervisor-synthesis.jsonl"
+  --output-format stream-json --verbose \
+  --mcp-config '{"mcpServers":{}}' --strict-mcp-config > "$RUN_DIR/logs/supervisor-synthesis.jsonl" 2>&1
 
 date -Is > "$RUN_DIR/ended_at.txt"
 echo "$RUN_DIR"
