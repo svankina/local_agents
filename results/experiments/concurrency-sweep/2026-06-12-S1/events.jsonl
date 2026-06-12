@@ -1,0 +1,18 @@
+{"ts": "2026-06-12T21:08:30+05:30", "event": "sweep_start"}
+{"ts": "2026-06-12T21:08:30+05:30", "event": "level_start", "level": 1}
+{"ts": "2026-06-12T21:09:47+05:30", "event": "level_end", "level": 1}
+{"ts": "2026-06-12T21:09:57+05:30", "event": "level_start", "level": 2}
+{"ts": "2026-06-12T21:11:13+05:30", "event": "level_end", "level": 2}
+{"ts": "2026-06-12T21:11:23+05:30", "event": "level_start", "level": 4}
+{"ts": "2026-06-12T21:12:41+05:30", "event": "level_end", "level": 4}
+{"ts": "2026-06-12T21:12:51+05:30", "event": "level_start", "level": 8}
+{"ts": "2026-06-12T21:14:10+05:30", "event": "level_end", "level": 8}
+{"ts": "2026-06-12T21:14:20+05:30", "event": "level_start", "level": 10}
+{"ts": "2026-06-12T21:15:39+05:30", "event": "level_end", "level": 10}
+{"ts": "2026-06-12T21:15:49+05:30", "event": "level_start", "level": 12}
+{"ts": "2026-06-12T21:17:09+05:30", "event": "level_end", "level": 12}
+{"ts": "2026-06-12T21:17:19+05:30", "event": "level_start", "level": 16}
+{"ts": "2026-06-12T21:18:40+05:30", "event": "level_end", "level": 16}
+{"ts": "2026-06-12T21:18:50+05:30", "event": "level_start", "level": 24}
+{"ts": "2026-06-12T21:20:12+05:30", "event": "level_end", "level": 24}
+{"ts": "2026-06-12T21:20:22+05:30", "event": "sweep_end"}
