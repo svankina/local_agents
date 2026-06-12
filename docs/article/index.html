@@ -1,35 +1,125 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>local_agents — articles</title>
+<title>svankina13 — bench notes</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
 <style>
- body{margin:0;background:#0e1116;color:#dbe2ea;font:16px/1.65 -apple-system,'Segoe UI',Georgia,serif}
- nav{position:sticky;top:0;background:#161b23;border-bottom:1px solid #232b36;padding:10px 18px;display:flex;gap:18px;font-family:-apple-system,'Segoe UI',sans-serif}
- nav a{color:#79c0ff;text-decoration:none;font-weight:600;font-size:14px}
- nav a.active{color:#7ee787}
- main{max-width:760px;margin:0 auto;padding:30px 22px 80px}
- h1{font-size:26px;line-height:1.3} h2{font-size:20px;margin-top:34px;color:#9fc2e8}
- table{border-collapse:collapse;font-size:14px;font-family:-apple-system,sans-serif;margin:14px 0}
- td,th{border:1px solid #2a3340;padding:5px 10px} th{color:#8b949e}
- code{background:#161b23;padding:1px 6px;border-radius:4px;font-size:14px}
- pre{background:#161b23;padding:14px;border-radius:8px;overflow:auto}
- pre code{background:none;padding:0}
- blockquote{border-left:3px solid #2a3340;margin-left:0;padding-left:14px;color:#9aa4b2}
-</style></head><body>
-<nav>
- <a href="#2026-06-800-toks-3090.md" data-doc="2026-06-800-toks-3090.md">800 tok/s on a 3090</a>
- <a href="#2026-06-local-subagent-fleet.md" data-doc="2026-06-local-subagent-fleet.md">The local subagent fleet</a>
-</nav>
-<main id="content">loading…</main>
-<script>
-const links=[...document.querySelectorAll('nav a')];
-async function show(doc){
-  links.forEach(a=>a.classList.toggle('active',a.dataset.doc===doc));
-  const r=await fetch(doc+'?t='+Date.now());
-  document.getElementById('content').innerHTML=marked.parse(await r.text());
-  window.scrollTo(0,0);
+:root{
+  --bg:#0a0e0d; --panel:#0e1413; --line:#1c2725; --line-hi:#2c3b38;
+  --ink:#cfe3da; --ink-dim:#7c948c; --ink-faint:#4a5e58;
+  --phos:#3ddc97; --phos-dim:#1f7a55; --amber:#e8b551; --red:#e85d5d;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --serif:'Newsreader',Georgia,serif;
 }
+*{box-sizing:border-box}
+html{scrollbar-color:var(--phos-dim) var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.72 var(--serif);
+  -webkit-font-smoothing:antialiased}
+/* ── grain + scanline atmosphere ───────────────────────────── */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.04;
+  background:repeating-linear-gradient(0deg,transparent 0 2px,#000 2px 3px)}
+/* ── tmux chrome ───────────────────────────────────────────── */
+#topbar{position:sticky;top:0;z-index:5;display:flex;align-items:stretch;gap:0;
+  background:var(--panel);border-bottom:1px solid var(--line);font:13px/1 var(--mono);height:42px}
+#topbar .sess{display:flex;align-items:center;padding:0 16px;color:var(--phos);
+  border-right:1px solid var(--line);letter-spacing:.04em}
+#topbar .sess::before{content:"[";color:var(--ink-faint)} #topbar .sess::after{content:"]";color:var(--ink-faint)}
+.tab{display:flex;align-items:center;gap:8px;padding:0 18px;color:var(--ink-dim);cursor:pointer;
+  border-right:1px solid var(--line);transition:color .15s,background .15s;user-select:none}
+.tab .idx{color:var(--ink-faint)}
+.tab:hover{color:var(--ink)}
+.tab.active{background:var(--bg);color:var(--phos);box-shadow:inset 0 2px 0 var(--phos)}
+.tab.active .idx{color:var(--amber)}
+#topbar .fill{flex:1}
+#topbar .meta{display:flex;align-items:center;padding:0 16px;color:var(--ink-faint);gap:14px}
+#progress{position:fixed;top:42px;left:0;height:2px;background:linear-gradient(90deg,var(--phos),var(--amber));
+  width:0;z-index:6;transition:width .1s linear;box-shadow:0 0 8px rgba(61,220,151,.6)}
+/* ── reading column ────────────────────────────────────────── */
+main{max-width:730px;margin:0 auto;padding:54px 26px 140px;position:relative;z-index:2}
+#content{opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease}
+#content.in{opacity:1;transform:none}
+h1{font:700 34px/1.22 var(--serif);letter-spacing:-.01em;margin:0 0 6px;color:#eaf6f0}
+h1::before{content:"§ ";color:var(--phos);font:600 22px var(--mono)}
+h2,strong>em{margin-top:46px}
+h2{font:600 15px var(--mono);text-transform:uppercase;letter-spacing:.14em;color:var(--amber);
+  border-top:1px solid var(--line);padding-top:18px}
+h2::before{content:"// ";color:var(--ink-faint)}
+p{margin:18px 0}
+p>strong:only-child{display:block;font:600 14px var(--mono);text-transform:uppercase;
+  letter-spacing:.12em;color:var(--amber);margin-top:40px;border-top:1px solid var(--line);padding-top:16px}
+a{color:var(--phos);text-decoration:none;border-bottom:1px solid var(--phos-dim);transition:border-color .15s}
+a:hover{border-color:var(--phos)}
+em{color:var(--ink-dim)}
+::selection{background:var(--phos-dim);color:#06120d}
+/* tables = instrument readouts */
+table{border-collapse:collapse;width:100%;margin:22px 0;font:14px/1.5 var(--mono);
+  background:var(--panel);box-shadow:0 0 0 1px var(--line)}
+th{color:var(--ink-faint);font-weight:500;text-transform:uppercase;font-size:11.5px;letter-spacing:.08em;
+  text-align:left;padding:9px 12px;border-bottom:1px solid var(--line-hi)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+tbody tr{transition:background .12s}
+tbody tr:hover{background:#12201c}
+td strong{color:var(--phos);font-weight:600}
+/* code */
+code{font:14.5px var(--mono);background:var(--panel);padding:2px 7px;border-radius:3px;
+  box-shadow:0 0 0 1px var(--line);color:var(--amber)}
+pre{background:var(--panel);box-shadow:0 0 0 1px var(--line-hi),0 0 24px rgba(61,220,151,.05);
+  padding:18px 20px;overflow-x:auto;margin:22px 0;position:relative}
+pre::before{content:"$ sh";position:absolute;top:0;right:0;font:10.5px var(--mono);color:var(--ink-faint);
+  padding:4px 10px;border-left:1px solid var(--line);border-bottom:1px solid var(--line)}
+pre code{background:none;box-shadow:none;padding:0;color:var(--ink)}
+/* media */
+img{max-width:100%;display:block;margin:26px auto;box-shadow:0 0 0 1px var(--line-hi),0 18px 50px rgba(0,0,0,.5)}
+img+em, p>em:only-child{display:block;text-align:center;font:italic 14.5px var(--serif);color:var(--ink-dim);margin-top:-14px}
+/* footer bar */
+#botbar{position:fixed;bottom:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;
+  background:var(--panel);border-top:1px solid var(--line);font:12.5px var(--mono);
+  color:var(--ink-faint);padding:7px 16px}
+#botbar .l span{color:var(--phos)} #botbar .r span{color:var(--amber)}
+@media (max-width:640px){body{font-size:16.5px} h1{font-size:27px} main{padding-top:34px}}
+</style></head><body>
+<div id="topbar">
+  <div class="sess">svankina13@3090ti</div>
+  <div class="tab" data-doc="2026-06-800-toks-3090.md"><span class="idx">0:</span>800-toks</div>
+  <div class="tab" data-doc="2026-06-local-subagent-fleet.md"><span class="idx">1:</span>fleet</div>
+  <div class="fill"></div>
+  <div class="meta"><span id="wc"></span><span id="clock"></span></div>
+</div>
+<div id="progress"></div>
+<main><div id="content">loading…</div></main>
+<div id="botbar">
+  <div class="l">session <span>bench-notes</span> · every number ships with raw logs</div>
+  <div class="r"><span id="pct">0%</span> read · <a href="https://github.com/svankina/local_agents" style="border:none">repo ↗</a></div>
+</div>
+<script>
+const tabs=[...document.querySelectorAll('.tab')], content=document.getElementById('content');
+async function show(doc){
+  tabs.forEach(t=>t.classList.toggle('active',t.dataset.doc===doc));
+  content.classList.remove('in');
+  const r=await fetch(doc+'?t='+Date.now());
+  const md=await r.text();
+  content.innerHTML=marked.parse(md);
+  document.getElementById('wc').textContent=md.split(/\s+/).length+' words';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>content.classList.add('in')));
+  window.scrollTo({top:0});
+  history.replaceState(null,'','#'+doc);
+}
+tabs.forEach(t=>t.addEventListener('click',()=>show(t.dataset.doc)));
 function fromHash(){show((location.hash||'#2026-06-800-toks-3090.md').slice(1));}
-window.addEventListener('hashchange',fromHash);
 fromHash();
+addEventListener('scroll',()=>{
+  const h=document.documentElement, p=h.scrollTop/(h.scrollHeight-h.clientHeight)||0;
+  document.getElementById('progress').style.width=(p*100)+'%';
+  document.getElementById('pct').textContent=Math.round(p*100)+'%';
+},{passive:true});
+function tick(){document.getElementById('clock').textContent=new Date().toTimeString().slice(0,5);}
+tick();setInterval(tick,30000);
+document.addEventListener('keydown',e=>{
+  if(e.key==='0')show(tabs[0].dataset.doc);
+  if(e.key==='1')show(tabs[1].dataset.doc);
+});
 </script></body></html>
