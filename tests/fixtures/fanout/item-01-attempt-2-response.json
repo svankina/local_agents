@@ -1,0 +1,30 @@
+{
+  "docstrings": {
+    "CookieJar": "CookieJar class for handling HTTP cookies.",
+    "CookieJar.add_cookie_header": "Adds cookie header to the request.",
+    "CookieJar.clear": "Clears cookies for the given domain, path, and name.",
+    "CookieJar.clear_session_cookies": "Clears session cookies.",
+    "CookieJar.extract_cookies": "Extracts cookies from the response for the request.",
+    "CookieJar.make_cookies": "Makes cookies from the response for the request.",
+    "CookieJar.set_cookie": "Sets a cookie.",
+    "CookieJar.set_cookie_if_ok": "Sets a cookie if it is valid for the request.",
+    "CookieJar.set_policy": "Sets the cookie policy.",
+    "WrappedRequest.add_unredirected_header": "Adds an unredirected header to the request.",
+    "WrappedRequest.full_url": "Returns the full URL of the request.",
+    "WrappedRequest.get_full_url": "Returns the full URL of the request.",
+    "WrappedRequest.get_header": "Gets the value of a header from the request.",
+    "WrappedRequest.get_host": "Returns the host of the request.",
+    "WrappedRequest.get_type": "Returns the type (scheme) of the request.",
+    "WrappedRequest.has_header": "Checks if the request has a header.",
+    "WrappedRequest.header_items": "Returns all header items as a list of tuples.",
+    "WrappedRequest.host": "Returns the host of the request.",
+    "WrappedRequest.origin_req_host": "Returns the origin request host.",
+    "WrappedRequest.type": "Returns the type (scheme) of the request.",
+    "WrappedRequest.unverifiable": "Checks if the request is unverifiable.",
+    "WrappedResponse": "WrappedResponse class for handling HTTP responses.",
+    "WrappedResponse.get_all": "Gets all values of a header from the response.",
+    "WrappedResponse.info": "Returns the response object.",
+    "_DummyLock.acquire": "Acquires the lock.",
+    "_DummyLock.release": "Releases the lock."
+  }
+}

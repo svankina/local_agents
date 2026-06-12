@@ -1,0 +1,11 @@
+{
+  "docstrings": {
+    "NullCookieJar.extract_cookies": "Extract cookies from the response and request.",
+    "NullCookieJar.set_cookie": "Set a cookie.",
+    "get_dataloss_msg": "Generate a message for data loss in the given URL.",
+    "get_maxsize_msg": "Generate a message for size exceeding the limit in the request.",
+    "get_warnsize_msg": "Generate a message for size exceeding the warning limit in the request.",
+    "make_response": "Create a response object with the given parameters.",
+    "normalize_bind_address": "Normalize the bind address value."
+  }
+}
