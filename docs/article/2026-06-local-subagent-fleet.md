@@ -1,8 +1,8 @@
 # 23× faster, 74% cheaper: Claude Code with local subagents on an RTX 3090 Ti vs Fable 5 doing everything itself
 
-Scope up front, because unbiased benchmarking is the whole point. The 23×/−74% is the work phase of an embarrassingly-parallel fan-out at quality parity — 32/32 verified, both arms. End-to-end the same run is 3.2× faster. Every number here is committed with raw logs.
+Scope up front, because unbiased benchmarking is the whole point. The 23×/−74% is work-phase only, on an embarrassingly-parallel fan-out, at quality parity — 32/32 verified in both arms. End-to-end the same run is 3.2× faster. Every number ships with raw logs in the repo.
 
-The setup: Fable 5 keeps the senior chair — planning, review, merges — and the grunt work goes local on an RTX 3090 Ti (24 GB). Two local configs earned a seat. byteshape's Qwen3.6-35B-A3B IQ4_XS under llama.cpp for queue-serial agentic work (**100% toolcall, 5/5 agentic, 127–143 tok/s**), and Qwen3-30B-A3B GPTQ under vLLM for parallel fan-out. Baseline: Fable 5 doing everything itself.
+The setup: Fable 5 keeps the senior chair — planning, review, merges — and the grunt work goes local on an RTX 3090 Ti (24 GB). Two local configs earned a seat: byteshape's Qwen3.6-35B-A3B IQ4_XS under llama.cpp for queue-serial agentic work (**100% toolcall, 5/5 agentic, 127–143 tok/s**), and Qwen3-30B-A3B GPTQ under vLLM for parallel fan-out. Baseline: Fable 5 doing everything itself.
 
 ## The fan-out showcase
 
@@ -18,13 +18,13 @@ Workload: backfill docstrings for 32 functions across scrapy@a8ffdcf8. Every ite
 
 The fleet arm is Fable 5 making exactly two cloud calls — decompose (91 s), synthesize (57 s) — wrapped around 8 concurrent local streams of the vLLM pool. 39 requests, 78,130 local tokens, 7 feedback retries, all recovered. Aggregate 344 completion tok/s (3,157 counting fresh prefill), per-stream median 58, peak 101. The solo arm: Fable 5 alone, 85 turns, 39,454 output tokens.
 
-Work phase 23.0× faster, end-to-end 3.2×, cloud cost −74%, throughput 5.0×. Quality identical. The runtime split is the real finding: supervisor bookends 148 s (84%), local fleet 24.7 s (14%), harness 3 s (2%). The fleet did all the work in 14% of the window. The next thing to optimize is the cloud bookends, not the workers.
+The real finding is the runtime split: supervisor bookends 148 s (84%), local fleet 24.7 s (14%), harness 3 s (2%). The fleet did all the work in 14% of the window. The next thing to optimize is the cloud bookends, not the workers.
 
 ## The controlled worker swap
 
 Solo-vs-fleet changes two things at once, so we ran the control: same supervisor, same 32 items, same gates — only the worker model swapped. The supervisor's two calls cancel out. What's left is the workers.
 
-| workers | verified | retries | work phase | worker cost | billed output tokens |
+| workers | verified | retries | work phase | worker cost | output tokens |
 |---|---:|---:|---:|---:|---:|
 | 8× local Qwen3-30B | 32/32 | 7 | **24.7 s** | ~$0 | 8,525 |
 | 8× Fable 5 | 32/32 | 0 | 80.6 s | $6.28 | 21,222 |
@@ -32,9 +32,9 @@ Solo-vs-fleet changes two things at once, so we ran the control: same supervisor
 
 Local workers: 3.3× faster than Fable workers, and the $6.28 worker bill drops to electricity. Fable earns its price one way — zero retries. The locals needed 7; all recovered on feedback.
 
-Haiku is the surprise. Slowest of the three, and 154k billed output tokens to write what the locals wrote in 8.5k — CLI worker sessions think before answering, and you pay for every thought. Cheap per token, expensive per docstring.
+Haiku is the surprise. Slowest of the three, and billed for 154k output tokens to write what the locals wrote in 8.5k — CLI worker sessions think before answering, and you pay for every thought. Cheap per token, expensive per docstring.
 
-The harness took five runs to be fair to a real model: 1/32 (rejected a dotted-qualname dialect) -> 12/32 (implicit parameter requirement) -> 30/32 (undisclosed length threshold) -> 31/32 (underscore-variant key crashed the inserter) -> 32/32. Every fix deterministic, regression-tested against the real failed responses. The model was never incoherent. The harness was unfair.
+The harness took five runs to be fair to a real model: 1/32 (rejected a dotted-qualname dialect) → 12/32 (implicit parameter requirement) → 30/32 (undisclosed length threshold) → 31/32 (underscore-variant key crashed the inserter) → 32/32. Every fix deterministic, regression-tested against the real failed responses. The model was never incoherent. The harness was unfair.
 
 ## Benchmark results
 
@@ -68,17 +68,17 @@ One GPU, one server at a time, three suites — throughput, 36 tool-call trials,
 4. **Read the failures, not the score**: Gemma 12B's 0.806 strict toolcall is 1.000 lenient — every miss was the model calling `list_dir` before `read_file`, zero malformed calls.
 5. **Cache-bust everything**: cached prefill medians read 49.9 tok/s where the true number was 2305. That's 46× off. Throughput suites also can't see output corruption.
 
-Two operational footguns: resolve GPUs by name, never enumeration index — Vulkan flipped device order mid-run and silently re-ran a config on the wrong card 😅 — and `--max-num-seqs 4` is what got vLLM into 24 GB after the 32k-context startup OOMed.
+Two operational footguns. Resolve GPUs by name, never enumeration index — Vulkan flipped device order mid-run and silently re-ran a config on the wrong card 😅. And `--max-num-seqs 4` is what got vLLM into 24 GB after the 32k-context startup OOMed.
 
 ## vLLM output corruption
 
-The first vLLM config posted the best parallel scaling and scored zero on quality. Gibberish for every prompt — a temperature-0 "say hello" returned multi-script token salad. We ruled out the tool parser, the chat template, and mrope config loss; the same weights score 1.000 toolcall through llama.cpp. The corruption is model-specific. A text-only architecture with an official quant (Qwen3-30B-A3B GPTQ-Int4) ran coherently under the same vLLM image, after two plumbing rounds (gen-3 Qwen needs `--tool-call-parser hermes`, not `qwen3_xml`; thinking models need probe budgets that survive the reasoning channel). Elimination log in the repo.
+The first vLLM config posted the best parallel scaling and scored zero on quality. Gibberish for every prompt — a temperature-0 "say hello" returned multi-script token salad. We ruled out the tool parser, the chat template, and mrope config loss; the same weights score 1.000 toolcall through llama.cpp. The corruption is specific to that model under vLLM — not the engine, not the quant format in general. A text-only architecture with an official quant (Qwen3-30B-A3B GPTQ-Int4) ran coherently under the same vLLM image, after two plumbing rounds (gen-3 Qwen needs `--tool-call-parser hermes`, not `qwen3_xml`; thinking models need probe budgets that survive the reasoning channel). Elimination log in the repo.
 
 ## The fleet
 
 - **Senior + default worker**: byteshape 35B-A3B via llama.cpp, queue-serial. 100% toolcall, 5/5 agentic, 127–143 tok/s. One model, both jobs.
 - **Budget coexistence**: 26B `-cmoe` senior (3.0 GB) + 12B worker, 11.1 GB peak, measured under concurrent load.
-- **Parallel pool (throughput tier)**: Qwen3-30B-A3B GPTQ under vLLM — 808.7 tok/s aggregate at x8, toolcall 0.972. The agentic variance pass keeps it off autonomous multi-turn duty. Well-specified single-shot fan-out is exactly what the showcase ran on it, though.
+- **Parallel pool (throughput tier)**: Qwen3-30B-A3B GPTQ under vLLM — 808.7 tok/s aggregate at x8, toolcall 0.972. The agentic variance pass keeps it off autonomous multi-turn duty. Its lane is well-specified single-shot fan-out — exactly what the showcase ran.
 
 Next post: the same fleet on serial multi-turn work — a full CAD-kernel build replay. Numbers still cooking.
 
