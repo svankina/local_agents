@@ -1,0 +1,47 @@
+{
+  "config": "C15-vllm-35b",
+  "suite": "agentic",
+  "temps": {
+    "0.2": {
+      "passed": 0,
+      "of": 5,
+      "tasks": [
+        {
+          "id": "fix-test",
+          "passed": false,
+          "turns": 1,
+          "wall_s": 1.6,
+          "check_out": ""
+        },
+        {
+          "id": "bulk-rename",
+          "passed": false,
+          "turns": 1,
+          "wall_s": 0.2,
+          "check_out": "./app/db.py:1:def fetch_record(rid):\n./app/cli.py:1:from app.db import fetch_record\n./app/cli.py:4:    import sys; print(fetch_record(sys.argv[1]))\n./app/api.py:1:from app.db import fetch_record\n./app/api.py:4:    return fetch_record(rid)\n"
+        },
+        {
+          "id": "csv-script",
+          "passed": false,
+          "turns": 1,
+          "wall_s": 14.8,
+          "check_out": "python3: can't open file '/home/svankina/src/local_agents/bench/sandbox/work-csv-script/sum_by_region.py': [Errno 2] No such file or directory\n"
+        },
+        {
+          "id": "code-qa",
+          "passed": false,
+          "turns": 1,
+          "wall_s": 14.8,
+          "check_out": "grep: ANSWERS.md: No such file or directory\n"
+        },
+        {
+          "id": "add-flag",
+          "passed": false,
+          "turns": 1,
+          "wall_s": 2.4,
+          "check_out": ""
+        }
+      ]
+    }
+  }
+}

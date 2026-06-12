@@ -1,0 +1,412 @@
+{
+  "config": "C15-vllm-35b",
+  "served_model": "C15-vllm-35b",
+  "gpu_contended": false,
+  "vram_loaded": "21811 MiB",
+  "notes": "(EngineCore pid=207) WARNING 06-12 05:51:19 [qwen3_5.py:420] Parameter layers.36.linear_attn.out_proj.scales not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:19 [qwen3_5.py:420] Parameter layers.37.linear_attn.in_proj_qkvz.qweight not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:19 [qwen3_5.py:420] Parameter layers.37.linear_attn.in_proj_qkvz.qzeros not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:19 [qwen3_5.py:420] Parameter layers.37.linear_attn.in_proj_qkvz.scales not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:19 [qwen3_5.py:420] Parameter layers.37.linear_attn.out_proj.qweight not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:19 [qwen3_5.py:420] Parameter layers.37.linear_attn.out_proj.qzeros not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:19 [qwen3_5.py:420] Parameter layers.37.linear_attn.out_proj.scales not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:20 [qwen3_5.py:420] Parameter layers.38.linear_attn.in_proj_qkvz.qweight not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:20 [qwen3_5.py:420] Parameter layers.38.linear_attn.in_proj_qkvz.qzeros not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:20 [qwen3_5.py:420] Parameter layers.38.linear_attn.in_proj_qkvz.scales not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:20 [qwen3_5.py:420] Parameter layers.38.linear_attn.out_proj.qweight not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:20 [qwen3_5.py:420] Parameter layers.38.linear_attn.out_proj.qzeros not found in params_dict, skip loading\n(EngineCore pid=207) WARNING 06-12 05:51:20 [qwen3_5.py:420] Parameter layers.38.linear_attn.out_proj.scales not found in params_dict, skip loading\n(EngineCore pid=207) INFO 06-12 05:51:52 [backends.py:378] Cache the graph of compile range (1, 2048) for later use\n(EngineCore pid=207) INFO 06-12 05:52:36 [backends.py:393] Compiling a graph for compile range (1, 2048) takes 45.30 s\n(EngineCore pid=207) INFO 06-12 05:54:30 [gpu_model_runner.py:6279] Profiling CUDA graph memory: PIECEWISE=4 (largest=8), FULL=3 (largest=4)\n(EngineCore pid=207) INFO 06-12 05:54:37 [gpu_model_runner.py:6365] Estimated CUDA graph memory: 0.17 GiB total\n(EngineCore pid=207) INFO 06-12 05:54:38 [gpu_worker.py:481] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.9200 is equivalent to --gpu-memory-utilization=0.9129 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9271. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/4 [00:00<?, ?it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):  25%|\u2588\u2588\u258c       | 1/4 [00:00<00:00,  3.01it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):  50%|\u2588\u2588\u2588\u2588\u2588     | 2/4 [00:00<00:00,  3.23it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c  | 3/4 [00:00<00:00,  3.33it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 4/4 [00:02<00:00,  1.52it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 4/4 [00:02<00:00,  1.89it/s]\nCapturing CUDA graphs (decode, FULL):   0%|          | 0/3 [00:00<?, ?it/s]\nCapturing CUDA graphs (decode, FULL):  33%|\u2588\u2588\u2588\u258e      | 1/3 [00:00<00:01,  1.66it/s]\nCapturing CUDA graphs (decode, FULL):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 2/3 [00:00<00:00,  2.12it/s]\nCapturing CUDA graphs (decode, FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 3/3 [00:01<00:00,  1.96it/s]\nCapturing CUDA graphs (decode, FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 3/3 [00:01<00:00,  1.95it/s]\n(EngineCore pid=207) INFO 06-12 05:54:44 [gpu_model_runner.py:6456] Graph capturing finished in 6 secs, took 0.11 GiB\n(EngineCore pid=207) INFO 06-12 05:54:44 [gpu_worker.py:619] CUDA graph pool memory: 0.11 GiB (actual), 0.17 GiB (estimated), difference: 0.06 GiB (59.3%).\n(EngineCore pid=207) INFO 06-12 05:54:44 [jit_monitor.py:54] Kernel JIT monitor activated \u2014 Triton JIT compilations during inference will be logged as warnings.\n(APIServer pid=1) INFO 06-12 05:54:45 [parser_manager.py:202] \"auto\" tool choice has been enabled.\n(APIServer pid=1) WARNING 06-12 05:54:46 [model.py:1509] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_k': 20, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.\n(APIServer pid=1) INFO 06-12 05:55:00 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(EngineCore pid=207) WARNING 06-12 05:55:00 [jit_monitor.py:103] Triton kernel JIT compilation during inference: _zero_kv_blocks_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.\n(EngineCore pid=207) WARNING 06-12 05:55:01 [jit_monitor.py:103] Triton kernel JIT compilation during inference: _compute_slot_mapping_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.\n(EngineCore pid=207) WARNING 06-12 05:55:02 [jit_monitor.py:103] Triton kernel JIT compilation during inference: _causal_conv1d_fwd_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.\n(EngineCore pid=207) WARNING 06-12 05:55:03 [jit_monitor.py:103] Triton kernel JIT compilation during inference: _fused_post_conv_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.\n(APIServer pid=1) INFO 06-12 05:55:08 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:08 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:12 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:12 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:16 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:16 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:20 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:20 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:24 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:24 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:28 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:28 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:32 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:32 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:35 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:35 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:39 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:39 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:43 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:43 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:47 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:47 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:51 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:51 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:54 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:54 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:55 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:55 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:59 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:55:59 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:02 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:02 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:06 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:06 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:10 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:10 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:13 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:13 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:17 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:17 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:21 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:21 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:25 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:25 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:29 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:29 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:32 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:32 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:36 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:36 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:40 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:40 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:44 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:44 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:48 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:48 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:51 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:51 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:53 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:53 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:56 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:56:56 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:00 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:00 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:04 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:04 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:06 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:06 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:10 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:10 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:14 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:14 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:29 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:29 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:44 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:44 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:59 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:57:59 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:58:14 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:58:14 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !\n(APIServer pid=1) INFO 06-12 05:58:28 [qwen3xml_tool_parser.py:1157] vLLM Successfully import tool parser Qwen3XMLToolParser !",
+  "toolcall": {
+    "config": "C15-vllm-35b",
+    "suite": "toolcall",
+    "temps": {
+      "0.2": {
+        "valid_rate": 0.167,
+        "n": 36,
+        "results": [
+          {
+            "id": "simple-read",
+            "trial": 0,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "simple-read",
+            "trial": 1,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "simple-read",
+            "trial": 2,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 0,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 1,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 2,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 0,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 1,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 2,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "pick-list",
+            "trial": 0,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "pick-list",
+            "trial": 1,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "pick-list",
+            "trial": 2,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "no-tool",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 0,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "write-exact",
+            "trial": 1,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "write-exact",
+            "trial": 2,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "nested-json",
+            "trial": 0,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "nested-json",
+            "trial": 1,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "nested-json",
+            "trial": 2,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 0,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 1,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 2,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 0,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 1,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 2,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 0,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 1,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 2,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "long-path",
+            "trial": 0,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "long-path",
+            "trial": 1,
+            "ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "long-path",
+            "trial": 2,
+            "ok": false,
+            "why": "no tool call made"
+          }
+        ]
+      }
+    }
+  },
+  "agentic": {
+    "config": "C15-vllm-35b",
+    "suite": "agentic",
+    "temps": {
+      "0.2": {
+        "passed": 0,
+        "of": 5,
+        "tasks": [
+          {
+            "id": "fix-test",
+            "passed": false,
+            "turns": 1,
+            "wall_s": 15.3,
+            "check_out": ""
+          },
+          {
+            "id": "bulk-rename",
+            "passed": false,
+            "turns": 1,
+            "wall_s": 14.8,
+            "check_out": "./app/db.py:1:def fetch_record(rid):\n./app/cli.py:1:from app.db import fetch_record\n./app/cli.py:4:    import sys; print(fetch_record(sys.argv[1]))\n./app/api.py:1:from app.db import fetch_record\n./app/api.py:4:    return fetch_record(rid)\n"
+          },
+          {
+            "id": "csv-script",
+            "passed": false,
+            "turns": 1,
+            "wall_s": 14.8,
+            "check_out": "python3: can't open file '/home/svankina/src/local_agents/bench/sandbox/work-csv-script/sum_by_region.py': [Errno 2] No such file or directory\n"
+          },
+          {
+            "id": "code-qa",
+            "passed": false,
+            "turns": 1,
+            "wall_s": 14.8,
+            "check_out": "grep: ANSWERS.md: No such file or directory\n"
+          },
+          {
+            "id": "add-flag",
+            "passed": false,
+            "turns": 1,
+            "wall_s": 14.1,
+            "check_out": ""
+          }
+        ]
+      }
+    }
+  },
+  "throughput": {
+    "config": "C15-vllm-35b",
+    "suite": "throughput",
+    "single": {
+      "p1k": {
+        "prefill_tps": 502.6,
+        "decode_tps": 130.6,
+        "trials": [
+          {
+            "prefill_tps": 194.81803797468353,
+            "decode_tps": 50.63291139240506,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 5.056
+          },
+          {
+            "prefill_tps": 504.09416581371545,
+            "decode_tps": 131.01330603889457,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.954
+          },
+          {
+            "prefill_tps": 502.55102040816325,
+            "decode_tps": 130.6122448979592,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.96
+          }
+        ]
+      },
+      "p8k": {
+        "prefill_tps": 2794.7,
+        "decode_tps": 92.2,
+        "trials": [
+          {
+            "prefill_tps": 2021.09375,
+            "decode_tps": 66.66666666666667,
+            "prompt_n": 7761,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 3.84
+          },
+          {
+            "prefill_tps": 2804.842790025298,
+            "decode_tps": 92.51897361763643,
+            "prompt_n": 7761,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.767
+          },
+          {
+            "prefill_tps": 2794.742527907814,
+            "decode_tps": 92.18581202736766,
+            "prompt_n": 7761,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.777
+          }
+        ]
+      }
+    },
+    "concurrent": {
+      "x2": {
+        "per_stream_decode_tps": 109.7,
+        "aggregate_tps": 180.6,
+        "wall_s": 2.2,
+        "trials": [
+          {
+            "prefill_tps": 701.5669515669516,
+            "decode_tps": 103.27635327635328,
+            "prompt_n": 985,
+            "predicted_n": 145,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.404
+          },
+          {
+            "prefill_tps": 446.50951949229375,
+            "decode_tps": 116.04714415231187,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.206
+          }
+        ]
+      },
+      "x4": {
+        "per_stream_decode_tps": 90.3,
+        "aggregate_tps": 360.3,
+        "wall_s": 2.8,
+        "trials": [
+          {
+            "prefill_tps": 348.6725663716814,
+            "decode_tps": 90.61946902654867,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.825
+          },
+          {
+            "prefill_tps": 347.5652787579393,
+            "decode_tps": 90.33168666196188,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.834
+          },
+          {
+            "prefill_tps": 347.5652787579393,
+            "decode_tps": 90.33168666196188,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.834
+          },
+          {
+            "prefill_tps": 346.95315251849246,
+            "decode_tps": 90.17259598450158,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.839
+          }
+        ]
+      }
+    }
+  }
+}
