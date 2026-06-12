@@ -9,10 +9,25 @@ server swap per additional model for E2.
 
 | id | question | status |
 |---|---|---|
-| E1 | plan terseness (terse/medium/detailed) vs first-pass rate, fix rounds, supervisor tokens/completed | pending |
+| E1 | plan terseness (terse/medium/detailed) vs first-pass rate, fix rounds, supervisor tokens/completed | DONE 4m15s |
 | E3 | fix-message informativeness (quote-the-failure vs "wrong, try again") vs repair rate | pending |
-| E4 | temperature (0.0/0.2/0.6/1.0) vs single-shot error rate | pending |
+| E4 | temperature (0.0/0.2/0.6/1.0) vs single-shot error rate | running |
+| E5 | thinking on/off vs error rate + speed (the big single-model speed lever) | planned |
 | E2 | model speed vs error rate: same suite per model (C18 → C12 → C1 [→ C11]), tok/s vs strict/lenient error | pending |
+
+## E1 finding (C18, temp 0.2, n=30/style)
+
+Medium instructions dominate. Terse collapses on FORMAT (17/30 fenced replies —
+never told "no markdown"); lenient rate 70% vs strict 30% shows failures are mostly
+format, not logic. Detailed HURTS: 155 sup-tok/completed (2.3x medium) for a lower
+first-pass rate — and 5/30 hit the 3072-token cap mid-think (overthinking induced
+by constraint lists + examples; all finish=length on word-frequency/camel-to-snake).
+
+| style | first-pass | completion | sup tok/completed | worker tok/ep |
+|---|---|---|---|---|
+| terse | 0.30 | 27/30 | 75.0 | 2538 |
+| medium | 0.93 | 30/30 | 68.5 | 1625 |
+| detailed | 0.80 | 29/30 | 155.1 | 2656 |
 
 ## State
 

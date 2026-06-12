@@ -160,13 +160,19 @@ def verify(item: dict, reply: str) -> tuple[dict, dict]:
 # Worker call + supervised episode
 # ---------------------------------------------------------------------------
 
+THINKING = True  # qwen3 reasoning toggle (vLLM chat_template_kwargs)
+
+
 def call_worker(messages: list[dict], temperature: float, seed: int,
-                max_tokens: int = 1024) -> dict:
+                max_tokens: int = 3072) -> dict:
     t0 = time.time()
-    r = _post("/chat/completions", {
+    payload = {
         "model": MODEL, "messages": messages, "temperature": temperature,
         "seed": seed, "max_tokens": max_tokens,
-    })
+    }
+    if not THINKING:
+        payload["chat_template_kwargs"] = {"enable_thinking": False}
+    r = _post("/chat/completions", payload)
     wall = time.time() - t0
     msg = r["choices"][0]["message"]
     return {

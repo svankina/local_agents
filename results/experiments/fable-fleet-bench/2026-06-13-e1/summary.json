@@ -1,0 +1,40 @@
+{
+  "detailed": {
+    "n": 30,
+    "completed": 29,
+    "first_pass_rate": 0.8,
+    "first_lenient_rate": 0.8,
+    "mean_rounds": 1.27,
+    "sup_tokens_per_completed": 155.1,
+    "worker_tokens_mean": 2656.1,
+    "violations_r0": {
+      "no-def": 5
+    }
+  },
+  "medium": {
+    "n": 30,
+    "completed": 30,
+    "first_pass_rate": 0.933,
+    "first_lenient_rate": 0.933,
+    "mean_rounds": 1.07,
+    "sup_tokens_per_completed": 68.5,
+    "worker_tokens_mean": 1625.1,
+    "violations_r0": {
+      "no-def": 2
+    }
+  },
+  "terse": {
+    "n": 30,
+    "completed": 27,
+    "first_pass_rate": 0.3,
+    "first_lenient_rate": 0.7,
+    "mean_rounds": 1.97,
+    "sup_tokens_per_completed": 75.0,
+    "worker_tokens_mean": 2537.9,
+    "violations_r0": {
+      "fence": 17,
+      "prose": 1,
+      "no-def": 3
+    }
+  }
+}
