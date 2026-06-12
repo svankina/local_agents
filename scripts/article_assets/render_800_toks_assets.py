@@ -23,7 +23,7 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[2]
 ASSET = ROOT / "docs" / "article" / "assets"
 ASSET.mkdir(parents=True, exist_ok=True)
-DATA = ROOT / "scripts" / "article_assets" / "data"
+DATA = ROOT / "scripts" / "article_assets" / "data" / "x24"
 
 FONT_REGULAR = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 FONT_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf"
@@ -136,51 +136,59 @@ def draw_meter(
     tps: float,
     frame: int,
     cap: float,
+    streams: int,
 ) -> None:
     x1, y1, x2, y2 = box
     cap = max(cap, 1.0)
     tps = min(tps, cap)
 
-    cx, cy, r = x1 + 160, y1 + 135, 45
-    start, end = 210, 510
+    cx, cy = (x1 + x2) // 2, y1 + 126
+    r = min((x2 - x1) // 3, 78)
+    start, end = -215, 35
     ratio = max(0, min(tps / cap, 1.0))
     needle_angle = math.radians(start + (end - start) * ratio)
+    arc_box = [cx - r, cy - r, cx + r, cy + r]
 
-    draw.text((x1 + 28, y1 + 38), f"8 STREAMS - MEASURED PEAK {cap:.1f}", font=F14, fill=TEXT)
-    draw.arc([cx - r, cy - r, cx + r, cy + r], start, end, fill=BORDER, width=10)
-    draw.arc([cx - r, cy - r, cx + r, cy + r], start, start + int((end - start) * 0.82), fill=GREEN, width=10)
-    draw.arc([cx - r, cy - r, cx + r, cy + r], start + int((end - start) * 0.82), end, fill=RED, width=10)
-    draw.arc([cx - r + 14, cy - r + 14, cx + r - 14, cy + r - 14], start, start + int((end - start) * ratio), fill=CYAN, width=3)
+    draw.text((x1 + 18, y1 + 38), "measured replay", font=F14, fill=MUTED)
+    draw.text((x1 + 18, y1 + 56), f"{streams} STREAMS", font=F22B, fill=TEXT)
+    draw.text((x1 + 185, y1 + 61), f"peak {cap:.1f}", font=F14, fill=CYAN)
 
-    for frac in [0, 0.25, 0.5, 0.75, 1]:
+    draw.arc(arc_box, start, end, fill=BORDER, width=14)
+    draw.arc(arc_box, start, start + int((end - start) * 0.78), fill=GREEN, width=14)
+    draw.arc(arc_box, start + int((end - start) * 0.78), end, fill=RED, width=14)
+    draw.arc([cx - r + 15, cy - r + 15, cx + r - 15, cy + r - 15], start, start + int((end - start) * ratio), fill=CYAN, width=4)
+
+    for i in range(17):
+        frac = i / 16
         angle = math.radians(start + (end - start) * frac)
-        tick_outer = r - 1
-        tick_inner = r - (12 if frac in [0, 0.5, 1] else 8)
+        major = i % 4 == 0
+        tick_outer = r + 1
+        tick_inner = r - (24 if major else 14)
         ox = cx + math.cos(angle) * tick_outer
         oy = cy + math.sin(angle) * tick_outer
         ix = cx + math.cos(angle) * tick_inner
         iy = cy + math.sin(angle) * tick_inner
-        draw.line([ix, iy, ox, oy], fill=TEXT if frac in [0, 0.5, 1] else DIM, width=2)
-        label = f"{cap * frac:.0f}"
-        lx = cx + math.cos(angle) * (r - 25)
-        ly = cy + math.sin(angle) * (r - 25)
-        draw.text((lx - 14, ly - 7), label, font=F14, fill=MUTED)
+        draw.line([ix, iy, ox, oy], fill=TEXT if major else DIM, width=3 if major else 2)
+        if major:
+            label = f"{cap * frac:.0f}"
+            lx = cx + math.cos(angle) * (r - 43)
+            ly = cy + math.sin(angle) * (r - 43)
+            draw.text((lx - 18, ly - 8), label, font=F14, fill=MUTED)
 
-    nx = cx + math.cos(needle_angle) * (r - 16)
-    ny = cy + math.sin(needle_angle) * (r - 16)
-    tail_x = cx - math.cos(needle_angle) * 15
-    tail_y = cy - math.sin(needle_angle) * 15
-    draw.line([tail_x, tail_y, nx, ny], fill=YELLOW, width=5)
-    draw.line([tail_x, tail_y, nx, ny], fill="#fef08a", width=2)
-    draw.ellipse([cx - 10, cy - 10, cx + 10, cy + 10], fill="#020617", outline=CYAN, width=3)
+    nx = cx + math.cos(needle_angle) * (r - 24)
+    ny = cy + math.sin(needle_angle) * (r - 24)
+    tail_x = cx - math.cos(needle_angle) * 18
+    tail_y = cy - math.sin(needle_angle) * 18
+    draw.line([tail_x, tail_y, nx, ny], fill="#f43f5e", width=7)
+    draw.line([tail_x, tail_y, nx, ny], fill="#fb7185", width=3)
+    draw.ellipse([cx - 12, cy - 12, cx + 12, cy + 12], fill="#020617", outline=CYAN, width=3)
 
     readout = f"{tps:05.1f}"
-    draw.text((x1 + 63, y1 + 171), readout, font=F34B, fill=GREEN)
-    draw.text((x1 + 189, y1 + 182), "tok/s", font=F18, fill=CYAN)
-    draw.text((x1 + 104, y1 + 206), "MEASURED CAP", font=F14, fill=MUTED)
-
-    per = tps / 8
-    draw.text((x1 + 100, y1 + 58), f"{per:04.1f} tok/s each", font=F14, fill=MUTED)
+    read_box = [x1 + 18, y1 + 168, x2 - 18, y1 + 214]
+    draw.rounded_rectangle(read_box, radius=12, fill="#020617", outline="#22d3ee66", width=1)
+    draw.text((x1 + 58, y1 + 174), readout, font=F34B, fill=GREEN)
+    draw.text((x1 + 190, y1 + 185), "tok/s", font=F18, fill=CYAN)
+    draw.text((x1 + 101, y1 + 219), f"{tps / streams:04.1f} tok/s each", font=F14, fill=MUTED)
 
 
 def ease(t: float) -> float:
@@ -281,6 +289,7 @@ def render_demo(lines: list[str]) -> None:
         series = series[active_indices[0] : active_indices[-1] + 1]
     cap = float(summary.get("peak_decode_tok_s") or max(float(r["decode_tok_s"]) for r in series))
     sustained = float(summary.get("sustained_decode_tok_s_active_mean") or 0)
+    streams = int(summary.get("streams") or 24)
     total_tokens = int(float(summary.get("total_generation_tokens_delta") or series[-1]["generation_tokens_total"]))
     active_seconds = int(summary.get("active_seconds") or sum(1 for r in series if float(r["decode_tokens_delta"]) > 0))
     metric_samples = int(summary.get("metric_samples") or len(series))
@@ -289,13 +298,13 @@ def render_demo(lines: list[str]) -> None:
     max_temp = max(float(r["temp_c"]) for r in series)
 
     base_log = [
-        "$ bench/run_config_vllm.sh C18-qwen3-30b-vllm",
+        "$ scripts/article_assets/capture_x24_replay.py run --duration 120",
         "vLLM 0.22.1 | Qwen3-30B-A3B-GPTQ-Int4",
-        "flags: --max-num-seqs 8 --max-model-len 16384",
+        "flags: --max-num-seqs 32 --max-model-len 16384",
         f"health: ok | model loaded | VRAM {max_vram:,.0f} MiB",
         f"counter: vllm:generation_tokens_total",
         "reasoning parser: qwen3 | quantization: gptq_marlin",
-        f"fanout: 8 streams | {active_seconds}s measured decode",
+        f"fanout: {streams} streams | {active_seconds}s measured decode",
     ]
     workers = []
     for worker in workload.get("workers", []):
@@ -328,7 +337,7 @@ def render_demo(lines: list[str]) -> None:
         im = Image.new("RGB", (w, h), BG)
         dr = ImageDraw.Draw(im)
         dr.rectangle([0, 0, w, 30], fill="#020617")
-        dr.text((18, 8), "measured replay  |  RTX 3090 Ti  |  vLLM x8", font=F15, fill=CYAN)
+        dr.text((18, 8), "measured replay  |  RTX 3090 Ti  |  vLLM x24", font=F15, fill=CYAN)
         dr.text((w - 268, 8), "Qwen3-30B-A3B GPTQ-Int4", font=F15, fill=MUTED)
 
         draw_pane(dr, left, "0: fanout run", GREEN)
@@ -342,7 +351,7 @@ def render_demo(lines: list[str]) -> None:
             logs.append(f"$ decode sample {f + 1:03d}: {tps:05.1f} tok/s aggregate")
         draw_text_lines(dr, left, logs, start_y=40, font=F14, max_lines=18)
 
-        draw_meter(dr, rtop, tps, f, cap)
+        draw_meter(dr, rtop, tps, f, cap, streams)
         draw_telemetry(dr, rbot, row)
 
         dr.rectangle([0, h - 24, w, h], fill="#16a34a")
@@ -354,7 +363,10 @@ def render_demo(lines: list[str]) -> None:
     poster_candidates = [
         i
         for i, row in enumerate(series)
-        if i > len(series) // 2 and float(row["gpu_util_pct"]) >= 90
+        if i > len(series) // 2
+        and float(row["gpu_util_pct"]) >= 95
+        and float(row["power_w"]) >= 400
+        and float(row["decode_tok_s"]) >= cap * 0.85
     ]
     peak_frame = max(poster_candidates or range(len(series)), key=lambda i: float(series[i]["decode_tok_s"]))
     out_frames[peak_frame].save(ASSET / "800-toks-tmux-demo-poster.png")
