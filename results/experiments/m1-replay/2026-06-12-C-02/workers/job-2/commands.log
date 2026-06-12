@@ -1,0 +1,901 @@
+$ cat > test/kernel/num.test.ts << 'EOF'
+import { describe, it, expect } from 'vitest';
+import { EPS_L, eq, isZero } from '../../src/kernel/num';
+
+describe('EPS_L', () => {
+  it('is 1e-6', () => {
+    expect(EPS_L).toBe(1e-6);
+  });
+});
+
+describe('eq', () => {
+  it('returns true for identical values', () => {
+    expect(eq(1, 1)).toBe(true);
+    expect(eq(0, 0)).toBe(true);
+    expect(eq(-3.5, -3.5)).toBe(true);
+  });
+
+  it('absorbs ordinary float roundoff (0.1 + 0.2 vs 0.3)', () => {
+    // 0.1 + 0.2 === 0.30000000000000004; difference ~5.6e-17, far inside EPS_L
+    expect(0.1 + 0.2 === 0.3).toBe(false); // sanity: plain === would fail
+    expect(eq(0.1 + 0.2, 0.3)).toBe(true);
+  });
+
+  it('returns true for differences within EPS_L, inclusive of the boundary', () => {
+    expect(eq(0, 5e-7)).toBe(true);        // |diff| = 5e-7 <  1e-6
+    expect(eq(-1, -1 - 5e-7)).toBe(true);  // works on negatives
+    expect(eq(0, 1e-6)).toBe(true);        // |diff| = 1e-6 <= 1e-6 -> inclusive
+  });
+
+  it('returns false for differences beyond EPS_L', () => {
+    expect(eq(0, 2e-6)).toBe(false);   // |diff| = 2e-6 > 1e-6
+    expect(eq(1, 1.001)).toBe(false);  // |diff| ~ 1e-3
+    expect(eq(5, -5)).toBe(false);
+  });
+
+  it('honors a custom eps, inclusive of the boundary', () => {
+    expect(eq(1, 1.4, 0.5)).toBe(true);   // |diff| = 0.4 <= 0.5
+    expect(eq(1, 1.5, 0.5)).toBe(true);   // |diff| = 0.5 <= 0.5 (0.5 and 1.5 are exact doubles)
+    expect(eq(1, 1.6, 0.5)).toBe(false);  // |diff| = 0.6 > 0.5
+    expect(eq(0, 2e-6, 1e-9)).toBe(false); // tighter eps than default rejects
+  });
+});
+
+describe('isZero', () => {
+  it('returns true for zero and values within EPS_L of zero', () => {
+    expect(isZero(0)).toBe(true);
+    expect(isZero(5e-7)).toBe(true);
+    expect(isZero(-5e-7)).toBe(true);  // uses absolute value
+    expect(isZero(1e-6)).toBe(true);   // inclusive boundary
+  });
+
+  it('returns false for values beyond EPS_L', () => {
+    expect(isZero(2e-6)).toBe(false);
+    expect(isZero(-2e-6)).toBe(false);
+    expect(isZero(1)).toBe(false);
+  });
+
+  it('honors a custom eps', () => {
+    expect(isZero(0.4, 0.5)).toBe(true);
+    expect(isZero(0.6, 0.5)).toBe(false);
+  });
+});
+EOF
+/bin/sh: 1: cannot create test/kernel/num.test.ts: Directory nonexistent
+
+[exit 2]
+$ mkdir -p test/kernel src/kernel
+
+[exit 0]
+$ cat > test/kernel/num.test.ts << 'EOF'
+import { describe, it, expect } from 'vitest';
+import { EPS_L, eq, isZero } from '../../src/kernel/num';
+
+describe('EPS_L', () => {
+  it('is 1e-6', () => {
+    expect(EPS_L).toBe(1e-6);
+  });
+});
+
+describe('eq', () => {
+  it('returns true for identical values', () => {
+    expect(eq(1, 1)).toBe(true);
+    expect(eq(0, 0)).toBe(true);
+    expect(eq(-3.5, -3.5)).toBe(true);
+  });
+
+  it('absorbs ordinary float roundoff (0.1 + 0.2 vs 0.3)', () => {
+    // 0.1 + 0.2 === 0.30000000000000004; difference ~5.6e-17, far inside EPS_L
+    expect(0.1 + 0.2 === 0.3).toBe(false); // sanity: plain === would fail
+    expect(eq(0.1 + 0.2, 0.3)).toBe(true);
+  });
+
+  it('returns true for differences within EPS_L, inclusive of the boundary', () => {
+    expect(eq(0, 5e-7)).toBe(true);        // |diff| = 5e-7 <  1e-6
+    expect(eq(-1, -1 - 5e-7)).toBe(true);  // works on negatives
+    expect(eq(0, 1e-6)).toBe(true);        // |diff| = 1e-6 <= 1e-6 -> inclusive
+  });
+
+  it('returns false for differences beyond EPS_L', () => {
+    expect(eq(0, 2e-6)).toBe(false);   // |diff| = 2e-6 > 1e-6
+    expect(eq(1, 1.001)).toBe(false);  // |diff| ~ 1e-3
+    expect(eq(5, -5)).toBe(false);
+  });
+
+  it('honors a custom eps, inclusive of the boundary', () => {
+    expect(eq(1, 1.4, 0.5)).toBe(true);   // |diff| = 0.4 <= 0.5
+    expect(eq(1, 1.5, 0.5)).toBe(true);   // |diff| = 0.5 <= 0.5 (0.5 and 1.5 are exact doubles)
+    expect(eq(1, 1.6, 0.5)).toBe(false);  // |diff| = 0.6 > 0.5
+    expect(eq(0, 2e-6, 1e-9)).toBe(false); // tighter eps than default rejects
+  });
+});
+
+describe('isZero', () => {
+  it('returns true for zero and values within EPS_L of zero', () => {
+    expect(isZero(0)).toBe(true);
+    expect(isZero(5e-7)).toBe(true);
+    expect(isZero(-5e-7)).toBe(true);  // uses absolute value
+    expect(isZero(1e-6)).toBe(true);   // inclusive boundary
+  });
+
+  it('returns false for values beyond EPS_L', () => {
+    expect(isZero(2e-6)).toBe(false);
+    expect(isZero(-2e-6)).toBe(false);
+    expect(isZero(1)).toBe(false);
+  });
+
+  it('honors a custom eps', () => {
+    expect(isZero(0.4, 0.5)).toBe(true);
+    expect(isZero(0.6, 0.5)).toBe(false);
+  });
+});
+EOF
+
+[exit 0]
+$ npx vitest run test/kernel/num.test.ts 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+ ❯ test/kernel/num.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/kernel/num.test.ts [ test/kernel/num.test.ts ]
+Error: Cannot find module '../../src/kernel/num' imported from /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad/test/kernel/num.test.ts
+ ❯ test/kernel/num.test.ts:2:1
+      1| import { describe, it, expect } from 'vitest';
+      2| import { EPS_L, eq, isZero } from '../../src/kernel/num';
+       | ^
+      3|
+      4| describe('EPS_L', () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  15:22:39
+   Duration  318ms (transform 64ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+
+
+[exit 1]
+$ cat > src/kernel/num.ts << 'EOF'
+/**
+ * Numeric tolerance primitives. ALL float comparisons in the kernel go
+ * through this module. One absolute tolerance, inclusive comparisons.
+ * Valid model range is roughly 1e-3 .. 1e4 units; geometry finer than
+ * ~10 * EPS_L is unsupported.
+ */
+
+/** Absolute length tolerance in model units. */
+export const EPS_L = 1e-6;
+
+/** True iff |a - b| <= eps (inclusive). */
+export function eq(a: number, b: number, eps: number = EPS_L): boolean {
+  return Math.abs(a - b) <= eps;
+}
+
+/** True iff |x| <= eps (inclusive). */
+export function isZero(x: number, eps: number = EPS_L): boolean {
+  return Math.abs(x) <= eps;
+}
+EOF
+
+[exit 0]
+$ npx vitest run test/kernel/num.test.ts 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  15:22:43
+   Duration  251ms (transform 38ms, setup 0ms, import 55ms, tests 7ms, environment 0ms)
+
+
+[exit 0]
+$ npx tsc --noEmit 2>&1
+
+[exit 0]
+$ npm run check 2>&1
+
+> custom-cad@0.0.1 check
+> tsc --noEmit && vitest run && bash scripts/check-three-imports.sh
+
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  15:22:50
+   Duration  264ms (transform 44ms, setup 0ms, import 64ms, tests 6ms, environment 0ms)
+
+
+[exit 0]
+$ git add src/kernel/num.ts test/kernel/num.test.ts package.json && git commit -m "feat(kernel): add numeric tolerance primitives EPS_L/eq/isZero
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+[master f4ff93e] feat(kernel): add numeric tolerance primitives EPS_L/eq/isZero
+ 3 files changed, 82 insertions(+), 2 deletions(-)
+ create mode 100644 src/kernel/num.ts
+ create mode 100644 test/kernel/num.test.ts
+
+[exit 0]
+$ cat > test/kernel/vec.test.ts << 'EOF'
+import { describe, it, expect } from 'vitest';
+import {
+  v2, v3,
+  add3, sub3, scale3, dot3, cross3, len3, normalize3,
+  sub2, cross2,
+  XY_PLANE, planePointToWorld,
+  type PlaneCS,
+} from '../../src/kernel/vec';
+
+describe('constructors', () => {
+  it('v2 builds a plain {x,y} object', () => {
+    expect(v2(1.5, -2)).toEqual({ x: 1.5, y: -2 });
+  });
+
+  it('v3 builds a plain {x,y,z} object', () => {
+    expect(v3(1, 2, 3)).toEqual({ x: 1, y: 2, z: 3 });
+  });
+});
+
+describe('Vec3 arithmetic', () => {
+  it('add3: (1,2,3)+(4,5,6) = (5,7,9)', () => {
+    expect(add3(v3(1, 2, 3), v3(4, 5, 6))).toEqual({ x: 5, y: 7, z: 9 });
+  });
+
+  it('sub3: (4,5,6)-(1,2,3) = (3,3,3)', () => {
+    expect(sub3(v3(4, 5, 6), v3(1, 2, 3))).toEqual({ x: 3, y: 3, z: 3 });
+  });
+
+  it('scale3: 2*(1,-2,3) = (2,-4,6)', () => {
+    expect(scale3(v3(1, -2, 3), 2)).toEqual({ x: 2, y: -4, z: 6 });
+  });
+
+  it('dot3: (1,2,3).(4,-5,6) = 4 - 10 + 18 = 12', () => {
+    expect(dot3(v3(1, 2, 3), v3(4, -5, 6))).toBe(12);
+  });
+
+  it('does not mutate inputs', () => {
+    const a = v3(1, 2, 3);
+    const b = v3(4, 5, 6);
+    add3(a, b);
+    sub3(a, b);
+    scale3(a, 2);
+    expect(a).toEqual({ x: 1, y: 2, z: 3 });
+    expect(b).toEqual({ x: 4, y: 5, z: 6 });
+  });
+});
+
+describe('cross3 right-handedness', () => {
+  it('x cross y = z', () => {
+    expect(cross3(v3(1, 0, 0), v3(0, 1, 0))).toEqual({ x: 0, y: 0, z: 1 });
+  });
+
+  it('y cross z = x', () => {
+    expect(cross3(v3(0, 1, 0), v3(0, 0, 1))).toEqual({ x: 1, y: 0, z: 0 });
+  });
+
+  it('general case: (1,2,3) x (4,5,6) = (-3,6,-3)', () => {
+    // x = 2*6 - 3*5 = -3; y = 3*4 - 1*6 = 6; z = 1*5 - 2*4 = -3
+    expect(cross3(v3(1, 2, 3), v3(4, 5, 6))).toEqual({ x: -3, y: 6, z: -3 });
+  });
+});
+
+describe('len3 / normalize3', () => {
+  it('len3 of (3,4,0) = 5 and (1,2,2) = 3', () => {
+    expect(len3(v3(3, 4, 0))).toBe(5);
+    expect(len3(v3(1, 2, 2))).toBe(3);
+  });
+
+  it('normalize3 of (3,4,0) = (0.6, 0.8, 0)', () => {
+    const n = normalize3(v3(3, 4, 0));
+    expect(n.x).toBeCloseTo(0.6, 12);
+    expect(n.y).toBeCloseTo(0.8, 12);
+    expect(n.z).toBe(0);
+  });
+
+  it('normalize3 result has unit length', () => {
+    expect(len3(normalize3(v3(1, 2, 3)))).toBeCloseTo(1, 12);
+  });
+
+  it('normalize3 throws on the zero vector', () => {
+    expect(() => normalize3(v3(0, 0, 0))).toThrow();
+  });
+
+  it('normalize3 throws on a near-zero vector (below EPS_L = 1e-6)', () => {
+    expect(() => normalize3(v3(1e-9, 1e-9, 0))).toThrow();
+  });
+});
+
+describe('Vec2 ops', () => {
+  it('sub2: (3,5)-(1,2) = (2,3)', () => {
+    expect(sub2(v2(3, 5), v2(1, 2))).toEqual({ x: 2, y: 3 });
+  });
+
+  it('cross2 sign: CCW positive, CW negative', () => {
+    expect(cross2(v2(1, 0), v2(0, 1))).toBe(1);   // x then y: CCW turn
+    expect(cross2(v2(0, 1), v2(1, 0))).toBe(-1);  // y then x: CW turn
+    expect(cross2(v2(2, 3), v2(4, 5))).toBe(-2);  // 2*5 - 3*4 = -2
+  });
+});
+
+describe('PlaneCS', () => {
+  it('XY_PLANE fields', () => {
+    expect(XY_PLANE.origin).toEqual({ x: 0, y: 0, z: 0 });
+    expect(XY_PLANE.x).toEqual({ x: 1, y: 0, z: 0 });
+    expect(XY_PLANE.y).toEqual({ x: 0, y: 1, z: 0 });
+    expect(XY_PLANE.z).toEqual({ x: 0, y: 0, z: 1 });
+  });
+
+  it('planePointToWorld on XY_PLANE: uv (2,3) -> world (2,3,0)', () => {
+    expect(planePointToWorld(XY_PLANE, v2(2, 3))).toEqual({ x: 2, y: 3, z: 0 });
+  });
+
+  it('planePointToWorld on a translated+rotated plane', () => {
+    // YZ-style plane: u runs along world Y, v runs along world Z, normal +X,
+    // origin at (5,0,0). z = x cross y = (0,1,0) x (0,0,1) = (1,0,0): orthonormal RH frame.
+    const p: PlaneCS = {
+      origin: v3(5, 0, 0),
+      x: v3(0, 1, 0),
+      y: v3(0, 0, 1),
+      z: v3(1, 0, 0),
+    };
+    // (5,0,0) + 2*(0,1,0) + 3*(0,0,1) = (5,2,3)
+    expect(planePointToWorld(p, v2(2, 3))).toEqual({ x: 5, y: 2, z: 3 });
+  });
+});
+EOF
+
+[exit 0]
+$ npx vitest run test/kernel/vec.test.ts 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+ ❯ test/kernel/vec.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/kernel/vec.test.ts [ test/kernel/vec.test.ts ]
+Error: Cannot find module '../../src/kernel/vec' imported from /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad/test/kernel/vec.test.ts
+ ❯ test/kernel/vec.test.ts:2:1
+      1| import { describe, it, expect } from 'vitest';
+      2| import {
+       | ^
+      3|   v2, v3,
+      4|   add3, sub3, scale3, dot3, cross3, len3, normalize3,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  15:23:06
+   Duration  291ms (transform 46ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+
+
+[exit 1]
+$ cat > src/kernel/vec.ts << 'EOF'
+import { isZero } from './num';
+
+export type Vec2 = { x: number; y: number };
+export type Vec3 = { x: number; y: number; z: number };
+
+export function v2(x: number, y: number): Vec2 {
+  return { x, y };
+}
+
+export function v3(x: number, y: number, z: number): Vec3 {
+  return { x, y, z };
+}
+
+export function add3(a: Vec3, b: Vec3): Vec3 {
+  return { x: a.x + b.x, y: a.y + b.y, z: a.z + b.z };
+}
+
+export function sub3(a: Vec3, b: Vec3): Vec3 {
+  return { x: a.x - b.x, y: a.y - b.y, z: a.z - b.z };
+}
+
+export function scale3(a: Vec3, s: number): Vec3 {
+  return { x: a.x * s, y: a.y * s, z: a.z * s };
+}
+
+export function dot3(a: Vec3, b: Vec3): number {
+  return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+export function cross3(a: Vec3, b: Vec3): Vec3 {
+  return {
+    x: a.y * b.z - a.z * b.y,
+    y: a.z * b.x - a.x * b.z,
+    z: a.x * b.y - a.y * b.x,
+  };
+}
+
+export function len3(a: Vec3): number {
+  return Math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+}
+
+/** Returns a unit-length copy of `a`. Throws if `len3(a)` is within EPS_L of zero
+ *  (an invariant violation per spec §8 — callers must never pass degenerate vectors). */
+export function normalize3(a: Vec3): Vec3 {
+  const l = len3(a);
+  if (isZero(l)) {
+    throw new Error(`normalize3: near-zero length vector (len=${l})`);
+  }
+  return { x: a.x / l, y: a.y / l, z: a.z / l };
+}
+
+export function sub2(a: Vec2, b: Vec2): Vec2 {
+  return { x: a.x - b.x, y: a.y - b.y };
+}
+
+/** 2D cross product (z-component of the 3D cross). Positive = `b` is a CCW turn from `a`. */
+export function cross2(a: Vec2, b: Vec2): number {
+  return a.x * b.y - a.y * b.x;
+}
+
+/** Orthonormal right-handed coordinate frame: x, y, z unit vectors with z = x cross y. */
+export type PlaneCS = { origin: Vec3; x: Vec3; y: Vec3; z: Vec3 };
+
+export const XY_PLANE: PlaneCS = {
+  origin: v3(0, 0, 0),
+  x: v3(1, 0, 0),
+  y: v3(0, 1, 0),
+  z: v3(0, 0, 1),
+};
+
+/** Maps plane-local uv coordinates to world space: origin + u*x + v*y. */
+export function planePointToWorld(p: PlaneCS, uv: Vec2): Vec3 {
+  return add3(p.origin, add3(scale3(p.x, uv.x), scale3(p.y, uv.y)));
+}
+EOF
+
+[exit 0]
+$ npx vitest run test/kernel/vec.test.ts 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  1 passed (1)
+      Tests  20 passed (20)
+   Start at  15:23:14
+   Duration  272ms (transform 61ms, setup 0ms, import 84ms, tests 11ms, environment 0ms)
+
+
+[exit 0]
+$ npx tsc --noEmit 2>&1
+
+[exit 0]
+$ git add src/kernel/vec.ts test/kernel/vec.test.ts && git commit -m "feat(kernel): add vec module (Vec2/Vec3 ops, PlaneCS, planePointToWorld)
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+[master 8226c22] feat(kernel): add vec module (Vec2/Vec3 ops, PlaneCS, planePointToWorld)
+ 2 files changed, 199 insertions(+)
+ create mode 100644 src/kernel/vec.ts
+ create mode 100644 test/kernel/vec.test.ts
+
+[exit 0]
+$ cat > test/kernel/result.test.ts << 'EOF'
+import { describe, it, expect } from 'vitest';
+import { ok, err, type Result } from '../../src/kernel/result';
+
+describe('ok', () => {
+  it('wraps a value with ok: true', () => {
+    expect(ok(42)).toEqual({ ok: true, value: 42 });
+  });
+
+  it('narrows via the ok discriminant', () => {
+    const r: Result<string> = ok('hello');
+    if (r.ok) {
+      expect(r.value).toBe('hello');
+    } else {
+      throw new Error('expected ok result');
+    }
+  });
+});
+
+describe('err', () => {
+  it('builds a KernelError with explicit entity ids', () => {
+    expect(err<number>('openLoop', 'profile is not closed', ['rect.s0'])).toEqual({
+      ok: false,
+      error: { code: 'openLoop', msg: 'profile is not closed', entityIds: ['rect.s0'] },
+    });
+  });
+
+  it('defaults entityIds to an empty array', () => {
+    expect(err<number>('degenerate', 'zero extrude distance')).toEqual({
+      ok: false,
+      error: { code: 'degenerate', msg: 'zero extrude distance', entityIds: [] },
+    });
+  });
+});
+EOF
+
+[exit 0]
+$ npx vitest run test/kernel/result.test.ts 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+ ❯ test/kernel/result.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/kernel/result.test.ts [ test/kernel/result.test.ts ]
+Error: Cannot find module '../../src/kernel/result' imported from /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad/test/kernel/result.test.ts
+ ❯ test/kernel/result.test.ts:2:1
+      1| import { describe, it, expect } from 'vitest';
+      2| import { ok, err, type Result } from '../../src/kernel/result';
+       | ^
+      3|
+      4| describe('ok', () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  15:23:24
+   Duration  266ms (transform 47ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+
+
+[exit 1]
+$ cat > src/kernel/result.ts << 'EOF'
+export type KernelError = {
+  code: 'openLoop' | 'selfIntersect' | 'degenerate';
+  msg: string;
+  entityIds: string[];
+};
+
+export type Result<T> = { ok: true; value: T } | { ok: false; error: KernelError };
+
+export function ok<T>(value: T): Result<T> {
+  return { ok: true, value };
+}
+
+export function err<T>(code: KernelError['code'], msg: string, entityIds: string[] = []): Result<T> {
+  return { ok: false, error: { code, msg, entityIds } };
+}
+EOF
+
+[exit 0]
+$ npx vitest run test/kernel/result.test.ts 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  15:23:28
+   Duration  250ms (transform 38ms, setup 0ms, import 55ms, tests 5ms, environment 0ms)
+
+
+[exit 0]
+$ git add src/kernel/result.ts test/kernel/result.test.ts && git commit -m "feat(kernel): add Result type with ok/err helpers
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+[master 45a8501] feat(kernel): add Result type with ok/err helpers
+ 2 files changed, 48 insertions(+)
+ create mode 100644 src/kernel/result.ts
+ create mode 100644 test/kernel/result.test.ts
+
+[exit 0]
+$ cat > test/kernel/profile.test.ts << 'EOF'
+import { describe, it, expect } from 'vitest';
+import { signedArea, type Loop, type Seg } from '../../src/kernel/profile';
+import { v2, type Vec2 } from '../../src/kernel/vec';
+
+/** Closed loop over the given corners; consecutive segs share corner objects by reference. */
+function loopOf(pts: Vec2[]): Loop {
+  const segs: Seg[] = pts.map((p, i) => ({
+    id: `t.s${i}`,
+    a: p,
+    b: pts[(i + 1) % pts.length]!,
+  }));
+  return { segs };
+}
+
+describe('signedArea', () => {
+  it('CCW unit square -> +1', () => {
+    const loop = loopOf([v2(0, 0), v2(1, 0), v2(1, 1), v2(0, 1)]);
+    expect(signedArea(loop)).toBe(1);
+  });
+
+  it('reversed (CW) unit square -> -1', () => {
+    const loop = loopOf([v2(0, 0), v2(0, 1), v2(1, 1), v2(1, 0)]);
+    expect(signedArea(loop)).toBe(-1);
+  });
+
+  it('CCW 3-4-5 right triangle -> +6', () => {
+    // (0,0) -> (4,0) -> (0,3): area = 4*3/2 = 6, CCW so positive.
+    const loop = loopOf([v2(0, 0), v2(4, 0), v2(0, 3)]);
+    expect(signedArea(loop)).toBe(6);
+  });
+
+  it('square away from the origin -> area independent of translation', () => {
+    // 3x3 square with min corner (2,1): area 9.
+    // Shoelace terms (a.x*b.y - a.y*b.x): -3 + 15 + 12 - 6 = 18; half = 9.
+    const loop = loopOf([v2(2, 1), v2(5, 1), v2(5, 4), v2(2, 4)]);
+    expect(signedArea(loop)).toBe(9);
+  });
+});
+EOF
+
+[exit 0]
+$ npx vitest run test/kernel/profile.test.ts 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+ ❯ test/kernel/profile.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/kernel/profile.test.ts [ test/kernel/profile.test.ts ]
+Error: Cannot find module '../../src/kernel/profile' imported from /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad/test/kernel/profile.test.ts
+ ❯ test/kernel/profile.test.ts:2:1
+      1| import { describe, it, expect } from 'vitest';
+      2| import { signedArea, type Loop, type Seg } from '../../src/kernel/prof…
+       | ^
+      3| import { v2, type Vec2 } from '../../src/kernel/vec';
+      4|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  15:23:35
+   Duration  370ms (transform 33ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+
+
+[exit 1]
+$ cat > src/kernel/profile.ts << 'EOF'
+import { cross2, type PlaneCS, type Vec2 } from './vec';
+
+// M1 profiles: line segments only, single outer loop, no holes.
+
+export type SketchEntId = string;
+
+export type Seg = { id: SketchEntId; a: Vec2; b: Vec2 };
+
+/**
+ * Closed loop: segs[i].b is EXACTLY the same object as segs[(i+1)%n].a.
+ * Closure is shared-by-construction; it is never tested numerically.
+ */
+export type Loop = { segs: Seg[] };
+
+export type Profile = { plane: PlaneCS; outer: Loop };
+
+/** Shoelace signed area in uv coordinates; positive = CCW. */
+export function signedArea(loop: Loop): number {
+  let sum = 0;
+  for (const seg of loop.segs) {
+    sum += cross2(seg.a, seg.b);
+  }
+  return sum / 2;
+}
+EOF
+
+[exit 0]
+$ npx vitest run test/kernel/profile.test.ts 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  15:23:40
+   Duration  258ms (transform 51ms, setup 0ms, import 75ms, tests 6ms, environment 0ms)
+
+
+[exit 0]
+$ cat > test/kernel/profile.test.ts << 'EOF'
+import { describe, it, expect } from 'vitest';
+import { signedArea, rectProfile, type Loop, type Seg } from '../../src/kernel/profile';
+import { v2, XY_PLANE, type Vec2 } from '../../src/kernel/vec';
+
+/** Closed loop over the given corners; consecutive segs share corner objects by reference. */
+function loopOf(pts: Vec2[]): Loop {
+  const segs: Seg[] = pts.map((p, i) => ({
+    id: `t.s${i}`,
+    a: p,
+    b: pts[(i + 1) % pts.length]!,
+  }));
+  return { segs };
+}
+
+describe('signedArea', () => {
+  it('CCW unit square -> +1', () => {
+    const loop = loopOf([v2(0, 0), v2(1, 0), v2(1, 1), v2(0, 1)]);
+    expect(signedArea(loop)).toBe(1);
+  });
+
+  it('reversed (CW) unit square -> -1', () => {
+    const loop = loopOf([v2(0, 0), v2(0, 1), v2(1, 1), v2(1, 0)]);
+    expect(signedArea(loop)).toBe(-1);
+  });
+
+  it('CCW 3-4-5 right triangle -> +6', () => {
+    // (0,0) -> (4,0) -> (0,3): area = 4*3/2 = 6, CCW so positive.
+    const loop = loopOf([v2(0, 0), v2(4, 0), v2(0, 3)]);
+    expect(signedArea(loop)).toBe(6);
+  });
+
+  it('square away from the origin -> area independent of translation', () => {
+    // 3x3 square with min corner (2,1): area 9.
+    // Shoelace terms (a.x*b.y - a.y*b.x): -3 + 15 + 12 - 6 = 18; half = 9.
+    const loop = loopOf([v2(2, 1), v2(5, 1), v2(5, 4), v2(2, 4)]);
+    expect(signedArea(loop)).toBe(9);
+  });
+});
+
+describe('rectProfile', () => {
+  const p = rectProfile(XY_PLANE, 3, 2);
+
+  it('has 4 segments with ids rect.s0..rect.s3', () => {
+    expect(p.outer.segs.map((s) => s.id)).toEqual(['rect.s0', 'rect.s1', 'rect.s2', 'rect.s3']);
+  });
+
+  it('starts corners at (0,0),(w,0),(w,h),(0,h) — CCW order', () => {
+    expect(p.outer.segs.map((s) => s.a)).toEqual([
+      { x: 0, y: 0 },
+      { x: 3, y: 0 },
+      { x: 3, y: 2 },
+      { x: 0, y: 2 },
+    ]);
+  });
+
+  it('closes by reference: segs[i].b is the SAME object as segs[(i+1)%4].a', () => {
+    for (let i = 0; i < 4; i++) {
+      expect(p.outer.segs[i]!.b).toBe(p.outer.segs[(i + 1) % 4]!.a);
+    }
+  });
+
+  it('signedArea(outer) === w*h (CCW)', () => {
+    expect(signedArea(p.outer)).toBe(6);
+  });
+
+  it('carries the plane it was given', () => {
+    expect(p.plane).toBe(XY_PLANE);
+  });
+});
+EOF
+
+[exit 0]
+$ npx vitest run test/kernel/profile.test.ts 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+ ❯ test/kernel/profile.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/kernel/profile.test.ts [ test/kernel/profile.test.ts ]
+TypeError: rectProfile is not a function
+ ❯ test/kernel/profile.test.ts:41:13
+     39|
+     40| describe('rectProfile', () => {
+     41|   const p = rectProfile(XY_PLANE, 3, 2);
+       |             ^
+     42|
+     43|   it('has 4 segments with ids rect.s0..rect.s3', () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  15:23:49
+   Duration  352ms (transform 74ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+
+
+[exit 1]
+$ cat > src/kernel/profile.ts << 'EOF'
+import { cross2, v2, type PlaneCS, type Vec2 } from './vec';
+
+// M1 profiles: line segments only, single outer loop, no holes.
+
+export type SketchEntId = string;
+
+export type Seg = { id: SketchEntId; a: Vec2; b: Vec2 };
+
+/**
+ * Closed loop: segs[i].b is EXACTLY the same object as segs[(i+1)%n].a.
+ * Closure is shared-by-construction; it is never tested numerically.
+ */
+export type Loop = { segs: Seg[] };
+
+export type Profile = { plane: PlaneCS; outer: Loop };
+
+/** Shoelace signed area in uv coordinates; positive = CCW. */
+export function signedArea(loop: Loop): number {
+  let sum = 0;
+  for (const seg of loop.segs) {
+    sum += cross2(seg.a, seg.b);
+  }
+  return sum / 2;
+}
+
+/**
+ * Axis-aligned w x h rectangle in the plane's uv space.
+ * Corners (0,0),(w,0),(w,h),(0,h), CCW; seg ids 'rect.s0'..'rect.s3'.
+ * Adjacent segments share the same corner Vec2 objects (closure by construction).
+ */
+export function rectProfile(plane: PlaneCS, w: number, h: number): Profile {
+  const c0 = v2(0, 0);
+  const c1 = v2(w, 0);
+  const c2 = v2(w, h);
+  const c3 = v2(0, h);
+  const outer: Loop = {
+    segs: [
+      { id: 'rect.s0', a: c0, b: c1 },
+      { id: 'rect.s1', a: c1, b: c2 },
+      { id: 'rect.s2', a: c2, b: c3 },
+      { id: 'rect.s3', a: c3, b: c0 },
+    ],
+  };
+  return { plane, outer };
+}
+EOF
+
+[exit 0]
+$ npx vitest run test/kernel/profile.test.ts 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  15:23:55
+   Duration  262ms (transform 55ms, setup 0ms, import 75ms, tests 8ms, environment 0ms)
+
+
+[exit 0]
+$ npx tsc --noEmit 2>&1
+
+[exit 0]
+$ git add src/kernel/profile.ts test/kernel/profile.test.ts && git commit -m "feat(kernel): add profile types, signedArea, and rectProfile
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+[master ec20b4c] feat(kernel): add profile types, signedArea, and rectProfile
+ 2 files changed, 114 insertions(+)
+ create mode 100644 src/kernel/profile.ts
+ create mode 100644 test/kernel/profile.test.ts
+
+[exit 0]
+$ npm run check 2>&1
+
+> custom-cad@0.0.1 check
+> tsc --noEmit && vitest run && bash scripts/check-three-imports.sh
+
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  4 passed (4)
+      Tests  42 passed (42)
+   Start at  15:24:02
+   Duration  338ms (transform 254ms, setup 0ms, import 401ms, tests 49ms, environment 1ms)
+
+
+[exit 0]
+$ npm run check
+
+> custom-cad@0.0.1 check
+> tsc --noEmit && vitest run && bash scripts/check-three-imports.sh
+
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  4 passed (4)
+      Tests  42 passed (42)
+   Start at  15:24:08
+   Duration  380ms (transform 216ms, setup 0ms, import 348ms, tests 53ms, environment 1ms)
+
+
+[exit 0]

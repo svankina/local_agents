@@ -1,0 +1,65 @@
+{
+  "schema": "m1-replay.metrics.v1",
+  "run_dir": "/home/svankina/src/local_agents/results/experiments/m1-replay/2026-06-12-B-02",
+  "wall_clock_seconds": 1004.253,
+  "wall_clock_source": "claude stream result event (claude-stream.jsonl)",
+  "time_accounting": {
+    "t_generating": {
+      "value": null,
+      "reason": "no generation timings found"
+    },
+    "t_thinking": {
+      "value": null,
+      "reason": "reasoning-channel timings are not present in OpenAI-compatible transcript"
+    },
+    "t_visible": {
+      "value": null,
+      "reason": "no generation timings found"
+    },
+    "t_prefill": {
+      "value": null,
+      "reason": "no local prefill timings found"
+    },
+    "t_tool_exec": {
+      "value": null,
+      "reason": "events.jsonl has no paired tool/command timing events"
+    },
+    "t_api_wait": {
+      "value": null,
+      "reason": "no transcript response timings found"
+    },
+    "t_idle": 1004.253,
+    "residual_seconds": 0.0,
+    "residual_pct": 0.0,
+    "residual_rule": "buckets plus residual should sum to wall-clock within 2%",
+    "sanity_ok": true
+  },
+  "peak_throughput": {
+    "max_decode_tps_single": {
+      "value": null,
+      "reason": "no decode throughput data"
+    },
+    "max_aggregate_tps_1s": {
+      "value": null,
+      "reason": "no request start/end/completion token data"
+    },
+    "max_prefill_tps": {
+      "value": null,
+      "reason": "no prefill throughput data"
+    }
+  },
+  "energy": {
+    "gpu_wh": 4.610930137500002
+  },
+  "telemetry_summary": {
+    "peak": {
+      "gpu_util_pct": 0.0,
+      "vram_used_mib": 42.0,
+      "power_w": 16.8,
+      "temp_c": 53.0,
+      "cpu_util_pct": 77.7,
+      "ram_used_gib": 22.087
+    }
+  },
+  "per_request": []
+}

@@ -1,0 +1,449 @@
+$ cat > test/kernel/extrude.test.ts << 'ENDOFFILE'
+import { describe, expect, it } from 'vitest';
+import { v2, XY_PLANE } from '../../src/kernel/vec';
+import type { Result } from '../../src/kernel/result';
+import { rectProfile, signedArea, type Profile } from '../../src/kernel/profile';
+import { validateSolid } from '../../src/kernel/brep';
+import { extrude } from '../../src/kernel/extrude';
+
+function unwrap<T>(r: Result<T>): T {
+  if (!r.ok) throw new Error(`expected ok, got ${r.error.code}: ${r.error.msg}`);
+  return r.value;
+}
+
+const rect = () => rectProfile(XY_PLANE, 4, 3);
+
+describe('extrude rejections', () => {
+  it('rejects dist = 0 as degenerate', () => {
+    const r = extrude(rect(), { dist: 0 });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error.code).toBe('degenerate');
+  });
+
+  it('rejects negative dist as degenerate', () => {
+    const r = extrude(rect(), { dist: -2 });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error.code).toBe('degenerate');
+  });
+
+  it('rejects a 2-segment loop as degenerate, naming the segments', () => {
+    const a = v2(0, 0);
+    const b = v2(1, 0);
+    const p: Profile = {
+      plane: XY_PLANE,
+      outer: { segs: [{ id: 'x.s0', a, b }, { id: 'x.s1', a: b, b: a }] },
+    };
+    const r = extrude(p, { dist: 5 });
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.error.code).toBe('degenerate');
+      expect(r.error.entityIds).toEqual(['x.s0', 'x.s1']);
+    }
+  });
+
+  it('rejects a zero-area (collinear) loop as degenerate', () => {
+    const a = v2(0, 0);
+    const b = v2(1, 0);
+    const c = v2(2, 0);
+    const p: Profile = {
+      plane: XY_PLANE,
+      outer: {
+        segs: [
+          { id: 'z.s0', a, b },
+          { id: 'z.s1', a: b, b: c },
+          { id: 'z.s2', a: c, b: a },
+        ],
+      },
+    };
+    const r = extrude(p, { dist: 5 });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error.code).toBe('degenerate');
+  });
+});
+
+describe('extrude rect 4x3 by 5', () => {
+  const solid = () => unwrap(extrude(rect(), { dist: 5 }));
+
+  it('has prism counts V=8 E=12 F=6 halfEdges=24 loops=6 and validates clean', () => {
+    const s = solid();
+    expect(s.vertices.size).toBe(8);
+    expect(s.edges.size).toBe(12);
+    expect(s.faces.size).toBe(6);
+    expect(s.halfEdges.size).toBe(24);
+    expect(s.loops.size).toBe(6);
+    expect(validateSolid(s)).toEqual([]);
+  });
+
+  it('places the 8 corner vertices exactly', () => {
+    const pts = [...solid().vertices.values()]
+      .map((v) => v.p)
+      .sort((p, q) => p.z - q.z || p.y - q.y || p.x - q.x);
+    expect(pts).toEqual([
+      { x: 0, y: 0, z: 0 }, { x: 4, y: 0, z: 0 }, { x: 0, y: 3, z: 0 }, { x: 4, y: 3, z: 0 },
+      { x: 0, y: 0, z: 5 }, { x: 4, y: 0, z: 5 }, { x: 0, y: 3, z: 5 }, { x: 4, y: 3, z: 5 },
+    ]);
+  });
+
+  it('tags every face: one side per seg plus start/end caps', () => {
+    const gens = [...solid().faces.values()].map((f) => f.gen);
+    expect(gens).toHaveLength(6);
+    expect(gens).toContainEqual({ role: 'cap', end: 'start' });
+    expect(gens).toContainEqual({ role: 'cap', end: 'end' });
+    for (const id of ['rect.s0', 'rect.s1', 'rect.s2', 'rect.s3']) {
+      expect(gens).toContainEqual({ role: 'side', curve: id });
+    }
+  });
+
+  it('tags every edge and carries exact analytic line curves', () => {
+    const s = solid();
+    const gens = [...s.edges.values()].map((e) => e.gen);
+    expect(gens).toHaveLength(12);
+    for (const id of ['rect.s0', 'rect.s1', 'rect.s2', 'rect.s3']) {
+      expect(gens).toContainEqual({ role: 'capEdge', end: 'start', curve: id });
+      expect(gens).toContainEqual({ role: 'capEdge', end: 'end', curve: id });
+      expect(gens).toContainEqual({ role: 'sideEdge', vertex: `${id}:a` });
+    }
+    const vert = [...s.edges.values()].find(
+      (e) => e.gen.role === 'sideEdge' && e.gen.vertex === 'rect.s0:a',
+    );
+    expect(vert?.curve).toEqual({
+      kind: 'line', a: { x: 0, y: 0, z: 0 }, b: { x: 0, y: 0, z: 5 },
+    });
+    const capE = [...s.edges.values()].find(
+      (e) => e.gen.role === 'capEdge' && e.gen.end === 'start' && e.gen.curve === 'rect.s0',
+    );
+    expect(capE?.curve).toEqual({
+      kind: 'line', a: { x: 0, y: 0, z: 0 }, b: { x: 4, y: 0, z: 0 },
+    });
+  });
+});
+
+describe('extrude CW reorientation', () => {
+  it('a CW outer loop produces a solid identical to the CCW one', () => {
+    const ccw = rect();
+    // Manually reverse: reverse seg order AND swap each seg's endpoints, keep ids.
+    // Endpoint sharing is preserved: reversed segs still chain by object identity.
+    const cw: Profile = {
+      plane: ccw.plane,
+      outer: { segs: [...ccw.outer.segs].reverse().map((s) => ({ id: s.id, a: s.b, b: s.a })) },
+    };
+    expect(signedArea(ccw.outer)).toBe(12);
+    expect(signedArea(cw.outer)).toBe(-12);
+    const sCcw = unwrap(extrude(ccw, { dist: 5 }));
+    const sCw = unwrap(extrude(cw, { dist: 5 }));
+    expect(validateSolid(sCw)).toEqual([]);
+    // extrude's internal reversal is the exact involution of the manual one above,
+    // so the two solids must be deeply equal -- TopoIds, gens, coordinates, wiring.
+    expect(sCw).toEqual(sCcw);
+  });
+});
+
+describe('extrude triangle prism', () => {
+  it('hand-built 3-seg loop -> V=6 E=9 F=5 halfEdges=18, validates clean', () => {
+    const p0 = v2(0, 0);
+    const p1 = v2(2, 0);
+    const p2 = v2(0, 2);
+    const tri: Profile = {
+      plane: XY_PLANE,
+      outer: {
+        segs: [
+          { id: 'tri.s0', a: p0, b: p1 },
+          { id: 'tri.s1', a: p1, b: p2 },
+          { id: 'tri.s2', a: p2, b: p0 },
+        ],
+      },
+    };
+    const s = unwrap(extrude(tri, { dist: 1 }));
+    expect(s.vertices.size).toBe(6);
+    expect(s.edges.size).toBe(9);
+    expect(s.faces.size).toBe(5);
+    expect(s.halfEdges.size).toBe(18);
+    expect(validateSolid(s)).toEqual([]);
+  });
+});
+ENDOFFILE
+
+[exit 0]
+$ cat > src/kernel/extrude.ts << 'ENDOFFILE'
+// src/kernel/extrude.ts
+//
+// Linear extrusion of a planar profile (M1: line segments only, outer loop only,
+// no holes) into a manifold half-edge prism. Construction is deterministic index
+// arithmetic over the segment list -- coincidence is declared, never discovered
+// numerically (spec section 3).
+//
+// A CW outer loop is REORIENTED to CCW internally (reverse seg order + swap each
+// seg's a/b, keeping ids) rather than rejected. That reversal is an involution,
+// so extruding a reversed loop yields a solid identical to the CCW original.
+//
+// Topology for an n-segment CCW loop (V=2n, E=3n, F=n+2, halfEdges=6n):
+//
+//   Vertices  B[i] = planePointToWorld(plane, segs[i].a); T[i] = B[i] + dist*plane.z
+//   Faces     side[i]: quad B[i] -> B[i+1] -> T[i+1] -> T[i], gen {role:'side', curve:segs[i].id},
+//                      surface PlaneCS {origin:B[i], x:dir(i), y:plane.z, z:dir(i) x plane.z}
+//             bottom cap: ring traversed BACKWARDS (CW in uv => CCW viewed from -plane.z),
+//                      gen {role:'cap', end:'start'}, cs {x:plane.y, y:plane.x, z:-plane.z}
+//             top cap: ring traversed FORWARDS (CCW in uv), gen {role:'cap', end:'end'},
+//                      cs = plane translated by dist*plane.z
+//   Edges     eBot[i]:  B[i]--B[i+1]  gen {role:'capEdge', end:'start', curve:segs[i].id}
+//             eTop[i]:  T[i]--T[i+1]  gen {role:'capEdge', end:'end',   curve:segs[i].id}
+//             eVert[i]: B[i]--T[i]    gen {role:'sideEdge', vertex:segs[i].id+':a'}
+//
+// Half-edge wiring table (j = (i+1)%n, k = (i-1+n)%n):
+//
+//   half-edge      start  next           twin           edge
+//   sideBottom[i]  B[i]   sideRight[i]   capBot[i]      eBot[i]
+//   sideRight[i]   B[j]   sideTop[i]     sideLeft[j]    eVert[j]
+//   sideTop[i]     T[j]   sideLeft[i]    capTop[i]      eTop[i]
+//   sideLeft[i]    T[i]   sideBottom[i]  sideRight[k]   eVert[i]
+//   capBot[i]      B[j]   capBot[k]      sideBottom[i]  eBot[i]
+//   capTop[i]      T[i]   capTop[j]      sideTop[i]     eTop[i]
+
+import { isZero } from './num';
+import {
+  add3, cross3, normalize3, planePointToWorld, scale3, sub2, sub3,
+  type PlaneCS,
+} from './vec';
+import { err, ok, type Result } from './result';
+import { signedArea, type Loop, type Profile, type Seg } from './profile';
+import type { Curve3, Solid, Surface, TopoId, Vertex } from './brep';
+
+/** Reverse a loop's orientation. Involution; preserves seg ids and shared endpoint objects. */
+function reverseLoop(loop: Loop): Loop {
+  const segs: Seg[] = [];
+  for (let i = loop.segs.length - 1; i >= 0; i--) {
+    const s = loop.segs[i]!;
+    segs.push({ id: s.id, a: s.b, b: s.a });
+  }
+  return { segs };
+}
+
+export function extrude(profile: Profile, opts: { dist: number }): Result<Solid> {
+  const { dist } = opts;
+  if (dist <= 0 || isZero(dist)) {
+    return err('degenerate', `extrude distance must be positive, got ${dist}`);
+  }
+
+  let loop = profile.outer;
+  const segIds = loop.segs.map((s) => s.id);
+  const n = loop.segs.length;
+  if (n < 3) {
+    return err('degenerate', `outer loop needs at least 3 segments, got ${n}`, segIds);
+  }
+  for (const s of loop.segs) {
+    const d = sub2(s.b, s.a);
+    if (isZero(Math.hypot(d.x, d.y))) {
+      return err('degenerate', `zero-length segment ${s.id}`, [s.id]);
+    }
+  }
+  const area = signedArea(loop);
+  if (isZero(area)) {
+    return err('degenerate', 'outer loop encloses near-zero area', segIds);
+  }
+  if (area < 0) loop = reverseLoop(loop); // CW input -> reorient to CCW (see header)
+
+  const plane = profile.plane;
+  const lift = scale3(plane.z, dist);
+
+  const solid: Solid = {
+    vertices: new Map(),
+    halfEdges: new Map(),
+    edges: new Map(),
+    loops: new Map(),
+    faces: new Map(),
+  };
+  let nextId: TopoId = 1;
+  const mint = (): TopoId => nextId++;
+
+  // --- 1. mint 2n vertices: bottom ring at segs[i].a, top ring lifted by dist*plane.z ---
+  const botV: Vertex[] = [];
+  const topV: Vertex[] = [];
+  for (let i = 0; i < n; i++) {
+    const p = planePointToWorld(plane, loop.segs[i]!.a);
+    const bv: Vertex = { id: mint(), p };
+    const tv: Vertex = { id: mint(), p: add3(p, lift) };
+    solid.vertices.set(bv.id, bv);
+    solid.vertices.set(tv.id, tv);
+    botV.push(bv);
+    topV.push(tv);
+  }
+
+  // --- 2. pre-mint all remaining TopoIds so wiring is pure index arithmetic ---
+  const sideBottom: TopoId[] = [];
+  const sideRight: TopoId[] = [];
+  const sideTop: TopoId[] = [];
+  const sideLeft: TopoId[] = [];
+  const capBot: TopoId[] = [];
+  const capTop: TopoId[] = [];
+  const sideFace: TopoId[] = [];
+  const sideLoop: TopoId[] = [];
+  const eBot: TopoId[] = [];
+  const eTop: TopoId[] = [];
+  const eVert: TopoId[] = [];
+  for (let i = 0; i < n; i++) {
+    sideBottom.push(mint());
+    sideRight.push(mint());
+    sideTop.push(mint());
+    sideLeft.push(mint());
+    capBot.push(mint());
+    capTop.push(mint());
+    sideFace.push(mint());
+    sideLoop.push(mint());
+    eBot.push(mint());
+    eTop.push(mint());
+    eVert.push(mint());
+  }
+  const botFaceId = mint();
+  const botLoopId = mint();
+  const topFaceId = mint();
+  const topLoopId = mint();
+
+  // --- 3. per-seg: side face (planar quad), 6 half-edges, 3 edges ---
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    const k = (i - 1 + n) % n;
+    const seg = loop.segs[i]!;
+    const B = botV[i]!;
+    const Bn = botV[j]!;
+    const T = topV[i]!;
+    const Tn = topV[j]!;
+
+    // Side face i: quad B[i] -> B[i+1] -> T[i+1] -> T[i]; outward normal dir x plane.z.
+    const dir = normalize3(sub3(Bn.p, B.p)); // safe: zero-length segs rejected above
+    const sideSurf: Surface = {
+      kind: 'plane',
+      cs: { origin: B.p, x: dir, y: plane.z, z: cross3(dir, plane.z) },
+    };
+    solid.faces.set(sideFace[i]!, {
+      id: sideFace[i]!, loop: sideLoop[i]!, surface: sideSurf,
+      gen: { role: 'side', curve: seg.id },
+    });
+    solid.loops.set(sideLoop[i]!, { id: sideLoop[i]!, face: sideFace[i]!, he: sideBottom[i]! });
+
+    // Side half-edges (see wiring table in header).
+    solid.halfEdges.set(sideBottom[i]!, {
+      id: sideBottom[i]!, start: B.id, twin: capBot[i]!, next: sideRight[i]!,
+      loop: sideLoop[i]!, edge: eBot[i]!,
+    });
+    solid.halfEdges.set(sideRight[i]!, {
+      id: sideRight[i]!, start: Bn.id, twin: sideLeft[j]!, next: sideTop[i]!,
+      loop: sideLoop[i]!, edge: eVert[j]!,
+    });
+    solid.halfEdges.set(sideTop[i]!, {
+      id: sideTop[i]!, start: Tn.id, twin: capTop[i]!, next: sideLeft[i]!,
+      loop: sideLoop[i]!, edge: eTop[i]!,
+    });
+    solid.halfEdges.set(sideLeft[i]!, {
+      id: sideLeft[i]!, start: T.id, twin: sideRight[k]!, next: sideBottom[i]!,
+      loop: sideLoop[i]!, edge: eVert[i]!,
+    });
+
+    // Cap half-edges: bottom ring runs backwards (next steps i -> i-1), top runs forwards.
+    solid.halfEdges.set(capBot[i]!, {
+      id: capBot[i]!, start: Bn.id, twin: sideBottom[i]!, next: capBot[k]!,
+      loop: botLoopId, edge: eBot[i]!,
+    });
+    solid.halfEdges.set(capTop[i]!, {
+      id: capTop[i]!, start: T.id, twin: sideTop[i]!, next: capTop[j]!,
+      loop: topLoopId, edge: eTop[i]!,
+    });
+
+    // Edges with analytic line curves and gen tags.
+    const botCurve: Curve3 = { kind: 'line', a: B.p, b: Bn.p };
+    const topCurve: Curve3 = { kind: 'line', a: T.p, b: Tn.p };
+    const vertCurve: Curve3 = { kind: 'line', a: B.p, b: T.p };
+    solid.edges.set(eBot[i]!, {
+      id: eBot[i]!, curve: botCurve,
+      gen: { role: 'capEdge', end: 'start', curve: seg.id }, he: sideBottom[i]!,
+    });
+    solid.edges.set(eTop[i]!, {
+      id: eTop[i]!, curve: topCurve,
+      gen: { role: 'capEdge', end: 'end', curve: seg.id }, he: sideTop[i]!,
+    });
+    solid.edges.set(eVert[i]!, {
+      id: eVert[i]!, curve: vertCurve,
+      gen: { role: 'sideEdge', vertex: seg.id + ':a' }, he: sideLeft[i]!,
+    });
+  }
+
+  // --- 4. caps ---
+  // Bottom: outward normal is -plane.z; swapping x/y gives z = x cross y = plane.y x plane.x = -plane.z.
+  const botCs: PlaneCS = { origin: plane.origin, x: plane.y, y: plane.x, z: scale3(plane.z, -1) };
+  // Top: the profile plane translated along +plane.z by dist.
+  const topCs: PlaneCS = { origin: add3(plane.origin, lift), x: plane.x, y: plane.y, z: plane.z };
+
+  solid.faces.set(botFaceId, {
+    id: botFaceId, loop: botLoopId, surface: { kind: 'plane', cs: botCs },
+    gen: { role: 'cap', end: 'start' },
+  });
+  solid.loops.set(botLoopId, { id: botLoopId, face: botFaceId, he: capBot[0]! });
+  solid.faces.set(topFaceId, {
+    id: topFaceId, loop: topLoopId, surface: { kind: 'plane', cs: topCs },
+    gen: { role: 'cap', end: 'end' },
+  });
+  solid.loops.set(topLoopId, { id: topLoopId, face: topFaceId, he: capTop[0]! });
+
+  return ok(solid);
+}
+ENDOFFILE
+
+[exit 0]
+$ npx vitest run test/kernel/extrude.test.ts 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  15:26:57
+   Duration  356ms (transform 104ms, setup 0ms, import 136ms, tests 17ms, environment 0ms)
+
+
+[exit 0]
+$ npx tsc --noEmit 2>&1
+
+[exit 0]
+$ npx vitest run 2>&1
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  6 passed (6)
+      Tests  56 passed (56)
+   Start at  15:27:01
+   Duration  411ms (transform 443ms, setup 0ms, import 721ms, tests 81ms, environment 1ms)
+
+
+[exit 0]
+$ npm run check 2>&1
+
+> custom-cad@0.0.1 check
+> tsc --noEmit && vitest run && bash scripts/check-three-imports.sh
+
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  6 passed (6)
+      Tests  56 passed (56)
+   Start at  15:27:05
+   Duration  398ms (transform 392ms, setup 0ms, import 655ms, tests 72ms, environment 1ms)
+
+
+[exit 0]
+$ npm run check
+
+> custom-cad@0.0.1 check
+> tsc --noEmit && vitest run && bash scripts/check-three-imports.sh
+
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+
+ Test Files  6 passed (6)
+      Tests  56 passed (56)
+   Start at  15:27:11
+   Duration  496ms (transform 732ms, setup 0ms, import 978ms, tests 109ms, environment 1ms)
+
+
+[exit 0]

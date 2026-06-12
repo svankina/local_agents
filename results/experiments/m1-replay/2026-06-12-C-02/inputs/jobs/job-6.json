@@ -1,0 +1,10 @@
+{
+  "id": "job-6",
+  "title": "Tasks 8-9: viewport, scene sync, M1 acceptance",
+  "plan_tasks": [
+    8,
+    9
+  ],
+  "instructions": "Implement plan Tasks 8 and 9: viewport shell (ortho z-up camera, render-on-demand), scene sync, the M1 box demo, and the integration test test/integration/m1.test.ts.",
+  "gate_command": "npm run check && npx vitest run test/integration/m1.test.ts"
+}

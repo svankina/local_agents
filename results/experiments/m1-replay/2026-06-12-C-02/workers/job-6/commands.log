@@ -1,0 +1,506 @@
+$ cd /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad && ls -la src/ 2>/dev/null; echo "---"; ls -la src/kernel/ 2>/dev/null; echo "---"; ls -la test/ 2>/dev/null; echo "---"; cat package.json 2>/dev/null | head -30
+total 24
+drwxrwxr-x 5 svankina svankina 4096 Jun 12 15:20 .
+drwxrwxr-x 7 svankina svankina 4096 Jun 12 15:24 ..
+drwxrwxr-x 3 svankina svankina 4096 Jun 12 15:20 app
+drwxrwxr-x 2 svankina svankina 4096 Jun 12 15:20 doc
+drwxrwxr-x 2 svankina svankina 4096 Jun 12 15:28 kernel
+-rw-rw-r-- 1 svankina svankina   39 Jun 12 15:20 main.ts
+---
+total 52
+drwxrwxr-x 2 svankina svankina 4096 Jun 12 15:28 .
+drwxrwxr-x 5 svankina svankina 4096 Jun 12 15:20 ..
+-rw-rw-r-- 1 svankina svankina 7313 Jun 12 15:25 brep.ts
+-rw-rw-r-- 1 svankina svankina 8703 Jun 12 15:26 extrude.ts
+-rw-rw-r-- 1 svankina svankina    0 Jun 12 15:20 .gitkeep
+-rw-rw-r-- 1 svankina svankina  621 Jun 12 15:22 num.ts
+-rw-rw-r-- 1 svankina svankina 1304 Jun 12 15:23 profile.ts
+-rw-rw-r-- 1 svankina svankina  447 Jun 12 15:23 result.ts
+-rw-rw-r-- 1 svankina svankina 5157 Jun 12 15:28 tess.ts
+-rw-rw-r-- 1 svankina svankina 2099 Jun 12 15:23 vec.ts
+---
+total 12
+drwxrwxr-x 3 svankina svankina 4096 Jun 12 15:22 .
+drwxrwxr-x 7 svankina svankina 4096 Jun 12 15:24 ..
+-rw-rw-r-- 1 svankina svankina    0 Jun 12 15:20 .gitkeep
+drwxrwxr-x 2 svankina svankina 4096 Jun 12 15:28 kernel
+---
+{
+  "name": "custom-cad",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "check": "tsc --noEmit && vitest run && bash scripts/check-three-imports.sh"
+  },
+  "dependencies": {
+    "three": "^0.184.0",
+    "@types/three": "^0.184.0"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.8"
+  }
+}
+
+[exit 0]
+$ cd /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad && mkdir -p src/app/viewport
+
+[exit 0]
+$ cat > /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad/src/app/viewport/cameraState.ts << 'ENDOFFILE'
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+/** Model units visible vertically at zoom = 1. */
+const FRUSTUM_HEIGHT = 20;
+const FAR = 1000;
+
+/**
+ * Facade over THREE.OrthographicCamera + OrbitControls (spec sec 6: camera
+ * math is not this project's curriculum; the facade keeps a hand-rolled
+ * swap cheap if OrbitControls fights us later).
+ *
+ * Conventions: CAD z-up (camera.up = +z), orthographic only, no damping
+ * (CAD wants crisp stops), zoom toward cursor, screen-space panning.
+ */
+export class CameraState {
+  readonly camera: THREE.OrthographicCamera;
+  private controls: OrbitControls;
+  private listeners: Array<() => void> = [];
+
+  constructor(canvas: HTMLCanvasElement) {
+    const aspect = canvas.clientWidth / Math.max(1, canvas.clientHeight);
+    const halfH = FRUSTUM_HEIGHT / 2;
+    const halfW = halfH * aspect;
+    this.camera = new THREE.OrthographicCamera(-halfW, halfW, halfH, -halfH, -FAR, FAR);
+    this.camera.up.set(0, 0, 1); // CAD convention: z-up
+    this.camera.position.set(10, -10, 7); // isometric-ish start
+    this.camera.lookAt(0, 0, 0);
+
+    this.controls = new OrbitControls(this.camera, canvas);
+    this.controls.enableDamping = false; // crisp stops
+    this.controls.zoomToCursor = true;
+    this.controls.screenSpacePanning = true;
+    this.controls.target.set(0, 0, 0);
+    this.controls.update();
+    this.controls.addEventListener('change', () => {
+      for (const cb of this.listeners) cb();
+    });
+  }
+
+  /** Register a callback fired whenever the user moves the camera. */
+  onChange(cb: () => void): void {
+    this.listeners.push(cb);
+  }
+
+  /** Recompute the ortho frustum for a new canvas size (keeps vertical extent, adjusts width by aspect). */
+  resize(w: number, h: number): void {
+    const aspect = w / Math.max(1, h);
+    const halfH = FRUSTUM_HEIGHT / 2;
+    this.camera.left = -halfH * aspect;
+    this.camera.right = halfH * aspect;
+    this.camera.top = halfH;
+    this.camera.bottom = -halfH;
+    this.camera.updateProjectionMatrix();
+  }
+
+  dispose(): void {
+    this.controls.dispose();
+    this.listeners.length = 0;
+  }
+}
+ENDOFFILE
+
+[exit 0]
+$ cat > /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad/src/app/viewport/renderer.ts << 'ENDOFFILE'
+import * as THREE from 'three';
+import { CameraState } from './cameraState';
+
+/**
+ * Owns the WebGLRenderer, Scene, ground grid, and lights. Render-on-demand:
+ * a frame is drawn only when requestRender() is called (coalesced via a
+ * requestAnimationFrame flag), on camera change, or on container resize.
+ * There is intentionally NO free-running render loop.
+ */
+export class Viewport {
+  readonly cameraState: CameraState;
+  private renderer: THREE.WebGLRenderer;
+  private scene: THREE.Scene;
+  private resizeObserver: ResizeObserver;
+  private renderQueued = false;
+  private disposed = false;
+
+  /** 2D overlay for future sketch glyphs/dimension text. Transparent, never intercepts input. */
+  readonly overlay: HTMLCanvasElement;
+
+  constructor(container: HTMLElement) {
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(this.renderer.domElement);
+
+    this.overlay = document.createElement('canvas');
+    this.overlay.style.position = 'absolute';
+    this.overlay.style.inset = '0';
+    this.overlay.style.pointerEvents = 'none';
+    container.style.position = 'relative';
+    container.appendChild(this.overlay);
+
+    this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color(0xf0f0f0);
+
+    // GridHelper lies in the XZ plane by default; rotate into XY so the
+    // ground plane matches our z-up convention.
+    const grid = new THREE.GridHelper(40, 40, 0x888888, 0xcccccc);
+    grid.rotateX(Math.PI / 2);
+    this.scene.add(grid);
+
+    // Hemisphere "sky" direction is its position vector; point it up +z.
+    const hemi = new THREE.HemisphereLight(0xffffff, 0x665544, 1.0);
+    hemi.position.set(0, 0, 1);
+    this.scene.add(hemi);
+
+    const dir = new THREE.DirectionalLight(0xffffff, 1.5);
+    dir.position.set(5, -8, 12);
+    this.scene.add(dir);
+
+    this.cameraState = new CameraState(this.renderer.domElement);
+    this.cameraState.onChange(() => this.requestRender());
+
+    this.resizeObserver = new ResizeObserver(() => {
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      if (w === 0 || h === 0) return;
+      this.renderer.setSize(w, h);
+      this.cameraState.resize(w, h);
+      this.overlay.width = w * window.devicePixelRatio;
+      this.overlay.height = h * window.devicePixelRatio;
+      this.requestRender();
+    });
+    this.resizeObserver.observe(container);
+
+    this.requestRender();
+  }
+
+  add(obj: THREE.Object3D): void {
+    this.scene.add(obj);
+    this.requestRender();
+  }
+
+  /** Coalesces multiple calls in one frame into a single render. */
+  requestRender(): void {
+    if (this.renderQueued || this.disposed) return;
+    this.renderQueued = true;
+    requestAnimationFrame(() => {
+      this.renderQueued = false;
+      if (this.disposed) return;
+      this.renderer.render(this.scene, this.cameraState.camera);
+    });
+  }
+
+  dispose(): void {
+    this.disposed = true;
+    this.resizeObserver.disconnect();
+    this.cameraState.dispose();
+    this.renderer.dispose();
+    this.renderer.domElement.remove();
+    this.overlay.remove();
+  }
+}
+ENDOFFILE
+
+[exit 0]
+$ cat > /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad/src/style.css << 'ENDOFFILE'
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
+#app canvas {
+  display: block;
+}
+ENDOFFILE
+
+[exit 0]
+$ cat > /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad/index.html << 'ENDOFFILE'
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>custom-cad</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+ENDOFFILE
+
+[exit 0]
+$ cat > /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad/src/app/viewport/sceneSync.ts << 'ENDOFFILE'
+import * as THREE from 'three';
+import type { RenderData } from '../../kernel/tess';
+
+/**
+ * Convert kernel RenderData into three.js renderables.
+ * - mesh: indexed BufferGeometry built directly from the kernel's typed arrays
+ *   (no copies); normals are the kernel's analytic per-face normals, so no
+ *   computeVertexNormals and no flatShading.
+ * - polygonOffset pushes face fragments slightly back in depth so the
+ *   coincident hairline edges win the depth test at all angles (no z-fighting).
+ * - edges: non-indexed LineSegments, two vertices per kernel Edge.
+ */
+export function renderDataToObjects(rd: RenderData): {
+  mesh: THREE.Mesh;
+  edges: THREE.LineSegments;
+} {
+  const meshGeo = new THREE.BufferGeometry();
+  meshGeo.setAttribute('position', new THREE.BufferAttribute(rd.mesh.positions, 3));
+  meshGeo.setAttribute('normal', new THREE.BufferAttribute(rd.mesh.normals, 3));
+  meshGeo.setIndex(new THREE.BufferAttribute(rd.mesh.triIndex, 1));
+
+  const meshMat = new THREE.MeshLambertMaterial({
+    color: 0xb0b8c4,
+    polygonOffset: true,
+    polygonOffsetFactor: 1,
+    polygonOffsetUnits: 1,
+  });
+  const mesh = new THREE.Mesh(meshGeo, meshMat);
+
+  const edgeGeo = new THREE.BufferGeometry();
+  edgeGeo.setAttribute('position', new THREE.BufferAttribute(rd.edges.positions, 3));
+  const edgeMat = new THREE.LineBasicMaterial({ color: 0x111111 });
+  const edges = new THREE.LineSegments(edgeGeo, edgeMat);
+
+  return { mesh, edges };
+}
+ENDOFFILE
+
+[exit 0]
+$ cat > /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad/test/integration/m1.test.ts << 'ENDOFFILE'
+import { describe, expect, it } from 'vitest';
+import { XY_PLANE } from '../../src/kernel/vec';
+import { rectProfile } from '../../src/kernel/profile';
+import { extrude } from '../../src/kernel/extrude';
+import { validateSolid, type FaceGen } from '../../src/kernel/brep';
+import { tessellate, type RenderData } from '../../src/kernel/tess';
+
+type Mesh = RenderData['mesh'];
+
+function vtx(positions: Float32Array, vi: number): [number, number, number] {
+  // `!` for noUncheckedIndexedAccess; `+ 0` normalizes -0 (Float32Array preserves -0,
+  // and vitest's toEqual uses Object.is, where -0 !== 0).
+  return [positions[3 * vi]! + 0, positions[3 * vi + 1]! + 0, positions[3 * vi + 2]! + 0];
+}
+
+/**
+ * Watertightness check: per-face vertex duplication is expected (analytic normals
+ * differ per face), so merge vertices by EXACT position key (box coords 0,3,4,5 are
+ * exact in f32 -- vertices are shared by construction upstream, never re-derived),
+ * then require every undirected triangle edge to be used by exactly 2 triangles.
+ */
+function checkWatertight(mesh: Mesh): { mergedVerts: number; uniqueEdges: number } {
+  const canon = new Map<string, number>();
+  const canonOf = (vi: number): number => {
+    const [x, y, z] = vtx(mesh.positions, vi);
+    const key = `${x},${y},${z}`;
+    let c = canon.get(key);
+    if (c === undefined) {
+      c = canon.size;
+      canon.set(key, c);
+    }
+    return c;
+  };
+  const edgeUse = new Map<string, number>();
+  for (let t = 0; t < mesh.triIndex.length; t += 3) {
+    const tri = [
+      canonOf(mesh.triIndex[t]!),
+      canonOf(mesh.triIndex[t + 1]!),
+      canonOf(mesh.triIndex[t + 2]!),
+    ];
+    for (let i = 0; i < 3; i++) {
+      const a = tri[i]!;
+      const b = tri[(i + 1) % 3]!;
+      expect(a, 'degenerate triangle edge (repeated vertex)').not.toBe(b);
+      const key = a < b ? `${a}|${b}` : `${b}|${a}`;
+      edgeUse.set(key, (edgeUse.get(key) ?? 0) + 1);
+    }
+  }
+  for (const [key, uses] of edgeUse) {
+    expect(uses, `mesh edge ${key} must be shared by exactly 2 triangles`).toBe(2);
+  }
+  return { mergedVerts: canon.size, uniqueEdges: edgeUse.size };
+}
+
+/** Outward unit normal expected for each face of the 4x3x5 box, keyed by gen tag.
+ * Sides: CCW loop + extrusion along +z gives outward = segDir x z. */
+function expectedFaceNormal(gen: FaceGen): [number, number, number] {
+  if (gen.role === 'cap') return gen.end === 'start' ? [0, 0, -1] : [0, 0, 1];
+  switch (gen.curve) {
+    case 'rect.s0': return [0, -1, 0]; // (0,0)->(4,0), dir +x
+    case 'rect.s1': return [1, 0, 0];  // (4,0)->(4,3), dir +y
+    case 'rect.s2': return [0, 1, 0];  // (4,3)->(0,3), dir -x
+    case 'rect.s3': return [-1, 0, 0]; // (0,3)->(0,0), dir -y
+    default: throw new Error(`unexpected side curve ${gen.curve}`);
+  }
+}
+
+describe('M1 acceptance: rectProfile -> extrude -> validateSolid -> tessellate', () => {
+  const profile = rectProfile(XY_PLANE, 4, 3);
+  const result = extrude(profile, { dist: 5 });
+
+  it('extrudes to a valid solid with prism table sizes (n=4)', () => {
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const solid = result.value;
+    expect(validateSolid(solid)).toEqual([]);
+    expect(solid.vertices.size).toBe(8);   // 2n
+    expect(solid.edges.size).toBe(12);     // 3n
+    expect(solid.faces.size).toBe(6);      // n+2
+    expect(solid.loops.size).toBe(6);      // one loop per face in M1
+    expect(solid.halfEdges.size).toBe(24); // 6n
+  });
+
+  it('tessellates: 12 tris, 6 contiguous face spans, correct bbox and gen tags', () => {
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const rd = tessellate(result.value, 0.1);
+
+    // 6 quad faces x 2 tris = 12 triangles = 36 triIndex entries.
+    expect(rd.mesh.triIndex.length).toBe(36);
+    // 6 faces x 4 loop vertices, duplicated per face for analytic normals.
+    expect(rd.mesh.positions.length).toBe(72);
+    expect(rd.mesh.normals.length).toBe(72);
+
+    // Face spans partition triIndex contiguously (units: triIndex entries).
+    expect(rd.mesh.faceSpans.length).toBe(6);
+    const starts = rd.mesh.faceSpans.map((s) => s.start).sort((a, b) => a - b);
+    expect(starts).toEqual([0, 6, 12, 18, 24, 30]);
+    for (const span of rd.mesh.faceSpans) expect(span.count).toBe(6);
+
+    // Gen tags: exactly one start cap, one end cap, four sides covering s0..s3.
+    const caps = rd.mesh.faceSpans.filter((s) => s.gen.role === 'cap');
+    const sides = rd.mesh.faceSpans.filter((s) => s.gen.role === 'side');
+    expect(caps.map((s) => (s.gen.role === 'cap' ? s.gen.end : '')).sort()).toEqual(['end', 'start']);
+    expect(sides.map((s) => (s.gen.role === 'side' ? s.gen.curve : '')).sort()).toEqual([
+      'rect.s0', 'rect.s1', 'rect.s2', 'rect.s3',
+    ]);
+
+    // Bounding box of the mesh: [0,4] x [0,3] x [0,5].
+    const min = [Infinity, Infinity, Infinity];
+    const max = [-Infinity, -Infinity, -Infinity];
+    for (let i = 0; i < rd.mesh.positions.length; i += 3) {
+      for (let k = 0; k < 3; k++) {
+        min[k] = Math.min(min[k]!, rd.mesh.positions[i + k]!);
+        max[k] = Math.max(max[k]!, rd.mesh.positions[i + k]!);
+      }
+    }
+    expect(min).toEqual([0, 0, 0]);
+    expect(max).toEqual([4, 3, 5]);
+  });
+
+  it('has analytic outward normals per face and CCW triangle winding vs normal', () => {
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const rd = tessellate(result.value, 0.1);
+    for (const span of rd.mesh.faceSpans) {
+      const [nx, ny, nz] = expectedFaceNormal(span.gen);
+      for (let i = span.start; i < span.start + span.count; i++) {
+        const vi = rd.mesh.triIndex[i]!;
+        expect(vtx(rd.mesh.normals, vi)).toEqual([nx, ny, nz]);
+      }
+      // Geometric winding agrees with the supplied normal for every triangle.
+      for (let t = span.start; t < span.start + span.count; t += 3) {
+        const p0 = vtx(rd.mesh.positions, rd.mesh.triIndex[t]!);
+        const p1 = vtx(rd.mesh.positions, rd.mesh.triIndex[t + 1]!);
+        const p2 = vtx(rd.mesh.positions, rd.mesh.triIndex[t + 2]!);
+        const e1: [number, number, number] = [p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2]];
+        const e2: [number, number, number] = [p2[0] - p0[0], p2[1] - p0[1], p2[2] - p0[2]];
+        const gn: [number, number, number] = [
+          e1[1] * e2[2] - e1[2] * e2[1],
+          e1[2] * e2[0] - e1[0] * e2[2],
+          e1[0] * e2[1] - e1[1] * e2[0],
+        ];
+        expect(gn[0] * nx + gn[1] * ny + gn[2] * nz).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it('is watertight: merged box has 8 vertices, 18 edges, every edge shared by 2 tris', () => {
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const rd = tessellate(result.value, 0.1);
+    const { mergedVerts, uniqueEdges } = checkWatertight(rd.mesh);
+    expect(mergedVerts).toBe(8);
+    expect(uniqueEdges).toBe(18); // closed triangulated surface: E = 3F/2 = 3*12/2
+    // Euler-Poincare on the merged mesh: V - E + F = 8 - 18 + 12 = 2.
+    expect(mergedVerts - uniqueEdges + 12).toBe(2);
+  });
+
+  it('emits 12 edge segments with correct gen tags and lengths', () => {
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const rd = tessellate(result.value, 0.1);
+    expect(rd.edges.edgeSpans.length).toBe(12);
+    expect(rd.edges.positions.length).toBe(72); // 12 segments x 2 verts x 3 floats
+    const starts = rd.edges.edgeSpans.map((s) => s.start).sort((a, b) => a - b);
+    expect(starts).toEqual([0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22]);
+    for (const span of rd.edges.edgeSpans) expect(span.count).toBe(2);
+
+    const capLen: Record<string, number> = {
+      'rect.s0': 4, 'rect.s1': 3, 'rect.s2': 4, 'rect.s3': 3,
+    };
+    let capStart = 0;
+    let capEnd = 0;
+    let side = 0;
+    const sideVerts: string[] = [];
+    for (const span of rd.edges.edgeSpans) {
+      const a = vtx(rd.edges.positions, span.start);
+      const b = vtx(rd.edges.positions, span.start + 1);
+      const d: [number, number, number] = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
+      const len = Math.hypot(d[0], d[1], d[2]);
+      if (span.gen.role === 'capEdge') {
+        if (span.gen.end === 'start') capStart++;
+        else capEnd++;
+        expect(len).toBeCloseTo(capLen[span.gen.curve]!, 12);
+        // cap edges are horizontal
+        expect(d[2]).toBe(0);
+      } else {
+        side++;
+        sideVerts.push(span.gen.vertex);
+        // vertical edges: pure z, length 5
+        expect(d[0]).toBe(0);
+        expect(d[1]).toBe(0);
+        expect(Math.abs(d[2])).toBe(5);
+      }
+    }
+    expect(capStart).toBe(4);
+    expect(capEnd).toBe(4);
+    expect(side).toBe(4);
+    expect(sideVerts.sort()).toEqual(['rect.s0:a', 'rect.s1:a', 'rect.s2:a', 'rect.s3:a']);
+  });
+});
+ENDOFFILE
+/bin/sh: 1: cannot create /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad/test/integration/m1.test.ts: Directory nonexistent
+
+[exit 2]
+$ cd /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad && mkdir -p test/integration
+
+[exit 0]
+$ 
+
+[exit 0]

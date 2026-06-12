@@ -1,0 +1,11 @@
+{
+  "id": "job-2",
+  "title": "Tasks 2-4: num, vec, profile/Result",
+  "plan_tasks": [
+    2,
+    3,
+    4
+  ],
+  "instructions": "Implement plan Tasks 2, 3 and 4 with their tests exactly as specified (numeric tolerance primitives; vector math; Result type, signedArea, rectProfile).",
+  "gate_command": "npm run check"
+}

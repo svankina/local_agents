@@ -1,0 +1,161 @@
+--- /dev/null
++++ b/src/kernel/tess.ts
+@@ -0,0 +1,139 @@
++// Tessellation: Solid -> RenderData (flat typed arrays for the viewport).
++// M1 scope: planar faces, line edges. Normals are analytic from the face
++// surface (cs.z), emitted per face vertex; positions are NOT shared across
++// faces (flat shading, no normal averaging).
++//
++// Span units (the render contract, locked in M1):
++//   faceSpans.start/count are measured in triIndex ENTRIES (multiples of 3).
++//   edgeSpans.start/count are measured in VERTEX entries of edges.positions
++//     (a line edge has count === 2, occupying 6 floats).
++
++import { EPS_L } from './num';
++import { cross2, sub2, dot3, sub3 } from './vec';
++import type { Vec2, Vec3 } from './vec';
++import type { Solid, TopoId, FaceGen, EdgeGen } from './brep';
++
++export type RenderData = {
++  mesh: {
++    positions: Float32Array;
++    normals: Float32Array;
++    triIndex: Uint32Array;
++    faceSpans: { faceId: TopoId; gen: FaceGen; start: number; count: number }[];
++  };
++  edges: {
++    positions: Float32Array;
++    edgeSpans: { edgeId: TopoId; gen: EdgeGen; start: number; count: number }[];
++  };
++};
++
++/**
++ * Ear-clipping triangulation of a simple CCW polygon (no holes).
++ * Returns local indices into `pts`, 3 per triangle, length 3*(n-2).
++ * Internal kernel helper -- exported only so tests can hit it directly.
++ * O(n^2): for each candidate corner, ear = convex corner AND no other
++ * remaining vertex inside (or on the boundary of) the corner triangle.
++ *
++ * NOTE: cross2 here is an area-scale quantity; using EPS_L as its threshold
++ * is fine at M1 model scales (~1e-3..1e4 units, spec section 3).
++ */
++export function earClip(pts: Vec2[]): number[] {
++  const n = pts.length;
++  if (n < 3) return [];
++  const idx: number[] = [];
++  for (let i = 0; i < n; i++) idx.push(i);
++  const out: number[] = [];
++  while (idx.length > 3) {
++    let clipped = false;
++    for (let i = 0; i < idx.length; i++) {
++      const i0 = idx[(i + idx.length - 1) % idx.length]!; // `!`: noUncheckedIndexedAccess
++      const i1 = idx[i]!;
++      const i2 = idx[(i + 1) % idx.length]!;
++      if (isEar(pts, idx, i0, i1, i2)) {
++        out.push(i0, i1, i2);
++        idx.splice(i, 1); // remove the ear tip
++        clipped = true;
++        break;
++      }
++    }
++    if (!clipped) {
++      // A simple polygon always has >= 2 ears (two-ears theorem); reaching
++      // here means degenerate or non-simple input -- a kernel bug upstream.
++      throw new Error('earClip: no ear found (degenerate or non-simple polygon)');
++    }
++  }
++  out.push(idx[0]!, idx[1]!, idx[2]!);
++  return out;
++}
++
++function isEar(pts: Vec2[], idx: number[], i0: number, i1: number, i2: number): boolean {
++  const a = pts[i0]!;
++  const b = pts[i1]!;
++  const c = pts[i2]!;
++  // Convex corner of a CCW polygon: cross of (b-a) x (c-b) > 0.
++  // Reflex or collinear corners are never ears.
++  const cr = cross2(sub2(b, a), sub2(c, b));
++  if (cr <= EPS_L) return false;
++  // No other remaining vertex inside the candidate triangle. Boundary counts
++  // as inside (>= -EPS_L): clipping an ear whose edge passes through another
++  // vertex would create a T-junction.
++  for (const j of idx) {
++    if (j === i0 || j === i1 || j === i2) continue;
++    if (pointInTriInclusive(pts[j]!, a, b, c)) return false;
++  }
++  return true;
++}
++
++function pointInTriInclusive(p: Vec2, a: Vec2, b: Vec2, c: Vec2): boolean {
++  const d0 = cross2(sub2(b, a), sub2(p, a));
++  const d1 = cross2(sub2(c, b), sub2(p, b));
++  const d2 = cross2(sub2(a, c), sub2(p, c));
++  return d0 >= -EPS_L && d1 >= -EPS_L && d2 >= -EPS_L;
++}
++
++/** Walk a loop's half-edge cycle via `next`, collecting start-vertex positions in order. */
++function loopVertices(solid: Solid, loopId: TopoId): Vec3[] {
++  const loop = solid.loops.get(loopId);
++  if (!loop) throw new Error(`tessellate: missing loop ${loopId}`);
++  const out: Vec3[] = [];
++  let heId = loop.he;
++  const max = solid.halfEdges.size + 1; // runaway guard
++  for (let i = 0; i < max; i++) {
++    const he = solid.halfEdges.get(heId);
++    if (!he) throw new Error(`tessellate: missing halfEdge ${heId}`);
++    const v = solid.vertices.get(he.start);
++    if (!v) throw new Error(`tessellate: missing vertex ${he.start}`);
++    out.push(v.p);
++    heId = he.next;
++    if (heId === loop.he) return out;
++  }
++  throw new Error(`tessellate: loop ${loopId} half-edge cycle does not close`);
++}
++
++export function tessellate(solid: Solid, _chordTol: number): RenderData {
++  // _chordTol: unused in M1 (lines only); kept in the signature for arcs (M4).
++  const positions: number[] = [];
++  const normals: number[] = [];
++  const triIndex: number[] = [];
++  const faceSpans: RenderData['mesh']['faceSpans'] = [];
++
++  for (const face of solid.faces.values()) {
++    const cs = face.surface.cs;
++    const pts3 = loopVertices(solid, face.loop);
++    // Project into the face's own (u,v) frame: u = (p-origin).x_axis, etc.
++    // validateSolid's winding invariant guarantees this polygon is CCW.
++    const uv: Vec2[] = pts3.map((p) => {
++      const q = sub3(p, cs.origin);
++      return { x: dot3(q, cs.x), y: dot3(q, cs.y) };
++    });
++    const base = positions.length / 3; // global index of this face's first vertex
++    for (const p of pts3) positions.push(p.x, p.y, p.z);
++    for (let i = 0; i < pts3.length; i++) normals.push(cs.z.x, cs.z.y, cs.z.z);
++    const local = earClip(uv);
++    const start = triIndex.length; // span units: triIndex ENTRIES
++    for (const li of local) triIndex.push(base + li);
++    faceSpans.push({ faceId: face.id, gen: face.gen, start, count: local.length });
++  }
++
++  const edgePositions: number[] = [];
++  const edgeSpans: RenderData['edges']['edgeSpans'] = [];
++  for (const edge of solid.edges.values()) {
++    const start = edgePositions.length / 3; // span units: VERTEX entries
++    const { a, b } = edge.curve; // M1: kind 'line' only
++    edgePositions.push(a.x, a.y, a.z, b.x, b.y, b.z);
++    edgeSpans.push({ edgeId: edge.id, gen: edge.gen, start, count: 2 });
++  }
++
++  return {
++    mesh: {
++      positions: Float32Array.from(positions),
++      normals: Float32Array.from(normals),
++      triIndex: Uint32Array.from(triIndex),
++      faceSpans,
++    },
++    edges: {
++      positions: Float32Array.from(edgePositions),
++      edgeSpans,
++    },
++  };
++}

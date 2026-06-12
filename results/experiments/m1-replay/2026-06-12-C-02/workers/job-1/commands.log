@@ -1,0 +1,253 @@
+$ pwd && ls -la
+/home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+total 136
+drwxrwxr-x 3 svankina svankina   4096 Jun 12 15:20 .
+drwxrwxr-x 3 svankina svankina   4096 Jun 12 15:16 ..
+drwxrwxr-x 7 svankina svankina   4096 Jun 12 15:18 .git
+-rw-rw-r-- 1 svankina svankina 115874 Jun 12 15:20 PLAN.full.md
+-rw-rw-r-- 1 svankina svankina   7338 Jun 12 15:20 PLAN.md
+
+[exit 0]
+$ mkdir -p src/kernel src/doc src/app/viewport test scripts
+
+[exit 0]
+$ cat > package.json << 'EOF'
+{
+  "name": "custom-cad",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run --passWithNoTests",
+    "check": "tsc --noEmit && vitest run --passWithNoTests && bash scripts/check-three-imports.sh"
+  },
+  "dependencies": {
+    "three": "^0.184.0",
+    "@types/three": "^0.184.0"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.8"
+  }
+}
+EOF
+
+[exit 0]
+$ cat > tsconfig.json << 'EOF'
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true
+  },
+  "include": ["src", "test", "vite.config.ts"]
+}
+EOF
+
+[exit 0]
+$ cat > vite.config.ts << 'EOF'
+import { defineConfig } from 'vitest/config';
+
+export default defineConfig({
+  test: {
+    include: ['test/**/*.test.ts'],
+    environment: 'node',
+  },
+});
+EOF
+
+[exit 0]
+$ cat > index.html << 'EOF'
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>custom_cad</title>
+    <style>
+      html, body { margin: 0; height: 100%; }
+      #app { width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+EOF
+
+[exit 0]
+$ cat > src/main.ts << 'EOF'
+console.log('custom_cad scaffold ok');
+EOF
+
+[exit 0]
+$ cat > .gitignore << 'EOF'
+node_modules/
+dist/
+.worktrees/
+EOF
+
+[exit 0]
+$ cat > scripts/check-three-imports.sh << 'SCRIPT'
+#!/usr/bin/env bash
+# Enforce the architecture rule: three.js may be imported ONLY inside src/app/viewport/.
+# Catches `from 'three'`, `from "three"`, and subpath imports like `from 'three/addons/...'`.
+set -u
+
+violations=$(grep -rn -E "from ['\"]three[/'\"]" src/ --include='*.ts' | grep -v "^src/app/viewport/" || true)
+
+if [ -n "$violations" ]; then
+  echo "ERROR: three.js imported outside src/app/viewport/:" >&2
+  echo "$violations" >&2
+  exit 1
+fi
+exit 0
+SCRIPT
+chmod +x scripts/check-three-imports.sh
+
+[exit 0]
+$ touch src/kernel/.gitkeep src/doc/.gitkeep src/app/viewport/.gitkeep test/.gitkeep
+
+[exit 0]
+$ ls -la package.json tsconfig.json vite.config.ts index.html .gitignore src/main.ts scripts/check-three-imports.sh src/kernel/.gitkeep src/doc/.gitkeep src/app/viewport/.gitkeep test/.gitkeep
+-rw-rw-r-- 1 svankina svankina  32 Jun 12 15:20 .gitignore
+-rw-rw-r-- 1 svankina svankina 408 Jun 12 15:20 index.html
+-rw-rw-r-- 1 svankina svankina 496 Jun 12 15:20 package.json
+-rwxrwxr-x 1 svankina svankina 462 Jun 12 15:20 scripts/check-three-imports.sh
+-rw-rw-r-- 1 svankina svankina   0 Jun 12 15:20 src/app/viewport/.gitkeep
+-rw-rw-r-- 1 svankina svankina   0 Jun 12 15:20 src/doc/.gitkeep
+-rw-rw-r-- 1 svankina svankina   0 Jun 12 15:20 src/kernel/.gitkeep
+-rw-rw-r-- 1 svankina svankina  39 Jun 12 15:20 src/main.ts
+-rw-rw-r-- 1 svankina svankina   0 Jun 12 15:20 test/.gitkeep
+-rw-rw-r-- 1 svankina svankina 482 Jun 12 15:20 tsconfig.json
+-rw-rw-r-- 1 svankina svankina 157 Jun 12 15:20 vite.config.ts
+
+[exit 0]
+$ npm install 2>&1
+
+added 53 packages, and audited 54 packages in 16s
+
+17 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+[exit 0]
+$ npm ls three typescript vite vitest 2>&1
+custom-cad@0.0.1 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+├── three@0.184.0
+├── typescript@6.0.3
+├── vite@8.0.16
+└─┬ vitest@4.1.8
+  ├─┬ @vitest/mocker@4.1.8
+  │ └── vite@8.0.16 deduped
+  └── vite@8.0.16 deduped
+
+
+[exit 0]
+$ # Negative test: single-quoted import outside viewport
+echo "import * as THREE from 'three';" > src/kernel/_guardcheck.ts
+bash scripts/check-three-imports.sh; echo "exit=$?"
+exit=1
+ERROR: three.js imported outside src/app/viewport/:
+src/kernel/_guardcheck.ts:1:import * as THREE from 'three';
+
+[exit 0]
+$ # Negative test: double-quoted import outside viewport
+echo 'import * as THREE from "three";' > src/kernel/_guardcheck.ts
+bash scripts/check-three-imports.sh; echo "exit=$?"
+exit=1
+ERROR: three.js imported outside src/app/viewport/:
+src/kernel/_guardcheck.ts:1:import * as THREE from "three";
+
+[exit 0]
+$ # Positive test: viewport files are exempt
+rm src/kernel/_guardcheck.ts
+echo "import * as THREE from 'three'; console.log(THREE.REVISION);" > src/app/viewport/_guardcheck.ts
+bash scripts/check-three-imports.sh; echo "exit=$?"
+exit=0
+
+[exit 0]
+$ rm src/app/viewport/_guardcheck.ts
+
+[exit 0]
+$ npm run check 2>&1
+
+> custom-cad@0.0.1 check
+> tsc --noEmit && vitest run --passWithNoTests && bash scripts/check-three-imports.sh
+
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+No test files found, exiting with code 0
+
+include: test/**/*.test.ts
+exclude:  **/node_modules/**, **/.git/**
+
+
+[exit 0]
+$ git add package.json package-lock.json tsconfig.json vite.config.ts index.html .gitignore src/main.ts src/kernel/.gitkeep src/doc/.gitkeep src/app/viewport/.gitkeep test/.gitkeep scripts/check-three-imports.sh
+git commit -m "chore: scaffold Vite vanilla-ts project with vitest and three.js import guard
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+[master (root-commit) 4202c59] chore: scaffold Vite vanilla-ts project with vitest and three.js import guard
+ 12 files changed, 1450 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 index.html
+ create mode 100644 package-lock.json
+ create mode 100644 package.json
+ create mode 100755 scripts/check-three-imports.sh
+ create mode 100644 src/app/viewport/.gitkeep
+ create mode 100644 src/doc/.gitkeep
+ create mode 100644 src/kernel/.gitkeep
+ create mode 100644 src/main.ts
+ create mode 100644 test/.gitkeep
+ create mode 100644 tsconfig.json
+ create mode 100644 vite.config.ts
+
+[exit 0]
+$ npm run check 2>&1; echo "FINAL_EXIT=$?"
+
+> custom-cad@0.0.1 check
+> tsc --noEmit && vitest run --passWithNoTests && bash scripts/check-three-imports.sh
+
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+No test files found, exiting with code 0
+
+include: test/**/*.test.ts
+exclude:  **/node_modules/**, **/.git/**
+
+FINAL_EXIT=0
+
+[exit 0]
+$ npm run check
+
+> custom-cad@0.0.1 check
+> tsc --noEmit && vitest run --passWithNoTests && bash scripts/check-three-imports.sh
+
+
+ RUN  v4.1.8 /home/svankina/src/local_agents/.worktrees/m1-replay/2026-06-12-C-02/custom_cad
+
+No test files found, exiting with code 0
+
+include: test/**/*.test.ts
+exclude:  **/node_modules/**, **/.git/**
+
+
+[exit 0]

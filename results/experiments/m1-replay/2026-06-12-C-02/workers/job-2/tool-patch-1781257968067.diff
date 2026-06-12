@@ -1,0 +1,14 @@
+--- a/package.json
++++ b/package.json
+@@ -5,9 +5,9 @@
+   "scripts": {
+     "dev": "vite",
+     "build": "tsc --noEmit && vite build",
+-    "test": "vitest run --passWithNoTests",
+-    "check": "tsc --noEmit && vitest run --passWithNoTests && bash scripts/check-three-imports.sh"
++    "test": "vitest run",
++    "check": "tsc --noEmit && vitest run && bash scripts/check-three-imports.sh"
+   },
+   "dependencies": {
+     "three": "^0.184.0",
+EOF

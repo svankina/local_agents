@@ -1,0 +1,9 @@
+{
+  "id": "job-4",
+  "title": "Task 6: extrude",
+  "plan_tasks": [
+    6
+  ],
+  "instructions": "Implement plan Task 6 with its tests: extrude a profile to a half-edge prism solid.",
+  "gate_command": "npm run check"
+}

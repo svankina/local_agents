@@ -1,0 +1,238 @@
+diff --git a/src/kernel/tess.ts b/src/kernel/tess.ts
+index 2f843f3..86f9932 100644
+--- a/src/kernel/tess.ts
++++ b/src/kernel/tess.ts
+@@ -45,19 +45,17 @@ export function earClip(pts: Vec2[]): number[] {
+   while (idx.length > 3) {
+     let clipped = false;
+     for (let i = 0; i < idx.length; i++) {
+-      const i0 = idx[(i + idx.length - 1) % idx.length]!; // `!`: noUncheckedIndexedAccess
++      const i0 = idx[(i + idx.length - 1) % idx.length]!;
+       const i1 = idx[i]!;
+       const i2 = idx[(i + 1) % idx.length]!;
+       if (isEar(pts, idx, i0, i1, i2)) {
+         out.push(i0, i1, i2);
+-        idx.splice(i, 1); // remove the ear tip
++        idx.splice(i, 1);
+         clipped = true;
+         break;
+       }
+     }
+     if (!clipped) {
+-      // A simple polygon always has >= 2 ears (two-ears theorem); reaching
+-      // here means degenerate or non-simple input -- a kernel bug upstream.
+       throw new Error('earClip: no ear found (degenerate or non-simple polygon)');
+     }
+   }
+@@ -69,13 +67,8 @@ function isEar(pts: Vec2[], idx: number[], i0: number, i1: number, i2: number):
+   const a = pts[i0]!;
+   const b = pts[i1]!;
+   const c = pts[i2]!;
+-  // Convex corner of a CCW polygon: cross of (b-a) x (c-b) > 0.
+-  // Reflex or collinear corners are never ears.
+   const cr = cross2(sub2(b, a), sub2(c, b));
+   if (cr <= EPS_L) return false;
+-  // No other remaining vertex inside the candidate triangle. Boundary counts
+-  // as inside (>= -EPS_L): clipping an ear whose edge passes through another
+-  // vertex would create a T-junction.
+   for (const j of idx) {
+     if (j === i0 || j === i1 || j === i2) continue;
+     if (pointInTriInclusive(pts[j]!, a, b, c)) return false;
+@@ -90,13 +83,12 @@ function pointInTriInclusive(p: Vec2, a: Vec2, b: Vec2, c: Vec2): boolean {
+   return d0 >= -EPS_L && d1 >= -EPS_L && d2 >= -EPS_L;
+ }
+ 
+-/** Walk a loop's half-edge cycle via `next`, collecting start-vertex positions in order. */
+ function loopVertices(solid: Solid, loopId: TopoId): Vec3[] {
+   const loop = solid.loops.get(loopId);
+   if (!loop) throw new Error(`tessellate: missing loop ${loopId}`);
+   const out: Vec3[] = [];
+   let heId = loop.he;
+-  const max = solid.halfEdges.size + 1; // runaway guard
++  const max = solid.halfEdges.size + 1;
+   for (let i = 0; i < max; i++) {
+     const he = solid.halfEdges.get(heId);
+     if (!he) throw new Error(`tessellate: missing halfEdge ${heId}`);
+@@ -110,7 +102,6 @@ function loopVertices(solid: Solid, loopId: TopoId): Vec3[] {
+ }
+ 
+ export function tessellate(solid: Solid, _chordTol: number): RenderData {
+-  // _chordTol: unused in M1 (lines only); kept in the signature for arcs (M4).
+   const positions: number[] = [];
+   const normals: number[] = [];
+   const triIndex: number[] = [];
+@@ -119,17 +110,15 @@ export function tessellate(solid: Solid, _chordTol: number): RenderData {
+   for (const face of solid.faces.values()) {
+     const cs = face.surface.cs;
+     const pts3 = loopVertices(solid, face.loop);
+-    // Project into the face's own (u,v) frame: u = (p-origin).x_axis, etc.
+-    // validateSolid's winding invariant guarantees this polygon is CCW.
+     const uv: Vec2[] = pts3.map((p) => {
+       const q = sub3(p, cs.origin);
+       return { x: dot3(q, cs.x), y: dot3(q, cs.y) };
+     });
+-    const base = positions.length / 3; // global index of this face's first vertex
++    const base = positions.length / 3;
+     for (const p of pts3) positions.push(p.x, p.y, p.z);
+     for (let i = 0; i < pts3.length; i++) normals.push(cs.z.x, cs.z.y, cs.z.z);
+     const local = earClip(uv);
+-    const start = triIndex.length; // span units: triIndex ENTRIES
++    const start = triIndex.length;
+     for (const li of local) triIndex.push(base + li);
+     faceSpans.push({ faceId: face.id, gen: face.gen, start, count: local.length });
+   }
+@@ -137,3 +126,22 @@ export function tessellate(solid: Solid, _chordTol: number): RenderData {
+   const edgePositions: number[] = [];
+   const edgeSpans: RenderData['edges']['edgeSpans'] = [];
+   for (const edge of solid.edges.values()) {
++    const start = edgePositions.length / 3;
++    const { a, b } = edge.curve;
++    edgePositions.push(a.x, a.y, a.z, b.x, b.y, b.z);
++    edgeSpans.push({ edgeId: edge.id, gen: edge.gen, start, count: 2 });
++  }
++
++  return {
++    mesh: {
++      positions: Float32Array.from(positions),
++      normals: Float32Array.from(normals),
++      triIndex: Uint32Array.from(triIndex),
++      faceSpans,
++    },
++    edges: {
++      positions: Float32Array.from(edgePositions),
++      edgeSpans,
++    },
++  };
++}
+diff --git a/test/kernel/tess.test.ts b/test/kernel/tess.test.ts
+index f06cd5a..080d7ae 100644
+--- a/test/kernel/tess.test.ts
++++ b/test/kernel/tess.test.ts
+@@ -6,7 +6,6 @@ import { extrude } from '../../src/kernel/extrude';
+ import { XY_PLANE, cross2, sub2 } from '../../src/kernel/vec';
+ import type { Vec2, Vec3 } from '../../src/kernel/vec';
+ 
+-// 2 * signed area of triangle (a,b,c); positive = CCW
+ function twiceArea(a: Vec2, b: Vec2, c: Vec2): number {
+   return cross2(sub2(b, a), sub2(c, a));
+ }
+@@ -20,18 +19,17 @@ describe('earClip', () => {
+       { x: 0, y: 3 },
+     ];
+     const tris = earClip(pts);
+-    expect(tris.length).toBe(6); // (4 - 2) triangles * 3 indices
++    expect(tris.length).toBe(6);
+     let total = 0;
+     for (let t = 0; t < tris.length; t += 3) {
+       const ta = twiceArea(pts[tris[t]!]!, pts[tris[t + 1]!]!, pts[tris[t + 2]!]!);
+-      expect(ta).toBeGreaterThan(0); // every output triangle stays CCW
++      expect(ta).toBeGreaterThan(0);
+       total += ta / 2;
+     }
+     expect(total).toBeCloseTo(12, 10);
+   });
+ 
+   it('triangulates a concave L-shaped hexagon into 4 CCW triangles, area 3', () => {
+-    // 2x2 square with the top-right 1x1 corner removed. CCW. Reflex vertex at (1,1).
+     const pts: Vec2[] = [
+       { x: 0, y: 0 },
+       { x: 2, y: 0 },
+@@ -41,29 +39,23 @@ describe('earClip', () => {
+       { x: 0, y: 2 },
+     ];
+     const tris = earClip(pts);
+-    expect(tris.length).toBe(12); // (6 - 2) triangles * 3 indices
++    expect(tris.length).toBe(12);
+     let total = 0;
+     for (let t = 0; t < tris.length; t += 3) {
+       const ta = twiceArea(pts[tris[t]!]!, pts[tris[t + 1]!]!, pts[tris[t + 2]!]!);
+       expect(ta).toBeGreaterThan(0);
+       total += ta / 2;
+     }
+-    expect(total).toBeCloseTo(3, 10); // 2*2 - 1*1
++    expect(total).toBeCloseTo(3, 10);
+   });
+ });
+ 
+-// ---------------------------------------------------------------------------
+-// tessellate() on the canonical M1 solid: rectProfile(XY_PLANE, 4, 3)
+-// extruded by 5. A 4 x 3 x 5 box: 6 quad faces, 12 edges, 8 corners.
+-// ---------------------------------------------------------------------------
+-
+ function makeBox(): RenderData {
+   const res = extrude(rectProfile(XY_PLANE, 4, 3), { dist: 5 });
+   if (!res.ok) throw new Error(`extrude failed: ${res.error.code}: ${res.error.msg}`);
+-  return tessellate(res.value, 0.1); // chordTol unused for lines-only
++  return tessellate(res.value, 0.1);
+ }
+ 
+-// Round a vertex position to a dedup key (1e-6 grid, matches EPS_L).
+ function posKey(positions: Float32Array, vi: number): string {
+   const r = (t: number) => Math.round(t * 1e6);
+   return `${r(positions[3 * vi]!)},${r(positions[3 * vi + 1]!)},${r(positions[3 * vi + 2]!)}`;
+@@ -81,19 +73,18 @@ function expectSpanNormal(rd: RenderData, span: { start: number; count: number }
+ describe('tessellate (4x3x5 box)', () => {
+   it('emits 6 quad faces as 36 triIndex entries with contiguous non-overlapping spans', () => {
+     const rd = makeBox();
+-    // 6 faces, each a quad with its own 4 vertices (no sharing across faces)
+-    expect(rd.mesh.positions.length).toBe(6 * 4 * 3); // 72 floats
++    expect(rd.mesh.positions.length).toBe(6 * 4 * 3);
+     expect(rd.mesh.normals.length).toBe(72);
+-    expect(rd.mesh.triIndex.length).toBe(36); // 6 faces * 2 tris * 3
++    expect(rd.mesh.triIndex.length).toBe(36);
+     expect(rd.mesh.faceSpans.length).toBe(6);
+     const spans = [...rd.mesh.faceSpans].sort((a, b) => a.start - b.start);
+     let cursor = 0;
+     for (const s of spans) {
+-      expect(s.start).toBe(cursor); // contiguous, no gaps/overlap
+-      expect(s.count).toBe(6); // quad = 2 tris = 6 triIndex ENTRIES
++      expect(s.start).toBe(cursor);
++      expect(s.count).toBe(6);
+       cursor += s.count;
+     }
+-    expect(cursor).toBe(36); // spans exactly cover triIndex
++    expect(cursor).toBe(36);
+   });
+ 
+   it('emits analytic per-face normals: caps +/-z, side rect.s0 faces -y', () => {
+@@ -106,15 +97,12 @@ describe('tessellate (4x3x5 box)', () => {
+     expect(side0).toBeDefined();
+     expectSpanNormal(rd, top!, { x: 0, y: 0, z: 1 });
+     expectSpanNormal(rd, bottom!, { x: 0, y: 0, z: -1 });
+-    // rect.s0 runs (0,0)->(4,0) in a CCW outer loop; the interior is at y > 0,
+-    // so the outward side-face normal is (0,-1,0).
+     expectSpanNormal(rd, side0!, { x: 0, y: -1, z: 0 });
+   });
+ 
+   it('is watertight on a positions-dedup basis (every undirected tri edge used exactly twice)', () => {
+     const rd = makeBox();
+     const { positions, triIndex } = rd.mesh;
+-    // 8 distinct corner positions even though faces do not share vertex entries
+     const uniq = new Set<string>();
+     for (let vi = 0; vi < positions.length / 3; vi++) uniq.add(posKey(positions, vi));
+     expect(uniq.size).toBe(8);
+@@ -132,7 +120,6 @@ describe('tessellate (4x3x5 box)', () => {
+         edgeUse.set(ek, (edgeUse.get(ek) ?? 0) + 1);
+       }
+     }
+-    // 12 topological box edges + 6 quad diagonals = 18 undirected mesh edges
+     expect(edgeUse.size).toBe(18);
+     for (const [ek, uses] of edgeUse) {
+       expect(uses, `undirected edge ${ek}`).toBe(2);
+@@ -140,3 +127,16 @@ describe('tessellate (4x3x5 box)', () => {
+   });
+ 
+   it('emits one 2-vertex span per B-rep edge (12 spans, vertex-entry units)', () => {
++    const rd = makeBox();
++    expect(rd.edges.edgeSpans.length).toBe(12);
++    expect(rd.edges.positions.length).toBe(12 * 2 * 3);
++    const spans = [...rd.edges.edgeSpans].sort((a, b) => a.start - b.start);
++    let cursor = 0;
++    for (const s of spans) {
++      expect(s.start).toBe(cursor);
++      expect(s.count).toBe(2);
++      cursor += s.count;
++    }
++    expect(cursor).toBe(24);
++  });
++});

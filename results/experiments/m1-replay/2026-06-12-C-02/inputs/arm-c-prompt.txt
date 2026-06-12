@@ -1,0 +1,19 @@
+Implement the pinned M1 plan in this fresh workspace. The plan is ./PLAN.md (read it fully first). You are the senior; LOCAL subagents do the implementation.
+
+Hard rules for this run:
+- Do NOT use the Task/Agent tool. Workers are LOCAL models invoked ONLY via this exact command shape (run it with Bash, one at a time, in plan order):
+  /home/svankina/src/local_agents/scripts/m1-local-worker \
+    --base-url "http://127.0.0.1:8089/v1" --model local \
+    --workspace "$PWD" \
+    --plan ./PLAN.md \
+    --job /home/svankina/src/local_agents/results/experiments/m1-replay/2026-06-12-C-02/inputs/jobs/job-N.json \
+    --out /home/svankina/src/local_agents/results/experiments/m1-replay/2026-06-12-C-02/workers/job-N
+  The six pinned jobs are job-1 ... job-6 (job-1: Task 1 scaffold; job-2: Tasks 2-4; job-3: Task 5; job-4: Task 6; job-5: Task 7; job-6: Tasks 8-9). Queue them SERIALLY — never two at once.
+- After each worker exits, review its changes in the workspace (its summary is in the --out dir: worker.md, worker.patch). Run the plan's gates yourself. Fix small issues yourself if cheaper than re-running the worker; re-run the worker with the same command if its work must be redone (it sees the current workspace state).
+- A task is done only when its gate is green. After each plan task is accepted, git commit with message "task N: <short title>" — these are the timing markers.
+- Do NOT read or reference /home/svankina/src/custom_cad. The plan is the only specification.
+- Never write outside this workspace (worker outputs go to their --out dirs automatically).
+- No browser automation; no browser tools exist here. Gates are npm run check and the integration test; visual acceptance is the operator's job after the run.
+- The run is complete when all plan tasks are committed, `npm run check` passes, and `npx vitest run test/integration/m1.test.ts` passes. Then print exactly: M1_REPLAY_COMPLETE
+- If irrecoverably blocked, print exactly: M1_REPLAY_BLOCKED: <one-line reason>
+- CRITICAL: run every worker command in the FOREGROUND and wait for it to exit before doing anything else. NEVER use background execution for any command. A worker takes several minutes — that is normal; wait for it. If you end your turn while anything is still running, the run is dead.

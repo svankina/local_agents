@@ -1,0 +1,9 @@
+{
+  "id": "job-5",
+  "title": "Task 7: tessellation",
+  "plan_tasks": [
+    7
+  ],
+  "instructions": "Implement plan Task 7 with its tests: tessellate solids to RenderData (earClip export per plan note).",
+  "gate_command": "npm run check"
+}

@@ -1,0 +1,165 @@
+--- /dev/null
++++ b/test/kernel/extrude.test.ts
+@@ -0,0 +1,166 @@
++import { describe, expect, it } from 'vitest';
++import { v2, XY_PLANE } from '../../src/kernel/vec';
++import type { Result } from '../../src/kernel/result';
++import { rectProfile, signedArea, type Profile } from '../../src/kernel/profile';
++import { validateSolid } from '../../src/kernel/brep';
++import { extrude } from '../../src/kernel/extrude';
++
++function unwrap<T>(r: Result<T>): T {
++  if (!r.ok) throw new Error(`expected ok, got ${r.error.code}: ${r.error.msg}`);
++  return r.value;
++}
++
++const rect = () => rectProfile(XY_PLANE, 4, 3);
++
++describe('extrude rejections', () => {
++  it('rejects dist = 0 as degenerate', () => {
++    const r = extrude(rect(), { dist: 0 });
++    expect(r.ok).toBe(false);
++    if (!r.ok) expect(r.error.code).toBe('degenerate');
++  });
++
++  it('rejects negative dist as degenerate', () => {
++    const r = extrude(rect(), { dist: -2 });
++    expect(r.ok).toBe(false);
++    if (!r.ok) expect(r.error.code).toBe('degenerate');
++  });
++
++  it('rejects a 2-segment loop as degenerate, naming the segments', () => {
++    const a = v2(0, 0);
++    const b = v2(1, 0);
++    const p: Profile = {
++      plane: XY_PLANE,
++      outer: { segs: [{ id: 'x.s0', a, b }, { id: 'x.s1', a: b, b: a }] },
++    };
++    const r = extrude(p, { dist: 5 });
++    expect(r.ok).toBe(false);
++    if (!r.ok) {
++      expect(r.error.code).toBe('degenerate');
++      expect(r.error.entityIds).toEqual(['x.s0', 'x.s1']);
++    }
++  });
++
++  it('rejects a zero-area (collinear) loop as degenerate', () => {
++    const a = v2(0, 0);
++    const b = v2(1, 0);
++    const c = v2(2, 0);
++    const p: Profile = {
++      plane: XY_PLANE,
++      outer: {
++        segs: [
++          { id: 'z.s0', a, b },
++          { id: 'z.s1', a: b, b: c },
++          { id: 'z.s2', a: c, b: a },
++        ],
++      },
++    };
++    const r = extrude(p, { dist: 5 });
++    expect(r.ok).toBe(false);
++    if (!r.ok) expect(r.error.code).toBe('degenerate');
++  });
++});
++
++describe('extrude rect 4x3 by 5', () => {
++  const solid = () => unwrap(extrude(rect(), { dist: 5 }));
++
++  it('has prism counts V=8 E=12 F=6 halfEdges=24 loops=6 and validates clean', () => {
++    const s = solid();
++    expect(s.vertices.size).toBe(8);
++    expect(s.edges.size).toBe(12);
++    expect(s.faces.size).toBe(6);
++    expect(s.halfEdges.size).toBe(24);
++    expect(s.loops.size).toBe(6);
++    expect(validateSolid(s)).toEqual([]);
++  });
++
++  it('places the 8 corner vertices exactly', () => {
++    const pts = [...solid().vertices.values()]
++      .map((v) => v.p)
++      .sort((p, q) => p.z - q.z || p.y - q.y || p.x - q.x);
++    expect(pts).toEqual([
++      { x: 0, y: 0, z: 0 }, { x: 4, y: 0, z: 0 }, { x: 0, y: 3, z: 0 }, { x: 4, y: 3, z: 0 },
++      { x: 0, y: 0, z: 5 }, { x: 4, y: 0, z: 5 }, { x: 0, y: 3, z: 5 }, { x: 4, y: 3, z: 5 },
++    ]);
++  });
++
++  it('tags every face: one side per seg plus start/end caps', () => {
++    const gens = [...solid().faces.values()].map((f) => f.gen);
++    expect(gens).toHaveLength(6);
++    expect(gens).toContainEqual({ role: 'cap', end: 'start' });
++    expect(gens).toContainEqual({ role: 'cap', end: 'end' });
++    for (const id of ['rect.s0', 'rect.s1', 'rect.s2', 'rect.s3']) {
++      expect(gens).toContainEqual({ role: 'side', curve: id });
++    }
++  });
++
++  it('tags every edge and carries exact analytic line curves', () => {
++    const s = solid();
++    const gens = [...s.edges.values()].map((e) => e.gen);
++    expect(gens).toHaveLength(12);
++    for (const id of ['rect.s0', 'rect.s1', 'rect.s2', 'rect.s3']) {
++      expect(gens).toContainEqual({ role: 'capEdge', end: 'start', curve: id });
++      expect(gens).toContainEqual({ role: 'capEdge', end: 'end', curve: id });
++      expect(gens).toContainEqual({ role: 'sideEdge', vertex: `${id}:a` });
++    }
++    const vert = [...s.edges.values()].find(
++      (e) => e.gen.role === 'sideEdge' && e.gen.vertex === 'rect.s0:a',
++    );
++    expect(vert?.curve).toEqual({
++      kind: 'line', a: { x: 0, y: 0, z: 0 }, b: { x: 0, y: 0, z: 5 },
++    });
++    const capE = [...s.edges.values()].find(
++      (e) => e.gen.role === 'capEdge' && e.gen.end === 'start' && e.gen.curve === 'rect.s0',
++    );
++    expect(capE?.curve).toEqual({
++      kind: 'line', a: { x: 0, y: 0, z: 0 }, b: { x: 4, y: 0, z: 0 },
++    });
++  });
++});
++
++describe('extrude CW reorientation', () => {
++  it('a CW outer loop produces a solid identical to the CCW one', () => {
++    const ccw = rect();
++    // Manually reverse: reverse seg order AND swap each seg's endpoints, keep ids.
++    // Endpoint sharing is preserved: reversed segs still chain by object identity.
++    const cw: Profile = {
++      plane: ccw.plane,
++      outer: { segs: [...ccw.outer.segs].reverse().map((s) => ({ id: s.id, a: s.b, b: s.a })) },
++    };
++    expect(signedArea(ccw.outer)).toBe(12);
++    expect(signedArea(cw.outer)).toBe(-12);
++    const sCcw = unwrap(extrude(ccw, { dist: 5 }));
++    const sCw = unwrap(extrude(cw, { dist: 5 }));
++    expect(validateSolid(sCw)).toEqual([]);
++    // extrude's internal reversal is the exact involution of the manual one above,
++    // so the two solids must be deeply equal -- TopoIds, gens, coordinates, wiring.
++    expect(sCw).toEqual(sCcw);
++  });
++});
++
++describe('extrude triangle prism', () => {
++  it('hand-built 3-seg loop -> V=6 E=9 F=5 halfEdges=18, validates clean', () => {
++    const p0 = v2(0, 0);
++    const p1 = v2(2, 0);
++    const p2 = v2(0, 2);
++    const tri: Profile = {
++      plane: XY_PLANE,
++      outer: {
++        segs: [
++          { id: 'tri.s0', a: p0, b: p1 },
++          { id: 'tri.s1', a: p1, b: p2 },
++          { id: 'tri.s2', a: p2, b: p0 },
++        ],
++      },
++    };
++    const s = unwrap(extrude(tri, { dist: 1 }));
++    expect(s.vertices.size).toBe(6);
++    expect(s.edges.size).toBe(9);
++    expect(s.faces.size).toBe(5);
++    expect(s.halfEdges.size).toBe(18);
++    expect(validateSolid(s)).toEqual([]);
++  });
++});
