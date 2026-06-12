@@ -1,0 +1,38 @@
+{
+  "id": "chatcmpl-91889e51dd723211",
+  "object": "chat.completion",
+  "created": 1781264972,
+  "model": "C18-qwen3-30b-vllm",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": [],
+        "reasoning": "\nOkay, the user said \"Say hello.\" I need to respond appropriately. Let me start by greeting them. Maybe \"Hello!\" to be friendly. Then, I should offer assistance. Something like, \"How can I assist you today?\" That keeps the conversation open. Let me check if that's natural. Yeah, it sounds good. I should make sure it's not too formal. Maybe add an emoji to keep it friendly. Wait, the user didn't specify, but the previous response had a smiley. Maybe include that. Alright, \"Hello! \ud83d\ude0a How can I assist you today?\" That should work.\n"
+      },
+      "logprobs": null,
+      "finish_reason": "length",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.22.1-7fd425eb",
+  "usage": {
+    "prompt_tokens": 11,
+    "total_tokens": 139,
+    "completion_tokens": 128,
+    "prompt_tokens_details": null
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null
+}
