@@ -1,14 +1,14 @@
-# [N×] faster, [K%] fewer cloud tokens: running Claude Code with local subagents (byteshape Qwen3.6-35B-A3B on a $700 used GPU) instead of Fable 5 doing everything itself
+# [N×] faster, [K%] fewer cloud tokens: running Claude Code with local subagents (byteshape Qwen3.6-35B-A3B) instead of Fable 5 doing everything itself
 
 *[N×] and [K%] are placeholders — they land when the CAD kernel part 1 build experiment at the bottom finishes. Every other number in this post is already measured and committed with raw logs.*
 
-The bet: keep Claude Fable 5 as the senior — it plans, reviews, merges — and push the grunt work (search, edits, test loops) to a local model on a used RTX 3090 Ti (~$700, 24 GB). The winner of the benchmark campaign below is byteshape's Qwen3.6-35B-A3B IQ4_XS quant: **100% toolcall, 5/5 agentic, 127–143 tok/s decode**. The baseline it has to beat is Fable 5 doing everything itself.
+Setup: Claude Fable 5 remains the senior agent — planning, review, merges — and the grunt work (search, edits, test loops) goes to a local model on an RTX 3090 Ti (24 GB). The best performer in the benchmarks below is byteshape's Qwen3.6-35B-A3B IQ4_XS quant: **100% toolcall, 5/5 agentic, 127–143 tok/s decode**. The baseline is Fable 5 doing everything itself.
 
 We benchmarked Gemma 4 12B/26B, Qwen3.6-27B/35B, Nex-N2-mini, and Qwopus across llama.cpp Vulkan, llama.cpp CUDA (Docker and bare metal), and vLLM.
 
-## The scoreboard
+## Benchmark results
 
-Single 3090 Ti, one server at a time, three suites: throughput, 36 tool-call trials, 5 agentic repo-editing tasks.
+One GPU, one server at a time, three suites: throughput, 36 tool-call trials, 5 agentic repo-editing tasks.
 
 | Config | decode t/s | x4 agg | toolcall | agentic | VRAM |
 |---|---:|---:|---:|---:|---:|
@@ -25,7 +25,7 @@ Single 3090 Ti, one server at a time, three suites: throughput, 36 tool-call tri
 | same, CUDA **bare metal** | 135.7 | 107.4 | **1.000** | — | 19.6 GB |
 | Qwen 35B AWQ, vLLM 0.22.1 | 130.6 | **360.3** | 0.167* | 0/5* | 21.8 GB |
 
-\* not a model problem — see "the one that got away."
+\* not a model problem — see "vLLM output corruption."
 
 ## Five lessons
 
@@ -35,11 +35,11 @@ Single 3090 Ti, one server at a time, three suites: throughput, 36 tool-call tri
 4. **Read the failures, not the score**: Gemma 12B's 0.806 toolcall was entirely the model calling `list_dir` before `read_file` — zero malformed calls, a prompting fix.
 5. **Cache-bust everything**: cached prefill medians read 49.9 tok/s where the true number was 2305 (46× off), and throughput suites can't see output corruption.
 
-Two operational rules earned the hard way: resolve GPUs by name, never enumeration index — Vulkan flipped device order mid-campaign and silently re-ran one config on the wrong card — and `--max-num-seqs 4` is the flag that got vLLM to fit in 24 GB after the 32k-context startup OOMed.
+Two operational rules. Resolve GPUs by name, never enumeration index — Vulkan flipped device order mid-run and silently re-ran one config on the wrong card. And `--max-num-seqs 4` is the flag that got vLLM to fit in 24 GB after the 32k-context startup OOMed.
 
-## The one that got away
+## vLLM output corruption
 
-vLLM posted the best parallel scaling and scored zero on quality — because it generated gibberish for every prompt; a temperature-0 "say hello" returned multi-script token salad. We ruled out the tool parser (both candidates fail identically), the chat template (passed explicitly), and mrope config loss (re-injected via `--hf-overrides`). Remaining suspects: vLLM 0.22.1's quantized-MoE path for this VL-flavored architecture, or the community AWQ quant itself. The same weights score 1.000 toolcall through llama.cpp; the elimination log is in the repo.
+vLLM posted the best parallel scaling and scored zero on quality: it generated gibberish for every prompt; a temperature-0 "say hello" returned multi-script token salad. We ruled out the tool parser (both candidates fail identically), the chat template (passed explicitly), and mrope config loss (re-injected via `--hf-overrides`). Remaining suspects: vLLM 0.22.1's quantized-MoE path for this VL-flavored architecture, or the community AWQ quant itself. The same weights score 1.000 toolcall through llama.cpp; the elimination log is in the repo.
 
 ## The fleet
 
@@ -47,9 +47,9 @@ vLLM posted the best parallel scaling and scored zero on quality — because it 
 - **Budget coexistence**: 26B `-cmoe` senior (3.0 GB) + 12B worker, 11.1 GB peak, measured under concurrent load.
 - **Parallel pool**: vLLM architecture, parked until the serving bug is fixed or a vLLM-first model takes the slot.
 
-## The experiment that fills in the headline
+## CAD kernel part 1 build
 
-We replay the **CAD kernel part 1 build**: a small CAD engine from scratch — B-rep kernel → tessellation → three.js viewport — until a shaded box orbits at 60 fps behind a hard test gate. It's a real milestone we already shipped once, so the plan is pinned and the acceptance criteria are non-negotiable. Three arms, N≥3 runs each: Fable 5 solo, Fable 5 + cloud subagents, Fable 5 + local subagents. Measured: wall-clock, cloud tokens/$, local tokens, repair loops, GPU watt-hours per task.
+This is the experiment that fills in the headline placeholders. It replays a small CAD engine build from scratch — B-rep kernel → tessellation → three.js viewport — until a shaded box orbits at 60 fps behind a hard test gate. It is a milestone we already shipped once, so the plan is pinned and the acceptance criteria are fixed. Three arms, N≥3 runs each: Fable 5 solo, Fable 5 + cloud subagents, Fable 5 + local subagents. Measured: wall-clock, cloud tokens/$, local tokens, repair loops, GPU watt-hours per task.
 
 | | wall-clock | cloud $ | repair loops |
 |---|---:|---:|---:|
@@ -59,14 +59,14 @@ We replay the **CAD kernel part 1 build**: a small CAD engine from scratch — B
 
 If local workers save tokens but lose wall-clock to the serial queue, we publish that too.
 
-## Reproduce it
+## Reproduction
 
-RTX 3090 Ti (24 GB), driver 580.159.03, llama.cpp b9592/b9596, vLLM 0.22.1. Harness, configs, raw logs, model SHAs, and failure diagnoses are all in the repo:
+Driver 580.159.03, llama.cpp b9592/b9596, vLLM 0.22.1. Harness, configs, raw logs, model SHAs, and failure diagnoses are all in the repo:
 
 ```bash
-bench/run_config.sh C12-byteshape-35b            # Vulkan champion
+bench/run_config.sh C12-byteshape-35b            # best Vulkan config
 bench/run_config_baremetal_cuda.sh C16-cuda-baremetal
-bench/run_config_vllm.sh C15-vllm-35b            # the scaling demo
+bench/run_config_vllm.sh C15-vllm-35b            # vLLM parallel scaling
 ```
 
 github.com/svankina/local_agents
