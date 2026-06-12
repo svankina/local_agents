@@ -1,0 +1,99 @@
+{
+  "gpu_device": "Vulkan0",
+  "senior": {
+    "config": "C5-gemma26b-cmoe",
+    "port": 8089,
+    "pid": 181241
+  },
+  "worker": {
+    "config": "C1-gemma12b-base",
+    "port": 8090,
+    "pid": 181436,
+    "extra_flags": [
+      "--parallel",
+      "2",
+      "--cache-type-k",
+      "q8_0",
+      "--cache-type-v",
+      "q8_0"
+    ]
+  },
+  "memory_before": {
+    "total": "42 MiB",
+    "compute_apps": "",
+    "nvidia_smi": "Fri Jun 12 06:20:20 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 3090 Ti     Off |   00000000:42:00.0  On |                  Off |\n| 31%   51C    P8             16W /  450W |      42MiB /  24564MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n"
+  },
+  "memory_after_senior": {
+    "total": "3047 MiB",
+    "compute_apps": "181241, llama-server, 2989 MiB",
+    "nvidia_smi": "Fri Jun 12 06:20:26 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 3090 Ti     Off |   00000000:42:00.0  On |                  Off |\n| 31%   53C    P3             77W /  450W |    3047MiB /  24564MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A          181241    C+G   llama-server                           2989MiB |\n+-----------------------------------------------------------------------------------------+\n"
+  },
+  "memory_loaded": {
+    "total": "10386 MiB",
+    "compute_apps": "181241, llama-server, 2989 MiB\n181436, llama-server, 7324 MiB",
+    "nvidia_smi": "Fri Jun 12 06:20:56 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 3090 Ti     Off |   00000000:42:00.0  On |                  Off |\n| 31%   52C    P3             78W /  450W |   10386MiB /  24564MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A          181241    C+G   llama-server                           2989MiB |\n|    0   N/A  N/A          181436    C+G   llama-server                           7324MiB |\n+-----------------------------------------------------------------------------------------+\n"
+  },
+  "memory_after_load": {
+    "total": "11138 MiB",
+    "compute_apps": "181241, llama-server, 3556 MiB\n181436, llama-server, 7509 MiB",
+    "nvidia_smi": "Fri Jun 12 06:21:50 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 3090 Ti     Off |   00000000:42:00.0  On |                  Off |\n| 31%   60C    P0            395W /  450W |   11138MiB /  24564MiB |     41%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A          181241    C+G   llama-server                           3556MiB |\n|    0   N/A  N/A          181436    C+G   llama-server                           7509MiB |\n+-----------------------------------------------------------------------------------------+\n"
+  },
+  "concurrent_wall_s": 54.427,
+  "requests": [
+    {
+      "prefill_tps": 189.67559342595888,
+      "decode_tps": 15.615740544470853,
+      "prompt_n": 990,
+      "predicted_n": 256,
+      "client_wall_s": 21.647,
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 990,
+        "total_tokens": 1246,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "name": "senior"
+    },
+    {
+      "prefill_tps": 19.654963274304052,
+      "decode_tps": 63.83236026385704,
+      "prompt_n": 990,
+      "predicted_n": 256,
+      "client_wall_s": 54.411,
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 990,
+        "total_tokens": 1246,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "name": "worker-0"
+    },
+    {
+      "prefill_tps": 19.654665150914774,
+      "decode_tps": 63.82928856772562,
+      "prompt_n": 990,
+      "predicted_n": 256,
+      "client_wall_s": 54.411,
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 990,
+        "total_tokens": 1246,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "name": "worker-1"
+    }
+  ],
+  "senior_decode_tps": 15.615740544470853,
+  "worker_per_stream_decode_tps": [
+    63.83236026385704,
+    63.82928856772562
+  ],
+  "worker_aggregate_decode_tps": 9.4,
+  "fits_22_5gb_budget": true
+}

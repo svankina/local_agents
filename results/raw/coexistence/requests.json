@@ -1,0 +1,50 @@
+[
+  {
+    "prefill_tps": 189.67559342595888,
+    "decode_tps": 15.615740544470853,
+    "prompt_n": 990,
+    "predicted_n": 256,
+    "client_wall_s": 21.647,
+    "usage": {
+      "completion_tokens": 256,
+      "prompt_tokens": 990,
+      "total_tokens": 1246,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "name": "senior"
+  },
+  {
+    "prefill_tps": 19.654963274304052,
+    "decode_tps": 63.83236026385704,
+    "prompt_n": 990,
+    "predicted_n": 256,
+    "client_wall_s": 54.411,
+    "usage": {
+      "completion_tokens": 256,
+      "prompt_tokens": 990,
+      "total_tokens": 1246,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "name": "worker-0"
+  },
+  {
+    "prefill_tps": 19.654665150914774,
+    "decode_tps": 63.82928856772562,
+    "prompt_n": 990,
+    "predicted_n": 256,
+    "client_wall_s": 54.411,
+    "usage": {
+      "completion_tokens": 256,
+      "prompt_tokens": 990,
+      "total_tokens": 1246,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "name": "worker-1"
+  }
+]
