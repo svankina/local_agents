@@ -87,6 +87,19 @@ Tool use did not recover with parser selection. `qwen3_coder` scored 0.167 becau
 
 Verdict on the parallel-worker question: vLLM continuous batching demonstrates real parallel throughput scaling mechanics on this RTX 3090 Ti — C15 reached 360.3 aggregate t/s at x4, 2.76x over its 130.6 client-measured single-stream rate (90.3 t/s per stream), vs llama.cpp C14-nospec's 1.27x (174.8 aggregate, 54.4 per stream). But C15 is not a usable serving config: generation is corrupted (see above). The parallel-pool path needs either a vLLM build that serves this architecture correctly or a different vLLM-first model (e.g. Cohere north-mini-code 30B-A3B, which ships official vLLM tool-calling support).
 
+## C17 North Mini vLLM Addendum
+
+C17 attempted `cyankiwi/North-Mini-Code-1.0-AWQ-INT4` at revision `69f25e86d2b35d04837388514bec4eff729d1b30`, a compressed-tensors pack-quantized INT4 repo with 18,468,416,656 bytes of safetensor weights. The selected vLLM flags followed Cohere's North Mini recipe for parsing (`--tool-call-parser cohere_command4 --reasoning-parser cohere_command4 --enable-auto-tool-choice`) and used `--max-model-len 16384 --max-num-seqs 8 --gpu-memory-utilization 0.90 --quantization compressed-tensors`.
+
+The server failed before health and before the mandatory coherence gate. vLLM 0.22.1 rejected the MoE quantization path with `AssertionError: Only symmetric quantization is supported for MoE` while constructing the compressed-tensors WNA16 Marlin MoE method. No throughput, toolcall, or agentic suites were run. Raw evidence is in `results/raw/C17-north-mini-vllm/server.log` and `results/raw/C17-north-mini-vllm/STARTUP-FAILURE.md`.
+
+| Config | Backend | Quant | Coherence gate | x2 aggregate t/s | x2 scaling | x4 aggregate t/s | x4 scaling | x8 aggregate t/s | x8 scaling | per-stream t/s | Toolcall @0.2 | Agentic @0.2 | VRAM loaded |
+|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| C15-vllm-35b | vLLM 0.22.1 | AWQ Marlin | failed post-run diagnosis: gibberish | 180.6 | 1.38x | 360.3 | 2.76x | n/a | n/a | 90.3 at x4 | 0.167 (`qwen3_xml`) | 0/5 | 21811 MiB |
+| C17-north-mini-vllm | vLLM 0.22.1 | compressed-tensors INT4 | not run: server failed before health | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a (`cohere_command4`) | n/a | n/a |
+
+Verdict: C17 did not reach the 400 aggregate t/s bar because it never served successfully. It also does not qualify as the parallel worker pool: toolcall, agentic, and per-stream thresholds were not measurable. The next viable C17-style attempt needs either a symmetric AWQ/GPTQ INT4 North Mini quant compatible with vLLM's MoE Marlin path, a vLLM build/path that supports this asymmetric compressed-tensors MoE quant, or a larger-memory GPU for Cohere's official FP8/BF16 releases.
+
 ## Coexistence
 
 Task 12 pair: C5-style 26B `-cmoe` senior on port 8089 plus C1-style 12B worker with `--parallel 2` on port 8090, both on the resolved RTX 3090 Ti device.
@@ -106,4 +119,4 @@ Coexistence decision: the measured C5+C1 layout fits easily in VRAM and gives ac
 
 ## Raw Logs
 
-`du -sh results/raw` reports 2.8M. The raw logs should stay in git for this benchmark pass: they are small, required to substantiate every number, and include the MTP acceptance and device-caveat evidence.
+`du -sh results/raw` reports 3.7M. The raw logs should stay in git for this benchmark pass: they are small, required to substantiate every number, and include the MTP acceptance, device-caveat, and startup-failure evidence.

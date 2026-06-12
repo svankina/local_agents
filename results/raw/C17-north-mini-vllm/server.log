@@ -1,0 +1,262 @@
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING 06-12 06:48:19 [argparse_utils.py:257] With `vllm serve`, you should provide the model as a positional argument or in a config file instead of via the `--model` option. The `--model` option will be removed in a future version.
+(APIServer pid=1) INFO 06-12 06:48:19 [utils.py:344] 
+(APIServer pid=1) INFO 06-12 06:48:19 [utils.py:344]        █     █     █▄   ▄█
+(APIServer pid=1) INFO 06-12 06:48:19 [utils.py:344]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.22.1
+(APIServer pid=1) INFO 06-12 06:48:19 [utils.py:344]   █▄█▀ █     █     █     █  model   cyankiwi/North-Mini-Code-1.0-AWQ-INT4
+(APIServer pid=1) INFO 06-12 06:48:19 [utils.py:344]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=1) INFO 06-12 06:48:19 [utils.py:344] 
+(APIServer pid=1) INFO 06-12 06:48:19 [utils.py:278] non-default args: {'model_tag': 'cyankiwi/North-Mini-Code-1.0-AWQ-INT4', 'enable_auto_tool_choice': True, 'tool_call_parser': 'cohere_command4', 'model': 'cyankiwi/North-Mini-Code-1.0-AWQ-INT4', 'revision': '69f25e86d2b35d04837388514bec4eff729d1b30', 'max_model_len': 16384, 'quantization': 'compressed-tensors', 'served_model_name': ['C17-north-mini-vllm'], 'reasoning_parser': 'cohere_command4', 'gpu_memory_utilization': 0.9, 'max_num_seqs': 8}
+(APIServer pid=1) WARNING 06-12 06:48:19 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_BUILD_URL
+(APIServer pid=1) WARNING 06-12 06:48:19 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_IMAGE_TAG
+(APIServer pid=1) WARNING 06-12 06:48:19 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_BUILD_PIPELINE
+(APIServer pid=1) WARNING 06-12 06:48:19 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_BUILD_COMMIT
+(APIServer pid=1) INFO 06-12 06:48:40 [model.py:617] Resolved architecture: Cohere2MoeForCausalLM
+(APIServer pid=1) INFO 06-12 06:48:40 [model.py:1752] Using max model len 16384
+(APIServer pid=1) INFO 06-12 06:48:41 [vllm.py:977] Asynchronous scheduling is enabled.
+(APIServer pid=1) INFO 06-12 06:48:41 [kernel.py:270] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+(APIServer pid=1) Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+(EngineCore pid=210) INFO 06-12 06:49:00 [core.py:112] Initializing a V1 LLM engine (v0.22.1) with config: model='cyankiwi/North-Mini-Code-1.0-AWQ-INT4', speculative_config=None, tokenizer='cyankiwi/North-Mini-Code-1.0-AWQ-INT4', skip_tokenizer_init=False, tokenizer_mode=auto, revision=69f25e86d2b35d04837388514bec4eff729d1b30, tokenizer_revision=69f25e86d2b35d04837388514bec4eff729d1b30, trust_remote_code=False, dtype=torch.float16, max_seq_len=16384, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=compressed-tensors, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='cohere_command4', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=C17-north-mini-vllm, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::linear_attention', 'vllm::plamo2_mamba_mixer', 'vllm::qwen_gdn_attention_core', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::kda_attention', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False}, 'max_cudagraph_capture_size': 16, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, moe_backend='auto', linear_backend='auto')
+(EngineCore pid=210) INFO 06-12 06:49:01 [parallel_state.py:1422] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://172.17.0.3:39655 backend=nccl
+(EngineCore pid=210) INFO 06-12 06:49:01 [parallel_state.py:1735] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank 0, EPLB rank N/A
+(EngineCore pid=210) INFO 06-12 06:49:01 [topk_topp_sampler.py:45] Using FlashInfer for top-p & top-k sampling.
+(EngineCore pid=210) INFO 06-12 06:49:01 [gpu_model_runner.py:5037] Starting to load model cyankiwi/North-Mini-Code-1.0-AWQ-INT4...
+(EngineCore pid=210) INFO 06-12 06:49:02 [cuda.py:378] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore pid=210) INFO 06-12 06:49:02 [flash_attn.py:636] Using FlashAttention version 2
+(EngineCore pid=210) INFO 06-12 06:49:02 [compressed_tensors_moe.py:122] Using CompressedTensorsWNA16MarlinMoEMethod
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165] EngineCore failed to start.
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165] Traceback (most recent call last):
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core.py", line 1139, in run_engine_core
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     return func(*args, **kwargs)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core.py", line 905, in __init__
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     super().__init__(
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core.py", line 121, in __init__
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     return func(*args, **kwargs)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/executor/abstract.py", line 109, in __init__
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     self._init_executor()
+(EngineCore pid=210) Process EngineCore:
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/executor/uniproc_executor.py", line 65, in _init_executor
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     self.driver_worker.load_model()
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu_worker.py", line 342, in load_model
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     self.model_runner.load_model(load_dummy_weights=load_dummy_weights)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     return func(*args, **kwargs)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu_model_runner.py", line 5053, in load_model
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     self.model = model_loader.load_model(
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]                  ^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     return func(*args, **kwargs)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/model_loader/base_loader.py", line 55, in load_model
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     model = initialize_model(
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]             ^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     return func(*args, **kwargs)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/model_loader/utils.py", line 61, in initialize_model
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     model = model_class(vllm_config=vllm_config, prefix=prefix)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/cohere2_moe.py", line 562, in __init__
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     self.model = Cohere2MoeModel(
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]                  ^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/compilation/decorators.py", line 383, in __init__
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     old_init(self, *args, **kwargs)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/cohere2_moe.py", line 402, in __init__
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     self.start_layer, self.end_layer, self.layers = make_layers(
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]                                                     ^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/utils.py", line 643, in make_layers
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     + get_offloader().wrap_modules(
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/offloader/base.py", line 104, in wrap_modules
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     return list(modules_generator)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]            ^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/utils.py", line 644, in <genexpr>
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     layer_fn(prefix=f"{prefix}.{idx}") for idx in range(start_layer, end_layer)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/cohere2_moe.py", line 404, in <lambda>
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     lambda prefix: Cohere2MoeDecoderLayer(
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]                    ^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/cohere2_moe.py", line 359, in __init__
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     self.mlp = Cohere2Moe(
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]                ^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/cohere2_moe.py", line 300, in __init__
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     self.experts = FusedMoE(
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]                    ^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/fused_moe/layer.py", line 368, in __init__
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     self.quant_method: FusedMoEMethodBase = _get_quant_method()
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]                                             ^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/fused_moe/layer.py", line 360, in _get_quant_method
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     quant_method = self.quant_config.get_quant_method(self, prefix)
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors.py", line 184, in get_quant_method
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     return CompressedTensorsMoEMethod.get_moe_method(
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors_moe/compressed_tensors_moe.py", line 123, in get_moe_method
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     return CompressedTensorsWNA16MarlinMoEMethod(
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors_moe/compressed_tensors_moe_wna16_marlin.py", line 67, in __init__
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]     assert weight_quant.symmetric, (
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165]            ^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) ERROR 06-12 06:49:03 [core.py:1165] AssertionError: Only symmetric quantization is supported for MoE
+(EngineCore pid=210) Traceback (most recent call last):
+(EngineCore pid=210)   File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+(EngineCore pid=210)     self.run()
+(EngineCore pid=210)   File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+(EngineCore pid=210)     self._target(*self._args, **self._kwargs)
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core.py", line 1169, in run_engine_core
+(EngineCore pid=210)     raise e
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core.py", line 1139, in run_engine_core
+(EngineCore pid=210)     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=210)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=210)     return func(*args, **kwargs)
+(EngineCore pid=210)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core.py", line 905, in __init__
+(EngineCore pid=210)     super().__init__(
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core.py", line 121, in __init__
+(EngineCore pid=210)     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=210)                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=210)     return func(*args, **kwargs)
+(EngineCore pid=210)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/executor/abstract.py", line 109, in __init__
+(EngineCore pid=210)     self._init_executor()
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/executor/uniproc_executor.py", line 65, in _init_executor
+(EngineCore pid=210)     self.driver_worker.load_model()
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu_worker.py", line 342, in load_model
+(EngineCore pid=210)     self.model_runner.load_model(load_dummy_weights=load_dummy_weights)
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=210)     return func(*args, **kwargs)
+(EngineCore pid=210)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu_model_runner.py", line 5053, in load_model
+(EngineCore pid=210)     self.model = model_loader.load_model(
+(EngineCore pid=210)                  ^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=210)     return func(*args, **kwargs)
+(EngineCore pid=210)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/model_loader/base_loader.py", line 55, in load_model
+(EngineCore pid=210)     model = initialize_model(
+(EngineCore pid=210)             ^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=210)     return func(*args, **kwargs)
+(EngineCore pid=210)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/model_loader/utils.py", line 61, in initialize_model
+(EngineCore pid=210)     model = model_class(vllm_config=vllm_config, prefix=prefix)
+(EngineCore pid=210)             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/cohere2_moe.py", line 562, in __init__
+(EngineCore pid=210)     self.model = Cohere2MoeModel(
+(EngineCore pid=210)                  ^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/compilation/decorators.py", line 383, in __init__
+(EngineCore pid=210)     old_init(self, *args, **kwargs)
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/cohere2_moe.py", line 402, in __init__
+(EngineCore pid=210)     self.start_layer, self.end_layer, self.layers = make_layers(
+(EngineCore pid=210)                                                     ^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/utils.py", line 643, in make_layers
+(EngineCore pid=210)     + get_offloader().wrap_modules(
+(EngineCore pid=210)       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/offloader/base.py", line 104, in wrap_modules
+(EngineCore pid=210)     return list(modules_generator)
+(EngineCore pid=210)            ^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/utils.py", line 644, in <genexpr>
+(EngineCore pid=210)     layer_fn(prefix=f"{prefix}.{idx}") for idx in range(start_layer, end_layer)
+(EngineCore pid=210)     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/cohere2_moe.py", line 404, in <lambda>
+(EngineCore pid=210)     lambda prefix: Cohere2MoeDecoderLayer(
+(EngineCore pid=210)                    ^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/cohere2_moe.py", line 359, in __init__
+(EngineCore pid=210)     self.mlp = Cohere2Moe(
+(EngineCore pid=210)                ^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/cohere2_moe.py", line 300, in __init__
+(EngineCore pid=210)     self.experts = FusedMoE(
+(EngineCore pid=210)                    ^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/fused_moe/layer.py", line 368, in __init__
+(EngineCore pid=210)     self.quant_method: FusedMoEMethodBase = _get_quant_method()
+(EngineCore pid=210)                                             ^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/fused_moe/layer.py", line 360, in _get_quant_method
+(EngineCore pid=210)     quant_method = self.quant_config.get_quant_method(self, prefix)
+(EngineCore pid=210)                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors.py", line 184, in get_quant_method
+(EngineCore pid=210)     return CompressedTensorsMoEMethod.get_moe_method(
+(EngineCore pid=210)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors_moe/compressed_tensors_moe.py", line 123, in get_moe_method
+(EngineCore pid=210)     return CompressedTensorsWNA16MarlinMoEMethod(
+(EngineCore pid=210)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210)   File "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors_moe/compressed_tensors_moe_wna16_marlin.py", line 67, in __init__
+(EngineCore pid=210)     assert weight_quant.symmetric, (
+(EngineCore pid=210)            ^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=210) AssertionError: Only symmetric quantization is supported for MoE
+[rank0]:[W612 06:49:04.064708356 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+(APIServer pid=1) Traceback (most recent call last):
+(APIServer pid=1)   File "/usr/local/bin/vllm", line 10, in <module>
+(APIServer pid=1)     sys.exit(main())
+(APIServer pid=1)              ^^^^^^
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/cli/main.py", line 92, in main
+(APIServer pid=1)     args.dispatch_function(args)
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/cli/serve.py", line 148, in cmd
+(APIServer pid=1)     uvloop.run(run_server(args))
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/uvloop/__init__.py", line 96, in run
+(APIServer pid=1)     return __asyncio.run(
+(APIServer pid=1)            ^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/lib/python3.12/asyncio/runners.py", line 195, in run
+(APIServer pid=1)     return runner.run(main)
+(APIServer pid=1)            ^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+(APIServer pid=1)     return self._loop.run_until_complete(task)
+(APIServer pid=1)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/uvloop/__init__.py", line 48, in wrapper
+(APIServer pid=1)     return await main
+(APIServer pid=1)            ^^^^^^^^^^
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/openai/api_server.py", line 678, in run_server
+(APIServer pid=1)     await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/openai/api_server.py", line 692, in run_server_worker
+(APIServer pid=1)     async with build_async_engine_client(
+(APIServer pid=1)                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=1)     return await anext(self.gen)
+(APIServer pid=1)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/openai/api_server.py", line 100, in build_async_engine_client
+(APIServer pid=1)     async with build_async_engine_client_from_engine_args(
+(APIServer pid=1)                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=1)     return await anext(self.gen)
+(APIServer pid=1)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/openai/api_server.py", line 136, in build_async_engine_client_from_engine_args
+(APIServer pid=1)     async_llm = AsyncLLM.from_vllm_config(
+(APIServer pid=1)                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/async_llm.py", line 217, in from_vllm_config
+(APIServer pid=1)     return cls(
+(APIServer pid=1)            ^^^^
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/async_llm.py", line 146, in __init__
+(APIServer pid=1)     self.engine_core = EngineCoreClient.make_async_mp_client(
+(APIServer pid=1)                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=1)     return func(*args, **kwargs)
+(APIServer pid=1)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core_client.py", line 131, in make_async_mp_client
+(APIServer pid=1)     return AsyncMPClient(*client_args)
+(APIServer pid=1)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=1)     return func(*args, **kwargs)
+(APIServer pid=1)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core_client.py", line 932, in __init__
+(APIServer pid=1)     super().__init__(
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core_client.py", line 567, in __init__
+(APIServer pid=1)     with launch_core_engines(
+(APIServer pid=1)          ^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/lib/python3.12/contextlib.py", line 144, in __exit__
+(APIServer pid=1)     next(self.gen)
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/utils.py", line 1150, in launch_core_engines
+(APIServer pid=1)     wait_for_engine_startup(
+(APIServer pid=1)   File "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/utils.py", line 1209, in wait_for_engine_startup
+(APIServer pid=1)     raise RuntimeError(
+(APIServer pid=1) RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
