@@ -75,7 +75,7 @@ One operational footgun: resolve GPUs by name, never enumeration index — Vulka
 
 - **Senior + default worker**: byteshape 35B-A3B via llama.cpp, queue-serial. 100% toolcall, 5/5 agentic, 127–143 tok/s. One model, both jobs.
 - **Budget coexistence**: 26B `-cmoe` senior (3.0 GB) + 12B worker, 11.1 GB peak, measured under concurrent load.
-- **Parallel pool (throughput tier)**: Qwen3-30B-A3B GPTQ under vLLM — 808.7 tok/s aggregate at x8, toolcall 0.972. The agentic variance pass keeps it off multi-turn duty; its lane is single-shot fan-out — exactly what the showcase ran.
+- **Parallel pool (throughput tier)**: Qwen3-30B-A3B GPTQ under vLLM — 1,071 tok/s sustained at x16 (the sweep moved the knee past the original 808.7 @x8), toolcall 0.972. The agentic variance pass keeps it off multi-turn duty; its lane is single-shot fan-out — exactly what the showcase ran.
 
 Next post: the same fleet on serial multi-turn work — a full CAD-kernel build replay. Numbers still cooking.
 
