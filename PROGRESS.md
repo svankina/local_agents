@@ -1,3 +1,51 @@
+# Fable Fleet Bench — unsupervised session progress
+
+Session start: 2026-06-12 ~19:20 UTC. Goal: fake-Fable supervisor experiments over
+real local workers — zero real Fable spend. Each run capped 5–10 min. Infra reused:
+one vLLM container (`fleetbench-vllm`, port 8091, C18) for all C18 experiments; one
+server swap per additional model for E2.
+
+## Experiment lineup
+
+| id | question | status |
+|---|---|---|
+| E1 | plan terseness (terse/medium/detailed) vs first-pass rate, fix rounds, supervisor tokens/completed | pending |
+| E3 | fix-message informativeness (quote-the-failure vs "wrong, try again") vs repair rate | pending |
+| E4 | temperature (0.0/0.2/0.6/1.0) vs single-shot error rate | pending |
+| E2 | model speed vs error rate: same suite per model (C18 → C12 → C1 [→ C11]), tok/s vs strict/lenient error | pending |
+
+## State
+
+- [x] Task bank: 10 pure_fn problems, property verifier proven sound (selftest green)
+- [x] Harness: fake supervisor (plan styles, strict format verify, scripted fix loop,
+      /tokenize-based supervisor-cost accounting) — `bench/fleet_bench/fake_supervisor.py`
+- [x] Runner: `bench/fleet_bench/run_experiments.py` (e1/e3/e4/e2)
+- [ ] C18 vLLM server healthy (loading; zsh word-split bug fixed — first launch passed
+      flags as one arg, container exited; relaunched with eval)
+- [ ] smoke episode
+- [ ] E1 → E3 → E4 on C18, then E2 swaps: C12 (llama.cpp MTP), C1 (gemma 12B)
+
+## Notes / decisions
+
+- Supervisor cost = tokens of scripted plan+fix messages via vLLM /tokenize (cached).
+- Format strictness: fenced/prose replies fail strict verify and cost a fix round;
+  lenient verdict recorded separately so format vs logic failures separate cleanly.
+- E2 needs a llama.cpp server path for C12/C1 — flags already in bench/configs.json.
+- Results land in results/experiments/fable-fleet-bench/<date>-<exp>/ (episodes.json
+  + summary.json per experiment).
+
+## Resume notes (if session dies)
+
+- Container stays up unless the box reboots: `docker ps | grep fleetbench-vllm`,
+  health: `curl localhost:8091/health`.
+- Re-run any experiment: `python3 bench/fleet_bench/run_experiments.py e1` (etc.)
+  from the worktree root. Each is idempotent, overwrites its run dir.
+- Kill the container only at session end: `docker stop fleetbench-vllm && docker rm fleetbench-vllm`.
+
+---
+
+# (prior session checkpoint, kept for reference)
+
 # Session checkpoint — 2026-06-12 (post credit-limit incident)
 
 Limit incident: subscription five-hour window exhausted during H-02's synthesis
