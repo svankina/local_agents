@@ -193,9 +193,24 @@ class Dispatcher:
     def enqueue_retry_if_needed(self, work: Work, verify: dict[str, Any]) -> None:
         if verify.get("passed") or work.attempt >= 2:
             return
-        reason = str(verify.get("reason") or verify.get("failed_check") or "verification failed")
+        reason = self.retry_feedback(work, verify)
         self.queue.append(Work(item=work.item, attempt=work.attempt + 1, feedback=reason))
         self.event("retry_enqueued", item_id=work.item["id"], attempt=work.attempt + 1, reason=reason)
+
+    def retry_feedback(self, work: Work, verify: dict[str, Any]) -> str:
+        out = self.run_dir / "workers" / f"{work.item['id']}-attempt-{work.attempt}"
+        lines = [
+            f"failed_check: {verify.get('failed_check') or 'unknown'}",
+            f"reason: {verify.get('reason') or 'verification failed'}",
+        ]
+        for filename in ("error.json", "insert.stderr", "verify.stderr", "worker.stderr"):
+            path = out / filename
+            if not path.exists():
+                continue
+            text = path.read_text(encoding="utf-8", errors="replace").strip()
+            if text:
+                lines.append(f"{filename}:\n{text[-2000:]}")
+        return "\n\n".join(lines)
 
     async def run(self) -> int:
         self.load_items()
