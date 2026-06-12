@@ -1,0 +1,47 @@
+{
+  "config": "C18-qwen3-30b-vllm",
+  "suite": "agentic",
+  "temps": {
+    "0.2": {
+      "passed": 3,
+      "of": 5,
+      "tasks": [
+        {
+          "id": "fix-test",
+          "passed": true,
+          "turns": 6,
+          "wall_s": 11.3,
+          "check_out": ""
+        },
+        {
+          "id": "bulk-rename",
+          "passed": true,
+          "turns": 4,
+          "wall_s": 7.7,
+          "check_out": ""
+        },
+        {
+          "id": "csv-script",
+          "passed": false,
+          "turns": 3,
+          "wall_s": 5.8,
+          "check_out": ""
+        },
+        {
+          "id": "code-qa",
+          "passed": true,
+          "turns": 5,
+          "wall_s": 7.1,
+          "check_out": ""
+        },
+        {
+          "id": "add-flag",
+          "passed": false,
+          "turns": 3,
+          "wall_s": 8.5,
+          "check_out": "usage: tool.py [-h] [--shout]\ntool.py: error: unrecognized arguments: bob\n"
+        }
+      ]
+    }
+  }
+}
