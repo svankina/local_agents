@@ -1,0 +1,9 @@
+{
+  "model": "C6-gemma26b-cmoe-mtp-nothink",
+  "n": 30,
+  "strict_pass_rate": 0.8,
+  "lenient_pass_rate": 0.8,
+  "violations": {},
+  "aggregate_tok_s": 13.5,
+  "wall_s": 241.9
+}

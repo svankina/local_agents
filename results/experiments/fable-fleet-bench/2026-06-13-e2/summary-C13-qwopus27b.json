@@ -1,0 +1,11 @@
+{
+  "model": "C13-qwopus27b",
+  "n": 30,
+  "strict_pass_rate": 0.6,
+  "lenient_pass_rate": 0.833,
+  "violations": {
+    "fence": 7
+  },
+  "aggregate_tok_s": 51.4,
+  "wall_s": 61.3
+}

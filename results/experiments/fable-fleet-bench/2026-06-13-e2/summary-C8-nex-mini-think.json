@@ -1,0 +1,12 @@
+{
+  "model": "C8-nex-mini-think",
+  "n": 30,
+  "strict_pass_rate": 0.0,
+  "lenient_pass_rate": 0.667,
+  "violations": {
+    "thinking-leak": 30,
+    "prose": 30
+  },
+  "aggregate_tok_s": 171.6,
+  "wall_s": 53.1
+}
