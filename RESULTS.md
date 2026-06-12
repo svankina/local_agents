@@ -128,6 +128,23 @@ Final verdict: C18 reached the 400 aggregate t/s bar at x4, with 534.4 aggregate
 History note: take 2 failed on parser selection: `qwen3_xml` left tool calls as literal assistant content instead of parsed OpenAI `tool_calls`.
 History note: take 3 failed on gate budget: the 128-token hello probe exhausted output in separated reasoning and stopped with blank visible content.
 
+## C18 concurrency sweep
+
+This sweep reused the C18 vLLM 0.22.1 GPTQ Marlin serving shape on port 8091, but raised `--max-num-seqs` to 32 so the server did not cap the requested stream levels. Startup passed health at max-num-seqs 32 and reported 55,040 GPU KV-cache tokens, slightly below the earlier 56,080-token C18 run. The measurements below come from `vllm:generation_tokens_total` counter deltas scraped at 1 Hz, with the first 10 seconds of each level skipped as ramp. Raw artifacts are in `results/experiments/concurrency-sweep/2026-06-12-S1/`.
+
+| Streams | Sustained tok/s | Per-stream tok/s | Peak 1s tok/s | Mean GPU W | Mean temp C | Marginal %/added stream |
+|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 179.3 | 179.3 | 187.2 | 304.8 | 66.7 | n/a |
+| 2 | 296.9 | 148.5 | 314.8 | 328.5 | 69.9 | 65.66% |
+| 4 | 478.7 | 119.7 | 516.0 | 357.8 | 71.3 | 30.60% |
+| 8 | 728.9 | 91.1 | 816.0 | 385.3 | 72.2 | 13.07% |
+| 10 | 689.1 | 68.9 | 730.0 | 414.2 | 73.8 | -2.73% |
+| 12 | 796.7 | 66.4 | 876.0 | 413.1 | 73.9 | 7.81% |
+| 16 | 1071.3 | 67.0 | 1232.0 | 406.8 | 74.4 | 8.62% |
+| 24 | 1184.0 | 49.3 | 1560.1 | 382.3 | 73.3 | 1.31% |
+
+Knee analysis: 8 streams was not the knee. The 10-stream point regressed, but 12 and 16 streams recovered and continued improving aggregate throughput. The durable diminishing-return point appears after 16 streams: the 16->24 marginal gain was only 1.31% per added stream, and 24 streams was the first measured level where per-stream decode fell below 50 tok/s. Practical recommendation: run fan-out at 16 streams for this C18 serving shape.
+
 ## Coexistence
 
 Task 12 pair: C5-style 26B `-cmoe` senior on port 8089 plus C1-style 12B worker with `--parallel 2` on port 8090, both on the resolved RTX 3090 Ti device.
