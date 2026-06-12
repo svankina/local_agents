@@ -1,0 +1,86 @@
+{
+  "trial": 1,
+  "client_wall_s": 9.513,
+  "usage": {
+    "completion_tokens": 32,
+    "prompt_tokens": 8726,
+    "total_tokens": 8758,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "server_prompt_eval": {
+    "ms": 7817.08,
+    "n_tokens": 8726,
+    "tokens_per_second": 1116.27,
+    "line": "0.38.334.121 I slot print_timing: id  2 | task 39 | prompt eval time =    7817.08 ms /  8726 tokens (    0.90 ms per token,  1116.27 tokens per second)"
+  },
+  "server_prompt_processing": [
+    {
+      "n_tokens": 4096,
+      "progress": 0.47,
+      "seconds": 3.05,
+      "tokens_per_second": 1343.87,
+      "line": "0.32.821.443 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   4096, progress = 0.47, t =   3.05 s / 1343.87 tokens per second"
+    },
+    {
+      "n_tokens": 6144,
+      "progress": 0.7,
+      "seconds": 4.83,
+      "tokens_per_second": 1273.3,
+      "line": "0.34.598.779 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   6144, progress = 0.70, t =   4.83 s / 1273.30 tokens per second"
+    },
+    {
+      "n_tokens": 8192,
+      "progress": 0.94,
+      "seconds": 6.63,
+      "tokens_per_second": 1235.38,
+      "line": "0.36.404.669 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   8192, progress = 0.94, t =   6.63 s / 1235.38 tokens per second"
+    },
+    {
+      "n_tokens": 8210,
+      "progress": 0.94,
+      "seconds": 7.08,
+      "tokens_per_second": 1158.8,
+      "line": "0.36.858.463 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   8210, progress = 0.94, t =   7.08 s / 1158.80 tokens per second"
+    },
+    {
+      "n_tokens": 8722,
+      "progress": 1.0,
+      "seconds": 7.26,
+      "tokens_per_second": 1201.44,
+      "line": "0.37.033.238 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   8722, progress = 1.00, t =   7.26 s / 1201.44 tokens per second"
+    }
+  ],
+  "raw_log_lines": [
+    "0.28.906.204 I srv  params_from_: Chat format: peg-native",
+    "0.28.906.506 I slot get_availabl: id  2 | task -1 | selected slot by LRU, t_last = -1",
+    "0.28.906.509 I srv  get_availabl: updating prompt cache",
+    "0.28.906.516 I srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000",
+    "0.28.906.521 I srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 32768 tokens, 8589934592 est)",
+    "0.28.906.522 I srv  get_availabl: prompt cache update took 0.01 ms",
+    "0.28.906.614 I slot launch_slot_: id  2 | task 39 | processing task, is_child = 0",
+    "0.28.906.617 I slot process_sing: id  0 | task -1 | saving idle slot to prompt cache",
+    "0.28.906.618 I slot prompt_clear: id  0 | task -1 | clearing prompt with 0 tokens",
+    "0.28.906.693 I slot process_sing: id  1 | task -1 | saving idle slot to prompt cache",
+    "0.28.906.699 I slot prompt_clear: id  1 | task -1 | clearing prompt with 0 tokens",
+    "0.28.906.752 I slot process_sing: id  3 | task -1 | saving idle slot to prompt cache",
+    "0.28.907.400 W srv   prompt_save:  - saving prompt with length 8748, total state size = 696.543 MiB (draft: 0.000 MiB)",
+    "0.29.771.533 I srv        update:  - cache state: 1 prompts, 995.796 MiB (limits: 8192.000 MiB, 32768 tokens, 71966 est)",
+    "0.29.771.543 I srv        update:    - prompt 0x5a2103271b20:    8748 tokens, checkpoints:  2,   995.796 MiB",
+    "0.29.771.545 I slot prompt_clear: id  3 | task -1 | clearing prompt with 8748 tokens",
+    "0.32.821.443 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   4096, progress = 0.47, t =   3.05 s / 1343.87 tokens per second",
+    "0.34.598.779 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   6144, progress = 0.70, t =   4.83 s / 1273.30 tokens per second",
+    "0.36.404.669 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   8192, progress = 0.94, t =   6.63 s / 1235.38 tokens per second",
+    "0.36.858.463 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   8210, progress = 0.94, t =   7.08 s / 1158.80 tokens per second",
+    "0.37.015.810 I slot create_check: id  2 | task 39 | created context checkpoint 1 of 32 (pos_min = 8209, pos_max = 8209, n_tokens = 8210, size = 149.626 MiB)",
+    "0.37.033.238 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   8722, progress = 1.00, t =   7.26 s / 1201.44 tokens per second",
+    "0.37.541.739 I slot create_check: id  2 | task 39 | created context checkpoint 2 of 32 (pos_min = 8721, pos_max = 8721, n_tokens = 8722, size = 149.626 MiB)",
+    "0.38.334.121 I slot print_timing: id  2 | task 39 | prompt eval time =    7817.08 ms /  8726 tokens (    0.90 ms per token,  1116.27 tokens per second)",
+    "0.38.334.130 I slot print_timing: id  2 | task 39 |        eval time =     743.49 ms /    32 tokens (   23.23 ms per token,    43.04 tokens per second)",
+    "0.38.334.131 I slot print_timing: id  2 | task 39 |       total time =    8560.57 ms /  8758 tokens",
+    "0.38.334.133 I slot print_timing: id  2 | task 39 |    graphs reused =         61",
+    "0.38.334.561 I slot      release: id  2 | task 39 | stop processing: n_tokens = 8757, truncated = 0",
+    "0.38.334.582 I srv  update_slots: all slots are idle"
+  ]
+}
