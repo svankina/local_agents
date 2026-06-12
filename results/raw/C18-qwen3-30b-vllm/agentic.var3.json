@@ -1,0 +1,47 @@
+{
+  "config": "C18-qwen3-30b-vllm",
+  "suite": "agentic",
+  "temps": {
+    "0.2": {
+      "passed": 2,
+      "of": 5,
+      "tasks": [
+        {
+          "id": "fix-test",
+          "passed": true,
+          "turns": 7,
+          "wall_s": 10.2,
+          "check_out": ""
+        },
+        {
+          "id": "bulk-rename",
+          "passed": true,
+          "turns": 4,
+          "wall_s": 5.4,
+          "check_out": ""
+        },
+        {
+          "id": "csv-script",
+          "passed": false,
+          "turns": 3,
+          "wall_s": 7.3,
+          "check_out": "Traceback (most recent call last):\n  File \"/home/svankina/src/local_agents/bench/sandbox/work-csv-script/sum_by_region.py\", line 1, in <module>\n    import pandas as pd\nModuleNotFoundError: No module named 'pandas'\n"
+        },
+        {
+          "id": "code-qa",
+          "passed": false,
+          "turns": 3,
+          "wall_s": 4.1,
+          "check_out": ""
+        },
+        {
+          "id": "add-flag",
+          "passed": false,
+          "turns": 3,
+          "wall_s": 6.5,
+          "check_out": "usage: tool.py [-h] [--shout]\ntool.py: error: unrecognized arguments: bob\n"
+        }
+      ]
+    }
+  }
+}

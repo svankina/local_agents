@@ -111,9 +111,19 @@ The mandatory coherence gate passed after health. The temperature-0 hello probe 
 
 Throughput used client-measured wall time from OpenAI-compatible usage counts. Single-stream p1k decode was 183.8 t/s. Concurrent decode reached 309.8 aggregate t/s at x2 (1.69x, 155.4 t/s per stream), 534.4 at x4 (2.91x, 133.9 t/s per stream), and 808.7 at x8 (4.40x, 101.3 t/s per stream). Toolcall at temp 0.2 scored 0.972 strict and 0.972 lenient over 36 trials. Agentic at temp 0.2 scored 3/5, passing `fix-test`, `bulk-rename`, and `code-qa`, and failing `csv-script` and `add-flag`.
 
-Raw evidence is in `results/C18-qwen3-30b-vllm.json` plus `results/raw/C18-qwen3-30b-vllm/coherence_hello.json`, `coherence_tool.json`, `coherence_gate.json`, `throughput.json`, `toolcall.json`, `agentic.json`, `server.log`, and `vram_loaded.txt`.
+Agentic variance pass: the committed take-4 agentic result plus two additional agentic-only runs did not clear the worker-pool bar. The run scores were 3/5, 1/5, and 2/5; none reached >=4/5.
 
-Verdict: C18 reached the 400 aggregate t/s bar at x4, with 534.4 aggregate t/s, and also exceeded it at x8 with 808.7 aggregate t/s. It does not qualify as the parallel worker pool because agentic was 3/5, below the 4/5 threshold, even though toolcall was >=0.95 and every measured per-stream rate was >=30 t/s.
+| Agentic run | Score | Failed tasks |
+| --- | ---: | --- |
+| take4 | 3/5 | `csv-script`, `add-flag` |
+| var2 | 1/5 | `bulk-rename`, `csv-script`, `code-qa`, `add-flag` |
+| var3 | 2/5 | `csv-script`, `code-qa`, `add-flag` |
+
+Aggregate variance summary: median 2/5, min 1/5, max 3/5. Per-task pass counts across the three runs were `fix-test` 3/3, `bulk-rename` 2/3, `csv-script` 0/3, `code-qa` 1/3, and `add-flag` 0/3. Because `csv-script` and `add-flag` failed in every run, those are systematic weaknesses in this harness rather than ordinary run-to-run variance.
+
+Raw evidence is in `results/C18-qwen3-30b-vllm.json`, `results/C18-agentic-variance.json`, plus `results/raw/C18-qwen3-30b-vllm/coherence_hello.json`, `coherence_tool.json`, `coherence_gate.json`, `throughput.json`, `toolcall.json`, `agentic.json`, `agentic.var2.json`, `agentic.var3.json`, `server.log`, `server.var2.tail.log`, `server.var3.tail.log`, and `vram_loaded.txt`.
+
+Final verdict: C18 reached the 400 aggregate t/s bar at x4, with 534.4 aggregate t/s, and also exceeded it at x8 with 808.7 aggregate t/s. It remains throughput tier only and does not qualify as the parallel worker pool: only 0 of 3 agentic runs scored >=4/5 under the final variance rule, even though toolcall was >=0.95 and every measured per-stream rate was >=30 t/s.
 
 History note: take 2 failed on parser selection: `qwen3_xml` left tool calls as literal assistant content instead of parsed OpenAI `tool_calls`.
 History note: take 3 failed on gate budget: the 128-token hello probe exhausted output in separated reasoning and stopped with blank visible content.
