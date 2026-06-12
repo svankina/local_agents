@@ -82,14 +82,28 @@ nvidia-smi --query-gpu=memory.used --format=csv,noheader | tee "$RAW/vram_before
 FLAGS=$(python3 -c "import json;c=json.load(open('bench/configs.json'));print(c['$CFG'])")
 SERVED_MODEL=$(python3 -c "import json,shlex;c=json.load(open('bench/configs.json'));a=shlex.split(c['$CFG']);print(a[a.index('--served-model-name')+1] if '--served-model-name' in a else a[a.index('--model')+1])")
 
-if ! docker run -d --rm --gpus all --ipc=host \
-  -v "$HF_CACHE:/root/.cache/huggingface" \
-  -p "$PORT:8000" \
-  --name "$CONTAINER" \
-  "$IMAGE" $FLAGS > "$RAW/container.id" 2> "$RAW/docker_run.err"; then
-  cat "$RAW/docker_run.err" >> "$RAW/server.log"
-  write_error_json "docker run failed"
-  exit 0
+if [[ "$FLAGS" == *"cohere_command4"* ]]; then
+  SERVE_CMD="pip install -q 'cohere_melody>=0.9.0' && exec vllm serve $FLAGS"
+  if ! docker run -d --rm --gpus all --ipc=host \
+    -v "$HF_CACHE:/root/.cache/huggingface" \
+    -p "$PORT:8000" \
+    --name "$CONTAINER" \
+    --entrypoint /bin/bash \
+    "$IMAGE" -lc "$SERVE_CMD" > "$RAW/container.id" 2> "$RAW/docker_run.err"; then
+    cat "$RAW/docker_run.err" >> "$RAW/server.log"
+    write_error_json "docker run failed"
+    exit 0
+  fi
+else
+  if ! docker run -d --rm --gpus all --ipc=host \
+    -v "$HF_CACHE:/root/.cache/huggingface" \
+    -p "$PORT:8000" \
+    --name "$CONTAINER" \
+    "$IMAGE" $FLAGS > "$RAW/container.id" 2> "$RAW/docker_run.err"; then
+    cat "$RAW/docker_run.err" >> "$RAW/server.log"
+    write_error_json "docker run failed"
+    exit 0
+  fi
 fi
 STARTED=1
 
@@ -98,6 +112,9 @@ LOG_PID=$!
 
 export BENCH_BASE="http://127.0.0.1:$PORT/v1"
 export BENCH_MODEL="$SERVED_MODEL"
+if [ "$CFG" = "C17-north-mini-vllm" ] && [ -z "${BENCH_THROUGHPUT_STREAMS:-}" ]; then
+  export BENCH_THROUGHPUT_STREAMS="1 2 4 8"
+fi
 
 if ! python3 - <<'PY'
 import sys
@@ -110,6 +127,95 @@ then
   exit 0
 fi
 nvidia-smi --query-gpu=memory.used --format=csv,noheader | tee "$RAW/vram_loaded.txt"
+
+if [ "$CFG" = "C17-north-mini-vllm" ]; then
+  if ! python3 - "$CFG" "$SERVED_MODEL" <<'PY'
+import json
+import pathlib
+import sys
+import urllib.request
+
+cfg = sys.argv[1]
+model = sys.argv[2]
+raw = pathlib.Path(f"results/raw/{cfg}")
+base = "http://127.0.0.1:8091/v1/chat/completions"
+
+def post(payload, name):
+    req = urllib.request.Request(
+        base,
+        data=json.dumps(payload).encode(),
+        headers={"Content-Type": "application/json"},
+    )
+    with urllib.request.urlopen(req, timeout=120) as r:
+        body = json.loads(r.read())
+    (raw / name).write_text(json.dumps(body, indent=2))
+    return body
+
+hello = post(
+    {
+        "model": model,
+        "messages": [{"role": "user", "content": "Say hello and name three colors."}],
+        "temperature": 0,
+        "max_tokens": 128,
+    },
+    "coherence_hello.json",
+)
+tool = post(
+    {
+        "model": model,
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a coding agent. Use read_file when asked to inspect a file.",
+            },
+            {"role": "user", "content": "Read TASK.md using the read_file tool."},
+        ],
+        "tools": [
+            {
+                "type": "function",
+                "function": {
+                    "name": "read_file",
+                    "description": "Read a text file",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {"path": {"type": "string"}},
+                        "required": ["path"],
+                    },
+                },
+            }
+        ],
+        "tool_choice": "auto",
+        "temperature": 0,
+        "max_tokens": 256,
+    },
+    "coherence_tool.json",
+)
+
+msg = hello["choices"][0]["message"]
+content = (msg.get("content") or "").lower()
+colors = {"red", "green", "blue", "yellow", "orange", "purple", "black", "white"}
+hello_ok = "hello" in content and len([c for c in colors if c in content]) >= 3
+tool_calls = tool["choices"][0]["message"].get("tool_calls") or []
+tool_ok = bool(tool_calls) and tool_calls[0].get("function", {}).get("name") == "read_file"
+gate = {
+    "config": cfg,
+    "suite": "coherence_gate",
+    "hello_ok": hello_ok,
+    "hello_content": msg.get("content"),
+    "tool_ok": tool_ok,
+    "tool_calls": tool_calls,
+}
+(raw / "coherence_gate.json").write_text(json.dumps(gate, indent=2))
+if not (hello_ok and tool_ok):
+    print(json.dumps(gate, indent=2))
+    raise SystemExit(1)
+print(json.dumps(gate, indent=2))
+PY
+  then
+    write_error_json "coherence gate failed"
+    exit 0
+  fi
+fi
 
 for s in "${SUITES[@]}"; do
   case "$s" in

@@ -25,3 +25,12 @@ docker vllm/vllm-openai:latest@sha256:953d3a06d5e64ab582985cd7401289d3abf2a2c14e
 docker vllm version: 0.22.1
 docker vllm image label org.opencontainers.image.version: vllm/vllm-openai:v0.22.1
 docker vllm image label org.opencontainers.image.revision: 0decac0d96c42b49572498019f0a0e3600f50398
+
+huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 revision 69f25e86d2b35d04837388514bec4eff729d1b30
+huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 total_bytes 18504000799
+huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 weights_bytes 18468416656
+huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 shard model-00001-of-00004.safetensors bytes 5370247488
+huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 shard model-00002-of-00004.safetensors bytes 5371301808
+huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 shard model-00003-of-00004.safetensors bytes 5371302232
+huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 shard model-00004-of-00004.safetensors bytes 2355565128
+huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 quantization compressed-tensors pack-quantized int4 weights num_bits=4
