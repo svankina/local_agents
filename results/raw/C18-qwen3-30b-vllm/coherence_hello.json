@@ -1,20 +1,20 @@
 {
-  "id": "chatcmpl-98bc70d0b79e2e92",
+  "id": "chatcmpl-bc0db03f12811c46",
   "object": "chat.completion",
-  "created": 1781248954,
+  "created": 1781249427,
   "model": "C18-qwen3-30b-vllm",
   "choices": [
     {
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "<think>\nOkay, the user asked me to say hello and name three colors. Let me start by greeting them. \"Hello!\" That's straightforward.\n\nNow, for the three colors. I need to pick three common ones. Red, blue, and green are classic choices. They're primary colors and widely recognized. Alternatively, I could go with more vibrant ones like orange, purple, and yellow, but maybe the user wants something simple. Let me stick with red, blue, and green. That should cover it. I'll list them clearly. Make sure the response is friendly and concise. Alright, that should do it.\n</think>\n\n",
+        "content": "\n\n",
         "refusal": null,
         "annotations": null,
         "audio": null,
         "function_call": null,
         "tool_calls": [],
-        "reasoning": null
+        "reasoning": "\nOkay, the user asked me to say hello and name three colors. Let me start by greeting them. \"Hello!\" That's straightforward.\n\nNow, for the three colors. I need to pick three common ones. Red, blue, and green are classic choices. They're primary colors and widely recognized. Alternatively, I could go with more vibrant ones like orange, purple, and yellow, but maybe the user wants something simple. Let me stick with red, blue, and green. That should cover it. I'll list them clearly. Make sure the response is friendly and concise. Alright, that should do it.\n"
       },
       "logprobs": null,
       "finish_reason": "length",
