@@ -31,7 +31,14 @@ sleep 3
 
 nvidia-smi --query-gpu=memory.used --format=csv,noheader | tee "$RAW/vram_before.txt"
 
-FLAGS=$(python3 -c "import json;c=json.load(open('bench/configs.json'));print(c['_common'],c['$CFG'].replace('<CACHE>','$CACHE'))")
+# Vulkan device enumeration order is NOT stable across boots/driver state (it
+# flipped mid-benchmark on 2026-06-12, landing a 13GB model on the 8GB RX 580).
+# Resolve the RTX 3090 Ti's index by name at launch time instead of hardcoding.
+GPUDEV=$(llama-server --list-devices 2>/dev/null | grep -i "RTX 3090" | grep -oE "Vulkan[0-9]+" | head -1)
+[ -n "$GPUDEV" ] || { echo "FATAL: could not resolve RTX 3090 Ti Vulkan device" >&2; exit 1; }
+echo "resolved GPU device: $GPUDEV" | tee "$RAW/gpu_device.txt"
+
+FLAGS=$(python3 -c "import json;c=json.load(open('bench/configs.json'));print((c['_common']+' '+c['$CFG']).replace('<CACHE>','$CACHE').replace('<GPU>','$GPUDEV'))")
 llama-server $FLAGS > "$RAW/server.log" 2>&1 &
 SRV=$!
 echo $SRV > results/.server.pid
