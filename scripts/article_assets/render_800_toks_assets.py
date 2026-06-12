@@ -12,6 +12,8 @@ from __future__ import annotations
 
 import math
 import re
+import csv
+import json
 import shutil
 import subprocess
 from pathlib import Path
@@ -21,6 +23,7 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[2]
 ASSET = ROOT / "docs" / "article" / "assets"
 ASSET.mkdir(parents=True, exist_ok=True)
+DATA = ROOT / "scripts" / "article_assets" / "data"
 
 FONT_REGULAR = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 FONT_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf"
@@ -126,27 +129,46 @@ def draw_text_lines(
         y += line_h
 
 
-def draw_meter(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], tps: float, frame: int) -> None:
+def draw_meter(
+    draw: ImageDraw.ImageDraw,
+    box: tuple[int, int, int, int],
+    tps: float,
+    frame: int,
+    cap: float,
+) -> None:
     x1, y1, x2, y2 = box
-    y = y1 + 66
+    cap = max(cap, 1.0)
+    tps = min(tps, cap)
+    y = y1 + 60
     draw.text((x1 + 34, y), f"{tps:05.1f}", font=F42B, fill=GREEN)
     draw.text((x1 + 260, y + 17), "tok/s", font=F22B, fill=CYAN)
 
-    bar_x, bar_y = x1 + 34, y1 + 154
+    cx, cy, r = x1 + 238, y1 + 152, 58
+    draw.arc([cx - r, cy - r, cx + r, cy + r], 205, 335, fill=BORDER, width=8)
+    draw.arc([cx - r, cy - r, cx + r, cy + r], 205, 205 + int(130 * (tps / cap)), fill=GREEN, width=8)
+    angle = math.radians(205 + 130 * (tps / cap))
+    nx = cx + math.cos(angle) * (r - 8)
+    ny = cy + math.sin(angle) * (r - 8)
+    draw.line([cx, cy, nx, ny], fill=YELLOW, width=4)
+    draw.ellipse([cx - 5, cy - 5, cx + 5, cy + 5], fill=CYAN)
+    draw.text((cx - 38, cy + 22), f"cap {cap:.0f}", font=F14, fill=MUTED)
+
+    bar_x, bar_y = x1 + 34, y1 + 172
     bar_w, bar_h = x2 - x1 - 68, 28
     draw.rounded_rectangle([bar_x, bar_y, bar_x + bar_w, bar_y + bar_h], radius=12, fill="#020617", outline=BORDER)
-    fill_w = int(bar_w * min(tps / 808.7, 1.0))
-    col = GREEN if tps > 700 else YELLOW if tps > 350 else CYAN
+    fill_w = int(bar_w * (tps / cap))
+    col = GREEN if tps > cap * 0.85 else YELLOW if tps > cap * 0.45 else CYAN
     draw.rounded_rectangle([bar_x, bar_y, bar_x + fill_w, bar_y + bar_h], radius=12, fill=col)
 
-    for frac, label in [(0, "0"), (0.25, "200"), (0.5, "400"), (0.75, "600"), (1, "808")]:
+    for frac in [0, 0.25, 0.5, 0.75, 1]:
+        label = f"{cap * frac:.0f}"
         tx = bar_x + int(bar_w * frac)
         draw.line([tx, bar_y + 34, tx, bar_y + 42], fill=DIM)
         draw.text((tx - 14, bar_y + 46), label, font=F14, fill=MUTED)
 
     per = tps / 8
     draw.text((x1 + 34, y1 + 126), f"8 streams  |  {per:04.1f} tok/s each", font=F15, fill=TEXT)
-    if tps > 500:
+    if tps > cap * 0.6:
         for i in range(12):
             sx = x1 + 30 + ((frame * 23 + i * 37) % (x2 - x1 - 60))
             sy = y1 + 40 + ((frame * 11 + i * 17) % 210)
@@ -158,6 +180,85 @@ def ease(t: float) -> float:
     return 1 - (1 - t) ** 3
 
 
+def load_replay_series() -> list[dict[str, float | str]]:
+    path = DATA / "replay-series.csv"
+    if not path.exists():
+        raise SystemExit(f"missing measured replay data: {path.relative_to(ROOT)}")
+    rows: list[dict[str, float | str]] = []
+    numeric = {
+        "generation_tokens_total",
+        "decode_tokens_delta",
+        "decode_tok_s",
+        "gpu_util_pct",
+        "vram_used_mib",
+        "power_w",
+        "temp_c",
+        "cpu_util_pct",
+        "ram_used_gib",
+    }
+    with path.open(newline="") as f:
+        for row in csv.DictReader(f):
+            parsed: dict[str, float | str] = dict(row)
+            for key in numeric:
+                parsed[key] = float(row[key] or 0)
+            rows.append(parsed)
+    if not rows:
+        raise SystemExit(f"empty measured replay data: {path.relative_to(ROOT)}")
+    return rows
+
+
+def load_capture_summary() -> dict[str, float | int | str]:
+    path = DATA / "capture-summary.json"
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text())
+
+
+def load_workload() -> dict[str, object]:
+    path = DATA / "capture-workload.json"
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text())
+
+
+def draw_metric_bar(
+    draw: ImageDraw.ImageDraw,
+    x: int,
+    y: int,
+    label: str,
+    value: str,
+    frac: float,
+    color: str,
+) -> None:
+    draw.text((x, y), label, font=F14, fill=MUTED)
+    draw.text((x + 88, y), value, font=F14, fill=TEXT)
+    bx, by, bw, bh = x, y + 19, 268, 9
+    draw.rounded_rectangle([bx, by, bx + bw, by + bh], radius=4, fill="#020617", outline="#1e293b")
+    draw.rounded_rectangle([bx, by, bx + int(bw * max(0, min(frac, 1))), by + bh], radius=4, fill=color)
+
+
+def draw_telemetry(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], row: dict[str, float | str]) -> None:
+    x1, y1, _x2, _y2 = box
+    gpu = float(row["gpu_util_pct"])
+    vram_mib = float(row["vram_used_mib"])
+    power = float(row["power_w"])
+    temp = float(row["temp_c"])
+    cpu = float(row["cpu_util_pct"])
+    ram = float(row["ram_used_gib"])
+    metrics = [
+        ("GPU", f"{gpu:05.1f}%", gpu / 100, GREEN),
+        ("VRAM", f"{vram_mib / 1024:05.2f}G", vram_mib / 24564, PURPLE),
+        ("CPU", f"{cpu:05.1f}%", cpu / 100, CYAN),
+        ("RAM", f"{ram:05.2f}G", ram / 62.68, CYAN),
+        ("POWER", f"{power:05.1f}W", power / 450, YELLOW),
+        ("TEMP", f"{temp:05.1f}C", temp / 90, GREEN if temp < 75 else YELLOW),
+    ]
+    y = y1 + 40
+    for label, value, frac, color in metrics:
+        draw_metric_bar(draw, x1 + 16, y, label, value, frac, color)
+        y += 28
+
+
 def render_demo(lines: list[str]) -> None:
     # 16:9, small enough for X/Twitter GIF upload while still readable in article.
     w, h = 960, 540
@@ -165,110 +266,98 @@ def render_demo(lines: list[str]) -> None:
     rtop = (622, 36, 942, 258)
     rbot = (622, 276, 942, 486)
 
+    series = load_replay_series()
+    summary = load_capture_summary()
+    workload = load_workload()
+    active_indices = [i for i, row in enumerate(series) if float(row["decode_tokens_delta"]) > 0]
+    if active_indices:
+        series = series[active_indices[0] : active_indices[-1] + 1]
+    cap = float(summary.get("peak_decode_tok_s") or max(float(r["decode_tok_s"]) for r in series))
+    sustained = float(summary.get("sustained_decode_tok_s_active_mean") or 0)
+    total_tokens = int(float(summary.get("total_generation_tokens_delta") or series[-1]["generation_tokens_total"]))
+    active_seconds = int(summary.get("active_seconds") or sum(1 for r in series if float(r["decode_tokens_delta"]) > 0))
+    metric_samples = int(summary.get("metric_samples") or len(series))
+    max_vram = max(float(r["vram_used_mib"]) for r in series)
+    max_power = max(float(r["power_w"]) for r in series)
+    max_temp = max(float(r["temp_c"]) for r in series)
+
     base_log = [
         "$ bench/run_config_vllm.sh C18-qwen3-30b-vllm",
         "vLLM 0.22.1 | Qwen3-30B-A3B-GPTQ-Int4",
         "flags: --max-num-seqs 8 --max-model-len 16384",
-        "health: ok | model loaded | VRAM 22,173 MiB",
-        "coherence: hello ok | tool parser: hermes ok",
+        f"health: ok | model loaded | VRAM {max_vram:,.0f} MiB",
+        f"counter: vllm:generation_tokens_total",
         "reasoning parser: qwen3 | quantization: gptq_marlin",
-        "fanout: 8 streams | 32 docstring items",
+        f"fanout: 8 streams | {active_seconds}s measured decode",
     ]
-    workers = [
-        "s0 item-01 ok  286 tok  ast verified",
-        "s1 item-02 ok  244 tok  ast verified",
-        "s2 item-03 ok  312 tok  ast verified",
-        "s3 item-04 retry -> ok  391 tok",
-        "s4 item-05 ok  260 tok  ast verified",
-        "s5 item-06 ok  228 tok  ast verified",
-        "s6 item-07 ok  355 tok  ast verified",
-        "s7 item-08 ok  274 tok  ast verified",
-        "s0 item-09 ok  302 tok  ast verified",
-        "s1 item-10 ok  219 tok  ast verified",
-        "s2 item-11 retry -> ok  410 tok",
-        "s3 item-12 ok  287 tok  ast verified",
-        "s4 item-13 ok  248 tok  ast verified",
-        "s5 item-14 ok  305 tok  ast verified",
-        "s6 item-15 ok  352 tok  ast verified",
-        "s7 item-16 ok  233 tok  ast verified",
-        "...",
-        "scorecard: 32/32 AST verified",
-        "work phase: 24.7s | sustained 345 tok/s",
-        "long decode ceiling: 808.7 tok/s",
-    ]
-    ff_lines = []
-    for line in lines[:8]:
-        line = line.replace("AMD Ryzen Threadripper 1920X (24) @ 3.50 GHz", "Threadripper 1920X (24)")
-        line = line.replace("AMD Radeon RX 580 Series [Discrete]", "RX 580 8GB")
-        line = line.replace("NVIDIA GeForce RTX 3090 Ti [Discrete]", "RTX 3090 Ti 24GB")
-        ff_lines.append(line)
+    workers = []
+    for worker in workload.get("workers", []):
+        if not isinstance(worker, dict):
+            continue
+        wid = int(worker.get("worker", len(workers)))
+        reqs = int(worker.get("requests", 0))
+        generated = int(worker.get("completion_tokens_usage", 0))
+        errors = int(worker.get("errors", 0))
+        status = "ok" if errors == 0 else f"{errors} errors"
+        workers.append(f"s{wid} {reqs} requests {status}  {generated:,} generated")
+    workers.extend(
+        [
+            "...",
+            f"metric samples: {metric_samples} | generated {total_tokens:,}",
+            f"sustained measured: {sustained:.1f} tok/s",
+            f"measured ceiling: {cap:.1f} tok/s",
+            f"thermal: {max_temp:.0f}C max | power {max_power:.1f}W max",
+        ]
+    )
 
     frames: list[Image.Image] = []
-    n = 72
+    n = len(series)
     for f in range(n):
         phase = f / (n - 1)
-        if phase < 0.16:
-            tps = 45 + 20 * math.sin(f / 2)
-        elif phase < 0.72:
-            u = (phase - 0.16) / 0.56
-            tps = 80 + 728.7 * ease(u)
-            tps += 18 * math.sin(f * 0.7)
-        else:
-            # Hold at the measured ceiling. Do not animate above the published number.
-            tps = 808.7
-        tps = max(0, min(808.7, tps))
+        row = series[f]
+        # The meter is capped to the measured ceiling from this capture.
+        tps = max(0, min(cap, float(row["decode_tok_s"])))
 
         im = Image.new("RGB", (w, h), BG)
         dr = ImageDraw.Draw(im)
         dr.rectangle([0, 0, w, 30], fill="#020617")
-        dr.text((18, 8), "stylized replay  |  RTX 3090 Ti  |  vLLM x8", font=F15, fill=CYAN)
+        dr.text((18, 8), "measured replay  |  RTX 3090 Ti  |  vLLM x8", font=F15, fill=CYAN)
         dr.text((w - 268, 8), "Qwen3-30B-A3B GPTQ-Int4", font=F15, fill=MUTED)
 
         draw_pane(dr, left, "0: fanout run", GREEN)
         draw_pane(dr, rtop, "1: aggregate decode meter", CYAN)
-        draw_pane(dr, rbot, "2: fastfetch", PURPLE)
+        draw_pane(dr, rbot, "2: measured telemetry", PURPLE)
 
         n_worker = int(max(0, (phase - 0.18)) / 0.70 * len(workers))
         n_worker = max(0, min(len(workers), n_worker))
         logs = base_log + workers[:n_worker]
         if 0.14 < phase < 0.95:
-            spinner = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"][f % 10]
-            logs.append(f"{spinner} decoding batch: {tps:05.1f} tok/s aggregate")
+            logs.append(f"$ decode sample {f + 1:03d}: {tps:05.1f} tok/s aggregate")
         draw_text_lines(dr, left, logs, start_y=40, font=F14, max_lines=18)
 
-        draw_meter(dr, rtop, tps, f)
-
-        x1, y1, x2, y2 = rbot
-        yy = y1 + 38
-        for idx, line in enumerate(ff_lines):
-            if idx == 0:
-                dr.text((x1 + 14, yy), line, font=F15, fill=CYAN)
-                yy += 21
-                continue
-            if line.startswith("-"):
-                dr.text((x1 + 14, yy), line, font=F14, fill=DIM)
-            elif ":" in line:
-                k, v = line.split(":", 1)
-                dr.text((x1 + 14, yy), k + ":", font=F14, fill=PURPLE)
-                dr.text((x1 + 96, yy), v.strip()[:28], font=F14, fill=TEXT)
-            else:
-                dr.text((x1 + 14, yy), line, font=F14, fill=TEXT)
-            yy += 20
+        draw_meter(dr, rtop, tps, f, cap)
+        draw_telemetry(dr, rbot, row)
 
         dr.rectangle([0, h - 24, w, h], fill="#16a34a")
-        dr.text((18, h - 20), "[0] 808.7 decode tok/s from one RTX 3090 Ti", font=F14, fill="#03150a")
-        dr.text((w - 142, h - 20), "24.7s  32/32", font=F14, fill="#03150a")
+        dr.text((18, h - 20), f"[0] measured peak {cap:.1f} decode tok/s from one RTX 3090 Ti", font=F14, fill="#03150a")
+        dr.text((w - 178, h - 20), f"{active_seconds}s  {total_tokens:,} tok", font=F14, fill="#03150a")
         frames.append(im)
 
-    frames[-1].save(ASSET / "800-toks-tmux-demo-poster.png")
+    out_frames = [frame.resize((1920, 1080), Image.Resampling.LANCZOS) for frame in frames]
+    poster_candidates = [
+        i
+        for i, row in enumerate(series)
+        if i > len(series) // 2 and float(row["gpu_util_pct"]) >= 90
+    ]
+    peak_frame = max(poster_candidates or range(len(series)), key=lambda i: float(series[i]["decode_tok_s"]))
+    out_frames[peak_frame].save(ASSET / "800-toks-tmux-demo-poster.png")
 
-    # PIL's adaptive palette is enough here and keeps the GIF under Twitter's practical limits.
-    gif_frames = [frames[0]] * 6 + frames + [frames[-1]] * 10
+    gif_frames = [out_frames[0]] * 6 + out_frames + [out_frames[-1]] * 10
     gif_frames[0].save(
         ASSET / "800-toks-tmux-demo.gif",
         save_all=True,
         append_images=gif_frames[1:],
-        duration=70,
+        duration=67,
         loop=0,
         optimize=True,
     )
@@ -276,14 +365,14 @@ def render_demo(lines: list[str]) -> None:
     if shutil.which("ffmpeg"):
         tmp_dir = ASSET / ".800-toks-frames"
         tmp_dir.mkdir(exist_ok=True)
-        for i, frame in enumerate(frames):
+        for i, frame in enumerate(out_frames):
             frame.save(tmp_dir / f"frame-{i:04d}.png")
         subprocess.run(
             [
                 "ffmpeg",
                 "-y",
                 "-framerate",
-                "14",
+                "15",
                 "-i",
                 str(tmp_dir / "frame-%04d.png"),
                 "-vf",
