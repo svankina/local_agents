@@ -1,0 +1,431 @@
+{
+ "results": [
+  {
+   "item": "pure_fn/run-length-encode",
+   "rep": 0,
+   "wall_s": 110.22,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1878,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "rep": 0,
+   "wall_s": 2.66,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1836,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "rep": 0,
+   "wall_s": 3.71,
+   "passed": false,
+   "lenient_passed": false,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1516,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "rep": 0,
+   "wall_s": 3.34,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 2037,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "rep": 0,
+   "wall_s": 4.08,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1597,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "rep": 0,
+   "wall_s": 3.92,
+   "passed": false,
+   "lenient_passed": false,
+   "failed_check": "format",
+   "violations": [
+    "no-def"
+   ],
+   "raw_len": 769,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "rep": 0,
+   "wall_s": 3.08,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1592,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "rep": 0,
+   "wall_s": 5.95,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1635,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "rep": 0,
+   "wall_s": 2.19,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1068,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/gcd",
+   "rep": 0,
+   "wall_s": 3.62,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1287,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "rep": 1,
+   "wall_s": 4.45,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1877,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "rep": 1,
+   "wall_s": 2.7,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1836,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "rep": 1,
+   "wall_s": 3.18,
+   "passed": false,
+   "lenient_passed": false,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1516,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "rep": 1,
+   "wall_s": 3.35,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 2037,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "rep": 1,
+   "wall_s": 4.0,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1597,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "rep": 1,
+   "wall_s": 3.83,
+   "passed": false,
+   "lenient_passed": false,
+   "failed_check": "format",
+   "violations": [
+    "no-def"
+   ],
+   "raw_len": 769,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "rep": 1,
+   "wall_s": 3.1,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1592,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "rep": 1,
+   "wall_s": 5.06,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1635,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "rep": 1,
+   "wall_s": 2.26,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1068,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/gcd",
+   "rep": 1,
+   "wall_s": 3.67,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1287,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "rep": 2,
+   "wall_s": 4.42,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1877,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "rep": 2,
+   "wall_s": 2.67,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1836,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "rep": 2,
+   "wall_s": 3.15,
+   "passed": false,
+   "lenient_passed": false,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1516,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "rep": 2,
+   "wall_s": 3.32,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 2037,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "rep": 2,
+   "wall_s": 4.03,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1597,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "rep": 2,
+   "wall_s": 3.94,
+   "passed": false,
+   "lenient_passed": false,
+   "failed_check": "format",
+   "violations": [
+    "no-def"
+   ],
+   "raw_len": 769,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "rep": 2,
+   "wall_s": 3.15,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1592,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "rep": 2,
+   "wall_s": 5.19,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1635,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "rep": 2,
+   "wall_s": 2.21,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1068,
+   "stats": {}
+  },
+  {
+   "item": "pure_fn/gcd",
+   "rep": 2,
+   "wall_s": 3.62,
+   "passed": false,
+   "lenient_passed": true,
+   "failed_check": "format",
+   "violations": [
+    "fence",
+    "prose"
+   ],
+   "raw_len": 1287,
+   "stats": {}
+  }
+ ],
+ "summary": {
+  "model": "diffusiongemma-26B-A4B-it-Q4_K_M",
+  "engine": "llama-diffusion-cli PR#24423, 1 stream, -n 1024, temp 0.2",
+  "n": 30,
+  "strict_pass_rate": 0.0,
+  "lenient_pass_rate": 0.8,
+  "mean_episode_wall_s": 7.14,
+  "suite_wall_s": 214.3,
+  "errors": 0
+ }
+}

@@ -15,7 +15,25 @@ server swap per additional model for E2.
 | E5 | thinking on/off vs error rate + speed | DONE 1m12s — headline result |
 | E2 | model speed vs error rate | DONE — table below |
 | E6 | compression-dictionary opcode protocol | CANCELLED by user mid-run (code kept in runner) |
-| E7 | diffusiongemma-26B-A4B-it (user request): diffusion decoding speed vs error | in flight — building llama.cpp PR #24423 inside vllm image (host has no nvcc); Q4_K_M GGUF downloading |
+| E7 | diffusiongemma-26B-A4B-it: diffusion decoding speed vs error | DONE — verdict below |
+
+## E7 finding: diffusiongemma-26B-A4B (Q4_K_M, llama.cpp PR#24423, 1 stream)
+
+| metric | value |
+|---|---|
+| strict pass (format obeyed) | 0/30 — every reply fenced+prose despite explicit "no fences" |
+| lenient pass (fences stripped) | 80% — logic is real, between gemma12-reasoning (73%) and C18-think (88%) |
+| wall per episode | 7.14s single-stream (-n 1024 canvas, thought channel on) |
+| tasks/min | ~8.4 vs C18-think 36, gemma12-nothink 83 |
+
+As a supervised fleet worker TODAY: not viable. Instruction-following is the worst
+measured (100% format violation rate -> a guaranteed fix round per task), no server
+or batching exists (CLI only, PR not merged), and single-stream tasks/min is 4-10x
+behind the autoregressive options. The diffusion decode itself is quick (~150ms/step,
+14 steps/block) and the logic quality is promising — worth re-testing when (a) the
+PR merges with llama-server support and (b) a chat template / system prompt reliably
+suppresses the fence habit. Infra kept: ~/src/llama.cpp-diffusion build + Q4_K_M in
+~/.cache/llama.cpp + wrapper bench/fleet_bench/run_diffusion_e7.py.
 
 ## E2 final table (single-shot, medium plan, temp 0.2)
 
