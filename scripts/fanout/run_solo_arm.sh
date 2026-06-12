@@ -69,7 +69,8 @@ EOF
 export RUN_DIR
 export CORPUS
 claude -p "$(cat "$RUN_DIR/prompts/solo.txt")" \
-  --output-format stream-json --verbose | tee "$RUN_DIR/logs/claude-stream.jsonl"
+  --output-format stream-json --verbose --dangerously-skip-permissions \
+  --mcp-config '{"mcpServers":{}}' --strict-mcp-config > "$RUN_DIR/logs/claude-stream.jsonl" 2>&1
 
 python3 scripts/compute_run_metrics.py "$RUN_DIR"
 date -Is > "$RUN_DIR/ended_at.txt"
