@@ -233,7 +233,27 @@ Run a sampler for the entire measured window of every run, all arms (baseline ar
 - Disk: `io_read_mb_s`, `io_write_mb_s` (model load and npm install phases)
 - Network: `net_rx_kb_s`, `net_tx_kb_s` (cloud-arm dependence; also catches registry stalls)
 
-Derived per run (computed in analysis, stored in the run JSON): peak/mean VRAM, mean GPU util during `t_generating` vs overall, GPU-idle% as defined above, peak RAM, mean/peak CPU util, total GPU Wh, max temp and any throttle events. Telemetry alone must never be used to *infer* token counts — it contextualizes the primary metrics.
+Derived per run (computed in analysis, stored in the run JSON): peak/mean VRAM, mean GPU util during `t_generating` vs overall, GPU-idle% as defined above, peak RAM, mean/peak CPU util, total GPU Wh, max temp and any throttle events, and the peak-throughput fields below. Telemetry alone must never be used to *infer* token counts — it contextualizes the primary metrics.
+
+### Peak Throughput (max tokens/sec)
+
+Log and report maximum tokens/sec per run, not just means/medians:
+
+- `max_decode_tps_single`: highest per-request decode rate (server `timings.predicted_per_second`, or client usage/wall fallback), with the request id and prompt/completion sizes that produced it.
+- `max_aggregate_tps_1s`: highest 1-second total completion-token throughput across all concurrent streams, derived in analysis from per-request start/end timestamps and completion token counts (assume uniform emission within a request; mark as derived). This is the burst ceiling number.
+- `max_prefill_tps`: highest per-request prompt-processing rate, same sourcing rules.
+
+All three go in `run.json` and the results tables alongside the medians.
+
+### Telemetry Overhead Budget (do not slow the test down)
+
+Instrumentation must be passive. Rules:
+
+- One sampler process for the whole run, started before and killed after the measured window. Use streaming collectors, not per-sample forks: a single `nvidia-smi --query-gpu=... --format=csv,noheader -l 1` child plus psutil in-process — never spawn nvidia-smi per tick.
+- Run the sampler at `nice 19` (and `ionice -c3` where available); buffered CSV appends, no fsync; flush on exit.
+- 1 Hz fixed. No per-token or per-line hooks anywhere on the serving hot path; the local server runs at default log verbosity (no `-lv` debug levels), and `/metrics` is scraped only at job boundaries, never mid-generation.
+- OTEL/event logging must use async/batched export; if only synchronous export is available, write to local file and ship after the run.
+- Pre-flight validation (once, before arm runs start): run a short fixed workload (e.g. 3× p1k generation against the arm-C server) with telemetry on and off; require wall-clock delta < 2% and sampler CPU < 1% of one core (check via `pidstat`). Record the validation numbers in the experiment log. If the budget is exceeded, reduce to 0.5 Hz or trim columns before touching anything else.
 
 ### Instrumentation
 
