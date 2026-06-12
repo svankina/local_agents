@@ -28,7 +28,8 @@ Solo-vs-fleet changes two things at once, so we ran the control: same supervisor
 |---|---:|---:|---:|---:|---:|---:|---:|
 | 8× local Qwen3-30B | 32/32 | 7 | **24.7 s** | ~$0 | 8,525 | 345 | 512 |
 | 8× Fable 5 | 32/32 | 0 | 80.6 s | $6.28 | 21,222 | 263 | 426 |
-| 8× Haiku 4.5 | 32/32 | 1 | 160.9 s | $1.42 | 154,003 | 957* | 1,221* |
+| 8× Haiku 4.5 (thinking on) | 32/32 | 1 | 160.9 s | $1.42 | 154,003 | 957* | 1,221* |
+| 8× Haiku 4.5 (thinking off) | 29/32 | 5 | 54.6 s | $0.66 | 20,493 | 375 | 529 |
 | 1× Fable 5 solo (no dispatcher) | 32/32 | 0 | 569 s | $9.22 total | 39,454 | 69 | ~90† |
 
 \* Haiku's rates count billed thinking tokens, not useful output — it emits fast and discards most of it.
@@ -36,7 +37,7 @@ Solo-vs-fleet changes two things at once, so we ran the control: same supervisor
 
 The solo row is the same model as the Fable workers doing the same work in series — 569 s alone, 80.6 s as a pool of 8 (88% parallel efficiency; both arms sum to the same 569 s of work). Local workers: 3.3× faster than Fable workers, and the $6.28 worker bill drops to electricity. Fable earns its price one way — zero retries. The locals needed 7; all recovered on feedback.
 
-Haiku is the surprise. Slowest of the three, and billed for 154k output tokens to write what the locals wrote in 8.5k — CLI worker sessions think before answering, and you pay for every thought. Cheap per token, expensive per docstring.
+Haiku is the surprise, twice. With thinking on: slowest of the pools, billed for 154k output tokens to write what the locals wrote in 8.5k — you pay for every thought. We turned thinking off (`MAX_THINKING_TOKENS=0`) and reran: 3× faster, half the cost, and it dropped 3 items the thinking version got right. The thinking tokens weren't all waste. Pick your tax: latency and tokens, or quality.
 
 The harness took five runs to be fair to a real model: 1/32 (rejected a dotted-qualname dialect) → 12/32 (implicit parameter requirement) → 30/32 (undisclosed length threshold) → 31/32 (underscore-variant key crashed the inserter) → 32/32. Every fix deterministic, regression-tested against the real failed responses. The model was never incoherent. The harness was unfair.
 
