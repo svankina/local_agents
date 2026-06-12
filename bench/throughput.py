@@ -6,6 +6,7 @@ Usage: python3 throughput.py <config-name> [--streams 1 2 4] [--trials 3]
 import argparse
 import concurrent.futures
 import json
+import os
 import statistics
 import sys
 import time
@@ -29,10 +30,20 @@ def one(prompt, max_tokens=256):
     return t
 
 
+def default_streams():
+    raw = os.environ.get("BENCH_THROUGHPUT_STREAMS")
+    if not raw:
+        return [1, 2, 4]
+    try:
+        return [int(part) for part in raw.replace(",", " ").split()]
+    except ValueError as exc:
+        raise SystemExit(f"invalid BENCH_THROUGHPUT_STREAMS={raw!r}") from exc
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("config")
-    ap.add_argument("--streams", type=int, nargs="+", default=[1, 2, 4])
+    ap.add_argument("--streams", "--levels", type=int, nargs="+", default=default_streams())
     ap.add_argument("--trials", type=int, default=3)
     args = ap.parse_args()
     wait_healthy()
