@@ -1,0 +1,573 @@
+{
+  "corpus_url": "https://github.com/scrapy/scrapy.git",
+  "generator_git_sha": "68c59177d376e404b0c0c14f4c6fd1162fffc875",
+  "item_count": 32,
+  "items": [
+    {
+      "est_prompt_tokens": 2607,
+      "file_sha256": "e36c70dc1ebe5c37cd90030689c071bcd6b9038921c1ba2a79c5496cd6bcb411",
+      "id": "item-01",
+      "line_count": 216,
+      "path": "scrapy/http/cookies.py",
+      "targets": [
+        "CookieJar",
+        "CookieJar.add_cookie_header",
+        "CookieJar.clear",
+        "CookieJar.clear_session_cookies",
+        "CookieJar.extract_cookies",
+        "CookieJar.make_cookies",
+        "CookieJar.set_cookie",
+        "CookieJar.set_cookie_if_ok",
+        "CookieJar.set_policy",
+        "WrappedRequest.add_unredirected_header",
+        "WrappedRequest.full_url",
+        "WrappedRequest.get_full_url",
+        "WrappedRequest.get_header",
+        "WrappedRequest.get_host",
+        "WrappedRequest.get_type",
+        "WrappedRequest.has_header",
+        "WrappedRequest.header_items",
+        "WrappedRequest.host",
+        "WrappedRequest.origin_req_host",
+        "WrappedRequest.type",
+        "WrappedRequest.unverifiable",
+        "WrappedResponse",
+        "WrappedResponse.get_all",
+        "WrappedResponse.info",
+        "_DummyLock.acquire",
+        "_DummyLock.release"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1714,
+      "file_sha256": "a4c91d55a881fc757f246129f84ecc737c2ae05c246424f0209b227364d4f3b8",
+      "id": "item-02",
+      "line_count": 134,
+      "path": "scrapy/statscollectors.py",
+      "targets": [
+        "DummyStatsCollector",
+        "DummyStatsCollector.get_value",
+        "DummyStatsCollector.inc_value",
+        "DummyStatsCollector.max_value",
+        "DummyStatsCollector.min_value",
+        "DummyStatsCollector.set_stats",
+        "DummyStatsCollector.set_value",
+        "MemoryStatsCollector",
+        "StatsCollector",
+        "StatsCollector.clear_stats",
+        "StatsCollector.close_spider",
+        "StatsCollector.get_stats",
+        "StatsCollector.get_value",
+        "StatsCollector.inc_value",
+        "StatsCollector.max_value",
+        "StatsCollector.min_value",
+        "StatsCollector.open_spider",
+        "StatsCollector.set_stats",
+        "StatsCollector.set_value"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2824,
+      "file_sha256": "af737612acf76a5d9605e816a4f53936f4e0b2de01b2e2a883905fe285dc677f",
+      "id": "item-03",
+      "line_count": 209,
+      "path": "scrapy/contracts/__init__.py",
+      "targets": [
+        "Contract.add_post_hook",
+        "Contract.add_pre_hook",
+        "Contract.adjust_request_args",
+        "ContractsManager",
+        "ContractsManager._clean_req.cb_wrapper",
+        "ContractsManager._clean_req.eb_wrapper",
+        "ContractsManager.extract_contracts",
+        "ContractsManager.from_method",
+        "ContractsManager.from_spider",
+        "ContractsManager.tested_methods_from_spidercls",
+        "_create_testcase.ContractTestCase"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2029,
+      "file_sha256": "61a1e43b2a65b1166c13268200f6335e5c18f13fd0912f943adbb4bbd0ed67a4",
+      "id": "item-04",
+      "line_count": 148,
+      "path": "scrapy/resolver.py",
+      "targets": [
+        "CachingHostnameResolver.from_crawler",
+        "CachingHostnameResolver.install_on_reactor",
+        "CachingHostnameResolver.resolveHostName",
+        "CachingThreadedResolver.from_crawler",
+        "CachingThreadedResolver.getHostByName",
+        "CachingThreadedResolver.install_on_reactor",
+        "HostResolution",
+        "HostResolution.cancel",
+        "_CachingResolutionReceiver.addressResolved",
+        "_CachingResolutionReceiver.resolutionBegan",
+        "_CachingResolutionReceiver.resolutionComplete"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1846,
+      "file_sha256": "a962b0451aa27072ab3ff11ca2885338af43a79d171e7739ec4a92bd517ad7f7",
+      "id": "item-05",
+      "line_count": 123,
+      "path": "scrapy/robotstxt.py",
+      "targets": [
+        "ProtegoRobotParser",
+        "ProtegoRobotParser.allowed",
+        "ProtegoRobotParser.from_crawler",
+        "PythonRobotParser",
+        "PythonRobotParser.allowed",
+        "PythonRobotParser.from_crawler",
+        "RerpRobotParser",
+        "RerpRobotParser.allowed",
+        "RerpRobotParser.from_crawler",
+        "RobotParser",
+        "decode_robotstxt"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2319,
+      "file_sha256": "a37c26201f1ee2d2c3164d44bbc57fe04e14f159446af11f0d756e40f6ed3dc9",
+      "id": "item-06",
+      "line_count": 176,
+      "path": "scrapy/squeues.py",
+      "targets": [
+        "_scrapy_non_serialization_queue.ScrapyRequestQueue",
+        "_scrapy_non_serialization_queue.ScrapyRequestQueue.from_crawler",
+        "_scrapy_serialization_queue.ScrapyRequestQueue",
+        "_scrapy_serialization_queue.ScrapyRequestQueue.from_crawler",
+        "_scrapy_serialization_queue.ScrapyRequestQueue.pop",
+        "_scrapy_serialization_queue.ScrapyRequestQueue.push",
+        "_serializable_queue.SerializableQueue",
+        "_serializable_queue.SerializableQueue.pop",
+        "_serializable_queue.SerializableQueue.push",
+        "_with_mkdir.DirectoriesCreated"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2204,
+      "file_sha256": "f4ea28b385850dddc378a861aa18ffcc82c08f82c1fd51bb6fbba6a9af787a9d",
+      "id": "item-07",
+      "line_count": 150,
+      "path": "scrapy/extensions/closespider.py",
+      "targets": [
+        "CloseSpider",
+        "CloseSpider.error_count",
+        "CloseSpider.from_crawler",
+        "CloseSpider.item_scraped",
+        "CloseSpider.item_scraped_no_item",
+        "CloseSpider.page_count",
+        "CloseSpider.spider_closed",
+        "CloseSpider.spider_opened",
+        "CloseSpider.spider_opened_no_item"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1926,
+      "file_sha256": "c691b8a5f43a4bd8eed2a35057e2a091583e0fe2ae62d198382c76351cea81cd",
+      "id": "item-08",
+      "line_count": 141,
+      "path": "scrapy/http/headers.py",
+      "targets": [
+        "Headers.appendlist",
+        "Headers.get",
+        "Headers.getlist",
+        "Headers.items",
+        "Headers.setlist",
+        "Headers.setlistdefault",
+        "Headers.to_string",
+        "Headers.update",
+        "Headers.values"
+      ]
+    },
+    {
+      "est_prompt_tokens": 3113,
+      "file_sha256": "6550a437551b9efd497840256e003d15c71328992a1db792463229beff645fce",
+      "id": "item-09",
+      "line_count": 261,
+      "path": "scrapy/pipelines/images.py",
+      "targets": [
+        "ImagesPipeline.convert_image",
+        "ImagesPipeline.file_downloaded",
+        "ImagesPipeline.file_path",
+        "ImagesPipeline.from_crawler",
+        "ImagesPipeline.get_images",
+        "ImagesPipeline.get_media_requests",
+        "ImagesPipeline.image_downloaded",
+        "ImagesPipeline.item_completed",
+        "ImagesPipeline.thumb_path"
+      ]
+    },
+    {
+      "est_prompt_tokens": 3061,
+      "file_sha256": "4b5007e40b60306439631b95cab726c985a123992142f18b4c04bde7a9614de2",
+      "id": "item-10",
+      "line_count": 274,
+      "path": "scrapy/utils/log.py",
+      "targets": [
+        "LogCounterHandler.emit",
+        "SpiderLoggerAdapter",
+        "StreamLogger.flush",
+        "StreamLogger.write",
+        "TopLevelFormatter.filter",
+        "get_scrapy_root_handler",
+        "install_scrapy_root_handler",
+        "log_reactor_info",
+        "log_scrapy_info"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1785,
+      "file_sha256": "2e818df4b450cbc61162b00aa59484fc42aa51c72645d6b22c985638352eff74",
+      "id": "item-11",
+      "line_count": 122,
+      "path": "scrapy/commands/check.py",
+      "targets": [
+        "Command",
+        "Command.add_options",
+        "Command.run",
+        "Command.run.start",
+        "Command.short_desc",
+        "Command.syntax",
+        "TextTestResult",
+        "TextTestResult.printSummary"
+      ]
+    },
+    {
+      "est_prompt_tokens": 3564,
+      "file_sha256": "69a2889e73d015d460935881fd0ec6335bbc3610b6ebc810370a9b6508fcee44",
+      "id": "item-12",
+      "line_count": 284,
+      "path": "scrapy/core/downloader/__init__.py",
+      "targets": [
+        "Downloader",
+        "Downloader.close",
+        "Downloader.fetch",
+        "Downloader.get_slot_key",
+        "Downloader.needs_backout",
+        "Slot.close",
+        "Slot.download_delay",
+        "Slot.free_transfer_slots"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1944,
+      "file_sha256": "64866871d21f7a47b89f686dcd28f1943e0f447ebf25314ba903b6196ce46aaa",
+      "id": "item-13",
+      "line_count": 138,
+      "path": "scrapy/dupefilters.py",
+      "targets": [
+        "BaseDupeFilter.close",
+        "BaseDupeFilter.from_crawler",
+        "BaseDupeFilter.open",
+        "BaseDupeFilter.request_seen",
+        "RFPDupeFilter.close",
+        "RFPDupeFilter.from_crawler",
+        "RFPDupeFilter.log",
+        "RFPDupeFilter.request_seen"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2268,
+      "file_sha256": "260dbcef4c339eec9ef0ba679275a8360ebfaf7cbf1d6f2843def1afe87447e0",
+      "id": "item-14",
+      "line_count": 169,
+      "path": "scrapy/extensions/periodic_log.py",
+      "targets": [
+        "PeriodicLog.from_crawler",
+        "PeriodicLog.log",
+        "PeriodicLog.log_crawler_stats",
+        "PeriodicLog.log_delta",
+        "PeriodicLog.log_timing",
+        "PeriodicLog.param_allowed",
+        "PeriodicLog.spider_closed",
+        "PeriodicLog.spider_opened"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2000,
+      "file_sha256": "dad21e4c2bd9ff25ae06455ae2024f8e41e3a41028fe846aa1758b2e61903f85",
+      "id": "item-15",
+      "line_count": 166,
+      "path": "scrapy/extensions/postprocessing.py",
+      "targets": [
+        "Bz2Plugin.close",
+        "Bz2Plugin.write",
+        "GzipPlugin.close",
+        "GzipPlugin.write",
+        "LZMAPlugin.close",
+        "LZMAPlugin.write",
+        "PostProcessingManager.tell",
+        "PostProcessingManager.writable"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2110,
+      "file_sha256": "8384ef006f9b9625738f5087e41922007263a74fa0efbcf2e82ea1e87140de92",
+      "id": "item-16",
+      "line_count": 142,
+      "path": "scrapy/pipelines/__init__.py",
+      "targets": [
+        "ItemPipelineManager",
+        "ItemPipelineManager.close_spider",
+        "ItemPipelineManager.close_spider_async",
+        "ItemPipelineManager.get_awaitable",
+        "ItemPipelineManager.open_spider",
+        "ItemPipelineManager.open_spider_async",
+        "ItemPipelineManager.process_item",
+        "ItemPipelineManager.process_item_async"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1566,
+      "file_sha256": "291406ef131450b7d16cf4936551c0b757c63046479721a69c343b8d33f2bca3",
+      "id": "item-17",
+      "line_count": 99,
+      "path": "scrapy/commands/fetch.py",
+      "targets": [
+        "Command",
+        "Command.add_options",
+        "Command.long_desc",
+        "Command.run",
+        "Command.run.start",
+        "Command.short_desc",
+        "Command.syntax"
+      ]
+    },
+    {
+      "est_prompt_tokens": 4067,
+      "file_sha256": "027782ef8cb2c614c0a96a10c6a29e7168422210ea03bc25fb63beca976c5d4b",
+      "id": "item-18",
+      "line_count": 312,
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "targets": [
+        "BrowserLikeContextFactory.creatorForNetloc",
+        "_AcceptableProtocolsContextFactory.creatorForNetloc",
+        "_ScrapyClientContextFactory.creatorForNetloc",
+        "_ScrapyClientContextFactory.from_crawler",
+        "_ScrapyClientContextFactory.getCertificateOptions",
+        "_ScrapyClientContextFactory.getContext",
+        "load_context_factory_from_settings"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2176,
+      "file_sha256": "b464de743bf1ef64d2d532f815c79433ce54cd5e48a8dc73d11c6bb358713913",
+      "id": "item-19",
+      "line_count": 151,
+      "path": "scrapy/downloadermiddlewares/httpcache.py",
+      "targets": [
+        "HttpCacheMiddleware",
+        "HttpCacheMiddleware.from_crawler",
+        "HttpCacheMiddleware.process_exception",
+        "HttpCacheMiddleware.process_request",
+        "HttpCacheMiddleware.process_response",
+        "HttpCacheMiddleware.spider_closed",
+        "HttpCacheMiddleware.spider_opened"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1421,
+      "file_sha256": "1bf5bad08487562ff2f6eda7366cebc2db5cf89c5575191e02f82b02507c4b82",
+      "id": "item-20",
+      "line_count": 82,
+      "path": "scrapy/downloadermiddlewares/stats.py",
+      "targets": [
+        "DownloaderStats",
+        "DownloaderStats.from_crawler",
+        "DownloaderStats.process_exception",
+        "DownloaderStats.process_request",
+        "DownloaderStats.process_response",
+        "get_header_size",
+        "get_status_size"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1288,
+      "file_sha256": "da08a5306d08213a0acc478ba90e8e20c439bc49b4c6b027e78570a1173d0297",
+      "id": "item-21",
+      "line_count": 61,
+      "path": "scrapy/extensions/corestats.py",
+      "targets": [
+        "CoreStats",
+        "CoreStats.from_crawler",
+        "CoreStats.item_dropped",
+        "CoreStats.item_scraped",
+        "CoreStats.response_received",
+        "CoreStats.spider_closed",
+        "CoreStats.spider_opened"
+      ]
+    },
+    {
+      "est_prompt_tokens": 3493,
+      "file_sha256": "09d9f93c5ba172cea656250960029b6bfd24365b3922ad5ffd4b7eca85f85a31",
+      "id": "item-22",
+      "line_count": 315,
+      "path": "scrapy/http/response/__init__.py",
+      "targets": [
+        "Response.body",
+        "Response.cb_kwargs",
+        "Response.flags",
+        "Response.headers",
+        "Response.meta",
+        "Response.replace",
+        "Response.url"
+      ]
+    },
+    {
+      "est_prompt_tokens": 4412,
+      "file_sha256": "4db13eee2c0479e5b2afc5b562f0cd552a4a18d8d979fa33efa8156bcd18c628",
+      "id": "item-23",
+      "line_count": 340,
+      "path": "scrapy/shell.py",
+      "targets": [
+        "Shell",
+        "Shell.fetch",
+        "Shell.get_help",
+        "Shell.inthread",
+        "Shell.populate_vars",
+        "Shell.print_help",
+        "Shell.start"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1970,
+      "file_sha256": "8910eb069c2d0f8b69ff6e945e6925a302a45155b37c145c485e30e82176f75a",
+      "id": "item-24",
+      "line_count": 153,
+      "path": "scrapy/utils/_download_handlers.py",
+      "targets": [
+        "NullCookieJar.extract_cookies",
+        "NullCookieJar.set_cookie",
+        "get_dataloss_msg",
+        "get_maxsize_msg",
+        "get_warnsize_msg",
+        "make_response",
+        "normalize_bind_address"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2789,
+      "file_sha256": "08dbb56443c9ee55300bea649c2017314df872cc62d3a793e80639d1659bed8b",
+      "id": "item-25",
+      "line_count": 234,
+      "path": "scrapy/commands/genspider.py",
+      "targets": [
+        "Command",
+        "Command.add_options",
+        "Command.run",
+        "Command.short_desc",
+        "Command.syntax",
+        "Command.templates_dir"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1988,
+      "file_sha256": "dc1f4f5a53352a52b7a4259674c5ad8ef0ffadbbdd3294bb07f945a6297b8df7",
+      "id": "item-26",
+      "line_count": 135,
+      "path": "scrapy/commands/shell.py",
+      "targets": [
+        "Command",
+        "Command.add_options",
+        "Command.long_desc",
+        "Command.run",
+        "Command.short_desc",
+        "Command.syntax"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2564,
+      "file_sha256": "3579046a8045e57046decd9456666e6b9d904a2742d21ff66ba407c5808860c7",
+      "id": "item-27",
+      "line_count": 178,
+      "path": "scrapy/core/downloader/handlers/__init__.py",
+      "targets": [
+        "DownloadHandlerProtocol",
+        "DownloadHandlerProtocol.close",
+        "DownloadHandlerProtocol.download_request",
+        "DownloadHandlers",
+        "DownloadHandlers.download_request",
+        "DownloadHandlers.download_request_async"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2040,
+      "file_sha256": "268cbd8b385da67fa1ad7c54b332f958a2ccb89a5ecb0878afa2cba515e6c87b",
+      "id": "item-28",
+      "line_count": 127,
+      "path": "scrapy/core/downloader/handlers/ftp.py",
+      "targets": [
+        "FTPDownloadHandler",
+        "FTPDownloadHandler.download_request",
+        "ReceivedDataProtocol",
+        "ReceivedDataProtocol.close",
+        "ReceivedDataProtocol.dataReceived",
+        "ReceivedDataProtocol.filename"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2272,
+      "file_sha256": "3a5f8e620639aa40cca196b79b4026420dfcb63cd99acb37731d46d97d9192b0",
+      "id": "item-29",
+      "line_count": 167,
+      "path": "scrapy/core/http2/agent.py",
+      "targets": [
+        "H2Agent",
+        "H2Agent.get_endpoint",
+        "H2Agent.request",
+        "H2ConnectionPool",
+        "H2ConnectionPool.get_connection",
+        "H2ConnectionPool.put_connection"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1631,
+      "file_sha256": "70921db266741c55f90ea43e41cd7ce2e9a97ab7cb06faaf5f059fc34b49b1f9",
+      "id": "item-30",
+      "line_count": 99,
+      "path": "scrapy/downloadermiddlewares/offsite.py",
+      "targets": [
+        "OffsiteMiddleware",
+        "OffsiteMiddleware.from_crawler",
+        "OffsiteMiddleware.process_request",
+        "OffsiteMiddleware.request_scheduled",
+        "OffsiteMiddleware.should_follow",
+        "OffsiteMiddleware.spider_opened"
+      ]
+    },
+    {
+      "est_prompt_tokens": 1575,
+      "file_sha256": "43afe7056eaeaac190ee28b0408c2f38a77e2727a1181ff2b09f9f55db30c458",
+      "id": "item-31",
+      "line_count": 100,
+      "path": "scrapy/extensions/logstats.py",
+      "targets": [
+        "LogStats.calculate_final_stats",
+        "LogStats.calculate_stats",
+        "LogStats.from_crawler",
+        "LogStats.log",
+        "LogStats.spider_closed",
+        "LogStats.spider_opened"
+      ]
+    },
+    {
+      "est_prompt_tokens": 2519,
+      "file_sha256": "c6ac56ac049b22b2b07c4464c26edd1ed9ff956bac68988c178b6d0255dc3d47",
+      "id": "item-32",
+      "line_count": 173,
+      "path": "scrapy/extensions/memusage.py",
+      "targets": [
+        "MemoryUsage",
+        "MemoryUsage.engine_started",
+        "MemoryUsage.engine_stopped",
+        "MemoryUsage.from_crawler",
+        "MemoryUsage.get_virtual_size",
+        "MemoryUsage.update"
+      ]
+    }
+  ],
+  "pinned_sha": "a8ffdcf8517a8973391a14635234b6993b15a86a",
+  "schema": "showcase-fanout.items.v1"
+}

@@ -1,0 +1,18 @@
+{
+  "est_prompt_tokens": 2204,
+  "file_sha256": "f4ea28b385850dddc378a861aa18ffcc82c08f82c1fd51bb6fbba6a9af787a9d",
+  "id": "item-07",
+  "line_count": 150,
+  "path": "scrapy/extensions/closespider.py",
+  "targets": [
+    "CloseSpider",
+    "CloseSpider.error_count",
+    "CloseSpider.from_crawler",
+    "CloseSpider.item_scraped",
+    "CloseSpider.item_scraped_no_item",
+    "CloseSpider.page_count",
+    "CloseSpider.spider_closed",
+    "CloseSpider.spider_opened",
+    "CloseSpider.spider_opened_no_item"
+  ]
+}

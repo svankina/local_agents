@@ -1,0 +1,14 @@
+{
+  "docstrings": {
+    "CoreStats": "A class to collect core statistics such as start time, finish time, and counts of items scraped or dropped.",
+    "CoreStats.from_crawler": "Create a CoreStats instance from the crawler, connecting necessary signals.",
+    "CoreStats.item_dropped": "Increment the count of items dropped by the spider and record the exception type.",
+    "CoreStats.item_dropped_reasons_count": "Increment the count of items dropped by the spider and record the exception type.",
+    "CoreStats.item_scraped": "Increment the count of items scraped by the spider.",
+    "CoreStats.item_scraped_count": "Increment the count of items scraped by the spider.",
+    "CoreStats.response_received": "Increment the count of responses received by the spider.",
+    "CoreStats.response_received_count": "Increment the count of responses received by the spider.",
+    "CoreStats.spider_closed": "Record the finish time and reason when the spider is closed.",
+    "CoreStats.spider_opened": "Record the start time when the spider is opened."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "docstrings": {
+    "H2Agent": "A class to manage HTTP/2 requests using a connection pool.",
+    "H2Agent.get_endpoint": "Retrieve the HostnameEndpoint for a given uri.",
+    "H2Agent.request": "Submit a request using the spider and the connection pool.",
+    "H2ConnectionPool": "A pool to manage and reuse HTTP/2 connections.",
+    "H2ConnectionPool.get_connection": "Retrieve a connection for a given key, uri, and endpoint.",
+    "H2ConnectionPool.put_connection": "Store a conn in the pool using the provided key."
+  }
+}

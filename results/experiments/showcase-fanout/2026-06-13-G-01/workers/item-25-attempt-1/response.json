@@ -1,0 +1,10 @@
+{
+  "docstrings": {
+    "Command": "A Scrapy command to generate a new spider using pre-defined templates.",
+    "Command.add_options": "Add command-line options to the parser.",
+    "Command.run": "Execute the command using the provided args and opts.",
+    "Command.short_desc": "Generate new spider using pre-defined templates",
+    "Command.syntax": "[options] <name> <domain>",
+    "Command.templates_dir": "The directory where spider templates are stored."
+  }
+}

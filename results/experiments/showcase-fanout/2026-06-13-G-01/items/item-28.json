@@ -1,0 +1,15 @@
+{
+  "est_prompt_tokens": 2040,
+  "file_sha256": "268cbd8b385da67fa1ad7c54b332f958a2ccb89a5ecb0878afa2cba515e6c87b",
+  "id": "item-28",
+  "line_count": 127,
+  "path": "scrapy/core/downloader/handlers/ftp.py",
+  "targets": [
+    "FTPDownloadHandler",
+    "FTPDownloadHandler.download_request",
+    "ReceivedDataProtocol",
+    "ReceivedDataProtocol.close",
+    "ReceivedDataProtocol.dataReceived",
+    "ReceivedDataProtocol.filename"
+  ]
+}

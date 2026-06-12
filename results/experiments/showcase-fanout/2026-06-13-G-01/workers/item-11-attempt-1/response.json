@@ -1,0 +1,12 @@
+{
+  "docstrings": {
+    "Command": "A Scrapy command to check spider contracts.",
+    "Command.add_options": "Add command-specific options to the argparse parser.",
+    "Command.run": "Execute the contract check using the provided args and opts.",
+    "Command.run.start": "An asynchronous iterator that yields contract requests for a spider.",
+    "Command.short_desc": "A brief description of the command's purpose.",
+    "Command.syntax": "The command line syntax for this command.",
+    "TextTestResult": "A custom test result class for reporting contract check outcomes.",
+    "TextTestResult.printSummary": "Print a summary of the test results using the start and stop timestamps."
+  }
+}

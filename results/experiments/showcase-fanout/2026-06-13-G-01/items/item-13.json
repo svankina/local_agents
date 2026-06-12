@@ -1,0 +1,17 @@
+{
+  "est_prompt_tokens": 1944,
+  "file_sha256": "64866871d21f7a47b89f686dcd28f1943e0f447ebf25314ba903b6196ce46aaa",
+  "id": "item-13",
+  "line_count": 138,
+  "path": "scrapy/dupefilters.py",
+  "targets": [
+    "BaseDupeFilter.close",
+    "BaseDupeFilter.from_crawler",
+    "BaseDupeFilter.open",
+    "BaseDupeFilter.request_seen",
+    "RFPDupeFilter.close",
+    "RFPDupeFilter.from_crawler",
+    "RFPDupeFilter.log",
+    "RFPDupeFilter.request_seen"
+  ]
+}

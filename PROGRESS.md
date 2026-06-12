@@ -108,6 +108,14 @@ by constraint lists + examples; all finish=length on word-frequency/camel-to-sna
 - Results land in results/experiments/fable-fleet-bench/<date>-<exp>/ (episodes.json
   + summary.json per experiment).
 
+## Queued: model sweep continuation (user list, 2026-06-13)
+
+After the live gemma run, E2-suite + capability-matrix update for each of:
+C5/C6 (gemma-26B cmoe/MTP variants; C4 base done: 80% nothink), C10 (dense 35B Q4),
+C15 (35B AWQ vLLM — engine/quant isolate vs C12), C11 (phi-4-mini anchor),
+C13 (Qwopus 27B MTP), C7/C9 (qwen 27B Q3 vs Q4), C8 (Nex-N2-mini), C17 (North-Mini-Code).
+Run nothink + think arms where the template supports it. ~5 min each + swap.
+
 ## E7 infra notes
 
 - Source: ~/src/llama.cpp-diffusion (PR #24423 branch `diffusiongemma`).

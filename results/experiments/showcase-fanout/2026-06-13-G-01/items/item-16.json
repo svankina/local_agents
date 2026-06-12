@@ -1,0 +1,17 @@
+{
+  "est_prompt_tokens": 2110,
+  "file_sha256": "8384ef006f9b9625738f5087e41922007263a74fa0efbcf2e82ea1e87140de92",
+  "id": "item-16",
+  "line_count": 142,
+  "path": "scrapy/pipelines/__init__.py",
+  "targets": [
+    "ItemPipelineManager",
+    "ItemPipelineManager.close_spider",
+    "ItemPipelineManager.close_spider_async",
+    "ItemPipelineManager.get_awaitable",
+    "ItemPipelineManager.open_spider",
+    "ItemPipelineManager.open_spider_async",
+    "ItemPipelineManager.process_item",
+    "ItemPipelineManager.process_item_async"
+  ]
+}

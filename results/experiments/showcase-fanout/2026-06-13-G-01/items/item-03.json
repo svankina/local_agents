@@ -1,0 +1,20 @@
+{
+  "est_prompt_tokens": 2824,
+  "file_sha256": "af737612acf76a5d9605e816a4f53936f4e0b2de01b2e2a883905fe285dc677f",
+  "id": "item-03",
+  "line_count": 209,
+  "path": "scrapy/contracts/__init__.py",
+  "targets": [
+    "Contract.add_post_hook",
+    "Contract.add_pre_hook",
+    "Contract.adjust_request_args",
+    "ContractsManager",
+    "ContractsManager._clean_req.cb_wrapper",
+    "ContractsManager._clean_req.eb_wrapper",
+    "ContractsManager.extract_contracts",
+    "ContractsManager.from_method",
+    "ContractsManager.from_spider",
+    "ContractsManager.tested_methods_from_spidercls",
+    "_create_testcase.ContractTestCase"
+  ]
+}

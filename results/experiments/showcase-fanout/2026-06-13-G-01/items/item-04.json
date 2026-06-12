@@ -1,0 +1,20 @@
+{
+  "est_prompt_tokens": 2029,
+  "file_sha256": "61a1e43b2a65b1166c13268200f6335e5c18f13fd0912f943adbb4bbd0ed67a4",
+  "id": "item-04",
+  "line_count": 148,
+  "path": "scrapy/resolver.py",
+  "targets": [
+    "CachingHostnameResolver.from_crawler",
+    "CachingHostnameResolver.install_on_reactor",
+    "CachingHostnameResolver.resolveHostName",
+    "CachingThreadedResolver.from_crawler",
+    "CachingThreadedResolver.getHostByName",
+    "CachingThreadedResolver.install_on_reactor",
+    "HostResolution",
+    "HostResolution.cancel",
+    "_CachingResolutionReceiver.addressResolved",
+    "_CachingResolutionReceiver.resolutionBegan",
+    "_CachingResolutionReceiver.resolutionComplete"
+  ]
+}

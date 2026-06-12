@@ -1,0 +1,16 @@
+{
+  "est_prompt_tokens": 4067,
+  "file_sha256": "027782ef8cb2c614c0a96a10c6a29e7168422210ea03bc25fb63beca976c5d4b",
+  "id": "item-18",
+  "line_count": 312,
+  "path": "scrapy/core/downloader/contextfactory.py",
+  "targets": [
+    "BrowserLikeContextFactory.creatorForNetloc",
+    "_AcceptableProtocolsContextFactory.creatorForNetloc",
+    "_ScrapyClientContextFactory.creatorForNetloc",
+    "_ScrapyClientContextFactory.from_crawler",
+    "_ScrapyClientContextFactory.getCertificateOptions",
+    "_ScrapyClientContextFactory.getContext",
+    "load_context_factory_from_settings"
+  ]
+}

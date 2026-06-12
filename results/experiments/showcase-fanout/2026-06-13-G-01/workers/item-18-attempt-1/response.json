@@ -1,0 +1,11 @@
+{
+  "docstrings": {
+    "BrowserLikeContextFactory.creatorForNetloc": "Create a TLS context for a given hostname and port using the Twisted-recommended policy.",
+    "_AcceptableProtocolsContextFactory.creatorForNetloc": "Create a TLS context for a given hostname and port while overriding acceptable protocols.",
+    "_ScrapyClientContextFactory.creatorForNetloc": "Create a TLS context for a given hostname and port using Scrapy's custom TLS options.",
+    "_ScrapyClientContextFactory.from_crawler": "Create a ScrapyClientContextFactory instance from a crawler, method, args, and kwargs.",
+    "_ScrapyClientContextFactory.getCertificateOptions": "Retrieve the CertificateOptions for the current context factory.",
+    "_ScrapyClientContextFactory.getContext": "Retrieve the SSL context for the given hostname and port.",
+    "load_context_factory_from_settings": "Load a context factory from the settings and crawler object."
+  }
+}

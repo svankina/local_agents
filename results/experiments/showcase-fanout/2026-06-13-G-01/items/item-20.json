@@ -1,0 +1,16 @@
+{
+  "est_prompt_tokens": 1421,
+  "file_sha256": "1bf5bad08487562ff2f6eda7366cebc2db5cf89c5575191e02f82b02507c4b82",
+  "id": "item-20",
+  "line_count": 82,
+  "path": "scrapy/downloadermiddlewares/stats.py",
+  "targets": [
+    "DownloaderStats",
+    "DownloaderStats.from_crawler",
+    "DownloaderStats.process_exception",
+    "DownloaderStats.process_request",
+    "DownloaderStats.process_response",
+    "get_header_size",
+    "get_status_size"
+  ]
+}

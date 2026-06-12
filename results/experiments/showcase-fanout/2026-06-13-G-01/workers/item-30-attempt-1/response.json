@@ -1,0 +1,10 @@
+{
+  "docstrings": {
+    "OffsiteMiddleware": "A Scrapy middleware to filter offsite requests based on allowed domains.",
+    "OffsiteMiddleware.from_crawler": "Factory method to create the middleware instance from the crawler object.",
+    "OffsiteMiddleware.process_request": "Processes the request and raises IgnoreRequest if it is an offsite link not allowed by the spider.",
+    "OffsiteMiddleware.request_scheduled": "Handles the request_scheduled signal for the given request and spider.",
+    "OffsiteMiddleware.should_follow": "Determines if the request should be followed based on the host and spider configuration.",
+    "OffsiteMiddleware.spider_opened": "Initializes the host regex when the spider is opened."
+  }
+}

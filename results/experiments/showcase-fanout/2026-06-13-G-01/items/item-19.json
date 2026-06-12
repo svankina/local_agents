@@ -1,0 +1,16 @@
+{
+  "est_prompt_tokens": 2176,
+  "file_sha256": "b464de743bf1ef64d2d532f815c79433ce54cd5e48a8dc73d11c6bb358713913",
+  "id": "item-19",
+  "line_count": 151,
+  "path": "scrapy/downloadermiddlewares/httpcache.py",
+  "targets": [
+    "HttpCacheMiddleware",
+    "HttpCacheMiddleware.from_crawler",
+    "HttpCacheMiddleware.process_exception",
+    "HttpCacheMiddleware.process_request",
+    "HttpCacheMiddleware.process_response",
+    "HttpCacheMiddleware.spider_closed",
+    "HttpCacheMiddleware.spider_opened"
+  ]
+}

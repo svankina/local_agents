@@ -1,0 +1,16 @@
+{
+  "est_prompt_tokens": 3493,
+  "file_sha256": "09d9f93c5ba172cea656250960029b6bfd24365b3922ad5ffd4b7eca85f85a31",
+  "id": "item-22",
+  "line_count": 315,
+  "path": "scrapy/http/response/__init__.py",
+  "targets": [
+    "Response.body",
+    "Response.cb_kwargs",
+    "Response.flags",
+    "Response.headers",
+    "Response.meta",
+    "Response.replace",
+    "Response.url"
+  ]
+}

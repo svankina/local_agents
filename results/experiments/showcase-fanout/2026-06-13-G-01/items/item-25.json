@@ -1,0 +1,15 @@
+{
+  "est_prompt_tokens": 2789,
+  "file_sha256": "08dbb56443c9ee55300bea649c2017314df872cc62d3a793e80639d1659bed8b",
+  "id": "item-25",
+  "line_count": 234,
+  "path": "scrapy/commands/genspider.py",
+  "targets": [
+    "Command",
+    "Command.add_options",
+    "Command.run",
+    "Command.short_desc",
+    "Command.syntax",
+    "Command.templates_dir"
+  ]
+}

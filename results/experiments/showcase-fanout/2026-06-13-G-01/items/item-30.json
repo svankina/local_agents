@@ -1,0 +1,15 @@
+{
+  "est_prompt_tokens": 1631,
+  "file_sha256": "70921db266741c55f90ea43e41cd7ce2e9a97ab7cb06faaf5f059fc34b49b1f9",
+  "id": "item-30",
+  "line_count": 99,
+  "path": "scrapy/downloadermiddlewares/offsite.py",
+  "targets": [
+    "OffsiteMiddleware",
+    "OffsiteMiddleware.from_crawler",
+    "OffsiteMiddleware.process_request",
+    "OffsiteMiddleware.request_scheduled",
+    "OffsiteMiddleware.should_follow",
+    "OffsiteMiddleware.spider_opened"
+  ]
+}

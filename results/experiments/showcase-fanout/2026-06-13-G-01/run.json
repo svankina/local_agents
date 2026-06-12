@@ -1,0 +1,19 @@
+{
+  "schema": "showcase-fanout.run.v1",
+  "run_id": "2026-06-13-G-01",
+  "arm": "G",
+  "run_dir": "/home/svankina/src/local_agents/.worktrees/fable-fleet-bench/results/experiments/showcase-fanout/2026-06-13-G-01",
+  "corpus": "scrapy",
+  "local_server": {
+    "kind": "llama-server-cuda",
+    "model_file": "gemma-4-12B-it-qat-UD-Q4_K_XL.gguf",
+    "served_model": "C1-gemma12b-nothink",
+    "flags": "-ngl 99 --jinja -fa on -c 32768 --parallel 4 --temp 0.2 --reasoning-budget 0",
+    "base_url": "http://127.0.0.1:8089/v1"
+  },
+  "fanout": {
+    "items_total": 32,
+    "concurrency": 4
+  },
+  "selection_basis": "fleet-bench capability matrix: gemma-12B-nothink 100% first-pass, only model solving all 10 pure_fn items"
+}

@@ -1,0 +1,13 @@
+{
+  "docstrings": {
+    "ImagesPipeline.convert_image": "Convert the image to the desired size and format, using the response_body.",
+    "ImagesPipeline.file_downloaded": "Handle the file_downloaded signal, processing the response, request, info, and item.",
+    "ImagesPipeline.file_path": "Generate a file path from the request, response, info, and item.",
+    "ImagesPipeline.from_crawler": "Create an instance of the pipeline from the crawler.",
+    "ImagesPipeline.get_images": "Retrieve images from the response, request, info, and item.",
+    "ImagesPipeline.get_media_requests": "Generate media requests based on the item and info.",
+    "ImagesPipeline.image_downloaded": "Process the downloaded image, using the response, request, info, and item to store the result.",
+    "ImagesPipeline.item_completed": "Handle the item_completed signal, updating the item with results and info.",
+    "ImagesPipeline.thumb_path": "Generate a thumbnail path from the request, thumb_id, response, info, and item."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "est_prompt_tokens": 1566,
+  "file_sha256": "291406ef131450b7d16cf4936551c0b757c63046479721a69c343b8d33f2bca3",
+  "id": "item-17",
+  "line_count": 99,
+  "path": "scrapy/commands/fetch.py",
+  "targets": [
+    "Command",
+    "Command.add_options",
+    "Command.long_desc",
+    "Command.run",
+    "Command.run.start",
+    "Command.short_desc",
+    "Command.syntax"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "docstrings": {
+    "ItemPipelineManager": "A manager class for handling item pipelines in Scrapy.",
+    "ItemPipelineManager.close_spider": "Closes the spider and its associated pipelines. Parameters: spider.",
+    "ItemPipelineManager.close_spider_async": "Asynchronously closes the spider and its associated pipelines.",
+    "ItemPipelineManager.get_awaitable": "A method to get an awaitable from a given method. Parameters: method.",
+    "ItemPipelineManager.open_spider": "Opens the spider and its associated pipelines. Parameters: spider.",
+    "ItemPipelineManager.open_spider_async": "Asynchronously opens the spider and its associated pipelines.",
+    "ItemPipelineManager.process_item": "Processes an item for a specific spider. Parameters: item, spider.",
+    "ItemPipelineManager.process_item_async": "Asynchronously processes an item. Parameters: item."
+  }
+}

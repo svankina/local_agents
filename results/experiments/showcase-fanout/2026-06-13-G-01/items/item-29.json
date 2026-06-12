@@ -1,0 +1,15 @@
+{
+  "est_prompt_tokens": 2272,
+  "file_sha256": "3a5f8e620639aa40cca196b79b4026420dfcb63cd99acb37731d46d97d9192b0",
+  "id": "item-29",
+  "line_count": 167,
+  "path": "scrapy/core/http2/agent.py",
+  "targets": [
+    "H2Agent",
+    "H2Agent.get_endpoint",
+    "H2Agent.request",
+    "H2ConnectionPool",
+    "H2ConnectionPool.get_connection",
+    "H2ConnectionPool.put_connection"
+  ]
+}

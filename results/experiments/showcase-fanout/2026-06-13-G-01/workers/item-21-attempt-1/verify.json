@@ -1,0 +1,5 @@
+{
+  "failed_check": "parameter_mention",
+  "passed": false,
+  "reason": "CoreStats.item_dropped missing parameter mention(s): item"
+}

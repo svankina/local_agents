@@ -1,0 +1,11 @@
+{
+  "docstrings": {
+    "FTPDownloadHandler": "A Scrapy download handler for fetching files via the FTP protocol.",
+    "FTPDownloadHandler.download_request": "Handle the FTP request and return a Scrapy Response. request",
+    "ReceivedDataProtocol": "A protocol for receiving data.",
+    "ReceivedDataProtocol.__init__": "Initialize the protocol with an optional filename. filename",
+    "ReceivedDataProtocol.close": "Close the protocol's data stream.",
+    "ReceivedDataProtocol.dataReceived": "Process the incoming data bytes. data",
+    "ReceivedDataProtocol.filename": "Access the filename property."
+  }
+}

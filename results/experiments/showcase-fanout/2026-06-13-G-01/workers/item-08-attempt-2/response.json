@@ -1,0 +1,13 @@
+{
+  "docstrings": {
+    "Headers.appendlist": "Append the provided value to the list associated with the given key.",
+    "Headers.get": "Get the value for the given key, returning def_val if not found.",
+    "Headers.getlist": "Get the list of values for the given key, returning def_val if not found.",
+    "Headers.items": "Return an iterable of items from the headers.",
+    "Headers.setlist": "Set the value for the given key to the provided list_.",
+    "Headers.setlistdefault": "Set the value for the given key to default_list if it does not exist.",
+    "Headers.to_string": "Convert the headers to a raw string representation.",
+    "Headers.update": "Update the headers with the provided seq mapping or iterable.",
+    "Headers.values": "Return a list of values from the headers."
+  }
+}

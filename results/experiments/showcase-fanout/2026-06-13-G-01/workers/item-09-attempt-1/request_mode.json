@@ -1,0 +1,5 @@
+{
+  "request_mode": "response_format+chat_template_kwargs",
+  "response_format_accepted": true,
+  "thinking_disable": "chat_template_kwargs"
+}

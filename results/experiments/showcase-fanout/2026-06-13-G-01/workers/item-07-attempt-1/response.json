@@ -1,0 +1,13 @@
+{
+  "docstrings": {
+    "CloseSpider": "An extension that forces spiders to be closed after certain conditions are met.",
+    "CloseSpider.error_count": "Handle spider error signals to track failure and response counts.",
+    "CloseSpider.from_crawler": "Create an instance of CloseSpider from the crawler crawler.",
+    "CloseSpider.item_scraped": "Increment the item count for the spider when an item is scraped.",
+    "CloseSpider.item_scraped_no_item": "Update the item count for the spider when an item is scraped without a timeout.",
+    "CloseSpider.page_count": "Track the number of response and request objects received by the spider.",
+    "CloseSpider.spider_closed": "Clean up tasks when the spider is closed.",
+    "CloseSpider.spider_opened": "Initialize the timeout task when the spider is opened.",
+    "CloseSpider.spider_opened_no_item": "Start a looping call to monitor item production for the spider."
+  }
+}

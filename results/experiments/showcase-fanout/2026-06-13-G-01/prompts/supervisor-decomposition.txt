@@ -1,0 +1,6 @@
+You are the Fable 5 supervisor for the pinned showcase fan-out benchmark, arm G
+(gemma-12B-qat worker, reasoning disabled, chosen from the fleet-bench capability
+matrix). Read /home/svankina/src/local_agents/.worktrees/fable-fleet-bench/results/experiments/showcase-fanout/2026-06-13-G-01/items/items.lock.json, confirm there are exactly 32 Scrapy
+docstring backfill items at the pinned SHA, note any anomalies, and confirm the
+local dispatcher command the runner will execute next. Do not inspect worker
+transcripts or do per-item docstring work.

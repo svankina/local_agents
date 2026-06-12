@@ -1,0 +1,15 @@
+{
+  "docstrings": {
+    "ProtegoRobotParser": "A robot parser implementation using the Protego library.",
+    "ProtegoRobotParser.allowed": "Check if the user_agent is allowed to crawl the given url.",
+    "ProtegoRobotParser.from_crawler": "Create a ProtegoRobotParser instance from the crawler and robotstxt_body.",
+    "PythonRobotParser": "A robot parser implementation using the standard library's RobotFileParser.",
+    "PythonRobotParser.allowed": "Check if the user_agent is allowed to crawl the given url.",
+    "PythonRobotParser.from_crawler": "Create a PythonRobotParser instance from the crawler and robotstxt_body.",
+    "RerpRobotParser": "A robot parser implementation using the robotexclusionrulesparser library.",
+    "RerpRobotParser.allowed": "Check if the user_agent is allowed to crawl the given url.",
+    "RerpRobotParser.from_crawler": "Create a RerpRobotParser instance from the crawler and robotstxt_body.",
+    "RobotParser": "Abstract base class for robot.txt parsers.",
+    "decode_robotstxt": "Decode the robotstxt_body for the spider, optionally using to_native_str_type."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "est_prompt_tokens": 1988,
+  "file_sha256": "dc1f4f5a53352a52b7a4259674c5ad8ef0ffadbbdd3294bb07f945a6297b8df7",
+  "id": "item-26",
+  "line_count": 135,
+  "path": "scrapy/commands/shell.py",
+  "targets": [
+    "Command",
+    "Command.add_options",
+    "Command.long_desc",
+    "Command.run",
+    "Command.short_desc",
+    "Command.syntax"
+  ]
+}

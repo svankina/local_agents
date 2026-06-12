@@ -1,0 +1,15 @@
+{
+  "est_prompt_tokens": 2564,
+  "file_sha256": "3579046a8045e57046decd9456666e6b9d904a2742d21ff66ba407c5808860c7",
+  "id": "item-27",
+  "line_count": 178,
+  "path": "scrapy/core/downloader/handlers/__init__.py",
+  "targets": [
+    "DownloadHandlerProtocol",
+    "DownloadHandlerProtocol.close",
+    "DownloadHandlerProtocol.download_request",
+    "DownloadHandlers",
+    "DownloadHandlers.download_request",
+    "DownloadHandlers.download_request_async"
+  ]
+}

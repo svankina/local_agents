@@ -1,0 +1,10 @@
+{
+  "docstrings": {
+    "DownloadHandlerProtocol": "A protocol defining the interface for download handlers.",
+    "DownloadHandlerProtocol.close": "Asynchronously close the download handler.",
+    "DownloadHandlerProtocol.download_request": "Asynchronously download the given request.",
+    "DownloadHandlers": "A manager for handling requests for different URL schemes.",
+    "DownloadHandlers.download_request": "Download the given request for the specified spider.",
+    "DownloadHandlers.download_request_async": "Asynchronously download the given request."
+  }
+}

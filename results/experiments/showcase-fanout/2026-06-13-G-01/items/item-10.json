@@ -1,0 +1,18 @@
+{
+  "est_prompt_tokens": 3061,
+  "file_sha256": "4b5007e40b60306439631b95cab726c985a123992142f18b4c04bde7a9614de2",
+  "id": "item-10",
+  "line_count": 274,
+  "path": "scrapy/utils/log.py",
+  "targets": [
+    "LogCounterHandler.emit",
+    "SpiderLoggerAdapter",
+    "StreamLogger.flush",
+    "StreamLogger.write",
+    "TopLevelFormatter.filter",
+    "get_scrapy_root_handler",
+    "install_scrapy_root_handler",
+    "log_reactor_info",
+    "log_scrapy_info"
+  ]
+}
