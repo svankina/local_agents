@@ -186,7 +186,7 @@ def draw_meter(
     draw.rounded_rectangle(read_box, radius=12, fill="#020617", outline="#22d3ee66", width=1)
     draw.text((x1 + 58, y1 + 174), readout, font=F34B, fill=GREEN)
     draw.text((x1 + 190, y1 + 185), "tok/s", font=F18, fill=CYAN)
-    draw.text((x1 + 67, y1 + 207), f"{streams} streams - {tps / streams:04.1f} tok/s each", font=F14, fill=MUTED)
+    draw.text((x1 + 103, y1 + 207), f"{streams}x - {tps / streams:04.1f} tok/s each", font=F14, fill=MUTED)
 
 
 def ease(t: float) -> float:
