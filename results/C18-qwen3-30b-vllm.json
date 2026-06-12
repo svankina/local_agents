@@ -1,7 +1,537 @@
 {
   "config": "C18-qwen3-30b-vllm",
+  "served_model": "C18-qwen3-30b-vllm",
   "gpu_contended": false,
-  "vram_before": "42 MiB",
-  "error": "coherence gate failed",
-  "server_log_tail": "WARNING 06-12 07:28:02 [argparse_utils.py:257] With `vllm serve`, you should provide the model as a positional argument or in a config file instead of via the `--model` option. The `--model` option will be removed in a future version.\n(APIServer pid=1) INFO 06-12 07:28:02 [utils.py:344] \n(APIServer pid=1) INFO 06-12 07:28:02 [utils.py:344]        \u2588     \u2588     \u2588\u2584   \u2584\u2588\n(APIServer pid=1) INFO 06-12 07:28:02 [utils.py:344]  \u2584\u2584 \u2584\u2588 \u2588     \u2588     \u2588 \u2580\u2584\u2580 \u2588  version 0.22.1\n(APIServer pid=1) INFO 06-12 07:28:02 [utils.py:344]   \u2588\u2584\u2588\u2580 \u2588     \u2588     \u2588     \u2588  model   Qwen/Qwen3-30B-A3B-GPTQ-Int4\n(APIServer pid=1) INFO 06-12 07:28:02 [utils.py:344]    \u2580\u2580  \u2580\u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580\u2580 \u2580     \u2580\n(APIServer pid=1) INFO 06-12 07:28:02 [utils.py:344] \n(APIServer pid=1) INFO 06-12 07:28:02 [utils.py:278] non-default args: {'model_tag': 'Qwen/Qwen3-30B-A3B-GPTQ-Int4', 'enable_auto_tool_choice': True, 'tool_call_parser': 'hermes', 'model': 'Qwen/Qwen3-30B-A3B-GPTQ-Int4', 'revision': '9b534e4318b7ebc3c961a839f13eb18b1833f441', 'max_model_len': 16384, 'quantization': 'gptq_marlin', 'served_model_name': ['C18-qwen3-30b-vllm'], 'reasoning_parser': 'qwen3', 'max_num_seqs': 8}\n(APIServer pid=1) WARNING 06-12 07:28:02 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_BUILD_COMMIT\n(APIServer pid=1) WARNING 06-12 07:28:02 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_BUILD_PIPELINE\n(APIServer pid=1) WARNING 06-12 07:28:02 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_BUILD_URL\n(APIServer pid=1) WARNING 06-12 07:28:02 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_IMAGE_TAG\n(APIServer pid=1) INFO 06-12 07:28:23 [model.py:617] Resolved architecture: Qwen3MoeForCausalLM\n(APIServer pid=1) INFO 06-12 07:28:23 [model.py:1752] Using max model len 16384\n(APIServer pid=1) INFO 06-12 07:28:27 [vllm.py:977] Asynchronous scheduling is enabled.\n(APIServer pid=1) INFO 06-12 07:28:27 [kernel.py:270] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])\n(EngineCore pid=204) INFO 06-12 07:28:42 [core.py:112] Initializing a V1 LLM engine (v0.22.1) with config: model='Qwen/Qwen3-30B-A3B-GPTQ-Int4', speculative_config=None, tokenizer='Qwen/Qwen3-30B-A3B-GPTQ-Int4', skip_tokenizer_init=False, tokenizer_mode=auto, revision=9b534e4318b7ebc3c961a839f13eb18b1833f441, tokenizer_revision=9b534e4318b7ebc3c961a839f13eb18b1833f441, trust_remote_code=False, dtype=torch.float16, max_seq_len=16384, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=auto_gptq, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='qwen3', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=C18-qwen3-30b-vllm, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::linear_attention', 'vllm::plamo2_mamba_mixer', 'vllm::qwen_gdn_attention_core', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::kda_attention', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False}, 'max_cudagraph_capture_size': 16, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, moe_backend='auto', linear_backend='auto')\n(EngineCore pid=204) INFO 06-12 07:28:42 [parallel_state.py:1422] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://172.17.0.3:42595 backend=nccl\n(EngineCore pid=204) INFO 06-12 07:28:42 [parallel_state.py:1735] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank 0, EPLB rank N/A\n(EngineCore pid=204) INFO 06-12 07:28:43 [topk_topp_sampler.py:45] Using FlashInfer for top-p & top-k sampling.\n(EngineCore pid=204) INFO 06-12 07:28:43 [gpu_model_runner.py:5037] Starting to load model Qwen/Qwen3-30B-A3B-GPTQ-Int4...\n(EngineCore pid=204) INFO 06-12 07:28:43 [auto_gptq.py:353] Using MarlinLinearKernel for AutoGPTQLinearMethod\n(EngineCore pid=204) INFO 06-12 07:28:44 [cuda.py:378] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].\n(EngineCore pid=204) INFO 06-12 07:28:44 [flash_attn.py:636] Using FlashAttention version 2\n(EngineCore pid=204) INFO 06-12 07:28:44 [int_wna16.py:138] Using 'MARLIN' WNA16 MoE backend.\n(EngineCore pid=204) Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n(EngineCore pid=204) INFO 06-12 07:28:47 [weight_utils.py:647] No model.safetensors.index.json found in remote.\n(EngineCore pid=204) INFO 06-12 07:28:47 [weight_utils.py:922] Filesystem type for checkpoints: EXT4. Checkpoint size: 15.77 GiB. Available RAM: 40.78 GiB.\n(EngineCore pid=204) INFO 06-12 07:28:47 [weight_utils.py:945] Auto-prefetch is disabled because the filesystem (EXT4) is not a recognized network FS (NFS/Lustre). If you want to force prefetching, start vLLM with --safetensors-load-strategy=prefetch.\n(EngineCore pid=204) \nLoading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]\n(EngineCore pid=204) \nLoading safetensors checkpoint shards: 100% Completed | 1/1 [00:27<00:00, 27.45s/it]\n(EngineCore pid=204) \nLoading safetensors checkpoint shards: 100% Completed | 1/1 [00:27<00:00, 27.45s/it]\n(EngineCore pid=204) \n(EngineCore pid=204) INFO 06-12 07:29:14 [default_loader.py:397] Loading weights took 27.57 seconds\n(EngineCore pid=204) INFO 06-12 07:29:17 [gpu_model_runner.py:5132] Model loading took 15.7 GiB memory and 33.062394 seconds\n(EngineCore pid=204) INFO 06-12 07:29:33 [backends.py:1089] Using cache directory: /root/.cache/vllm/torch_compile_cache/69767f0044/rank_0_0/backbone for vLLM's torch.compile\n(EngineCore pid=204) INFO 06-12 07:29:33 [backends.py:1148] Dynamo bytecode transform time: 15.73 s\n(EngineCore pid=204) INFO 06-12 07:29:44 [backends.py:378] Cache the graph of compile range (1, 2048) for later use\n(EngineCore pid=204) INFO 06-12 07:29:50 [backends.py:393] Compiling a graph for compile range (1, 2048) takes 16.29 s\n(EngineCore pid=204) INFO 06-12 07:29:59 [decorators.py:708] saved AOT compiled function to /root/.cache/vllm/torch_compile_cache/torch_aot_compile/b1eda1b31c37716409461e5afea6e355100512803b44042490c3427abd999cec/rank_0_0/model\n(EngineCore pid=204) INFO 06-12 07:29:59 [monitor.py:53] torch.compile took 41.12 s in total\n(EngineCore pid=204) INFO 06-12 07:29:59 [monitor.py:81] Initial profiling/warmup run took 0.70 s\n(EngineCore pid=204) INFO 06-12 07:30:14 [gpu_model_runner.py:6279] Profiling CUDA graph memory: PIECEWISE=5 (largest=16), FULL=4 (largest=8)\n(EngineCore pid=204) INFO 06-12 07:30:16 [gpu_model_runner.py:6365] Estimated CUDA graph memory: 0.12 GiB total\n(EngineCore pid=204) INFO 06-12 07:30:16 [gpu_worker.py:466] Available KV cache memory: 5.14 GiB\n(EngineCore pid=204) INFO 06-12 07:30:16 [gpu_worker.py:481] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.9200 is equivalent to --gpu-memory-utilization=0.9149 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9251. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.\n(EngineCore pid=204) INFO 06-12 07:30:16 [kv_cache_utils.py:1733] GPU KV cache size: 56,080 tokens\n(EngineCore pid=204) INFO 06-12 07:30:16 [kv_cache_utils.py:1734] Maximum concurrency for 16,384 tokens per request: 3.42x\n(EngineCore pid=204) \nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/5 [00:00<?, ?it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):  20%|\u2588\u2588        | 1/5 [00:00<00:00,  6.63it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):  40%|\u2588\u2588\u2588\u2588      | 2/5 [00:00<00:00,  7.51it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):  60%|\u2588\u2588\u2588\u2588\u2588\u2588    | 3/5 [00:00<00:00,  6.81it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 4/5 [00:00<00:00,  6.66it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5/5 [00:00<00:00,  6.64it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5/5 [00:00<00:00,  6.74it/s]\n(EngineCore pid=204) \nCapturing CUDA graphs (decode, FULL):   0%|          | 0/4 [00:00<?, ?it/s]\nCapturing CUDA graphs (decode, FULL):  25%|\u2588\u2588\u258c       | 1/4 [00:00<00:00,  8.99it/s]\nCapturing CUDA graphs (decode, FULL):  50%|\u2588\u2588\u2588\u2588\u2588     | 2/4 [00:00<00:00,  9.04it/s]\nCapturing CUDA graphs (decode, FULL):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c  | 3/4 [00:00<00:00,  8.75it/s]\nCapturing CUDA graphs (decode, FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 4/4 [00:00<00:00,  8.09it/s]\nCapturing CUDA graphs (decode, FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 4/4 [00:00<00:00,  8.36it/s]\n(EngineCore pid=204) INFO 06-12 07:30:19 [gpu_model_runner.py:6456] Graph capturing finished in 2 secs, took 0.09 GiB\n(EngineCore pid=204) INFO 06-12 07:30:19 [gpu_worker.py:619] CUDA graph pool memory: 0.09 GiB (actual), 0.12 GiB (estimated), difference: 0.03 GiB (29.8%).\n(EngineCore pid=204) INFO 06-12 07:30:19 [jit_monitor.py:54] Kernel JIT monitor activated \u2014 Triton JIT compilations during inference will be logged as warnings.\n(EngineCore pid=204) INFO 06-12 07:30:19 [core.py:302] init engine (profile, create kv cache, warmup model) took 61.58 s (compilation: 41.12 s)\n(EngineCore pid=204) INFO 06-12 07:30:21 [vllm.py:977] Asynchronous scheduling is enabled.\n(EngineCore pid=204) INFO 06-12 07:30:21 [kernel.py:270] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])\n(APIServer pid=1) INFO 06-12 07:30:21 [api_server.py:592] Supported tasks: ['generate']\n(APIServer pid=1) INFO 06-12 07:30:22 [parser_manager.py:202] \"auto\" tool choice has been enabled.\n(APIServer pid=1) WARNING 06-12 07:30:22 [model.py:1509] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.\n(APIServer pid=1) Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n(APIServer pid=1) INFO 06-12 07:30:25 [hf.py:488] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.\n(APIServer pid=1) INFO 06-12 07:30:25 [api_server.py:596] Starting vLLM server on http://0.0.0.0:8000\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:37] Available routes are:\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /openapi.json, Methods: GET, HEAD\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /docs, Methods: GET, HEAD\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /docs/oauth2-redirect, Methods: GET, HEAD\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /redoc, Methods: GET, HEAD\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /tokenize, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /detokenize, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /load, Methods: GET\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /version, Methods: GET\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /health, Methods: GET\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /metrics, Methods: GET\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /v1/models, Methods: GET\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /ping, Methods: GET\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /ping, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /invocations, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /v1/chat/completions, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /v1/chat/completions/batch, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /v1/responses, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /v1/responses/{response_id}, Methods: GET\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /v1/responses/{response_id}/cancel, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /v1/completions, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /v1/messages, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /v1/messages/count_tokens, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /inference/v1/generate, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /scale_elastic_ep, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /is_scaling_elastic_ep, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /generative_scoring, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /v1/chat/completions/render, Methods: POST\n(APIServer pid=1) INFO 06-12 07:30:25 [launcher.py:46] Route: /v1/completions/render, Methods: POST\n(APIServer pid=1) INFO:     Started server process [1]\n(APIServer pid=1) INFO:     Waiting for application startup.\n(APIServer pid=1) INFO:     Application startup complete.\n(APIServer pid=1) INFO:     172.17.0.1:37986 - \"GET /health HTTP/1.1\" 200 OK\n(EngineCore pid=204) WARNING 06-12 07:30:27 [jit_monitor.py:103] Triton kernel JIT compilation during inference: _compute_slot_mapping_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.\n(APIServer pid=1) INFO:     172.17.0.1:38002 - \"POST /v1/chat/completions HTTP/1.1\" 200 OK\n(APIServer pid=1) INFO:     172.17.0.1:58434 - \"POST /v1/chat/completions HTTP/1.1\" 200 OK"
+  "vram_loaded": "22173 MiB",
+  "notes": "WARNING 06-12 07:33:07 [argparse_utils.py:257] With `vllm serve`, you should provide the model as a positional argument or in a config file instead of via the `--model` option. The `--model` option will be removed in a future version.\n(APIServer pid=1) INFO 06-12 07:33:07 [utils.py:278] non-default args: {'model_tag': 'Qwen/Qwen3-30B-A3B-GPTQ-Int4', 'enable_auto_tool_choice': True, 'tool_call_parser': 'hermes', 'model': 'Qwen/Qwen3-30B-A3B-GPTQ-Int4', 'revision': '9b534e4318b7ebc3c961a839f13eb18b1833f441', 'max_model_len': 16384, 'quantization': 'gptq_marlin', 'served_model_name': ['C18-qwen3-30b-vllm'], 'reasoning_parser': 'qwen3', 'max_num_seqs': 8}\n(APIServer pid=1) WARNING 06-12 07:33:07 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_BUILD_COMMIT\n(APIServer pid=1) WARNING 06-12 07:33:07 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_BUILD_PIPELINE\n(APIServer pid=1) WARNING 06-12 07:33:07 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_BUILD_URL\n(APIServer pid=1) WARNING 06-12 07:33:07 [envs.py:2057] Unknown vLLM environment variable detected: VLLM_IMAGE_TAG\n(APIServer pid=1) Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n(EngineCore pid=204) INFO 06-12 07:33:45 [core.py:112] Initializing a V1 LLM engine (v0.22.1) with config: model='Qwen/Qwen3-30B-A3B-GPTQ-Int4', speculative_config=None, tokenizer='Qwen/Qwen3-30B-A3B-GPTQ-Int4', skip_tokenizer_init=False, tokenizer_mode=auto, revision=9b534e4318b7ebc3c961a839f13eb18b1833f441, tokenizer_revision=9b534e4318b7ebc3c961a839f13eb18b1833f441, trust_remote_code=False, dtype=torch.float16, max_seq_len=16384, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=auto_gptq, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='qwen3', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=C18-qwen3-30b-vllm, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::linear_attention', 'vllm::plamo2_mamba_mixer', 'vllm::qwen_gdn_attention_core', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::kda_attention', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False}, 'max_cudagraph_capture_size': 16, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, moe_backend='auto', linear_backend='auto')\n(EngineCore pid=204) Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n(EngineCore pid=204) INFO 06-12 07:34:42 [backends.py:378] Cache the graph of compile range (1, 2048) for later use\n(EngineCore pid=204) INFO 06-12 07:34:49 [backends.py:393] Compiling a graph for compile range (1, 2048) takes 16.08 s\n(EngineCore pid=204) INFO 06-12 07:35:12 [gpu_model_runner.py:6279] Profiling CUDA graph memory: PIECEWISE=5 (largest=16), FULL=4 (largest=8)\n(EngineCore pid=204) INFO 06-12 07:35:14 [gpu_model_runner.py:6365] Estimated CUDA graph memory: 0.12 GiB total\n(EngineCore pid=204) INFO 06-12 07:35:14 [gpu_worker.py:481] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.9200 is equivalent to --gpu-memory-utilization=0.9149 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9251. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/5 [00:00<?, ?it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):  20%|\u2588\u2588        | 1/5 [00:00<00:00,  7.85it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):  40%|\u2588\u2588\u2588\u2588      | 2/5 [00:00<00:00,  7.76it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):  60%|\u2588\u2588\u2588\u2588\u2588\u2588    | 3/5 [00:00<00:00,  6.84it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 4/5 [00:00<00:00,  6.74it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5/5 [00:00<00:00,  6.92it/s]\nCapturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5/5 [00:00<00:00,  7.01it/s]\nCapturing CUDA graphs (decode, FULL):   0%|          | 0/4 [00:00<?, ?it/s]\nCapturing CUDA graphs (decode, FULL):  25%|\u2588\u2588\u258c       | 1/4 [00:00<00:00,  9.13it/s]\nCapturing CUDA graphs (decode, FULL):  50%|\u2588\u2588\u2588\u2588\u2588     | 2/4 [00:00<00:00,  7.83it/s]\nCapturing CUDA graphs (decode, FULL):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c  | 3/4 [00:00<00:00,  7.27it/s]\nCapturing CUDA graphs (decode, FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 4/4 [00:00<00:00,  7.32it/s]\nCapturing CUDA graphs (decode, FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 4/4 [00:00<00:00,  7.48it/s]\n(EngineCore pid=204) INFO 06-12 07:35:17 [gpu_model_runner.py:6456] Graph capturing finished in 2 secs, took 0.09 GiB\n(EngineCore pid=204) INFO 06-12 07:35:17 [gpu_worker.py:619] CUDA graph pool memory: 0.09 GiB (actual), 0.12 GiB (estimated), difference: 0.03 GiB (29.8%).\n(EngineCore pid=204) INFO 06-12 07:35:17 [jit_monitor.py:54] Kernel JIT monitor activated \u2014 Triton JIT compilations during inference will be logged as warnings.\n(APIServer pid=1) INFO 06-12 07:35:20 [parser_manager.py:202] \"auto\" tool choice has been enabled.\n(APIServer pid=1) WARNING 06-12 07:35:20 [model.py:1509] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.\n(EngineCore pid=204) WARNING 06-12 07:35:26 [jit_monitor.py:103] Triton kernel JIT compilation during inference: _compute_slot_mapping_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+  "coherence_gate": {
+    "config": "C18-qwen3-30b-vllm",
+    "suite": "coherence_gate",
+    "hello_ok": true,
+    "hello_content": "\n\nHello! Three colors are **red**, **blue**, and **green**. \ud83d\ude0a",
+    "tool_ok": true,
+    "tool_calls": [
+      {
+        "id": "chatcmpl-tool-b3da101c81b8d5d9",
+        "type": "function",
+        "function": {
+          "name": "read_file",
+          "arguments": "{\"path\": \"TASK.md\"}"
+        }
+      }
+    ]
+  },
+  "toolcall": {
+    "config": "C18-qwen3-30b-vllm",
+    "suite": "toolcall",
+    "temps": {
+      "0.2": {
+        "valid_rate": 0.972,
+        "lenient_valid_rate": 0.972,
+        "n": 36,
+        "results": [
+          {
+            "id": "simple-read",
+            "trial": 0,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "simple-read",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "simple-read",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 0,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 0,
+            "ok": false,
+            "lenient_ok": false,
+            "why": "no tool call made"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 0,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 0,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 0,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 0,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 0,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 0,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 0,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 0,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 0,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 1,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 2,
+            "ok": true,
+            "lenient_ok": true,
+            "why": "ok"
+          }
+        ]
+      }
+    }
+  },
+  "throughput": {
+    "config": "C18-qwen3-30b-vllm",
+    "suite": "throughput",
+    "single": {
+      "p1k": {
+        "prefill_tps": 705.7,
+        "decode_tps": 183.8,
+        "trials": [
+          {
+            "prefill_tps": 659.7315436241611,
+            "decode_tps": 171.81208053691276,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.49
+          },
+          {
+            "prefill_tps": 705.6712132089017,
+            "decode_tps": 183.77602297200286,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.393
+          },
+          {
+            "prefill_tps": 709.2352092352093,
+            "decode_tps": 184.7041847041847,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.386
+          }
+        ]
+      },
+      "p8k": {
+        "prefill_tps": 4607.5,
+        "decode_tps": 152.0,
+        "trials": [
+          {
+            "prefill_tps": 2773.052180128663,
+            "decode_tps": 91.493924231594,
+            "prompt_n": 7759,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.798
+          },
+          {
+            "prefill_tps": 4607.482185273159,
+            "decode_tps": 152.0190023752969,
+            "prompt_n": 7759,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.684
+          },
+          {
+            "prefill_tps": 4612.960760998811,
+            "decode_tps": 152.19976218787158,
+            "prompt_n": 7759,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.682
+          }
+        ]
+      }
+    },
+    "concurrent": {
+      "x2": {
+        "per_stream_decode_tps": 155.4,
+        "aggregate_tps": 309.8,
+        "wall_s": 1.7,
+        "trials": [
+          {
+            "prefill_tps": 597.2053462940462,
+            "decode_tps": 155.5285540704739,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.646
+          },
+          {
+            "prefill_tps": 596.1188599151001,
+            "decode_tps": 155.24560339599756,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.649
+          }
+        ]
+      },
+      "x4": {
+        "per_stream_decode_tps": 133.9,
+        "aggregate_tps": 534.4,
+        "wall_s": 1.9,
+        "trials": [
+          {
+            "prefill_tps": 514.3903715332286,
+            "decode_tps": 133.96127681841966,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.911
+          },
+          {
+            "prefill_tps": 514.6596858638744,
+            "decode_tps": 134.03141361256544,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.91
+          },
+          {
+            "prefill_tps": 513.3159268929504,
+            "decode_tps": 133.68146214099215,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.915
+          },
+          {
+            "prefill_tps": 513.5841170323929,
+            "decode_tps": 133.75130616509927,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 1.914
+          }
+        ]
+      },
+      "x8": {
+        "per_stream_decode_tps": 101.3,
+        "aggregate_tps": 808.7,
+        "wall_s": 2.5,
+        "trials": [
+          {
+            "prefill_tps": 390.23421992854304,
+            "decode_tps": 101.62763001190949,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.519
+          },
+          {
+            "prefill_tps": 390.38919777601274,
+            "decode_tps": 101.6679904686259,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.518
+          },
+          {
+            "prefill_tps": 388.5375494071147,
+            "decode_tps": 101.18577075098815,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.53
+          },
+          {
+            "prefill_tps": 388.5375494071147,
+            "decode_tps": 101.18577075098815,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.53
+          },
+          {
+            "prefill_tps": 388.69118228548837,
+            "decode_tps": 101.22578094108344,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.529
+          },
+          {
+            "prefill_tps": 388.84493670886076,
+            "decode_tps": 101.26582278481013,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.528
+          },
+          {
+            "prefill_tps": 388.84493670886076,
+            "decode_tps": 101.26582278481013,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.528
+          },
+          {
+            "prefill_tps": 388.9988128215275,
+            "decode_tps": 101.30589631974674,
+            "prompt_n": 983,
+            "predicted_n": 256,
+            "timing_source": "client_wall_usage",
+            "wall_s": 2.527
+          }
+        ]
+      }
+    }
+  },
+  "agentic": {
+    "config": "C18-qwen3-30b-vllm",
+    "suite": "agentic",
+    "temps": {
+      "0.2": {
+        "passed": 3,
+        "of": 5,
+        "tasks": [
+          {
+            "id": "fix-test",
+            "passed": true,
+            "turns": 6,
+            "wall_s": 11.3,
+            "check_out": ""
+          },
+          {
+            "id": "bulk-rename",
+            "passed": true,
+            "turns": 4,
+            "wall_s": 7.7,
+            "check_out": ""
+          },
+          {
+            "id": "csv-script",
+            "passed": false,
+            "turns": 3,
+            "wall_s": 5.8,
+            "check_out": ""
+          },
+          {
+            "id": "code-qa",
+            "passed": true,
+            "turns": 5,
+            "wall_s": 7.1,
+            "check_out": ""
+          },
+          {
+            "id": "add-flag",
+            "passed": false,
+            "turns": 3,
+            "wall_s": 8.5,
+            "check_out": "usage: tool.py [-h] [--shout]\ntool.py: error: unrecognized arguments: bob\n"
+          }
+        ]
+      }
+    }
+  }
 }

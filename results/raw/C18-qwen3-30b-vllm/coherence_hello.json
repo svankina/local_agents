@@ -1,14 +1,14 @@
 {
-  "id": "chatcmpl-bc0db03f12811c46",
+  "id": "chatcmpl-a1b885f0a362062a",
   "object": "chat.completion",
-  "created": 1781249427,
+  "created": 1781249726,
   "model": "C18-qwen3-30b-vllm",
   "choices": [
     {
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "\n\n",
+        "content": "\n\nHello! Three colors are **red**, **blue**, and **green**. \ud83d\ude0a",
         "refusal": null,
         "annotations": null,
         "audio": null,
@@ -17,7 +17,7 @@
         "reasoning": "\nOkay, the user asked me to say hello and name three colors. Let me start by greeting them. \"Hello!\" That's straightforward.\n\nNow, for the three colors. I need to pick three common ones. Red, blue, and green are classic choices. They're primary colors and widely recognized. Alternatively, I could go with more vibrant ones like orange, purple, and yellow, but maybe the user wants something simple. Let me stick with red, blue, and green. That should cover it. I'll list them clearly. Make sure the response is friendly and concise. Alright, that should do it.\n"
       },
       "logprobs": null,
-      "finish_reason": "length",
+      "finish_reason": "stop",
       "stop_reason": null,
       "token_ids": null,
       "routed_experts": null
@@ -27,8 +27,8 @@
   "system_fingerprint": "vllm-0.22.1-7fd425eb",
   "usage": {
     "prompt_tokens": 15,
-    "total_tokens": 143,
-    "completion_tokens": 128,
+    "total_tokens": 162,
+    "completion_tokens": 147,
     "prompt_tokens_details": null
   },
   "prompt_logprobs": null,
