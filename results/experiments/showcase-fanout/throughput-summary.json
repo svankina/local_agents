@@ -2,7 +2,12 @@
   "S-01": {
     "completion_tps_pipeline": 69.3,
     "completion_tps_api_time": 71.6,
-    "note": "single cloud stream; prompt side dominated by cache reads"
+    "note": "single cloud stream; prompt side dominated by cache reads",
+    "runtime_split_s": {
+      "fable_supervisor": 569.0,
+      "local_fleet": 0,
+      "window": 569.0
+    }
   },
   "F-06": {
     "aggregate_completion_tps": 344,
@@ -12,7 +17,13 @@
       "peak": 101,
       "basis": "client wall incl. prefill+queue"
     },
-    "dispatch_span_s": 24.7
+    "dispatch_span_s": 24.7,
+    "runtime_split_s": {
+      "fable_supervisor": 147.9,
+      "local_fleet": 24.7,
+      "harness_overhead": 3.4,
+      "window": 176.0
+    }
   },
   "ratio_completion_tps": 5.0,
   "derivation": "completion tokens / dispatch span (fleet) and output tokens / wall (solo); levels per experiment doc Time Accounting rules"
