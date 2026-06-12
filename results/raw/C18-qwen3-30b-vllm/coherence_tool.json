@@ -1,0 +1,38 @@
+{
+  "id": "chatcmpl-8769873338ce3857",
+  "object": "chat.completion",
+  "created": 1781248955,
+  "model": "C18-qwen3-30b-vllm",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "<think>\nOkay, the user wants me to read the TASK.md file using the read_file tool. Let me check the tools provided. There's a function called read_file that takes a path parameter. So I need to call that function with the path set to \"TASK.md\". I should make sure the JSON is correctly formatted with the path as a string. No other parameters are needed since that's the only required one. Alright, I'll structure the tool call accordingly.\n</think>\n\n<tool_call>\n{\"name\": \"read_file\", \"arguments\": {\"path\": \"TASK.md\"}}\n</tool_call>",
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": [],
+        "reasoning": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.22.1-7fd425eb",
+  "usage": {
+    "prompt_tokens": 170,
+    "total_tokens": 288,
+    "completion_tokens": 118,
+    "prompt_tokens_details": null
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null
+}

@@ -1,0 +1,38 @@
+{
+  "id": "chatcmpl-98bc70d0b79e2e92",
+  "object": "chat.completion",
+  "created": 1781248954,
+  "model": "C18-qwen3-30b-vllm",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "<think>\nOkay, the user asked me to say hello and name three colors. Let me start by greeting them. \"Hello!\" That's straightforward.\n\nNow, for the three colors. I need to pick three common ones. Red, blue, and green are classic choices. They're primary colors and widely recognized. Alternatively, I could go with more vibrant ones like orange, purple, and yellow, but maybe the user wants something simple. Let me stick with red, blue, and green. That should cover it. I'll list them clearly. Make sure the response is friendly and concise. Alright, that should do it.\n</think>\n\n",
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": [],
+        "reasoning": null
+      },
+      "logprobs": null,
+      "finish_reason": "length",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.22.1-7fd425eb",
+  "usage": {
+    "prompt_tokens": 15,
+    "total_tokens": 143,
+    "completion_tokens": 128,
+    "prompt_tokens_details": null
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null
+}
