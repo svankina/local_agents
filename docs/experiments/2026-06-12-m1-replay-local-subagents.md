@@ -1,6 +1,6 @@
-# Experiment Design: "A Box I Can Orbit" — Replaying a CAD-Engine Milestone With Local Subagents
+# Experiment Design: CAD Kernel Part 1 Build — Replaying It With Local Subagents
 
-Public name: **the "Box I Can Orbit" replay** (the task is custom_cad's first milestone: build profile → extrude → B-rep → tessellate → three.js viewport until a shaded box orbits at 60 fps behind a hard test gate). Internal id stays `m1-replay` — file paths, `results/experiments/m1-replay/`, and run ids keep the slug for continuity.
+Public name: **the CAD kernel part 1 build** (the task is custom_cad's first milestone, internally "M1: A Box I Can Orbit": build profile → extrude → B-rep → tessellate → three.js viewport until a shaded box orbits at 60 fps behind a hard test gate). Internal id stays `m1-replay` — file paths, `results/experiments/m1-replay/`, and run ids keep the slug for continuity.
 
 Date: 2026-06-12
 
