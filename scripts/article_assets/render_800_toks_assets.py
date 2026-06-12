@@ -149,7 +149,7 @@ def draw_meter(
     needle_angle = math.radians(start + (end - start) * ratio)
     arc_box = [cx - r, cy - r, cx + r, cy + r]
 
-    draw.text((x1 + 18, y1 + 38), f"measured replay - {streams} streams - peak {cap:.1f}", font=F14, fill=MUTED)
+    draw.text((x1 + 18, y1 + 38), "measured replay", font=F14, fill=MUTED)
 
     draw.arc(arc_box, start, end, fill=BORDER, width=14)
     draw.arc(arc_box, start, start + int((end - start) * 0.78), fill=GREEN, width=14)
@@ -182,11 +182,11 @@ def draw_meter(
     draw.ellipse([cx - 12, cy - 12, cx + 12, cy + 12], fill="#020617", outline=CYAN, width=3)
 
     readout = f"{tps:05.1f}"
-    read_box = [x1 + 18, y1 + 168, x2 - 18, y1 + 214]
+    read_box = [x1 + 18, y1 + 168, x2 - 18, y1 + 221]
     draw.rounded_rectangle(read_box, radius=12, fill="#020617", outline="#22d3ee66", width=1)
     draw.text((x1 + 58, y1 + 174), readout, font=F34B, fill=GREEN)
     draw.text((x1 + 190, y1 + 185), "tok/s", font=F18, fill=CYAN)
-    draw.text((x1 + 70, y1 + 219), f"{streams} streams - {tps / streams:04.1f} tok/s each", font=F14, fill=MUTED)
+    draw.text((x1 + 67, y1 + 207), f"{streams} streams - {tps / streams:04.1f} tok/s each", font=F14, fill=MUTED)
 
 
 def ease(t: float) -> float:
