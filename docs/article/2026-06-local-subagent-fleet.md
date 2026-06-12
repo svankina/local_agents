@@ -60,11 +60,13 @@ The harness also had to handle worker failure as a normal benchmark event. One s
 
 vLLM took five startup-shaping attempts to fit the 24 GB card. The original 32k configuration OOMed during CUDA graph/KV profiling. The successful shape was `--max-model-len 16384 --max-num-seqs 4 --gpu-memory-utilization 0.92`; `--max-num-seqs` was the key knob.
 
-## Open Issue: vLLM Tool Calls
+## Open Issue: vLLM Serves This Model Wrong
 
 Under llama.cpp, the byteshape Qwen3.6-35B-A3B weights tool-called at 1.000. Under vLLM, the AWQ serving path emitted zero required tool calls with both the `qwen3_coder` and `qwen3_xml` parser choices. The measured score was 0.167 only because the two no-tool cases passed.
 
-We are treating this as chat-template and parser plumbing under active investigation, not as a model limitation. The throughput result is strong enough that fixing this would materially change the fleet design.
+Manual diagnosis found the real cause, and it is worse than parser plumbing: the vLLM server generates gibberish for every prompt — a temperature-0 "say hello" returns multi-script token salad. We ruled out the tool parser (both fail identically), the chat template (passing the repo's template explicitly via `--chat-template` changed nothing), and mrope config loss (re-injecting the rope block via `--hf-overrides` silenced vLLM's startup warning but not the garbage). What remains is vLLM 0.22.1's quantized-MoE path for this VL-flavored architecture, its `--language-model-only` extraction, or the community AWQ quant itself. The full elimination log lives in `results/raw/C15-vllm-35b/GIBBERISH-DIAGNOSIS.md`.
+
+Two lessons we'd flag for anyone benchmarking serving stacks. First, throughput suites cannot see this failure: 360 tokens/sec of garbage measures exactly like 360 tokens/sec of code. Always probe output coherence before trusting a config's speed numbers. Second, this says nothing about the model — the same weights are flawless through llama.cpp. The parallel-pool architecture remains attractive on the scaling mechanics; it needs either a vLLM build that serves this architecture correctly or a model with first-class vLLM support.
 
 ## The Fleet Design
 
