@@ -99,8 +99,17 @@ The server failed before health and before the mandatory coherence gate. vLLM 0.
 |---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | C15-vllm-35b | vLLM 0.22.1 | AWQ Marlin | failed post-run diagnosis: gibberish | 180.6 | 1.38x | 360.3 | 2.76x | n/a | n/a | 90.3 at x4 | 0.167 (`qwen3_xml`) | 0/5 | 21811 MiB |
 | C17-north-mini-vllm | vLLM 0.22.1 | compressed-tensors INT4 | not run: server failed before health | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a (`cohere_command4`) | n/a | n/a |
+| C18-qwen3-30b-vllm | vLLM 0.22.1 | GPTQ Marlin | failed: coherent hello, no parsed tool call | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a (`qwen3_xml`) | n/a | 22173 MiB |
 
 Verdict: C17 did not reach the 400 aggregate t/s bar because it never served successfully. It also does not qualify as the parallel worker pool: toolcall, agentic, and per-stream thresholds were not measurable. The next viable C17-style attempt needs either a symmetric AWQ/GPTQ INT4 North Mini quant compatible with vLLM's MoE Marlin path, a vLLM build/path that supports this asymmetric compressed-tensors MoE quant, or a larger-memory GPU for Cohere's official FP8/BF16 releases.
+
+## C18 Qwen3 30B vLLM Addendum
+
+C18 used the official `Qwen/Qwen3-30B-A3B-GPTQ-Int4` at revision `9b534e4318b7ebc3c961a839f13eb18b1833f441`, a classic GPTQ INT4 repo with one 16,933,256,392-byte safetensor weight file. The selected vLLM flags were `--max-model-len 16384 --max-num-seqs 8 --gpu-memory-utilization 0.92 --quantization gptq_marlin --enable-auto-tool-choice --tool-call-parser qwen3_xml`. vLLM resolved the text-only `Qwen3MoeForCausalLM`, used Marlin for AutoGPTQ and WNA16 MoE, and reported 56,080 GPU KV-cache tokens.
+
+The mandatory coherence gate failed after health. The temperature-0 hello probe was coherent English, but the tool probe returned literal `<tool_call>{...}</tool_call>` text in assistant content and an empty OpenAI `tool_calls` array, despite vLLM importing `Qwen3XMLToolParser`. Per protocol, throughput, toolcall, and agentic suites were not run. Raw evidence is in `results/raw/C18-qwen3-30b-vllm/coherence_hello.json`, `results/raw/C18-qwen3-30b-vllm/coherence_tool.json`, `results/raw/C18-qwen3-30b-vllm/coherence_gate.json`, and `results/raw/C18-qwen3-30b-vllm/server.log`.
+
+Verdict: C18 did not reach the 400 aggregate t/s bar because it stopped at the mandatory coherence gate. It also does not qualify as the parallel worker pool: toolcall strict and lenient rates, agentic pass count, aggregate throughput, and per-stream throughput were not measured.
 
 ## Coexistence
 
