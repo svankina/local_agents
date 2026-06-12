@@ -1,0 +1,176 @@
+{
+  "C1-gemma12b-base": {
+    "0.2": {
+      "forgiven_count": 7,
+      "lenient": 1.0,
+      "n": 36,
+      "residual_failures": [],
+      "strict": 0.806
+    }
+  },
+  "C12-byteshape-35b": {
+    "0.2": {
+      "forgiven_count": 0,
+      "lenient": 1.0,
+      "n": 36,
+      "residual_failures": [],
+      "strict": 1.0
+    }
+  },
+  "C13-qwopus-27b": {
+    "0.2": {
+      "forgiven_count": 0,
+      "lenient": 1.0,
+      "n": 36,
+      "residual_failures": [],
+      "strict": 1.0
+    }
+  },
+  "C14-cuda-35b": {
+    "0.2": {
+      "forgiven_count": 0,
+      "lenient": 1.0,
+      "n": 36,
+      "residual_failures": [],
+      "strict": 1.0
+    }
+  },
+  "C15-vllm-35b": {
+    "0.2": {
+      "forgiven_count": 0,
+      "lenient": 0.167,
+      "n": 36,
+      "residual_failures": [
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "no tool call made"
+      ],
+      "strict": 0.167
+    }
+  },
+  "C16-cuda-baremetal": {
+    "0.2": {
+      "forgiven_count": 0,
+      "lenient": 1.0,
+      "n": 36,
+      "residual_failures": [],
+      "strict": 1.0
+    }
+  },
+  "C2-gemma12b-mtp": {
+    "0.2": {
+      "forgiven_count": 8,
+      "lenient": 1.0,
+      "n": 36,
+      "residual_failures": [],
+      "strict": 0.778
+    }
+  },
+  "C3-gemma12b-par3": {
+    "0.2": {
+      "forgiven_count": 7,
+      "lenient": 1.0,
+      "n": 36,
+      "residual_failures": [],
+      "strict": 0.806
+    }
+  },
+  "C4-gemma26b-gpu": {
+    "0.2": {
+      "forgiven_count": 1,
+      "lenient": 0.944,
+      "n": 36,
+      "residual_failures": [
+        "arg command: 'ls build.log' !~ /tail\\s+(-n\\s*)?25\\s+build\\.log/",
+        "wrong tool: run_bash"
+      ],
+      "strict": 0.917
+    }
+  },
+  "C5-gemma26b-cmoe": {
+    "0.2": {
+      "forgiven_count": 2,
+      "lenient": 0.972,
+      "n": 36,
+      "residual_failures": [
+        "wrong tool: run_bash"
+      ],
+      "strict": 0.917
+    }
+  },
+  "C6-gemma26b-cmoe-mtp": {
+    "0.2": {
+      "forgiven_count": 1,
+      "lenient": 0.972,
+      "n": 36,
+      "residual_failures": [
+        "wrong tool: run_bash"
+      ],
+      "strict": 0.944
+    }
+  },
+  "C7-qwen27b-q3": {
+    "0.2": {
+      "forgiven_count": 0,
+      "lenient": 1.0,
+      "n": 36,
+      "residual_failures": [],
+      "strict": 1.0
+    }
+  },
+  "C8-nex-mini-q3": {
+    "0.2": {
+      "forgiven_count": 2,
+      "lenient": 0.833,
+      "n": 36,
+      "residual_failures": [
+        "no tool call made",
+        "no tool call made",
+        "no tool call made",
+        "arg path: 'nested/path/to/the/module/handlers/event_router.py' != 'deeply/nested/path/to/the/module/handlers/event_router.py'",
+        "arg path: 'nested/path/to/the/module/handlers/event_router.py' != 'deeply/nested/path/to/the/module/handlers/event_router.py'",
+        "arg path: 'nested/path/to/the/module/handlers/event_router.py' != 'deeply/nested/path/to/the/module/handlers/event_router.py'"
+      ],
+      "strict": 0.778
+    },
+    "0.7": {
+      "forgiven_count": 3,
+      "lenient": 0.889,
+      "n": 36,
+      "residual_failures": [
+        "no tool call made",
+        "arg path: 'nested/path/to/the/module/handlers/event_router.py' != 'deeply/nested/path/to/the/module/handlers/event_router.py'",
+        "arg path: 'nested/path/to/the/module/handlers/event_router.py' != 'deeply/nested/path/to/the/module/handlers/event_router.py'",
+        "arg path: 'nested/path/to/the/module/handlers/event_router.py' != 'deeply/nested/path/to/the/module/handlers/event_router.py'"
+      ],
+      "strict": 0.806
+    }
+  }
+}
