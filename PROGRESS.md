@@ -14,7 +14,8 @@ server swap per additional model for E2.
 | E4 | temperature (0.0/0.2/0.6/1.0) vs single-shot error rate | DONE 3m — null effect |
 | E5 | thinking on/off vs error rate + speed | DONE 1m12s — headline result |
 | E2 | model speed vs error rate | DONE — table below |
-| E6 | compression-dictionary opcode protocol (user thought experiment) | running on C12 |
+| E6 | compression-dictionary opcode protocol | CANCELLED by user mid-run (code kept in runner) |
+| E7 | diffusiongemma-26B-A4B-it (user request): diffusion decoding speed vs error | in flight — building llama.cpp PR #24423 inside vllm image (host has no nvcc); Q4_K_M GGUF downloading |
 
 ## E2 final table (single-shot, medium plan, temp 0.2)
 
@@ -88,6 +89,16 @@ by constraint lists + examples; all finish=length on word-frequency/camel-to-sna
 - E2 needs a llama.cpp server path for C12/C1 — flags already in bench/configs.json.
 - Results land in results/experiments/fable-fleet-bench/<date>-<exp>/ (episodes.json
   + summary.json per experiment).
+
+## E7 infra notes
+
+- Source: ~/src/llama.cpp-diffusion (PR #24423 branch `diffusiongemma`).
+- No OpenAI server in PR: llama-diffusion-cli (end-to-end, -cnv interactive) and
+  llama-diffusion-gemma-server (raw logits protocol for a Python driver).
+  Plan: drive CLI via stdin wrapper, 1-stream, E2 suite, 30 episodes.
+- Build runs INSIDE vllm/vllm-openai:v0.22.1 (has nvcc 13 + g++; cmake via pip);
+  binaries must also RUN in that image (lib paths) — docker run -i --gpus all.
+- Model: ~/.cache/llama.cpp/diffusiongemma-26B-A4B-it-Q4_K_M.gguf (16.8 GB).
 
 ## Resume notes (if session dies)
 
