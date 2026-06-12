@@ -1,0 +1,3895 @@
+{
+ "wall_s": 16.5,
+ "results": [
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 117,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 117,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 117,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 117,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 3,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 188,
+   "worker_completion_tokens": 54,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "parse",
+      "reason": "expected an indented block after function definition on line 1 (<unknown>, line 1)"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": false,
+      "failed_check": "parse",
+      "reason": "expected an indented block after function definition on line 1 (<unknown>, line 1)"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 2,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([[1, 9]],) -> got None, want [[1, 9]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 121,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 121,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 121,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 121,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 121,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 121,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": false,
+   "rounds_used": 3,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 188,
+   "worker_completion_tokens": 54,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "parse",
+      "reason": "expected an indented block after function definition on line 1 (<unknown>, line 1)"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": false,
+      "failed_check": "parse",
+      "reason": "expected an indented block after function definition on line 1 (<unknown>, line 1)"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 2,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([[1, 9]],) -> got None, want [[1, 9]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 117,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 82,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 82,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 117,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 123,
+   "worker_completion_tokens": 185,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([[1, 9]],) -> got None, want [[1, 9]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 123,
+   "worker_completion_tokens": 185,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([[1, 9]],) -> got None, want [[1, 9]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 123,
+   "worker_completion_tokens": 185,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([[1, 9]],) -> got None, want [[1, 9]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 121,
+   "worker_completion_tokens": 128,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('AbbbABAAa',) -> got '_abbb_a_b_a_aa', want 'abbb_a_b_a_aa'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 114,
+   "worker_completion_tokens": 144,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 114,
+   "worker_completion_tokens": 144,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 114,
+   "worker_completion_tokens": 144,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 114,
+   "worker_completion_tokens": 144,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 114,
+   "worker_completion_tokens": 144,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 114,
+   "worker_completion_tokens": 144,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 82,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 121,
+   "worker_completion_tokens": 128,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('AbbbABAAa',) -> got '_abbb_a_b_a_aa', want 'abbb_a_b_a_aa'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 123,
+   "worker_completion_tokens": 185,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([[1, 9]],) -> got None, want [[1, 9]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 121,
+   "worker_completion_tokens": 128,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('AbbbABAAa',) -> got '_abbb_a_b_a_aa', want 'abbb_a_b_a_aa'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 107,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 107,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 107,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 107,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 107,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 107,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 49,
+   "worker_completion_tokens": 165,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 49,
+   "worker_completion_tokens": 165,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 91,
+   "worker_completion_tokens": 198,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "(551,) -> got None, want 'DLI'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 91,
+   "worker_completion_tokens": 202,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "(551,) -> got None, want 'DLI'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 91,
+   "worker_completion_tokens": 202,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "(551,) -> got None, want 'DLI'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 91,
+   "worker_completion_tokens": 202,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "(551,) -> got None, want 'DLI'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "informative"
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 101,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 106,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 101,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 101,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 101,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 101,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 101,
+   "worker_completion_tokens": 173,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('ca',) -> got None, want [('c', 1), ('a', 1)]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 100,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 100,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 100,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 100,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 100,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 106,
+   "worker_completion_tokens": 115,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "parse",
+      "reason": "expected an indented block after function definition on line 1 (<unknown>, line 1)"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 100,
+   "worker_completion_tokens": 156,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([4, 8], 12) -> got None, want [0, 1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 106,
+   "worker_completion_tokens": 115,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "parse",
+      "reason": "expected an indented block after function definition on line 1 (<unknown>, line 1)"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 82,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 96,
+   "worker_completion_tokens": 151,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 96,
+   "worker_completion_tokens": 151,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 96,
+   "worker_completion_tokens": 151,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 96,
+   "worker_completion_tokens": 151,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 106,
+   "worker_completion_tokens": 185,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([[1, 9]],) -> got None, want [[1, 9]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 106,
+   "worker_completion_tokens": 185,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([[1, 9]],) -> got None, want [[1, 9]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 106,
+   "worker_completion_tokens": 185,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([[1, 9]],) -> got None, want [[1, 9]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 106,
+   "worker_completion_tokens": 185,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([[1, 9]],) -> got None, want [[1, 9]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 82,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 82,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 96,
+   "worker_completion_tokens": 151,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 96,
+   "worker_completion_tokens": 151,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('a.a,,',) -> got None, want {'a.a': 1}"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 98,
+   "worker_completion_tokens": 147,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('AbbbABAAa',) -> got '_abbb_a_b_a_aa', want 'abbb_a_b_a_aa'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 98,
+   "worker_completion_tokens": 128,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('AbbbABAAa',) -> got '_abbb_a_b_a_aa', want 'abbb_a_b_a_aa'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 88,
+   "worker_completion_tokens": 103,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([1],) -> got None, want [1]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 89,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 89,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 89,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 49,
+   "worker_completion_tokens": 165,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 89,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 49,
+   "worker_completion_tokens": 165,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 89,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 89,
+   "worker_completion_tokens": 97,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "([9, 1], 3) -> got None, want [[9, 1]]"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": false,
+   "rounds_used": 3,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 125,
+   "worker_completion_tokens": 230,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('AbbbABAAa',) -> got '_abbb_a_b_a_aa', want 'abbb_a_b_a_aa'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('AbbbABAAa',) -> got 'Abbb_a_b_a_aa', want 'abbb_a_b_a_aa'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 2,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "('AbbbABAAa',) -> got 'Abbb_a_b_a_aa', want 'abbb_a_b_a_aa'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 49,
+   "worker_completion_tokens": 165,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 76,
+   "worker_completion_tokens": 195,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "(551,) -> got None, want 'DLI'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 76,
+   "worker_completion_tokens": 195,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "(551,) -> got None, want 'DLI'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 55,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 44,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 1,
+   "first_pass": true,
+   "first_lenient": true,
+   "violations_r0": [],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 69,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 66,
+   "passed": true,
+   "rounds_used": 2,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [],
+   "supervisor_tokens": 76,
+   "worker_completion_tokens": 195,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "mismatch",
+      "reason": "(551,) -> got None, want 'DLI'"
+     },
+     "violations": [],
+     "lenient_passed": false
+    },
+    {
+     "round": 1,
+     "strict": {
+      "passed": true,
+      "failed_check": null,
+      "reason": null
+     },
+     "violations": [],
+     "lenient_passed": true
+    }
+   ],
+   "fix_style": "minimal"
+  }
+ ]
+}

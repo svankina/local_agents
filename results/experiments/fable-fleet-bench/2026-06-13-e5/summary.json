@@ -1,0 +1,26 @@
+{
+  "thinking-on": {
+    "n": 30,
+    "completed": 30,
+    "first_pass_rate": 0.9,
+    "mean_rounds": 1.1,
+    "sup_tokens_per_completed": 69.6,
+    "worker_tokens_mean": 1752.7,
+    "wall_s": 67.8,
+    "tasks_per_min": 26.5,
+    "violations_r0": {
+      "no-def": 3
+    }
+  },
+  "thinking-off": {
+    "n": 30,
+    "completed": 30,
+    "first_pass_rate": 0.433,
+    "mean_rounds": 1.57,
+    "sup_tokens_per_completed": 91.4,
+    "worker_tokens_mean": 126.6,
+    "wall_s": 4.7,
+    "tasks_per_min": 381.2,
+    "violations_r0": {}
+  }
+}

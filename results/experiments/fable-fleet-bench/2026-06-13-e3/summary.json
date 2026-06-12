@@ -1,0 +1,16 @@
+{
+  "informative": {
+    "n": 60,
+    "first_pass_rate": 0.383,
+    "r0_failures": 37,
+    "repair_rate": 0.946,
+    "sup_tokens_per_completed": 99.4
+  },
+  "minimal": {
+    "n": 60,
+    "first_pass_rate": 0.383,
+    "r0_failures": 37,
+    "repair_rate": 0.973,
+    "sup_tokens_per_completed": 84.6
+  }
+}
