@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>local_agents — results dashboard</title>
+<style>
+ :root { color-scheme: dark; }
+ body { background:#0e1116; color:#dbe2ea; font:15px/1.5 -apple-system,'Segoe UI',Roboto,sans-serif; margin:0; padding:32px 24px 64px; }
+ main { max-width:1060px; margin:0 auto; }
+ h1 { font-size:24px; margin:0 0 4px; } h2 { font-size:18px; margin:36px 0 10px; color:#9fc2e8; }
+ .sub { color:#7d8896; font-size:13px; margin-bottom:24px; }
+ .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:20px 0; }
+ .card { background:#161b23; border:1px solid #232b36; border-radius:10px; padding:14px 16px; }
+ .card .v { font-size:26px; font-weight:700; color:#7ee787; } .card .v.blue { color:#79c0ff; } .card .v.gold { color:#e3b341; }
+ .card .l { font-size:12px; color:#8b949e; margin-top:2px; }
+ table { border-collapse:collapse; width:100%; font-size:13.5px; }
+ th,td { padding:6px 10px; text-align:left; border-bottom:1px solid #1d242e; }
+ th { color:#8b949e; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+ td.num { font-variant-numeric:tabular-nums; }
+ tr.err td { color:#f85149; }
+ .dim { color:#7d8896; }
+ a { color:#79c0ff; text-decoration:none; } a:hover { text-decoration:underline; }
+ .note { font-size:12.5px; color:#7d8896; margin-top:8px; }
+ .badge { display:inline-block; padding:1px 8px; border-radius:10px; font-size:11.5px; background:#1f6feb33; color:#79c0ff; margin-left:6px; }
+ .badge.ok { background:#23863633; color:#7ee787; } .badge.tbd { background:#9e6a0333; color:#e3b341; }
+</style></head><body><main>
+<h1>local_agents — results dashboard</h1>
+<div class="sub">RTX 3090 Ti 24 GB · generated 2026-06-12 14:20 IST · repo @ 08b64a5 ·
+ <a href="RESULTS.md">RESULTS.md</a> · <a href="docs/article/2026-06-local-subagent-fleet.md">article draft</a> ·
+ <a href="docs/experiments/2026-06-12-m1-replay-local-subagents.md">experiment protocol</a> ·
+ <a href="https://github.com/svankina/local_agents">github</a></div>
+
+<div class="cards">
+ <div class="card"><div class="v">808.7 t/s</div><div class="l">peak aggregate @x8 — C18 Qwen3-30B-A3B, vLLM (4.40× scaling)</div></div>
+ <div class="card"><div class="v blue">143.4 t/s</div><div class="l">fastest single-stream w/ perfect toolcall — byteshape 35B, CUDA</div></div>
+ <div class="card"><div class="v blue">1.000</div><div class="l">toolcall, 5/5 agentic — fleet champion C12 (19.3 GB)</div></div>
+ <div class="card"><div class="v gold">13.3 min</div><div class="l">Arm A solo replay (verified green) vs original 66 min — 5× faster</div></div>
+ <div class="card"><div class="v gold">$13.44</div><div class="l">Arm A cloud cost vs original $29.22 · output 51,467 vs 162,420 tok</div></div>
+</div>
+
+<h2>Benchmark scoreboard <span class="badge ok">complete</span></h2>
+<table><tr><th>config</th><th>backend</th><th>decode t/s (p1k)</th><th>x4 aggregate t/s</th><th>toolcall strict / lenient</th><th>agentic</th><th>VRAM</th></tr>
+<tr><td>Gemma4 12B QAT</td><td class='dim'>llama.cpp Vulkan</td><td class='num'>68.9</td><td class='num'>30.5</td><td class='num'>0.806 / 1</td><td class='num'>3/5</td><td class='num'>8541 MiB</td></tr><tr><td>Gemma4 12B + MTP</td><td class='dim'>llama.cpp Vulkan</td><td class='num'>88.1</td><td class='num'>29.6</td><td class='num'>0.778 / 1</td><td class='num'>5/5</td><td class='num'>8861 MiB</td></tr><tr><td>Gemma4 12B ×3 slots</td><td class='dim'>llama.cpp Vulkan</td><td class='num'>59.2</td><td class='num'>74</td><td class='num'>0.806 / 1</td><td class='num'>—</td><td class='num'>7744 MiB</td></tr><tr><td>Gemma4 26B A4B</td><td class='dim'>llama.cpp Vulkan</td><td class='num'>118.1</td><td class='num'>48.2</td><td class='num'>0.917 / 0.944</td><td class='num'>5/5</td><td class='num'>15287 MiB</td></tr><tr><td>26B A4B -cmoe (CPU experts)</td><td class='dim'>llama.cpp Vulkan</td><td class='num'>14.6</td><td class='num'>9.5</td><td class='num'>0.917 / 0.972</td><td class='num'>4/5</td><td class='num'>3020 MiB</td></tr><tr><td>26B A4B -cmoe + MTP</td><td class='dim'>llama.cpp Vulkan</td><td class='num'>17</td><td class='num'>8.7</td><td class='num'>0.944 / 0.972</td><td class='num'>5/5</td><td class='num'>58 MiB</td></tr><tr><td>Qwen3.6-27B Q3</td><td class='dim'>llama.cpp Vulkan</td><td class='num'>43.5</td><td class='num'>48</td><td class='num'>1</td><td class='num'>5/5</td><td class='num'>15309 MiB</td></tr><tr><td>Nex-N2-mini Q3</td><td class='dim'>llama.cpp Vulkan</td><td class='num'>136.6</td><td class='num'>127.2</td><td class='num'>0.778 / 0.833</td><td class='num'>5/5</td><td class='num'>16322 MiB</td></tr><tr><td>byteshape Qwen3.6-35B-A3B ★</td><td class='dim'>llama.cpp Vulkan + MTP</td><td class='num'>127.7</td><td class='num'>91</td><td class='num'>1</td><td class='num'>5/5</td><td class='num'>19277 MiB</td></tr><tr><td>Qwopus3.6-27B-v2 + MTP</td><td class='dim'>llama.cpp Vulkan</td><td class='num'>65.7</td><td class='num'>44.2</td><td class='num'>1</td><td class='num'>5/5</td><td class='num'>19685 MiB</td></tr><tr><td>byteshape 35B-A3B + MTP</td><td class='dim'>llama.cpp CUDA Docker</td><td class='num'>143.4</td><td class='num'>114.6</td><td class='num'>1</td><td class='num'>—</td><td class='num'>19583 MiB</td></tr><tr><td>byteshape 35B-A3B (no spec)</td><td class='dim'>llama.cpp CUDA Docker</td><td class='num'>138</td><td class='num'>174.8</td><td class='num'>—</td><td class='num'>—</td><td class='num'>18897 MiB</td></tr><tr><td>byteshape 35B-A3B + MTP</td><td class='dim'>llama.cpp CUDA bare metal</td><td class='num'>135.7</td><td class='num'>107.4</td><td class='num'>1</td><td class='num'>—</td><td class='num'>19583 MiB</td></tr><tr><td>Qwen3.6-35B AWQ (output corrupted)</td><td class='dim'>vLLM 0.22.1</td><td class='num'>130.6</td><td class='num'>360.3</td><td class='num'>0.167</td><td class='num'>0/5</td><td class='num'>21811 MiB</td></tr><tr class='err'><td>North Mini Code INT4 (load failed)</td><td>vLLM 0.22.1</td><td colspan='6'>did not run: vLLM failed to initialize compressed-tensors MoE quant before health</td></tr><tr><td>Qwen3-30B-A3B GPTQ</td><td class='dim'>vLLM 0.22.1</td><td class='num'>183.8</td><td class='num'>534.4 <span class='dim'>(808.7 @x8)</span></td><td class='num'>0.972</td><td class='num'>3/5</td><td class='num'>22173 MiB</td></tr></table>
+<div class="note">★ fleet champion. Lenient toolcall forgives exactly one failure type (list_dir-before-read, protocol-valid). C18 agentic is the median of a 3-run variance pass (3/5, 1/5, 2/5 — csv-script &amp; add-flag failed every run → throughput tier only). C15 throughput numbers are mechanics-only: output was corrupted (see RESULTS.md). Full caveats in <a href="RESULTS.md">RESULTS.md</a>.</div>
+
+<h2>CAD kernel part 1 build — replay experiment <span class="badge tbd">1 of 9+ runs</span></h2>
+<table><tr><th>run</th><th>arm</th><th>wall-clock</th><th>cloud $</th><th>output tokens</th><th>quality</th></tr>
+<tr><td class="dim">original build (forensic baseline)</td><td>cloud subagent workflow</td><td class="num">65.6 min</td><td class="num">$29.22</td><td class="num">162,420</td><td>shipped</td></tr>
+<tr><td>2026-06-12-A-01</td><td>A — Fable 5 solo</td><td class="num">13.3 min</td><td class="num">$13.44</td><td class="num">51,467</td><td>verified: 67 unit + 5 integration green, 9/9 tasks</td></tr>
+<tr class="dim"><td>arm B (cloud subagents)</td><td>B</td><td colspan="4">queued</td></tr>
+<tr class="dim"><td>arm C (local subagents)</td><td>C</td><td colspan="4">queued — bare-metal serving, worker shim ready</td></tr>
+</table>
+<div class="note">Arm A split: 88.9% of run time waiting on cloud API (707 s of 795 s), 11.1% local tool execution. GPU stayed idle the whole run (clean cloud-only baseline). Per-run artifacts under <a href="results/experiments/m1-replay/">results/experiments/m1-replay/</a>.</div>
+
+<h2>Showcase fan-out benchmark <span class="badge tbd">designed</span></h2>
+<div class="note" style="font-size:13.5px;color:#dbe2ea">32-item docstring backfill on scrapy@a8ffdcf8 across C18's 8-stream vLLM pool — single-shot per item, AST-verified, supervisor limited to 2 cloud calls. Solo-Fable baseline vs fleet. Protocol: <a href="docs/experiments/2026-06-12-showcase-parallel-fanout.md">showcase-parallel-fanout.md</a></div>
+</main></body></html>
