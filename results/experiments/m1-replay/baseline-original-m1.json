@@ -1,0 +1,293 @@
+{
+  "run_id": "baseline-original-m1",
+  "source": "forensic reconstruction",
+  "arm": "B",
+  "arm_label": "Claude Code + cloud subagents, original M1",
+  "rep": null,
+  "status": "completed",
+  "success": true,
+  "excluded": false,
+  "exclusion_reason": null,
+  "started_at": "2026-06-11T22:37:36.895+05:30",
+  "ended_at": "2026-06-11T23:43:13+05:30",
+  "wall_clock_seconds": 3937.0,
+  "calendar_span_seconds": 3937.0,
+  "active_seconds_gap_capped_5m": 3935.028,
+  "idle_seconds_gap_capped_5m": 1.972,
+  "workspace": "/home/svankina/src/custom_cad",
+  "pinned_plan": "/home/svankina/src/custom_cad/docs/superpowers/plans/2026-06-11-m1-box-i-can-orbit.md",
+  "commit_range": {
+    "base_before_m1": "437a4a749b7762029d5053a4cd5d914ab6b5ee9a",
+    "first_m1_commit": "9dddb22bda7a0566a9783741cc59320041c78d37",
+    "m1_code_complete_commit": "ff20f30d42fc3dd2ba61d30b55b3e7d003a20811",
+    "m1_complete_commit": "4aaea71ff06cf2d774ce46d7bcc85c18939ea59b",
+    "first_m2_commit": "059214709a413bf04bba2389b00e0e722466a77b"
+  },
+  "tasks": [
+    {
+      "task": 1,
+      "name": "Project scaffold and import guard fix",
+      "started_at": "2026-06-11T22:37:36.895+05:30",
+      "accepted_at": "2026-06-11T22:46:18+05:30",
+      "wall_clock_seconds": 521.105,
+      "worker_kind": "cloud",
+      "repair_loops": 1,
+      "gate_passed": true,
+      "commits": [
+        "9dddb22bda7a0566a9783741cc59320041c78d37",
+        "22dc443e8d43a0aa41c76370ed48eeda043cc560"
+      ],
+      "source": "forensic reconstruction"
+    },
+    {
+      "task": 2,
+      "name": "Numeric tolerance primitives",
+      "started_at": "2026-06-11T22:46:18+05:30",
+      "accepted_at": "2026-06-11T22:47:59+05:30",
+      "wall_clock_seconds": 101.0,
+      "worker_kind": "cloud",
+      "repair_loops": 0,
+      "gate_passed": true,
+      "commits": [
+        "2c41a6cca2266b22476f00d57d3ac2a29d1439e5"
+      ],
+      "source": "forensic reconstruction"
+    },
+    {
+      "task": 3,
+      "name": "Vector and PlaneCS module",
+      "started_at": "2026-06-11T22:47:59+05:30",
+      "accepted_at": "2026-06-11T22:50:23+05:30",
+      "wall_clock_seconds": 144.0,
+      "worker_kind": "cloud",
+      "repair_loops": 0,
+      "gate_passed": true,
+      "commits": [
+        "f2bc38d5066c2f4e157e8b28ff5dbefff1b854c8"
+      ],
+      "source": "forensic reconstruction"
+    },
+    {
+      "task": 4,
+      "name": "Result helpers and profile types",
+      "started_at": "2026-06-11T22:50:23+05:30",
+      "accepted_at": "2026-06-11T22:53:35+05:30",
+      "wall_clock_seconds": 192.0,
+      "worker_kind": "cloud",
+      "repair_loops": 0,
+      "gate_passed": true,
+      "commits": [
+        "d0b85003528118446d1ffc2d8a1a9ba7ded92854",
+        "310a170691111909575e19ace39d52426f3e9f25"
+      ],
+      "source": "forensic reconstruction"
+    },
+    {
+      "task": 5,
+      "name": "Half-edge B-rep and validateSolid",
+      "started_at": "2026-06-11T22:53:35+05:30",
+      "accepted_at": "2026-06-11T23:03:49+05:30",
+      "wall_clock_seconds": 614.0,
+      "worker_kind": "cloud",
+      "repair_loops": 1,
+      "gate_passed": true,
+      "commits": [
+        "3114585b573898f383f030c63a2915803cc0b3ac",
+        "0d0167e4353c7c7dabb35a200f9765930815286e"
+      ],
+      "source": "forensic reconstruction"
+    },
+    {
+      "task": 6,
+      "name": "Extrude",
+      "started_at": "2026-06-11T23:03:49+05:30",
+      "accepted_at": "2026-06-11T23:15:12+05:30",
+      "wall_clock_seconds": 683.0,
+      "worker_kind": "cloud",
+      "repair_loops": 1,
+      "gate_passed": true,
+      "commits": [
+        "b9e6bd922202e932ee8f16a587de726b65cf778c",
+        "1732d1424c706c4d5e0d934a8da4dd2ba9a36cbc"
+      ],
+      "source": "forensic reconstruction"
+    },
+    {
+      "task": 7,
+      "name": "Tessellation",
+      "started_at": "2026-06-11T23:15:12+05:30",
+      "accepted_at": "2026-06-11T23:31:01+05:30",
+      "wall_clock_seconds": 949.0,
+      "worker_kind": "cloud",
+      "repair_loops": 1,
+      "gate_passed": true,
+      "commits": [
+        "c38a4cbd2fb28724e61a36c33ded6f54dd1077ff",
+        "937a128cd4848d8ffc085c29e50ea5495836f226"
+      ],
+      "source": "forensic reconstruction"
+    },
+    {
+      "task": 8,
+      "name": "Viewport shell",
+      "started_at": "2026-06-11T23:31:01+05:30",
+      "accepted_at": "2026-06-11T23:34:50+05:30",
+      "wall_clock_seconds": 229.0,
+      "worker_kind": "cloud",
+      "repair_loops": 0,
+      "gate_passed": true,
+      "commits": [
+        "36ef6e2d03d4a4591704067e62f831f05df3fe63"
+      ],
+      "source": "forensic reconstruction",
+      "note": "Tasks 8 and 9 were reported as parallel in the transcript; commit deltas overlap."
+    },
+    {
+      "task": 9,
+      "name": "Scene sync and M1 acceptance",
+      "started_at": "2026-06-11T23:31:01+05:30",
+      "accepted_at": "2026-06-11T23:34:53+05:30",
+      "wall_clock_seconds": 232.0,
+      "worker_kind": "cloud",
+      "repair_loops": 0,
+      "gate_passed": true,
+      "commits": [
+        "ff20f30d42fc3dd2ba61d30b55b3e7d003a20811"
+      ],
+      "source": "forensic reconstruction",
+      "note": "Tasks 8 and 9 were reported as parallel in the transcript; commit deltas overlap."
+    }
+  ],
+  "cloud_usage": {
+    "source": "forensic reconstruction from Claude Code JSONL usage objects; deduplicated by transcript path plus requestId/message id, latest usage snapshot per request",
+    "input_tokens": 20922,
+    "output_tokens": 162420,
+    "cache_creation_tokens": 811412,
+    "cache_creation_5m_tokens": 591182,
+    "cache_creation_1h_tokens": 220230,
+    "cache_read_tokens": 18114849,
+    "total_tokens_all_categories": 19109603,
+    "usd": 29.217689,
+    "by_model": {
+      "claude-fable-5": {
+        "input_tokens": 20670,
+        "output_tokens": 101239,
+        "cache_creation_tokens": 413382,
+        "cache_creation_5m_tokens": 193152,
+        "cache_creation_1h_tokens": 220230,
+        "cache_read_tokens": 13263572,
+        "usd": 25.351222
+      },
+      "claude-sonnet-4-6": {
+        "input_tokens": 252,
+        "output_tokens": 61181,
+        "cache_creation_tokens": 398030,
+        "cache_creation_5m_tokens": 398030,
+        "cache_creation_1h_tokens": 0,
+        "cache_read_tokens": 4851277,
+        "usd": 3.866467
+      }
+    },
+    "by_session_kind": {
+      "main": {
+        "model": "claude-fable-5",
+        "input_tokens": 997,
+        "output_tokens": 38082,
+        "cache_creation_tokens": 220230,
+        "cache_creation_5m_tokens": 0,
+        "cache_creation_1h_tokens": 220230,
+        "cache_read_tokens": 10691857,
+        "usd": 17.010527
+      },
+      "subagent_claude_fable_5": {
+        "input_tokens": 19673,
+        "output_tokens": 63157,
+        "cache_creation_tokens": 193152,
+        "cache_creation_5m_tokens": 193152,
+        "cache_creation_1h_tokens": 0,
+        "cache_read_tokens": 2571715,
+        "usd": 8.340695
+      },
+      "subagent_claude_sonnet_4_6": {
+        "input_tokens": 252,
+        "output_tokens": 61181,
+        "cache_creation_tokens": 398030,
+        "cache_creation_5m_tokens": 398030,
+        "cache_creation_1h_tokens": 0,
+        "cache_read_tokens": 4851277,
+        "usd": 3.866467
+      }
+    },
+    "pricing_source": "Anthropic Claude API pricing page fetched 2026-06-12: https://platform.claude.com/docs/en/about-claude/pricing",
+    "pricing_table_usd_per_mtok": {
+      "claude-fable-5": {
+        "input": 10.0,
+        "output": 50.0,
+        "cache_creation_5m": 12.5,
+        "cache_creation_1h": 20.0,
+        "cache_read": 1.0
+      },
+      "claude-sonnet-4-6": {
+        "input": 3.0,
+        "output": 15.0,
+        "cache_creation_5m": 3.75,
+        "cache_creation_1h": 6.0,
+        "cache_read": 0.3
+      }
+    }
+  },
+  "local_usage": {
+    "source": "not applicable; no M1 Codex/local subagent run found in ~/.codex/agent-runs for custom_cad",
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "decode_tokens_per_second_median": null,
+    "active_seconds": 0
+  },
+  "throughput": {
+    "generation_rate_completion_tokens_per_second": null,
+    "generation_rate_source": "not derivable: Claude Code transcript has timestamps and usage totals but no model-busy/server-side timing per request",
+    "effective_pipeline_total_tokens_per_wall_second": 4853.341,
+    "effective_pipeline_output_tokens_per_active_second": 41.276,
+    "effective_pipeline_output_tokens_per_wall_second": 41.254
+  },
+  "time_accounting": {
+    "source": "forensic reconstruction from global transcript event timeline; active time is sum of inter-event gaps capped at 300 seconds",
+    "t_generating": null,
+    "t_thinking": null,
+    "t_visible": null,
+    "t_prefill": null,
+    "t_tool_exec": null,
+    "t_api_wait": null,
+    "t_idle": 1.972,
+    "residual": null,
+    "note": "Only active-vs-idle by transcript gap cap is derivable; non-overlapping model/tool/API buckets are not derivable from these logs."
+  },
+  "quality": {
+    "npm_run_check": "pass",
+    "m1_integration": "pass",
+    "screenshot": "accepted",
+    "screenshot_path": null,
+    "typescript_error_count_before_final": null,
+    "vitest_failure_count_before_final": null,
+    "import_guard_failure_count_before_final": null,
+    "senior_patch_rejections": null,
+    "source": "forensic reconstruction from transcript completion note and M1 commits"
+  },
+  "turns": {
+    "assistant_request_groups": 319,
+    "main_assistant_request_groups": 53,
+    "subagent_assistant_request_groups": 266,
+    "tool_use_content_blocks": 348
+  },
+  "evidence": {
+    "claude_main_transcript": "/home/svankina/.claude/projects/-home-svankina-src-custom-cad/fff78efe-6adb-40df-843a-c04bed886a50.jsonl",
+    "claude_sidechains_glob": "/home/svankina/.claude/projects/-home-svankina-src-custom-cad/fff78efe-6adb-40df-843a-c04bed886a50/subagents/*.jsonl",
+    "git_repo": "/home/svankina/src/custom_cad",
+    "codex_agent_runs_glob": "/home/svankina/.codex/agent-runs/*.meta"
+  },
+  "limitations": [
+    "Claude generation/model-busy time is not logged, so generation tokens/sec and t_generating are not derivable.",
+    "Usage objects do not expose thinking-token subtotals for this run; output tokens include any billed thinking.",
+    "The 5-minute gap cap reports near-zero idle because subagent and main-session events were dense; it should not be read as human attention or model-busy time."
+  ]
+}
