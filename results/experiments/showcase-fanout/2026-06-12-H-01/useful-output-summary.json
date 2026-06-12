@@ -1,0 +1,470 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "attempt_dir": "item-01-attempt-1",
+      "item_id": "item-01",
+      "response_chars": 2401,
+      "useful_output_tokens": 600
+    },
+    {
+      "attempt": 2,
+      "attempt_dir": "item-01-attempt-2",
+      "item_id": "item-01",
+      "response_chars": 2169,
+      "useful_output_tokens": 542
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-02-attempt-1",
+      "item_id": "item-02",
+      "response_chars": 1908,
+      "useful_output_tokens": 477
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-03-attempt-1",
+      "item_id": "item-03",
+      "response_chars": 1658,
+      "useful_output_tokens": 414
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-04-attempt-1",
+      "item_id": "item-04",
+      "response_chars": 1446,
+      "useful_output_tokens": 362
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-05-attempt-1",
+      "item_id": "item-05",
+      "response_chars": 1869,
+      "useful_output_tokens": 467
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-06-attempt-1",
+      "item_id": "item-06",
+      "response_chars": 1613,
+      "useful_output_tokens": 403
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-07-attempt-1",
+      "item_id": "item-07",
+      "response_chars": 991,
+      "useful_output_tokens": 248
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-08-attempt-1",
+      "item_id": "item-08",
+      "response_chars": 959,
+      "useful_output_tokens": 240
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-09-attempt-1",
+      "item_id": "item-09",
+      "response_chars": 1491,
+      "useful_output_tokens": 373
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-10-attempt-1",
+      "item_id": "item-10",
+      "response_chars": 915,
+      "useful_output_tokens": 229
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-11-attempt-1",
+      "item_id": "item-11",
+      "response_chars": 939,
+      "useful_output_tokens": 235
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-12-attempt-1",
+      "item_id": "item-12",
+      "response_chars": 911,
+      "useful_output_tokens": 228
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-13-attempt-1",
+      "item_id": "item-13",
+      "response_chars": 868,
+      "useful_output_tokens": 217
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-14-attempt-1",
+      "item_id": "item-14",
+      "response_chars": 1463,
+      "useful_output_tokens": 366
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-15-attempt-1",
+      "item_id": "item-15",
+      "response_chars": 605,
+      "useful_output_tokens": 151
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-16-attempt-1",
+      "item_id": "item-16",
+      "response_chars": 969,
+      "useful_output_tokens": 242
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-17-attempt-1",
+      "item_id": "item-17",
+      "response_chars": 818,
+      "useful_output_tokens": 204
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-18-attempt-1",
+      "item_id": "item-18",
+      "response_chars": 960,
+      "useful_output_tokens": 240
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-19-attempt-1",
+      "item_id": "item-19",
+      "response_chars": 900,
+      "useful_output_tokens": 225
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-20-attempt-1",
+      "item_id": "item-20",
+      "response_chars": 884,
+      "useful_output_tokens": 221
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-21-attempt-1",
+      "item_id": "item-21",
+      "response_chars": 704,
+      "useful_output_tokens": 176
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-22-attempt-1",
+      "item_id": "item-22",
+      "response_chars": 632,
+      "useful_output_tokens": 158
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-23-attempt-1",
+      "item_id": "item-23",
+      "response_chars": 1228,
+      "useful_output_tokens": 307
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-24-attempt-1",
+      "item_id": "item-24",
+      "response_chars": 834,
+      "useful_output_tokens": 208
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-25-attempt-1",
+      "item_id": "item-25",
+      "response_chars": 797,
+      "useful_output_tokens": 199
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-26-attempt-1",
+      "item_id": "item-26",
+      "response_chars": 748,
+      "useful_output_tokens": 187
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-27-attempt-1",
+      "item_id": "item-27",
+      "response_chars": 923,
+      "useful_output_tokens": 231
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-28-attempt-1",
+      "item_id": "item-28",
+      "response_chars": 1131,
+      "useful_output_tokens": 283
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-29-attempt-1",
+      "item_id": "item-29",
+      "response_chars": 667,
+      "useful_output_tokens": 167
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-30-attempt-1",
+      "item_id": "item-30",
+      "response_chars": 950,
+      "useful_output_tokens": 238
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-31-attempt-1",
+      "item_id": "item-31",
+      "response_chars": 853,
+      "useful_output_tokens": 213
+    },
+    {
+      "attempt": 1,
+      "attempt_dir": "item-32-attempt-1",
+      "item_id": "item-32",
+      "response_chars": 649,
+      "useful_output_tokens": 162
+    }
+  ],
+  "attempts_with_response": 33,
+  "billed_output_tokens": 154003,
+  "estimate_note": "No local Claude tokenizer is available; useful_output_tokens are estimated as compact response.json characters / 4.",
+  "items": [
+    {
+      "attempts": 2,
+      "item_id": "item-01",
+      "response_chars": 4570,
+      "status": "passed",
+      "useful_output_tokens": 1142
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-02",
+      "response_chars": 1908,
+      "status": "passed",
+      "useful_output_tokens": 477
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-03",
+      "response_chars": 1658,
+      "status": "passed",
+      "useful_output_tokens": 414
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-04",
+      "response_chars": 1446,
+      "status": "passed",
+      "useful_output_tokens": 362
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-05",
+      "response_chars": 1869,
+      "status": "passed",
+      "useful_output_tokens": 467
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-06",
+      "response_chars": 1613,
+      "status": "passed",
+      "useful_output_tokens": 403
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-07",
+      "response_chars": 991,
+      "status": "passed",
+      "useful_output_tokens": 248
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-08",
+      "response_chars": 959,
+      "status": "passed",
+      "useful_output_tokens": 240
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-09",
+      "response_chars": 1491,
+      "status": "passed",
+      "useful_output_tokens": 373
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-10",
+      "response_chars": 915,
+      "status": "passed",
+      "useful_output_tokens": 229
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-11",
+      "response_chars": 939,
+      "status": "passed",
+      "useful_output_tokens": 235
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-12",
+      "response_chars": 911,
+      "status": "passed",
+      "useful_output_tokens": 228
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-13",
+      "response_chars": 868,
+      "status": "passed",
+      "useful_output_tokens": 217
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-14",
+      "response_chars": 1463,
+      "status": "passed",
+      "useful_output_tokens": 366
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-15",
+      "response_chars": 605,
+      "status": "passed",
+      "useful_output_tokens": 151
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-16",
+      "response_chars": 969,
+      "status": "passed",
+      "useful_output_tokens": 242
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-17",
+      "response_chars": 818,
+      "status": "passed",
+      "useful_output_tokens": 204
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-18",
+      "response_chars": 960,
+      "status": "passed",
+      "useful_output_tokens": 240
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-19",
+      "response_chars": 900,
+      "status": "passed",
+      "useful_output_tokens": 225
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-20",
+      "response_chars": 884,
+      "status": "passed",
+      "useful_output_tokens": 221
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-21",
+      "response_chars": 704,
+      "status": "passed",
+      "useful_output_tokens": 176
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-22",
+      "response_chars": 632,
+      "status": "passed",
+      "useful_output_tokens": 158
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-23",
+      "response_chars": 1228,
+      "status": "passed",
+      "useful_output_tokens": 307
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-24",
+      "response_chars": 834,
+      "status": "passed",
+      "useful_output_tokens": 208
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-25",
+      "response_chars": 797,
+      "status": "passed",
+      "useful_output_tokens": 199
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-26",
+      "response_chars": 748,
+      "status": "passed",
+      "useful_output_tokens": 187
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-27",
+      "response_chars": 923,
+      "status": "passed",
+      "useful_output_tokens": 231
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-28",
+      "response_chars": 1131,
+      "status": "passed",
+      "useful_output_tokens": 283
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-29",
+      "response_chars": 667,
+      "status": "passed",
+      "useful_output_tokens": 167
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-30",
+      "response_chars": 950,
+      "status": "passed",
+      "useful_output_tokens": 238
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-31",
+      "response_chars": 853,
+      "status": "passed",
+      "useful_output_tokens": 213
+    },
+    {
+      "attempts": 1,
+      "item_id": "item-32",
+      "response_chars": 649,
+      "status": "passed",
+      "useful_output_tokens": 162
+    }
+  ],
+  "items_with_response": 32,
+  "method": "compact_response_json_chars_div_4",
+  "response_chars": 36853,
+  "run_id": "2026-06-12-H-01",
+  "schema": "showcase-fanout.useful-output-summary.v1",
+  "useful_output_tokens": 9213
+}
