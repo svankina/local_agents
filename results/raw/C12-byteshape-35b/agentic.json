@@ -1,0 +1,47 @@
+{
+  "config": "C12-byteshape-35b",
+  "suite": "agentic",
+  "temps": {
+    "0.2": {
+      "passed": 5,
+      "of": 5,
+      "tasks": [
+        {
+          "id": "fix-test",
+          "passed": true,
+          "turns": 7,
+          "wall_s": 6.1,
+          "check_out": ""
+        },
+        {
+          "id": "bulk-rename",
+          "passed": true,
+          "turns": 8,
+          "wall_s": 8.7,
+          "check_out": ""
+        },
+        {
+          "id": "csv-script",
+          "passed": true,
+          "turns": 6,
+          "wall_s": 5.3,
+          "check_out": ""
+        },
+        {
+          "id": "code-qa",
+          "passed": true,
+          "turns": 6,
+          "wall_s": 5.4,
+          "check_out": ""
+        },
+        {
+          "id": "add-flag",
+          "passed": true,
+          "turns": 11,
+          "wall_s": 9.8,
+          "check_out": ""
+        }
+      ]
+    }
+  }
+}
