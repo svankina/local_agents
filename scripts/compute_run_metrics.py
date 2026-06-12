@@ -319,17 +319,17 @@ def compute(run_dir: Path) -> dict[str, Any]:
             if ev.get("type") == "result" and isinstance(ev.get("duration_ms"), (int, float)):
                 wall = ev["duration_ms"] / 1000.0
                 wall_source = f"claude stream result event ({stream_path.name})"
+    if wall is None and isinstance(telemetry["wall_clock_seconds"], (int, float)):
+        wall = telemetry["wall_clock_seconds"]
+        wall_source = "telemetry span (FALLBACK — includes sampler setup/teardown padding)"
     if wall is None:
         times = [r.get("start_ts") for r in req_metrics["per_request"]] + [r.get("end_ts") for r in req_metrics["per_request"]]
         nums = [float(t) for t in times if isinstance(t, (int, float))]
         if len(nums) >= 2:
             wall = max(nums) - min(nums)
-            wall_source = "transcript request timestamps"
+            wall_source = "transcript request timestamps (LAST RESORT — misses tool time between requests)"
     if wall is None:
-        wall = telemetry["wall_clock_seconds"]
-        wall_source = "telemetry span (FALLBACK — includes sampler setup/teardown padding)"
-        if not isinstance(wall, (int, float)):
-            wall = null_reason("cannot derive wall-clock from stream, transcript, or telemetry")
+        wall = null_reason("cannot derive wall-clock from stream, telemetry, or transcript")
 
     t_tool_exec = tool_exec_from_events(events)
     accounted = scalar(req_metrics["t_generating"]) + scalar(req_metrics["t_prefill"]) + scalar(req_metrics["t_api_wait"]) + scalar(t_tool_exec)
