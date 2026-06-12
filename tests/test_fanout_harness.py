@@ -12,7 +12,7 @@ FANOUT = ROOT / "scripts" / "fanout"
 if str(FANOUT) not in sys.path:
     sys.path.insert(0, str(FANOUT))
 
-from fanout_common import normalize_docstring_keys  # noqa: E402
+from fanout_common import extract_json_object, normalize_docstring_keys  # noqa: E402
 from insert_docstrings import insert_docstrings  # noqa: E402
 
 
@@ -27,6 +27,11 @@ def test_normalize_docstring_keys_dotted_prefix() -> None:
 def test_normalize_docstring_keys_ambiguous_suffix_errors() -> None:
     with pytest.raises(ValueError, match="ambiguous docstring key"):
         normalize_docstring_keys({"pkg.Foo.bar": "doc"}, ["bar", "Foo.bar"])
+
+
+def test_extract_json_object_accepts_prose_fences_and_direct_map() -> None:
+    text = 'Here is the JSON:\n```json\n{"Foo": "documents Foo"}\n```\nDone.'
+    assert extract_json_object(text) == {"docstrings": {"Foo": "documents Foo"}}
 
 
 def test_item_28_dotted_response_inserts_after_normalization() -> None:
