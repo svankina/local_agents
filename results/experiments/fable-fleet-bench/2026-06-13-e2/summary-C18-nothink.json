@@ -1,0 +1,9 @@
+{
+  "model": "C18-nothink",
+  "n": 60,
+  "strict_pass_rate": 0.4,
+  "lenient_pass_rate": 0.4,
+  "violations": {},
+  "aggregate_tok_s": 737.0,
+  "wall_s": 5.0
+}
