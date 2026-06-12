@@ -1,0 +1,352 @@
+{
+  "config": "C14-cuda-35b",
+  "gpu_contended": false,
+  "vram_loaded": "19583 MiB",
+  "notes": "0.34.865.265 I slot print_timing: id  3 | task 0 | draft acceptance = 0.69484 (  148 accepted /   213 generated)\n0.36.663.462 I slot print_timing: id  3 | task 111 | draft acceptance = 0.75743 (  153 accepted /   202 generated)\n0.38.507.464 I slot print_timing: id  3 | task 215 | draft acceptance = 0.73659 (  151 accepted /   205 generated)\n0.42.474.765 I slot print_timing: id  3 | task 321 | draft acceptance = 0.78283 (  155 accepted /   198 generated)\n0.44.406.845 I slot print_timing: id  3 | task 428 | draft acceptance = 0.70952 (  149 accepted /   210 generated)\n0.46.163.749 I slot print_timing: id  3 | task 536 | draft acceptance = 0.80928 (  157 accepted /   194 generated)\n0.51.490.336 I slot print_timing: id  2 | task 637 | draft acceptance = 0.66820 (  145 accepted /   217 generated)\n0.51.491.421 I slot print_timing: id  3 | task 636 | draft acceptance = 0.65753 (  144 accepted /   219 generated)\n1.00.039.307 I slot print_timing: id  1 | task 752 | draft acceptance = 0.77889 (  155 accepted /   199 generated)\n1.00.279.369 I slot print_timing: id  2 | task 751 | draft acceptance = 0.72947 (  151 accepted /   207 generated)\n1.00.328.162 I slot print_timing: id  3 | task 754 | draft acceptance = 0.74146 (  152 accepted /   205 generated)\n1.00.422.900 I slot print_timing: id  0 | task 753 | draft acceptance = 0.69811 (  148 accepted /   212 generated)\n1.02.318.750 I slot print_timing: id  1 | task 865 | draft acceptance = 0.93103 (   54 accepted /    58 generated)\n1.02.939.708 I slot print_timing: id  1 | task 898 | draft acceptance = 0.93103 (   54 accepted /    58 generated)\n1.03.562.115 I slot print_timing: id  1 | task 930 | draft acceptance = 0.93103 (   54 accepted /    58 generated)\n1.04.365.795 I slot print_timing: id  1 | task 962 | draft acceptance = 0.94872 (   74 accepted /    78 generated)\n1.05.178.355 I slot print_timing: id  1 | task 1004 | draft acceptance = 0.94872 (   74 accepted /    78 generated)\n1.06.039.766 I slot print_timing: id  1 | task 1046 | draft acceptance = 0.89535 (   77 accepted /    86 generated)\n1.06.970.142 I slot print_timing: id  1 | task 1092 | draft acceptance = 0.84146 (   69 accepted /    82 generated)\n1.07.853.173 I slot print_timing: id  1 | task 1136 | draft acceptance = 0.82143 (   69 accepted /    84 generated)\n1.08.780.861 I slot print_timing: id  1 | task 1181 | draft acceptance = 0.81111 (   73 accepted /    90 generated)\n1.09.406.968 I slot print_timing: id  1 | task 1229 | draft acceptance = 0.81250 (   52 accepted /    64 generated)\n1.09.973.404 I slot print_timing: id  1 | task 1264 | draft acceptance = 0.86538 (   45 accepted /    52 generated)\n1.10.541.242 I slot print_timing: id  1 | task 1293 | draft acceptance = 0.80769 (   42 accepted /    52 generated)\n1.11.158.189 I slot print_timing: id  1 | task 1322 | draft acceptance = 0.73438 (   47 accepted /    64 generated)\n1.11.771.809 I slot print_timing: id  1 | task 1357 | draft acceptance = 0.75000 (   45 accepted /    60 generated)\n1.12.439.364 I slot print_timing: id  1 | task 1390 | draft acceptance = 0.73438 (   47 accepted /    64 generated)\n1.15.970.275 I slot print_timing: id  1 | task 1425 | draft acceptance = 0.76675 (  309 accepted /   403 generated)\n1.19.800.565 I slot print_timing: id  1 | task 1630 | draft acceptance = 0.77307 (  310 accepted /   401 generated)\n1.23.624.380 I slot print_timing: id  1 | task 1834 | draft acceptance = 0.74029 (  305 accepted /   412 generated)\n1.24.436.839 I slot print_timing: id  1 | task 2043 | draft acceptance = 0.96875 (   62 accepted /    64 generated)\n1.25.109.479 I slot print_timing: id  1 | task 2078 | draft acceptance = 0.96875 (   62 accepted /    64 generated)\n1.25.779.962 I slot print_timing: id  1 | task 2113 | draft acceptance = 0.95312 (   61 accepted /    64 generated)\n1.26.320.615 I slot print_timing: id  1 | task 2148 | draft acceptance = 0.90000 (   45 accepted /    50 generated)\n1.26.889.079 I slot print_timing: id  1 | task 2176 | draft acceptance = 0.90000 (   45 accepted /    50 generated)\n1.27.428.867 I slot print_timing: id  1 | task 2204 | draft acceptance = 0.90000 (   45 accepted /    50 generated)\n1.28.633.326 I slot print_timing: id  1 | task 2232 | draft acceptance = 0.76515 (  101 accepted /   132 generated)\n1.29.525.988 I slot print_timing: id  1 | task 2301 | draft acceptance = 0.82353 (   84 accepted /   102 generated)\n1.30.740.973 I slot print_timing: id  1 | task 2355 | draft acceptance = 0.81159 (  112 accepted /   138 generated)\n1.31.421.879 I slot print_timing: id  1 | task 2427 | draft acceptance = 0.94595 (   70 accepted /    74 generated)\n1.32.104.746 I slot print_timing: id  1 | task 2467 | draft acceptance = 0.94595 (   70 accepted /    74 generated)\n1.32.817.402 I slot print_timing: id  1 | task 2507 | draft acceptance = 0.94595 (   70 accepted /    74 generated)\n1.33.600.997 I slot print_timing: id  1 | task 2547 | draft acceptance = 0.89286 (   75 accepted /    84 generated)\n1.34.389.453 I slot print_timing: id  1 | task 2592 | draft acceptance = 0.89286 (   75 accepted /    84 generated)\n1.35.171.924 I slot print_timing: id  1 | task 2637 | draft acceptance = 0.91667 (   77 accepted /    84 generated)\n1.36.327.847 I slot print_timing: id  1 | task 2682 | draft acceptance = 0.88636 (  117 accepted /   132 generated)\n1.37.356.941 I slot print_timing: id  1 | task 2751 | draft acceptance = 0.87931 (  102 accepted /   116 generated)\n1.38.087.671 I slot print_timing: id  1 | task 2812 | draft acceptance = 0.97436 (   76 accepted /    78 generated)",
+  "toolcall": {
+    "config": "C14-cuda-35b",
+    "suite": "toolcall",
+    "temps": {
+      "0.2": {
+        "valid_rate": 1.0,
+        "n": 36,
+        "results": [
+          {
+            "id": "simple-read",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "simple-read",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "simple-read",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          }
+        ]
+      }
+    }
+  },
+  "throughput": {
+    "config": "C14-cuda-35b",
+    "suite": "throughput",
+    "single": {
+      "p1k": {
+        "prefill_tps": 134.3,
+        "decode_tps": 143.4,
+        "trials": [
+          {
+            "prefill_tps": 1446.7550092974207,
+            "decode_tps": 142.20128703274239,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "wall_s": 2.515
+          },
+          {
+            "prefill_tps": 134.2597254388615,
+            "decode_tps": 146.91307509151937,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 1.798
+          },
+          {
+            "prefill_tps": 130.72322624922384,
+            "decode_tps": 143.44734221772953,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 1.844
+          }
+        ]
+      },
+      "p8k": {
+        "prefill_tps": 111.3,
+        "decode_tps": 149.5,
+        "trials": [
+          {
+            "prefill_tps": 3307.3039621882454,
+            "decode_tps": 149.52633444952406,
+            "prompt_n": 7292,
+            "predicted_n": 256,
+            "wall_s": 3.967
+          },
+          {
+            "prefill_tps": 111.25636247322893,
+            "decode_tps": 139.73936425139547,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 1.932
+          },
+          {
+            "prefill_tps": 109.31649859255008,
+            "decode_tps": 153.01560280974903,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 1.756
+          }
+        ]
+      }
+    },
+    "concurrent": {
+      "x2": {
+        "per_stream_decode_tps": 59.8,
+        "aggregate_tps": 96.1,
+        "wall_s": 5.3,
+        "trials": [
+          {
+            "prefill_tps": 899.4420321811992,
+            "decode_tps": 59.07241539722508,
+            "prompt_n": 516,
+            "predicted_n": 256,
+            "wall_s": 5.324
+          },
+          {
+            "prefill_tps": 1456.3637922826026,
+            "decode_tps": 60.518806928457785,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "wall_s": 5.323
+          }
+        ]
+      },
+      "x4": {
+        "per_stream_decode_tps": 33.7,
+        "aggregate_tps": 114.6,
+        "wall_s": 8.9,
+        "trials": [
+          {
+            "prefill_tps": 928.0694365534987,
+            "decode_tps": 34.391582015459555,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "wall_s": 8.931
+          },
+          {
+            "prefill_tps": 10.67871225408928,
+            "decode_tps": 33.04641898805927,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 8.547
+          },
+          {
+            "prefill_tps": 11.397505086136645,
+            "decode_tps": 32.063590115095764,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 8.786
+          },
+          {
+            "prefill_tps": 973.721385195283,
+            "decode_tps": 34.8473414200945,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "wall_s": 8.834
+          }
+        ]
+      }
+    }
+  }
+}

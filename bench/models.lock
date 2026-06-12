@@ -7,3 +7,9 @@
 16226547712 nex-agi_Nex-N2-mini-Q3_K_M.gguf
 18605304512 Qwen3.6-35B-A3B-IQ4_XS-4.19bpw.gguf
 16810713312 Qwopus3.6-27B-v2-MTP-Q4_K_M.gguf
+
+docker ghcr.io/ggml-org/llama.cpp:server-cuda@sha256:e502860c8aa147e74e7cf42568fa2a8407c578dd291c1b231f698a55dd83fef6
+docker llama.cpp version: 9592 (ac4cddeb0)
+docker llama.cpp build: built with GNU 14.2.0 for Linux x86_64
+docker image label org.opencontainers.image.version: b9592
+docker image label org.opencontainers.image.revision: ac4cddeb0dbd778f650bf568f6f08344a06abe3a
