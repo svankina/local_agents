@@ -7,6 +7,11 @@
       "fable_supervisor": 569.0,
       "local_fleet": 0,
       "window": 569.0
+    },
+    "max_per_turn_tps_probe": {
+      "median": 70,
+      "max": 90,
+      "method": "5-min instrumented probe (S-02), chars/4 emission over arrival gaps"
     }
   },
   "F-06": {
