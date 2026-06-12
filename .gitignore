@@ -3,3 +3,4 @@ bench/sandbox/work-*/
 __pycache__/
 *.pyc
 .worktrees/
+docs/article/agent.json
