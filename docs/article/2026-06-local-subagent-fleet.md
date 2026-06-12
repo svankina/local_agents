@@ -20,6 +20,20 @@ The fleet arm is Fable 5 making exactly two cloud calls — decompose (91 s), sy
 
 Work phase 23.0× faster, end-to-end 3.2×, cloud cost −74%, throughput 5.0×. Quality identical. The runtime split is the real finding: supervisor bookends 148 s (84%), local fleet 24.7 s (14%), harness 3 s (2%). The fleet did all the work in 14% of the window. The next thing to optimize is the cloud bookends, not the workers.
 
+## The controlled worker swap
+
+Solo-vs-fleet changes two things at once, so we ran the control: same supervisor, same 32 items, same gates — only the worker model swapped. The supervisor's two calls cancel out. What's left is the workers.
+
+| workers | verified | retries | work phase | worker cost | billed output tokens |
+|---|---:|---:|---:|---:|---:|
+| 8× local Qwen3-30B | 32/32 | 7 | **24.7 s** | ~$0 | 8,525 |
+| 8× Fable 5 | 32/32 | 0 | 80.6 s | $6.28 | 21,222 |
+| 8× Haiku 4.5 | 32/32 | 1 | 160.9 s | $1.42 | 154,003 |
+
+Local workers: 3.3× faster than Fable workers, and the $6.28 worker bill drops to electricity. Fable earns its price one way — zero retries. The locals needed 7; all recovered on feedback.
+
+Haiku is the surprise. Slowest of the three, and 154k billed output tokens to write what the locals wrote in 8.5k — CLI worker sessions think before answering, and you pay for every thought. Cheap per token, expensive per docstring.
+
 The harness took five runs to be fair to a real model: 1/32 (rejected a dotted-qualname dialect) -> 12/32 (implicit parameter requirement) -> 30/32 (undisclosed length threshold) -> 31/32 (underscore-variant key crashed the inserter) -> 32/32. Every fix deterministic, regression-tested against the real failed responses. The model was never incoherent. The harness was unfair.
 
 ## Benchmark results
