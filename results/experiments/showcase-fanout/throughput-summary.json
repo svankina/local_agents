@@ -26,5 +26,26 @@
     }
   },
   "ratio_completion_tps": 5.0,
-  "derivation": "completion tokens / dispatch span (fleet) and output tokens / wall (solo); levels per experiment doc Time Accounting rules"
+  "derivation": "completion tokens / dispatch span (fleet) and output tokens / wall (solo); levels per experiment doc Time Accounting rules",
+  "FW-01": {
+    "score": "32/32",
+    "retries": 0,
+    "dispatch_span_s": 80.6,
+    "worker_cloud_cost_usd": 6.28,
+    "supervisor_cloud_cost_usd": 3.39,
+    "billed_output_tokens": 21222
+  },
+  "H-01": {
+    "score": "32/32",
+    "retries": 1,
+    "dispatch_span_s": 160.9,
+    "worker_cloud_cost_usd": 1.42,
+    "billed_output_tokens": 154003,
+    "note": "output incl. CLI session thinking; see H-01-token-audit.md"
+  },
+  "worker_substitution_ratios_supervisor_cancelled": {
+    "local_vs_fable_workers_speed": "3.3x",
+    "local_vs_fable_workers_cost": "100% worker cost eliminated",
+    "quality": "32/32 parity all three arms"
+  }
 }

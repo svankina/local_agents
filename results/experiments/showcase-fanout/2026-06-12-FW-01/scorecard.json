@@ -1,0 +1,597 @@
+{
+  "failed": 0,
+  "items": [
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 24.57898391300114,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-01",
+      "path": "scrapy/http/cookies.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 23.296871790997102,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-02",
+      "path": "scrapy/statscollectors.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 17.828370101000473,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-03",
+      "path": "scrapy/contracts/__init__.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 17.34295697500056,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-04",
+      "path": "scrapy/resolver.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 20.16778976200294,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-05",
+      "path": "scrapy/robotstxt.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 19.262787327003025,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-06",
+      "path": "scrapy/squeues.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 18.145661558999564,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-07",
+      "path": "scrapy/extensions/closespider.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 18.454895550996298,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-08",
+      "path": "scrapy/http/headers.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 21.50370226099767,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-09",
+      "path": "scrapy/pipelines/images.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 15.896754653993412,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-10",
+      "path": "scrapy/utils/log.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 15.894060635997448,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-11",
+      "path": "scrapy/commands/check.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 18.06023546600045,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-12",
+      "path": "scrapy/core/downloader/__init__.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 15.440095587000542,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-13",
+      "path": "scrapy/dupefilters.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 19.926208812998084,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-14",
+      "path": "scrapy/extensions/periodic_log.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 13.985581877001096,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-15",
+      "path": "scrapy/extensions/postprocessing.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 14.670149231002142,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-16",
+      "path": "scrapy/pipelines/__init__.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 14.906337846994575,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-17",
+      "path": "scrapy/commands/fetch.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 19.40221941799973,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-18",
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 18.109113332997367,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-19",
+      "path": "scrapy/downloadermiddlewares/httpcache.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 15.464981930002978,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-20",
+      "path": "scrapy/downloadermiddlewares/stats.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 14.890107405997696,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-21",
+      "path": "scrapy/extensions/corestats.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 13.368561743998725,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-22",
+      "path": "scrapy/http/response/__init__.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 18.761334581999108,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-23",
+      "path": "scrapy/shell.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 13.832745774001523,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-24",
+      "path": "scrapy/utils/_download_handlers.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 22.394212478000554,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-25",
+      "path": "scrapy/commands/genspider.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 14.496536462000222,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-26",
+      "path": "scrapy/commands/shell.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 16.97548244200152,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-27",
+      "path": "scrapy/core/downloader/handlers/__init__.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 17.941723033000017,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-28",
+      "path": "scrapy/core/downloader/handlers/ftp.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 26.489362410000467,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-29",
+      "path": "scrapy/core/http2/agent.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 16.367404055003135,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-30",
+      "path": "scrapy/downloadermiddlewares/offsite.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 14.921257998998044,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-31",
+      "path": "scrapy/extensions/logstats.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 16.62693407000188,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-32",
+      "path": "scrapy/extensions/memusage.py",
+      "status": "passed"
+    }
+  ],
+  "items_total": 32,
+  "passed": 32,
+  "retries": 0,
+  "schema": "showcase-fanout.scorecard.v1",
+  "score": "32/32",
+  "token_totals": {
+    "cache_creation_input_tokens": 223417,
+    "cache_read_input_tokens": 32875,
+    "cloud_cost_usd": 9.672657000000001,
+    "completion_tokens": 21222,
+    "prompt_tokens": 72256,
+    "requests": 32,
+    "supervisor_cloud_cost_usd": 3.3877820000000005,
+    "total_tokens": 93478,
+    "worker_cloud_cost_usd": 6.2848749999999995
+  }
+}
