@@ -1,0 +1,10 @@
+Implement the pinned M1 plan in this fresh workspace. The plan is ./PLAN.md (read it fully first). Work task-by-task in plan order.
+
+Hard rules for this run:
+- Do NOT use subagents or the Task/Agent tool in any form. All work happens in this session.
+- Do NOT read or reference /home/svankina/src/custom_cad or any prior implementation. The plan file is your only specification.
+- Never write outside this workspace directory.
+- After completing each plan task, make a git commit in this workspace with the message "task N: <short title>" — these commits are the timing markers for the run.
+- Run the gates the plan specifies (npm run check, vitest suites) exactly as written; a task is done only when its gate is green.
+- The run is complete when all plan tasks are committed, `npm run check` passes, and `npx vitest run test/integration/m1.test.ts` passes. Then print exactly the line: M1_REPLAY_COMPLETE
+- If you become irrecoverably blocked, print exactly: M1_REPLAY_BLOCKED: <one-line reason>

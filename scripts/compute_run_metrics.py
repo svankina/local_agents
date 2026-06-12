@@ -307,11 +307,29 @@ def compute(run_dir: Path) -> dict[str, Any]:
     responses = response_records(transcript)
     req_metrics = derive_request_metrics(responses, log_metrics)
 
-    wall = telemetry["wall_clock_seconds"]
-    if not isinstance(wall, (int, float)):
+    # Wall-clock priority (protocol: "first agent prompt -> accepted M1 exit"):
+    # 1. the agent run's own boundaries (claude stream result event duration_ms);
+    # 2. transcript request timestamps;
+    # 3. telemetry span, flagged — the sampler deliberately brackets the run with
+    #    setup/teardown, so this overstates the task window.
+    wall = None
+    wall_source = None
+    for stream_path in sorted((run_dir / "logs").glob("claude-stream*.jsonl")) if (run_dir / "logs").exists() else []:
+        for ev in read_jsonl(stream_path):
+            if ev.get("type") == "result" and isinstance(ev.get("duration_ms"), (int, float)):
+                wall = ev["duration_ms"] / 1000.0
+                wall_source = f"claude stream result event ({stream_path.name})"
+    if wall is None:
         times = [r.get("start_ts") for r in req_metrics["per_request"]] + [r.get("end_ts") for r in req_metrics["per_request"]]
         nums = [float(t) for t in times if isinstance(t, (int, float))]
-        wall = max(nums) - min(nums) if len(nums) >= 2 else null_reason("cannot derive wall-clock from telemetry or transcript")
+        if len(nums) >= 2:
+            wall = max(nums) - min(nums)
+            wall_source = "transcript request timestamps"
+    if wall is None:
+        wall = telemetry["wall_clock_seconds"]
+        wall_source = "telemetry span (FALLBACK — includes sampler setup/teardown padding)"
+        if not isinstance(wall, (int, float)):
+            wall = null_reason("cannot derive wall-clock from stream, transcript, or telemetry")
 
     t_tool_exec = tool_exec_from_events(events)
     accounted = scalar(req_metrics["t_generating"]) + scalar(req_metrics["t_prefill"]) + scalar(req_metrics["t_api_wait"]) + scalar(t_tool_exec)
@@ -328,6 +346,7 @@ def compute(run_dir: Path) -> dict[str, Any]:
         "schema": "m1-replay.metrics.v1",
         "run_dir": str(run_dir),
         "wall_clock_seconds": wall,
+        "wall_clock_source": wall_source,
         "time_accounting": {
             "t_generating": req_metrics["t_generating"],
             "t_thinking": null_reason("reasoning-channel timings are not present in OpenAI-compatible transcript"),
