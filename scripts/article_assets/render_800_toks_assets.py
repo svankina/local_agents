@@ -43,6 +43,7 @@ BORDER = "#334155"
 CYAN = "#22d3ee"
 GREEN = "#22c55e"
 YELLOW = "#facc15"
+RED = "#ef4444"
 MUTED = "#94a3b8"
 TEXT = "#e5e7eb"
 DIM = "#64748b"
@@ -110,7 +111,7 @@ def draw_text_lines(
     font: ImageFont.FreeTypeFont = F16,
     max_lines: int | None = None,
 ) -> None:
-    x1, y1, x2, y2 = box
+    x1, y1, _x2, _y2 = box
     line_h = 23
     max_fit = int((y2 - y1 - start_y - 12) / line_h)
     visible = lines[-(max_lines or max_fit) :]
@@ -139,41 +140,47 @@ def draw_meter(
     x1, y1, x2, y2 = box
     cap = max(cap, 1.0)
     tps = min(tps, cap)
-    y = y1 + 60
-    draw.text((x1 + 34, y), f"{tps:05.1f}", font=F42B, fill=GREEN)
-    draw.text((x1 + 260, y + 17), "tok/s", font=F22B, fill=CYAN)
 
-    cx, cy, r = x1 + 238, y1 + 152, 58
-    draw.arc([cx - r, cy - r, cx + r, cy + r], 205, 335, fill=BORDER, width=8)
-    draw.arc([cx - r, cy - r, cx + r, cy + r], 205, 205 + int(130 * (tps / cap)), fill=GREEN, width=8)
-    angle = math.radians(205 + 130 * (tps / cap))
-    nx = cx + math.cos(angle) * (r - 8)
-    ny = cy + math.sin(angle) * (r - 8)
-    draw.line([cx, cy, nx, ny], fill=YELLOW, width=4)
-    draw.ellipse([cx - 5, cy - 5, cx + 5, cy + 5], fill=CYAN)
-    draw.text((cx - 38, cy + 22), f"cap {cap:.0f}", font=F14, fill=MUTED)
+    cx, cy, r = x1 + 160, y1 + 135, 45
+    start, end = 210, 510
+    ratio = max(0, min(tps / cap, 1.0))
+    needle_angle = math.radians(start + (end - start) * ratio)
 
-    bar_x, bar_y = x1 + 34, y1 + 172
-    bar_w, bar_h = x2 - x1 - 68, 28
-    draw.rounded_rectangle([bar_x, bar_y, bar_x + bar_w, bar_y + bar_h], radius=12, fill="#020617", outline=BORDER)
-    fill_w = int(bar_w * (tps / cap))
-    col = GREEN if tps > cap * 0.85 else YELLOW if tps > cap * 0.45 else CYAN
-    draw.rounded_rectangle([bar_x, bar_y, bar_x + fill_w, bar_y + bar_h], radius=12, fill=col)
+    draw.text((x1 + 28, y1 + 38), f"8 STREAMS - MEASURED PEAK {cap:.1f}", font=F14, fill=TEXT)
+    draw.arc([cx - r, cy - r, cx + r, cy + r], start, end, fill=BORDER, width=10)
+    draw.arc([cx - r, cy - r, cx + r, cy + r], start, start + int((end - start) * 0.82), fill=GREEN, width=10)
+    draw.arc([cx - r, cy - r, cx + r, cy + r], start + int((end - start) * 0.82), end, fill=RED, width=10)
+    draw.arc([cx - r + 14, cy - r + 14, cx + r - 14, cy + r - 14], start, start + int((end - start) * ratio), fill=CYAN, width=3)
 
     for frac in [0, 0.25, 0.5, 0.75, 1]:
+        angle = math.radians(start + (end - start) * frac)
+        tick_outer = r - 1
+        tick_inner = r - (12 if frac in [0, 0.5, 1] else 8)
+        ox = cx + math.cos(angle) * tick_outer
+        oy = cy + math.sin(angle) * tick_outer
+        ix = cx + math.cos(angle) * tick_inner
+        iy = cy + math.sin(angle) * tick_inner
+        draw.line([ix, iy, ox, oy], fill=TEXT if frac in [0, 0.5, 1] else DIM, width=2)
         label = f"{cap * frac:.0f}"
-        tx = bar_x + int(bar_w * frac)
-        draw.line([tx, bar_y + 34, tx, bar_y + 42], fill=DIM)
-        draw.text((tx - 14, bar_y + 46), label, font=F14, fill=MUTED)
+        lx = cx + math.cos(angle) * (r - 25)
+        ly = cy + math.sin(angle) * (r - 25)
+        draw.text((lx - 14, ly - 7), label, font=F14, fill=MUTED)
+
+    nx = cx + math.cos(needle_angle) * (r - 16)
+    ny = cy + math.sin(needle_angle) * (r - 16)
+    tail_x = cx - math.cos(needle_angle) * 15
+    tail_y = cy - math.sin(needle_angle) * 15
+    draw.line([tail_x, tail_y, nx, ny], fill=YELLOW, width=5)
+    draw.line([tail_x, tail_y, nx, ny], fill="#fef08a", width=2)
+    draw.ellipse([cx - 10, cy - 10, cx + 10, cy + 10], fill="#020617", outline=CYAN, width=3)
+
+    readout = f"{tps:05.1f}"
+    draw.text((x1 + 63, y1 + 171), readout, font=F34B, fill=GREEN)
+    draw.text((x1 + 189, y1 + 182), "tok/s", font=F18, fill=CYAN)
+    draw.text((x1 + 104, y1 + 206), "MEASURED CAP", font=F14, fill=MUTED)
 
     per = tps / 8
-    draw.text((x1 + 34, y1 + 126), f"8 streams  |  {per:04.1f} tok/s each", font=F15, fill=TEXT)
-    if tps > cap * 0.6:
-        for i in range(12):
-            sx = x1 + 30 + ((frame * 23 + i * 37) % (x2 - x1 - 60))
-            sy = y1 + 40 + ((frame * 11 + i * 17) % 210)
-            draw.point((sx, sy), fill=GREEN)
-            draw.point((sx + 1, sy), fill=CYAN)
+    draw.text((x1 + 100, y1 + 58), f"{per:04.1f} tok/s each", font=F14, fill=MUTED)
 
 
 def ease(t: float) -> float:
