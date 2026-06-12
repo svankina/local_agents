@@ -39,11 +39,24 @@ The Gemma 12B failures are not malformed tool calls; they are mostly the model c
 ## Notes
 
 - C12 and C13 both accepted embedded MTP: their merged `notes` contain `draft acceptance` lines, and raw server logs show `creating MTP draft context` plus `draft-mtp`.
+- C14 CUDA+MTP accepted embedded MTP on the Docker CUDA build: merged `notes` contain `draft acceptance` lines, and the raw server log shows `creating MTP draft context` plus `draft-mtp`.
 - MTP speedup: C2 vs C1 improves p1k decode from 68.9 to 88.1 t/s, a 1.28x gain. C6 vs C5 improves p1k decode from 14.6 to 17.0 t/s, a 1.16x gain.
 - C6 is a mixed-device result. Throughput/toolcall came from the RTX 3090 Ti, but the agentic re-run landed on RX 580+CPU after Vulkan enumeration flipped; `vram_loaded` is wrong at 58 MiB, and the phase-1 NVIDIA value was 3375 MiB. See `results/raw/C6-gemma26b-cmoe-mtp/DEVICE-CAVEAT.md`.
 - The agentic 5-task suite has high run-to-run variance. C1 and C2 use the same weights but scored 3/5 vs 5/5, so treat agentic pass counts as coarse ranking signals.
 - Vulkan multi-slot scaling is weak. C3 x4 aggregate is 74.0 t/s vs 59.2 single-stream decode, only 1.25x, below the 1.5x worker rubric. A fast queue-serial MTP worker such as C2 is likely better than a parallel pool.
 - C8 temp sweep: toolcall was 0.778 at temp 0.2 vs 0.806 at temp 0.7; agentic was 5/5 at temp 0.2 vs 4/5 at temp 0.7.
+
+## C14 CUDA Addendum
+
+C14 uses the official Docker CUDA image `ghcr.io/ggml-org/llama.cpp:server-cuda@sha256:e502860c8aa147e74e7cf42568fa2a8407c578dd291c1b231f698a55dd83fef6`, llama.cpp `version: 9592 (ac4cddeb0)`, against the same byteshape Qwen3.6 35B IQ4_XS GGUF as C12. This is a version-skewed comparison: C12 Vulkan was run on local b9596, while C14 CUDA uses the current Docker image label b9592.
+
+| Config | Backend | MTP | p1k decode t/s | p8k decode t/s | x2 aggregate t/s | x4 aggregate t/s | x4 scaling | x4 per-stream t/s | Toolcall @0.2 | VRAM loaded |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| C12-byteshape-35b | Vulkan b9596 | yes | 127.7 | 127.9 | 9.6 | 91.0 | 0.71x | 31.0 | 1.000 | 19277 MiB |
+| C14-cuda-35b | CUDA Docker b9592 | yes | 143.4 | 149.5 | 96.1 | 114.6 | 0.80x | 33.7 | 1.000 | 19583 MiB |
+| C14-cuda-35b-nospec | CUDA Docker b9592 | no | 138.0 | 132.2 | 131.7 | 174.8 | 1.27x | 54.4 | n/a | 18897 MiB |
+
+MTP ratio on CUDA is 143.4 / 138.0 = 1.04x for single-stream p1k decode. Verdict: CUDA improves single-stream speed over the C12 Vulkan run and the no-spec CUDA control has better x4 aggregate behavior, but neither CUDA result proves a real parallel worker pool by the >=1.5x x4 aggregate rubric. CUDA+MTP reaches only 114.6 aggregate t/s at x4 with 33.7 t/s per stream, while CUDA without MTP reaches 174.8 aggregate t/s at x4 with 54.4 t/s per stream; the control is the better parallel shape, but still short of the worker-pool threshold.
 
 ## Coexistence
 
