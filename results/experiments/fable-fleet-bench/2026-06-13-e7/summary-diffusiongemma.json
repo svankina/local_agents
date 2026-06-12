@@ -1,0 +1,10 @@
+{
+  "model": "diffusiongemma-26B-A4B-it-Q4_K_M",
+  "engine": "llama-diffusion-cli PR#24423, 1 stream, -n 1024, temp 0.2",
+  "n": 30,
+  "strict_pass_rate": 0.0,
+  "lenient_pass_rate": 0.8,
+  "mean_episode_wall_s": 7.14,
+  "suite_wall_s": 214.3,
+  "errors": 0
+}
