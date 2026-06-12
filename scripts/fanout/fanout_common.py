@@ -222,13 +222,29 @@ def normalize_docstring_keys(docstrings: dict[str, str], expected: Iterable[str]
     normalized: dict[str, str] = {}
     source_keys: dict[str, str] = {}
 
+    def deunderscore(qualname: str) -> str:
+        return ".".join(part.lstrip("_") for part in qualname.split("."))
+
     for key, value in docstrings.items():
         if key in expected_set:
             matches = [key]
         else:
             matches = [qualname for qualname in expected_list if key.endswith("." + qualname)]
         if not matches:
-            raise ValueError(f"extra docstrings for: {key}")
+            # Models sometimes drop leading underscores from private names
+            # (F-05 item-01 retry: 'DummyLock.acquire' for '_DummyLock.acquire').
+            # Accept an unambiguous underscore-insensitive match; suffix rule
+            # applies to the de-underscored forms too.
+            key_du = deunderscore(key)
+            matches = [
+                qualname
+                for qualname in expected_list
+                if key_du == deunderscore(qualname) or key_du.endswith("." + deunderscore(qualname))
+            ]
+        if not matches:
+            # Unmatched extras are skipped, not fatal: coverage of the real
+            # targets is enforced by the missing-check below and the verifier.
+            continue
         if len(matches) > 1:
             raise ValueError(
                 f"ambiguous docstring key {key!r} matches: {', '.join(sorted(matches))}"

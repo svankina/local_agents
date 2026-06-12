@@ -333,3 +333,24 @@ def _verify_response_against_source(
     modified_path = tmp_path / "modified.py"
     modified_path.write_text(insert_docstrings(source, item, response), encoding="utf-8")
     return verify(corpus, item, modified_path)
+
+
+def test_normalize_underscore_variant_and_extras():
+    """F-05 item-01 retry: model dropped the leading underscore of a private
+    class ('DummyLock.acquire' for '_DummyLock.acquire') and the unmatched key
+    crashed insertion. Underscore-insensitive unambiguous matching maps it;
+    genuinely unknown extras are skipped, and missing targets still raise."""
+    import sys, pathlib
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent / "scripts" / "fanout"))
+    import pytest
+    from fanout_common import normalize_docstring_keys
+
+    got = normalize_docstring_keys(
+        {"DummyLock.acquire": "Acquires the dummy lock, a no-op placeholder.",
+         "TotallyUnknown.extra": "ignored"},
+        ["_DummyLock.acquire"],
+    )
+    assert got == {"_DummyLock.acquire": "Acquires the dummy lock, a no-op placeholder."}
+
+    with pytest.raises(ValueError, match="missing docstrings"):
+        normalize_docstring_keys({"TotallyUnknown.extra": "x"}, ["RealTarget"])
