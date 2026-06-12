@@ -36,15 +36,22 @@ with a single JSON object and nothing else:
 {"docstrings": {"<qualname>": "<docstring text>", ...}}
 Rules: one entry per target, no extra keys. Docstrings must be plain text
 (no surrounding quotes), accurate to the code, and for every function or
-method must mention each named parameter (excluding self and cls). Do not
-restate the code. Do not include reasoning."""
+method every parameter name, excluding self and cls, must appear verbatim in
+that target's docstring. Copy keys exactly as given in the required keys list.
+Do not restate the code. Do not include reasoning."""
 
 
 def prompt_for(item: dict[str, Any], source: str, feedback: str | None = None) -> str:
+    required_keys = "\n".join(f"- {target}" for target in item["targets"])
     text = "\n".join(
         [
             f"File: {item['path']}",
             f"Targets ({len(item['targets'])}): {', '.join(item['targets'])}",
+            "",
+            "EXACT required keys list. Copy these keys exactly as given:",
+            required_keys,
+            "",
+            "Every function or method docstring must include each of that target's parameter names verbatim.",
             "",
             "<file>",
             source,

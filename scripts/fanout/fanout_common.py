@@ -8,7 +8,6 @@ import copy
 import hashlib
 import json
 import pathlib
-import re
 import subprocess
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -170,24 +169,51 @@ def extract_json_object(text: str) -> dict[str, Any]:
     try:
         parsed = json.loads(text)
     except json.JSONDecodeError:
-        match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
-        if not match:
-            start = text.find("{")
-            end = text.rfind("}")
-            if start == -1 or end <= start:
-                raise
-            parsed = json.loads(text[start : end + 1])
-        else:
-            parsed = json.loads(match.group(1))
+        parsed = json.loads(first_balanced_json_object(text))
     if not isinstance(parsed, dict):
         raise ValueError("assistant response is not a JSON object")
     docstrings = parsed.get("docstrings")
+    if (
+        docstrings is None
+        and parsed
+        and all(isinstance(key, str) and isinstance(value, str) for key, value in parsed.items())
+    ):
+        docstrings = parsed
     if not isinstance(docstrings, dict):
         raise ValueError("assistant response missing docstrings object")
     for key, value in docstrings.items():
         if not isinstance(key, str) or not isinstance(value, str):
             raise ValueError("docstrings must map strings to strings")
     return {"docstrings": docstrings}
+
+
+def first_balanced_json_object(text: str) -> str:
+    start = text.find("{")
+    if start == -1:
+        raise json.JSONDecodeError("no JSON object found", text, 0)
+
+    depth = 0
+    in_string = False
+    escaped = False
+    for index in range(start, len(text)):
+        char = text[index]
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            continue
+        if char == '"':
+            in_string = True
+        elif char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start : index + 1]
+    raise json.JSONDecodeError("unterminated JSON object", text, start)
 
 
 def normalize_docstring_keys(docstrings: dict[str, str], expected: Iterable[str]) -> dict[str, str]:
