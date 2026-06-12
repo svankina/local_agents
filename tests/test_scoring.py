@@ -3,7 +3,7 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "bench"))
-from common import parse_timings, score_toolcall
+from common import lenient_toolcall_ok, parse_timings, score_toolcall
 
 
 def test_score_exact_match():
@@ -17,6 +17,31 @@ def test_score_wrong_tool():
     call = {"name": "run_bash", "arguments": "{}"}
     ok, why = score_toolcall(case, [call])
     assert not ok and "tool" in why
+
+
+def test_lenient_toolcall_forgives_list_dir_wrong_tool():
+    case = {"expect_tool": "read_file", "expect_args": {}}
+    call = {"name": "list_dir", "arguments": "{}"}
+    ok, why = score_toolcall(case, [call])
+    assert not ok
+    assert why == "wrong tool: list_dir"
+    assert lenient_toolcall_ok(ok, why)
+
+
+def test_lenient_toolcall_does_not_forgive_no_call():
+    ok, why = score_toolcall({"expect_tool": "read_file", "expect_args": {}}, [])
+    assert not ok
+    assert why == "no tool call made"
+    assert not lenient_toolcall_ok(ok, why)
+
+
+def test_lenient_toolcall_does_not_forgive_wrong_arg():
+    case = {"expect_tool": "read_file", "expect_args": {"path": {"eq": "src/main.py"}}}
+    call = {"name": "read_file", "arguments": json.dumps({"path": "src/lib.py"})}
+    ok, why = score_toolcall(case, [call])
+    assert not ok
+    assert why.startswith("arg path:")
+    assert not lenient_toolcall_ok(ok, why)
 
 
 def test_score_regex_arg():
@@ -53,4 +78,5 @@ def test_parse_timings():
         "decode_tps": 41.7,
         "prompt_n": 1000,
         "predicted_n": 256,
+        "timing_source": "server_timings",
     }
