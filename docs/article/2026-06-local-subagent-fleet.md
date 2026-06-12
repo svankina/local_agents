@@ -1,6 +1,6 @@
 # [N×] faster, [K%] fewer cloud tokens: running Claude Code with local subagents (byteshape Qwen3.6-35B-A3B on a $700 used GPU) instead of Fable 5 doing everything itself
 
-*[N×] and [K%] are placeholders — they land when the M1 replay experiment at the bottom finishes. Every other number in this post is already measured and committed with raw logs.*
+*[N×] and [K%] are placeholders — they land when the "Box I Can Orbit" replay experiment at the bottom finishes. Every other number in this post is already measured and committed with raw logs.*
 
 The bet: keep Claude Fable 5 as the senior — it plans, reviews, merges — and push the grunt work (search, edits, test loops) to a local model on a used RTX 3090 Ti (~$700, 24 GB). The winner of the benchmark campaign below is byteshape's Qwen3.6-35B-A3B IQ4_XS quant: **100% toolcall, 5/5 agentic, 127–143 tok/s decode**. The baseline it has to beat is Fable 5 doing everything itself.
 
@@ -49,7 +49,7 @@ vLLM posted the best parallel scaling and scored zero on quality — because it 
 
 ## The experiment that fills in the headline
 
-We replay M1, a real CAD-engine milestone — B-rep kernel → tessellation → three.js viewport, with a hard test gate. Three arms, N≥3 runs each: Fable 5 solo, Fable 5 + cloud subagents, Fable 5 + local subagents. Measured: wall-clock, cloud tokens/$, local tokens, repair loops, GPU watt-hours per task.
+We replay **"A Box I Can Orbit"**: building a small CAD engine from scratch — B-rep kernel → tessellation → three.js viewport — until a shaded box orbits at 60 fps behind a hard test gate. It's a real milestone we already shipped once, so the plan is pinned and the acceptance criteria are non-negotiable. Three arms, N≥3 runs each: Fable 5 solo, Fable 5 + cloud subagents, Fable 5 + local subagents. Measured: wall-clock, cloud tokens/$, local tokens, repair loops, GPU watt-hours per task.
 
 | | wall-clock | cloud $ | repair loops |
 |---|---:|---:|---:|
