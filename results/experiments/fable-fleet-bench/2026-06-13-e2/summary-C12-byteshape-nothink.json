@@ -1,0 +1,11 @@
+{
+  "model": "C12-byteshape-nothink",
+  "n": 30,
+  "strict_pass_rate": 0.667,
+  "lenient_pass_rate": 0.667,
+  "violations": {
+    "no-def": 9
+  },
+  "aggregate_tok_s": 108.9,
+  "wall_s": 611.1
+}

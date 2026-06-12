@@ -1,0 +1,9 @@
+{
+  "model": "C1-gemma12b-nothink",
+  "n": 30,
+  "strict_pass_rate": 1.0,
+  "lenient_pass_rate": 1.0,
+  "violations": {},
+  "aggregate_tok_s": 148.6,
+  "wall_s": 21.6
+}

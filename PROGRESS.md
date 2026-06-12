@@ -13,7 +13,28 @@ server swap per additional model for E2.
 | E3 | fix-message informativeness (quote-the-failure vs "wrong, try again") vs repair rate | running (retargeted: thinking-off, medium, 6 seeds) |
 | E4 | temperature (0.0/0.2/0.6/1.0) vs single-shot error rate | DONE 3m — null effect |
 | E5 | thinking on/off vs error rate + speed | DONE 1m12s — headline result |
-| E2 | model speed vs error rate: C18(think/nothink) → C12 → C1, tok/s vs error | running: C18 both done (88%/98.6s vs 40%/5.0s); C12 in flight ~26s/ep (thinking at llama.cpp speed, ~25min total — over budget, accepted: headline data; C1 next) |
+| E2 | model speed vs error rate | DONE — table below |
+| E6 | compression-dictionary opcode protocol (user thought experiment) | running on C12 |
+
+## E2 final table (single-shot, medium plan, temp 0.2)
+
+| model | mode | pass | suite wall | agg tok/s |
+|---|---|---|---|---|
+| C18 30B vLLM x16 | thinking | 0.883 | 98.6s | 924 |
+| C18 30B vLLM x16 | no-think | 0.40 | 5.0s | 737 |
+| C12 35B llama x4 | thinking | 0.667 | 590s | 113 |
+| C12 35B llama x4 | "no-think" (flag ignored) | 0.667 | 611s | 109 |
+| C1 gemma12B llama x4 | reasoning | 0.733 | 295s | 170 |
+| C1 gemma12B llama x4 | no-reasoning | 1.000 | 21.6s | 149 |
+
+Unifying finding: nearly every failure across all models is reasoning-budget
+overflow (finish=length at 3072), not capability. Gemma-12B with reasoning off is
+a PERFECT 30/30 at 13.7x speed — best capability-per-wall-clock of the session.
+C12 byteshape: 8/9 failures truncation; true logic capability ~96%, but llama.cpp
+--reasoning-budget 0 does NOT disable its template's thinking (verified by probe;
+reasoning_content still streams). C18 inverts: no-think drops it to 40% — the MoE
+needs thinking here, dense gemma doesn't.
+
 
 ## E4 finding: temperature is a null knob
 

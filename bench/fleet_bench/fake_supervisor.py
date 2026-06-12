@@ -36,7 +36,7 @@ _tok_lock = threading.Lock()
 _tok_cache: dict[str, int] = {}
 
 
-def _post(path: str, payload: dict, timeout: int = 300) -> dict:
+def _post(path: str, payload: dict, timeout: int = 900) -> dict:
     req = urllib.request.Request(
         BASE.rstrip("/v1") + path if path.startswith("/tokenize") else BASE + path,
         data=json.dumps(payload).encode(),
