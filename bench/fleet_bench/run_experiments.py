@@ -44,11 +44,12 @@ def e3_fix_informativeness(run_dir: pathlib.Path) -> None:
         f"Your {item['fn_name']} is wrong. Fix it. Output only the corrected "
         "function definition, no fences, no explanation."
     )
+    fs.THINKING = False  # abundant clean logic failures, fast episodes
     eps = []
     for fix_name, fix_fn in (("informative", fs.fix_message), ("minimal", minimal_fix)):
         for it in ITEMS:
-            for s in SEEDS:
-                eps.append({"item": it, "style": "terse", "temperature": 0.6,
+            for s in (*SEEDS, 44, 55, 66):  # 6 seeds: more r0 failures to repair
+                eps.append({"item": it, "style": "medium", "temperature": 0.2,
                             "seed": s, "_fix": (fix_name, fix_fn)})
     # run with per-episode fix function
     orig = fs.fix_message

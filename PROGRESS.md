@@ -10,10 +10,29 @@ server swap per additional model for E2.
 | id | question | status |
 |---|---|---|
 | E1 | plan terseness (terse/medium/detailed) vs first-pass rate, fix rounds, supervisor tokens/completed | DONE 4m15s |
-| E3 | fix-message informativeness (quote-the-failure vs "wrong, try again") vs repair rate | pending |
-| E4 | temperature (0.0/0.2/0.6/1.0) vs single-shot error rate | running |
-| E5 | thinking on/off vs error rate + speed (the big single-model speed lever) | planned |
-| E2 | model speed vs error rate: same suite per model (C18 → C12 → C1 [→ C11]), tok/s vs strict/lenient error | pending |
+| E3 | fix-message informativeness (quote-the-failure vs "wrong, try again") vs repair rate | running (retargeted: thinking-off, medium, 6 seeds) |
+| E4 | temperature (0.0/0.2/0.6/1.0) vs single-shot error rate | DONE 3m — null effect |
+| E5 | thinking on/off vs error rate + speed | DONE 1m12s — headline result |
+| E2 | model speed vs error rate: C18(think/nothink) → C12 → C1, tok/s vs error | pending (server swaps) |
+
+## E4 finding: temperature is a null knob
+
+90–93% first-pass flat across temp 0.0/0.2/0.6/1.0. Every failure at every temp is
+the SAME pathology: finish=length at 3072 — qwen3 overthinking camel-to-snake
+(and one gcd). Temperature doesn't matter for this workload; thinking budget does.
+
+## E5 finding (headline): thinking-off + fix loop = 14x throughput, everything still completes
+
+| | first-pass | completed | sup tok/task | worker tok/ep | tasks/min |
+|---|---|---|---|---|---|
+| thinking-on | 0.90 | 30/30 | 69.6 | 1753 | 26.5 |
+| thinking-off | 0.43 | 30/30 | 91.4 | 127 | 381.2 |
+
+Thinking-off halves first-pass but the scripted fix loop recovers ALL of it; zero
+format violations, zero truncations (failures are pure logic). Net: 14x tasks/min
+and 14x fewer worker tokens for a 31% supervisor-token premium. If wall-clock is
+the scarce resource, thinking-off + supervision wins big; if supervisor tokens are
+scarce, thinking-on is still slightly cheaper per task.
 
 ## E1 finding (C18, temp 0.2, n=30/style)
 
