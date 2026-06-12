@@ -1,0 +1,682 @@
+{
+  "failed": 2,
+  "items": [
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": "parameter_mention",
+          "passed": false,
+          "reason": "CookieJar.extract_cookies missing parameter mention(s): request",
+          "timed_out": false,
+          "wall_s": 10.200899244999164,
+          "worker_rc": 0
+        },
+        {
+          "attempt": 2,
+          "failed_check": "non_placeholder",
+          "passed": false,
+          "reason": "CookieJar.set_cookie docstring is too short or placeholder-like",
+          "timed_out": false,
+          "wall_s": 5.284684760001255,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 2,
+      "failure_reason": "CookieJar.set_cookie docstring is too short or placeholder-like",
+      "id": "item-01",
+      "path": "scrapy/http/cookies.py",
+      "status": "failed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 13.372490065994498,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-02",
+      "path": "scrapy/statscollectors.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 8.001171204996353,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-03",
+      "path": "scrapy/contracts/__init__.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": "non_placeholder",
+          "passed": false,
+          "reason": "CachingHostnameResolver.from_crawler docstring is too short or placeholder-like",
+          "timed_out": false,
+          "wall_s": 5.851775256996916,
+          "worker_rc": 0
+        },
+        {
+          "attempt": 2,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 3.8264793309936067,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 2,
+      "failure_reason": null,
+      "id": "item-04",
+      "path": "scrapy/resolver.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 12.714394063004875,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-05",
+      "path": "scrapy/robotstxt.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 8.387147913999797,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-06",
+      "path": "scrapy/squeues.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": "non_placeholder",
+          "passed": false,
+          "reason": "CloseSpider.from_crawler docstring is too short or placeholder-like",
+          "timed_out": false,
+          "wall_s": 5.461588931000733,
+          "worker_rc": 0
+        },
+        {
+          "attempt": 2,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 4.24543933699897,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 2,
+      "failure_reason": null,
+      "id": "item-07",
+      "path": "scrapy/extensions/closespider.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 7.572100312994735,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-08",
+      "path": "scrapy/http/headers.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 6.108678955999494,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-09",
+      "path": "scrapy/pipelines/images.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": "non_placeholder",
+          "passed": false,
+          "reason": "StreamLogger.flush docstring is too short or placeholder-like",
+          "timed_out": false,
+          "wall_s": 3.573200357001042,
+          "worker_rc": 0
+        },
+        {
+          "attempt": 2,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 4.22448132399586,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 2,
+      "failure_reason": null,
+      "id": "item-10",
+      "path": "scrapy/utils/log.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 2.7883969679969596,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-11",
+      "path": "scrapy/commands/check.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 2.9945916299984674,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-12",
+      "path": "scrapy/core/downloader/__init__.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 4.985639546997845,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-13",
+      "path": "scrapy/dupefilters.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": "non_placeholder",
+          "passed": false,
+          "reason": "PeriodicLog.log docstring is too short or placeholder-like",
+          "timed_out": false,
+          "wall_s": 2.154383653003606,
+          "worker_rc": 0
+        },
+        {
+          "attempt": 2,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 3.0145940980000887,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 2,
+      "failure_reason": null,
+      "id": "item-14",
+      "path": "scrapy/extensions/periodic_log.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": "non_placeholder",
+          "passed": false,
+          "reason": "Bz2Plugin.close docstring is too short or placeholder-like",
+          "timed_out": false,
+          "wall_s": 3.5735887050032034,
+          "worker_rc": 0
+        },
+        {
+          "attempt": 2,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 3.254981983001926,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 2,
+      "failure_reason": null,
+      "id": "item-15",
+      "path": "scrapy/extensions/postprocessing.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 4.0969991570018465,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-16",
+      "path": "scrapy/pipelines/__init__.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 3.0715114580016234,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-17",
+      "path": "scrapy/commands/fetch.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": "parameter_mention",
+          "passed": false,
+          "reason": "_ScrapyClientContextFactory.from_crawler missing parameter mention(s): method, args, kwargs",
+          "timed_out": false,
+          "wall_s": 4.276372758999059,
+          "worker_rc": 0
+        },
+        {
+          "attempt": 2,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 2.676340733996767,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 2,
+      "failure_reason": null,
+      "id": "item-18",
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 3.5543335580005078,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-19",
+      "path": "scrapy/downloadermiddlewares/httpcache.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 3.484218846002477,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-20",
+      "path": "scrapy/downloadermiddlewares/stats.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 3.6085446889992454,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-21",
+      "path": "scrapy/extensions/corestats.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 3.2089203330033342,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-22",
+      "path": "scrapy/http/response/__init__.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 3.4410617039975477,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-23",
+      "path": "scrapy/shell.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": "non_placeholder",
+          "passed": false,
+          "reason": "NullCookieJar.set_cookie docstring is too short or placeholder-like",
+          "timed_out": false,
+          "wall_s": 2.8484493650030345,
+          "worker_rc": 0
+        },
+        {
+          "attempt": 2,
+          "failed_check": "non_placeholder",
+          "passed": false,
+          "reason": "NullCookieJar.set_cookie docstring is too short or placeholder-like",
+          "timed_out": false,
+          "wall_s": 1.6309456989984028,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 2,
+      "failure_reason": "NullCookieJar.set_cookie docstring is too short or placeholder-like",
+      "id": "item-24",
+      "path": "scrapy/utils/_download_handlers.py",
+      "status": "failed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 2.4794026959934854,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-25",
+      "path": "scrapy/commands/genspider.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": "non_placeholder",
+          "passed": false,
+          "reason": "Command docstring is too short or placeholder-like",
+          "timed_out": false,
+          "wall_s": 2.5711775939998915,
+          "worker_rc": 0
+        },
+        {
+          "attempt": 2,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 1.9186496370020905,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 2,
+      "failure_reason": null,
+      "id": "item-26",
+      "path": "scrapy/commands/shell.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 1.8504476789967157,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-27",
+      "path": "scrapy/core/downloader/handlers/__init__.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": "non_placeholder",
+          "passed": false,
+          "reason": "FTPDownloadHandler.download_request docstring is too short or placeholder-like",
+          "timed_out": false,
+          "wall_s": 5.778922243000125,
+          "worker_rc": 0
+        },
+        {
+          "attempt": 2,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 1.705986920002033,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 2,
+      "failure_reason": null,
+      "id": "item-28",
+      "path": "scrapy/core/downloader/handlers/ftp.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 2.743813686996873,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-29",
+      "path": "scrapy/core/http2/agent.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 2.397952481005632,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-30",
+      "path": "scrapy/downloadermiddlewares/offsite.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 5.004874596001173,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-31",
+      "path": "scrapy/extensions/logstats.py",
+      "status": "passed"
+    },
+    {
+      "attempts": [
+        {
+          "attempt": 1,
+          "failed_check": null,
+          "passed": true,
+          "reason": null,
+          "timed_out": false,
+          "wall_s": 2.582852080995508,
+          "worker_rc": 0
+        }
+      ],
+      "attempts_used": 1,
+      "failure_reason": null,
+      "id": "item-32",
+      "path": "scrapy/extensions/memusage.py",
+      "status": "passed"
+    }
+  ],
+  "items_total": 32,
+  "passed": 30,
+  "retries": 10,
+  "schema": "showcase-fanout.scorecard.v1",
+  "score": "30/32",
+  "token_totals": {
+    "completion_tokens": 9094,
+    "prompt_tokens": 74256,
+    "requests": 42,
+    "total_tokens": 83350
+  }
+}
