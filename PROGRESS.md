@@ -13,7 +13,7 @@ server swap per additional model for E2.
 | E3 | fix-message informativeness (quote-the-failure vs "wrong, try again") vs repair rate | running (retargeted: thinking-off, medium, 6 seeds) |
 | E4 | temperature (0.0/0.2/0.6/1.0) vs single-shot error rate | DONE 3m — null effect |
 | E5 | thinking on/off vs error rate + speed | DONE 1m12s — headline result |
-| E2 | model speed vs error rate: C18(think/nothink) → C12 → C1, tok/s vs error | pending (server swaps) |
+| E2 | model speed vs error rate: C18(think/nothink) → C12 → C1, tok/s vs error | running: C18 both done (88%/98.6s vs 40%/5.0s); C12 in flight ~26s/ep (thinking at llama.cpp speed, ~25min total — over budget, accepted: headline data; C1 next) |
 
 ## E4 finding: temperature is a null knob
 

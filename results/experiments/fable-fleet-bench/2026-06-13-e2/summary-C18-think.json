@@ -1,0 +1,11 @@
+{
+  "model": "C18-think",
+  "n": 60,
+  "strict_pass_rate": 0.883,
+  "lenient_pass_rate": 0.883,
+  "violations": {
+    "no-def": 6
+  },
+  "aggregate_tok_s": 924.4,
+  "wall_s": 98.6
+}

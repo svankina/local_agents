@@ -213,7 +213,10 @@ if __name__ == "__main__":
     ap.add_argument("--label", default=None, help="model label for e2")
     ap.add_argument("--model", default=None, help="override served model name")
     ap.add_argument("--base", default=None, help="override base URL")
+    ap.add_argument("--nothink", action="store_true")
     args = ap.parse_args()
+    if args.nothink:
+        fs.THINKING = False
     if args.model:
         fs.MODEL = args.model
     if args.base:
