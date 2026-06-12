@@ -15,5 +15,5 @@
   "C9-qwen27b-q4": "-m <CACHE>/Qwen3.6-27B-Q4_K_M.gguf -c 32768 --temp 0.2",
   "C10-qwen35b-a3b": "-m <CACHE>/Qwen3.6-35B-A3B-Q4_K_M.gguf -c 32768 --temp 0.2",
   "C11-phi4mini": "-m <CACHE>/phi-4-mini-Q4_K_M.gguf -c 16384 --temp 0.2",
-  "C15-vllm-35b": "--model mattbucci/Qwen3.6-35B-A3B-AWQ --served-model-name C15-vllm-35b --max-model-len 16384 --gpu-memory-utilization 0.90 --max-num-seqs 4 --quantization awq_marlin --language-model-only --enable-auto-tool-choice --tool-call-parser qwen3_coder"
+  "C15-vllm-35b": "--model mattbucci/Qwen3.6-35B-A3B-AWQ --served-model-name C15-vllm-35b --max-model-len 16384 --gpu-memory-utilization 0.92 --max-num-seqs 4 --quantization awq_marlin --language-model-only --enable-auto-tool-choice --tool-call-parser qwen3_coder"
 }
