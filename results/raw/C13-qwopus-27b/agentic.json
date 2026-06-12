@@ -1,0 +1,47 @@
+{
+  "config": "C13-qwopus-27b",
+  "suite": "agentic",
+  "temps": {
+    "0.2": {
+      "passed": 5,
+      "of": 5,
+      "tasks": [
+        {
+          "id": "fix-test",
+          "passed": true,
+          "turns": 8,
+          "wall_s": 13.2,
+          "check_out": ""
+        },
+        {
+          "id": "bulk-rename",
+          "passed": true,
+          "turns": 7,
+          "wall_s": 14.5,
+          "check_out": ""
+        },
+        {
+          "id": "csv-script",
+          "passed": true,
+          "turns": 6,
+          "wall_s": 9.9,
+          "check_out": ""
+        },
+        {
+          "id": "code-qa",
+          "passed": true,
+          "turns": 6,
+          "wall_s": 11.1,
+          "check_out": ""
+        },
+        {
+          "id": "add-flag",
+          "passed": true,
+          "turns": 6,
+          "wall_s": 17.9,
+          "check_out": ""
+        }
+      ]
+    }
+  }
+}
