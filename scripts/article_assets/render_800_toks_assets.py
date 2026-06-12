@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render social assets for docs/article/2026-06-800-toks-3090.md.
+"""Render stylized social assets for docs/article/2026-06-800-toks-3090.md.
 
 Creates:
 - docs/article/assets/fastfetch-3090ti.png
@@ -214,13 +214,14 @@ def render_demo(lines: list[str]) -> None:
             tps = 80 + 728.7 * ease(u)
             tps += 18 * math.sin(f * 0.7)
         else:
-            tps = 808.7 + 6 * math.sin(f * 0.55)
-        tps = max(0, min(818, tps))
+            # Hold at the measured ceiling. Do not animate above the published number.
+            tps = 808.7
+        tps = max(0, min(808.7, tps))
 
         im = Image.new("RGB", (w, h), BG)
         dr = ImageDraw.Draw(im)
         dr.rectangle([0, 0, w, 30], fill="#020617")
-        dr.text((18, 8), "local_agents demo  |  RTX 3090 Ti  |  vLLM x8", font=F15, fill=CYAN)
+        dr.text((18, 8), "stylized replay  |  RTX 3090 Ti  |  vLLM x8", font=F15, fill=CYAN)
         dr.text((w - 268, 8), "Qwen3-30B-A3B GPTQ-Int4", font=F15, fill=MUTED)
 
         draw_pane(dr, left, "0: fanout run", GREEN)
