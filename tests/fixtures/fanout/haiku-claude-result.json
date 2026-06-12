@@ -1,0 +1,17 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "duration_ms": 1234,
+  "duration_api_ms": 1000,
+  "is_error": false,
+  "num_turns": 1,
+  "result": "Here is the JSON:\n{\"docstrings\":{\"Foo.bar\":\"Return value for name after validating name.\"}}\n",
+  "session_id": "00000000-0000-0000-0000-000000000000",
+  "total_cost_usd": 0.00012,
+  "usage": {
+    "input_tokens": 100,
+    "output_tokens": 25,
+    "cache_creation_input_tokens": 10,
+    "cache_read_input_tokens": 5
+  }
+}

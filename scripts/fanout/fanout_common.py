@@ -250,28 +250,46 @@ def normalize_docstring_keys(docstrings: dict[str, str], expected: Iterable[str]
 def write_tokens(out: pathlib.Path, responses: list[dict[str, Any]]) -> None:
     total_prompt = 0
     total_completion = 0
+    total_cache_creation = 0
+    total_cache_read = 0
+    total_cost_usd = 0.0
+    saw_cost = False
     requests = []
     for i, body in enumerate(responses, 1):
         usage = body.get("usage") or {}
-        prompt = usage.get("prompt_tokens") or 0
-        completion = usage.get("completion_tokens") or 0
+        prompt = usage.get("prompt_tokens") or usage.get("input_tokens") or 0
+        completion = usage.get("completion_tokens") or usage.get("output_tokens") or 0
+        cache_creation = usage.get("cache_creation_input_tokens") or 0
+        cache_read = usage.get("cache_read_input_tokens") or 0
+        cost = body.get("total_cost_usd")
         total_prompt += prompt
         total_completion += completion
+        total_cache_creation += cache_creation
+        total_cache_read += cache_read
+        if isinstance(cost, (int, float)):
+            total_cost_usd += float(cost)
+            saw_cost = True
         requests.append(
             {
                 "request_index": i,
                 "prompt_tokens": prompt,
                 "completion_tokens": completion,
+                "cache_creation_input_tokens": cache_creation,
+                "cache_read_input_tokens": cache_read,
+                "total_cost_usd": cost if isinstance(cost, (int, float)) else None,
+                "usage": usage,
                 "client_wall_s": body.get("_client_wall_s"),
                 "timings": body.get("timings") or None,
             }
         )
-    write_json(
-        out / "tokens.json",
-        {
-            "prompt_tokens": total_prompt,
-            "completion_tokens": total_completion,
-            "total_tokens": total_prompt + total_completion,
-            "requests": requests,
-        },
-    )
+    tokens = {
+        "prompt_tokens": total_prompt,
+        "completion_tokens": total_completion,
+        "total_tokens": total_prompt + total_completion,
+        "cache_creation_input_tokens": total_cache_creation,
+        "cache_read_input_tokens": total_cache_read,
+        "requests": requests,
+    }
+    if saw_cost:
+        tokens["total_cost_usd"] = total_cost_usd
+    write_json(out / "tokens.json", tokens)
