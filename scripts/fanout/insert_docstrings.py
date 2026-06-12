@@ -14,7 +14,7 @@ SCRIPT_DIR = pathlib.Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from fanout_common import item_file, parse_source, qualname_targets, read_json  # noqa: E402
+from fanout_common import item_file, normalize_docstring_keys, parse_source, qualname_targets, read_json  # noqa: E402
 
 
 def load_response(path: pathlib.Path) -> dict[str, str]:
@@ -34,15 +34,10 @@ def insert_docstrings(source: str, item: dict[str, Any], docstrings: dict[str, s
     tree = parse_source(source, item["path"])
     targets = qualname_targets(tree)
     wanted = list(item["targets"])
-    missing = sorted(set(wanted) - set(docstrings))
-    extra = sorted(set(docstrings) - set(wanted))
     unknown = sorted(set(wanted) - set(targets))
-    if missing:
-        raise ValueError(f"missing docstrings for: {', '.join(missing)}")
-    if extra:
-        raise ValueError(f"extra docstrings for: {', '.join(extra)}")
     if unknown:
         raise ValueError(f"targets not found without docstrings: {', '.join(unknown)}")
+    docstrings = normalize_docstring_keys(docstrings, wanted)
 
     lines = source.splitlines(keepends=True)
     operations: list[tuple[int, str, str]] = []

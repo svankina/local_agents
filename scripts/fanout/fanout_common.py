@@ -190,6 +190,37 @@ def extract_json_object(text: str) -> dict[str, Any]:
     return {"docstrings": docstrings}
 
 
+def normalize_docstring_keys(docstrings: dict[str, str], expected: Iterable[str]) -> dict[str, str]:
+    expected_list = list(expected)
+    expected_set = set(expected_list)
+    normalized: dict[str, str] = {}
+    source_keys: dict[str, str] = {}
+
+    for key, value in docstrings.items():
+        if key in expected_set:
+            matches = [key]
+        else:
+            matches = [qualname for qualname in expected_list if key.endswith("." + qualname)]
+        if not matches:
+            raise ValueError(f"extra docstrings for: {key}")
+        if len(matches) > 1:
+            raise ValueError(
+                f"ambiguous docstring key {key!r} matches: {', '.join(sorted(matches))}"
+            )
+        qualname = matches[0]
+        if qualname in normalized:
+            raise ValueError(
+                f"ambiguous docstring keys for {qualname}: {source_keys[qualname]!r}, {key!r}"
+            )
+        normalized[qualname] = value
+        source_keys[qualname] = key
+
+    missing = sorted(expected_set - set(normalized))
+    if missing:
+        raise ValueError(f"missing docstrings for: {', '.join(missing)}")
+    return normalized
+
+
 def write_tokens(out: pathlib.Path, responses: list[dict[str, Any]]) -> None:
     total_prompt = 0
     total_completion = 0

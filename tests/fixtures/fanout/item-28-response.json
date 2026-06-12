@@ -1,0 +1,10 @@
+{
+  "docstrings": {
+    "scrapy.core.downloader.handlers.ftp.FTPDownloadHandler": "FTP download handler for Scrapy that handles asynchronous FTP file downloads and emulates an HTTP response.",
+    "scrapy.core.downloader.handlers.ftp.FTPDownloadHandler.download_request": "Downloads a file from an FTP server based on the provided request and returns an HTTP response.",
+    "scrapy.core.downloader.handlers.ftp.ReceivedDataProtocol": "Protocol to handle data received from an FTP server and store it either in memory or a local file.",
+    "scrapy.core.downloader.handlers.ftp.ReceivedDataProtocol.close": "Closes the data storage (file or in-memory buffer) after receiving the complete file.",
+    "scrapy.core.downloader.handlers.ftp.ReceivedDataProtocol.dataReceived": "Handles incoming data chunks from the FTP server and writes them to the storage.",
+    "scrapy.core.downloader.handlers.ftp.ReceivedDataProtocol.filename": "Returns the local filename where the FTP file is stored, if specified."
+  }
+}
