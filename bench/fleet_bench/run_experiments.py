@@ -138,17 +138,17 @@ def e4_temperature(run_dir: pathlib.Path) -> None:
     print(json.dumps(summary, indent=2))
 
 
-def e2_model_suite(run_dir: pathlib.Path, label: str) -> None:
+def e2_model_suite(run_dir: pathlib.Path, label: str, concurrency: int = CONCURRENCY, n_seeds: int = 6) -> None:
     """Speed-vs-error suite for the CURRENTLY SERVED model: single-shot over the
     bank, medium style, recording pass rates and measured aggregate tok/s.
     Run once per model (server swapped externally), results merged later."""
     eps = [
         {"item": it, "style": "medium", "temperature": 0.2, "seed": s, "fix_cap": 0}
         for it in ITEMS
-        for s in SEEDS * 2  # 6 samples per item for tighter error bars
+        for s in ((*SEEDS, 44, 55, 66)[:n_seeds])
     ]
     t0 = time.time()
-    results = fs.run_grid(eps, CONCURRENCY, run_dir / f"episodes-{label}.json")
+    results = fs.run_grid(eps, concurrency, run_dir / f"episodes-{label}.json")
     wall = time.time() - t0
     wtok = sum(r["worker_completion_tokens"] for r in results)
     n = len(results)
@@ -178,7 +178,7 @@ def e5_thinking(run_dir: pathlib.Path) -> None:
             for s in SEEDS
         ]
         t0 = time.time()
-        results = fs.run_grid(eps, CONCURRENCY, run_dir / f"episodes-{label}.json")
+        results = fs.run_grid(eps, concurrency, run_dir / f"episodes-{label}.json")
         wall = time.time() - t0
         n = len(results)
         comp = [r for r in results if r["passed"]]
@@ -200,6 +200,95 @@ def e5_thinking(run_dir: pathlib.Path) -> None:
     print(json.dumps(out, indent=2))
 
 
+
+
+def e6_opcode_protocol(run_dir: pathlib.Path, label: str, concurrency: int = 4) -> None:
+    """The compression-dictionary thought experiment. Arm A: supervisor emits full
+    plan + full fix text (output-priced). Arm B: a cached system-prompt dictionary
+    carries the contract; the supervisor emits opcodes (P <fn>, R); the harness
+    splices the task card. Measures whether quality holds when supervisor output
+    drops ~8x."""
+    import concurrent.futures as cf
+
+    DICT = (
+        "You are a code worker in a supervised fleet. Protocol:\n"
+        "- A message 'P <name>' followed by a task card means: implement the Python "
+        "function <name> specified by the card (signature + docstring).\n"
+        "- Output ONLY the function definition. No markdown fences, no prose, no tests.\n"
+        "- A message 'R' means your previous answer failed verification. Resend a "
+        "corrected function definition, same output rules.\n"
+    )
+    dict_tokens = fs.count_tokens(DICT)
+
+    def card(item):
+        return f"---\n{item['signature']}\n    \"\"\"{item['docstring']}\"\"\"\n---"
+
+    def episode(item, arm, seed):
+        if arm == "fulltext":
+            system = None
+            plan = fs.plan_medium(item)
+            sup = fs.count_tokens(plan)
+            user0 = plan
+        else:
+            system = DICT
+            opcode = f"P {item['fn_name']}"
+            sup = fs.count_tokens(opcode)
+            user0 = f"{opcode}\n{card(item)}"  # card is harness-spliced: 0 sup tokens
+        messages = ([{"role": "system", "content": system}] if system else []) + [
+            {"role": "user", "content": user0}]
+        rounds, passed, wtok = [], False, 0
+        for rnd in range(fs.FIX_CAP + 1):
+            w = fs.call_worker(messages, 0.2, seed + rnd * 1000)
+            wtok += w["usage"].get("completion_tokens", 0)
+            strict, analysis = fs.verify(item, w["text"])
+            rounds.append({"round": rnd, "strict": strict,
+                           "violations": analysis["violations"]})
+            if strict["passed"]:
+                passed = True
+                break
+            if rnd < fs.FIX_CAP:
+                fix = fs.fix_message(item, strict) if arm == "fulltext" else "R"
+                sup += fs.count_tokens(fix)
+                messages.append({"role": "assistant", "content": w["text"]})
+                messages.append({"role": "user", "content": fix})
+        return {"item": item["id"], "arm": arm, "seed": seed, "passed": passed,
+                "rounds_used": len(rounds), "first_pass": rounds[0]["strict"]["passed"],
+                "violations_r0": rounds[0]["violations"], "supervisor_tokens": sup,
+                "worker_completion_tokens": wtok, "rounds": rounds}
+
+    eps = [(it, arm, s) for arm in ("fulltext", "opcode")
+           for it in ITEMS for s in SEEDS]
+    results, t0, done = [], time.time(), 0
+    with cf.ThreadPoolExecutor(max_workers=concurrency) as pool:
+        futs = [pool.submit(episode, *e) for e in eps]
+        for f in cf.as_completed(futs):
+            results.append(f.result())
+            done += 1
+            if done % 10 == 0:
+                print(f"  {done}/{len(eps)}, {time.time()-t0:.0f}s", flush=True)
+    (run_dir / f"episodes-{label}.json").write_text(json.dumps(
+        {"wall_s": round(time.time() - t0, 1), "dict_tokens": dict_tokens,
+         "results": results}, indent=1))
+    summary = {"dict_tokens_cached_input": dict_tokens}
+    for arm in ("fulltext", "opcode"):
+        rs = [r for r in results if r["arm"] == arm]
+        comp = [r for r in rs if r["passed"]]
+        summary[arm] = {
+            "n": len(rs), "completed": len(comp),
+            "first_pass_rate": round(sum(r["first_pass"] for r in rs) / len(rs), 3),
+            "mean_rounds": round(sum(r["rounds_used"] for r in rs) / len(rs), 2),
+            "sup_tokens_per_completed": round(
+                sum(r["supervisor_tokens"] for r in rs) / max(1, len(comp)), 1),
+            "violations_r0": fs._tally(v for r in rs for v in r["violations_r0"]),
+        }
+    a, b = summary["fulltext"], summary["opcode"]
+    if b["completed"]:
+        summary["compression_ratio"] = round(
+            a["sup_tokens_per_completed"] / b["sup_tokens_per_completed"], 1)
+    (run_dir / f"summary-{label}.json").write_text(json.dumps(summary, indent=2))
+    print(json.dumps(summary, indent=2))
+
+
 EXPERIMENTS = {
     "e1": e1_terseness,
     "e3": e3_fix_informativeness,
@@ -209,11 +298,13 @@ EXPERIMENTS = {
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("experiment", choices=[*EXPERIMENTS, "e2"])  # e2 swaps servers externally
+    ap.add_argument("experiment", choices=[*EXPERIMENTS, "e2", "e6"])  # e2 swaps servers externally
     ap.add_argument("--label", default=None, help="model label for e2")
     ap.add_argument("--model", default=None, help="override served model name")
     ap.add_argument("--base", default=None, help="override base URL")
     ap.add_argument("--nothink", action="store_true")
+    ap.add_argument("--concurrency", type=int, default=CONCURRENCY)
+    ap.add_argument("--seeds", type=int, default=6)
     args = ap.parse_args()
     if args.nothink:
         fs.THINKING = False
@@ -225,6 +316,9 @@ if __name__ == "__main__":
     run_dir = OUT / f"{stamp}-{args.experiment}"
     run_dir.mkdir(parents=True, exist_ok=True)
     if args.experiment == "e2":
-        e2_model_suite(run_dir, args.label or fs.MODEL)
+        e2_model_suite(run_dir, args.label or fs.MODEL, args.concurrency, args.seeds)
+    elif args.experiment == "e6":
+        e6_opcode_protocol(run_dir, args.label or fs.MODEL, args.concurrency)
     else:
         EXPERIMENTS[args.experiment](run_dir)
+
