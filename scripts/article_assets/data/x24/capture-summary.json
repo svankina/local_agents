@@ -1,0 +1,13 @@
+{
+  "schema": "local-agents.article-x24-capture.v1",
+  "streams": 24,
+  "max_tokens": 512,
+  "counter_name": "vllm:generation_tokens_total",
+  "metric_samples": 131,
+  "active_seconds": 129,
+  "total_generation_tokens_delta": 86525.0,
+  "sustained_decode_tok_s_active_mean": 670.736,
+  "per_stream_decode_tok_s_active_mean": 27.947,
+  "peak_decode_tok_s": 1247.991,
+  "peak_row_ts": "2026-06-12T21:56:44+05:30"
+}
