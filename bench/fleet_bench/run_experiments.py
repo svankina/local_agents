@@ -164,15 +164,51 @@ def e2_model_suite(run_dir: pathlib.Path, label: str) -> None:
     print(json.dumps(summary, indent=2))
 
 
+def e5_thinking(run_dir: pathlib.Path) -> None:
+    """Thinking on vs off: the biggest single-model speed lever. Same suite,
+    medium style, fix loop ON (supervision cost visible), measuring pass rates,
+    tokens, and effective task throughput."""
+    out = {}
+    for label, thinking in (("thinking-on", True), ("thinking-off", False)):
+        fs.THINKING = thinking
+        eps = [
+            {"item": it, "style": "medium", "temperature": 0.2, "seed": s}
+            for it in ITEMS
+            for s in SEEDS
+        ]
+        t0 = time.time()
+        results = fs.run_grid(eps, CONCURRENCY, run_dir / f"episodes-{label}.json")
+        wall = time.time() - t0
+        n = len(results)
+        comp = [r for r in results if r["passed"]]
+        out[label] = {
+            "n": n,
+            "completed": len(comp),
+            "first_pass_rate": round(sum(r["first_pass"] for r in results) / n, 3),
+            "mean_rounds": round(sum(r["rounds_used"] for r in results) / n, 2),
+            "sup_tokens_per_completed": round(
+                sum(r["supervisor_tokens"] for r in results) / max(1, len(comp)), 1),
+            "worker_tokens_mean": round(
+                sum(r["worker_completion_tokens"] for r in results) / n, 1),
+            "wall_s": round(wall, 1),
+            "tasks_per_min": round(60 * n / wall, 1),
+            "violations_r0": fs._tally(v for r in results for v in r["violations_r0"]),
+        }
+    fs.THINKING = True
+    (run_dir / "summary.json").write_text(json.dumps(out, indent=2))
+    print(json.dumps(out, indent=2))
+
+
 EXPERIMENTS = {
     "e1": e1_terseness,
     "e3": e3_fix_informativeness,
     "e4": e4_temperature,
+    "e5": e5_thinking,
 }
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("experiment", choices=[*EXPERIMENTS, "e2"])
+    ap.add_argument("experiment", choices=[*EXPERIMENTS, "e2"])  # e2 swaps servers externally
     ap.add_argument("--label", default=None, help="model label for e2")
     ap.add_argument("--model", default=None, help="override served model name")
     ap.add_argument("--base", default=None, help="override base URL")

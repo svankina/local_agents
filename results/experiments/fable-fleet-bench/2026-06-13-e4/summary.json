@@ -1,0 +1,50 @@
+{
+  "0.0": {
+    "n": 30,
+    "completed": 28,
+    "first_pass_rate": 0.933,
+    "first_lenient_rate": 0.933,
+    "mean_rounds": 1.0,
+    "sup_tokens_per_completed": 70.9,
+    "worker_tokens_mean": 1577.5,
+    "violations_r0": {
+      "no-def": 2
+    }
+  },
+  "0.2": {
+    "n": 30,
+    "completed": 27,
+    "first_pass_rate": 0.9,
+    "first_lenient_rate": 0.9,
+    "mean_rounds": 1.0,
+    "sup_tokens_per_completed": 73.6,
+    "worker_tokens_mean": 1508.4,
+    "violations_r0": {
+      "no-def": 3
+    }
+  },
+  "0.6": {
+    "n": 30,
+    "completed": 27,
+    "first_pass_rate": 0.9,
+    "first_lenient_rate": 0.9,
+    "mean_rounds": 1.0,
+    "sup_tokens_per_completed": 73.6,
+    "worker_tokens_mean": 1507.8,
+    "violations_r0": {
+      "no-def": 3
+    }
+  },
+  "1.0": {
+    "n": 30,
+    "completed": 27,
+    "first_pass_rate": 0.9,
+    "first_lenient_rate": 0.9,
+    "mean_rounds": 1.0,
+    "sup_tokens_per_completed": 73.6,
+    "worker_tokens_mean": 1409.0,
+    "violations_r0": {
+      "no-def": 3
+    }
+  }
+}
