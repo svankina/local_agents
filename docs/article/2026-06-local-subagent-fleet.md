@@ -2,7 +2,7 @@
 
 Same task, same quality bar — 32/32 machine-verified docstrings in both arms. Fable 5 working alone: 9.5 minutes, $9.22. Fable 5 supervising 8 local workers on one RTX 3090 Ti: 3 minutes, $2.40. Inside the work phase the gap is 23× — the locals wrote all 32 docstrings in 24.7 seconds. Every number ships with raw logs in the repo.
 
-Last post built the engine: [1,184 decode tok/s from one RTX 3090 Ti](2026-06-800-toks-3090.md). This post is what the throughput buys.
+Last post built the engine: [1,248 decode tok/s from one RTX 3090 Ti](2026-06-800-toks-3090.md). This post is what the throughput buys.
 
 The division of labor: Fable 5 keeps the senior chair — planning, review, merges — and the grunt work goes local on the 3090 Ti (24 GB). Two local configs earned seats: byteshape's Qwen3.6-35B-A3B IQ4_XS under llama.cpp for queue-serial agentic work (**100% toolcall, 5/5 agentic, 127–143 tok/s**), and Qwen3-30B-A3B GPTQ under vLLM for parallel fan-out. Baseline: Fable 5 doing everything itself.
 
