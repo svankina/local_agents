@@ -10,14 +10,14 @@ We benchmarked Gemma 4 12B/26B, Qwen3.6-27B/35B, Nex-N2-mini, and Qwopus across 
 
 One GPU, one server at a time, three suites: throughput, 36 tool-call trials, 5 agentic repo-editing tasks.
 
-| Config | decode t/s | x4 agg | toolcall | agentic | VRAM |
+| Config | decode t/s | x4 agg | toolcall strict/lenient† | agentic | VRAM |
 |---|---:|---:|---:|---:|---:|
-| Gemma4 12B (Vulkan) | 68.9 | 30.5 | 0.806 | 3/5 | 8.5 GB |
-| Gemma4 12B + MTP | 88.1 | 29.6 | 0.778 | 5/5 | 8.9 GB |
-| Gemma4 26B A4B | 118.1 | 48.2 | 0.917 | 5/5 | 15.3 GB |
-| 26B A4B `-cmoe` (CPU experts) | 14.6 | 9.5 | 0.917 | 4/5 | **3.0 GB** |
+| Gemma4 12B (Vulkan) | 68.9 | 30.5 | 0.806 / 1.000 | 3/5 | 8.5 GB |
+| Gemma4 12B + MTP | 88.1 | 29.6 | 0.778 / 1.000 | 5/5 | 8.9 GB |
+| Gemma4 26B A4B | 118.1 | 48.2 | 0.917 / 0.944 | 5/5 | 15.3 GB |
+| 26B A4B `-cmoe` (CPU experts) | 14.6 | 9.5 | 0.917 / 0.972 | 4/5 | **3.0 GB** |
 | Qwen3.6-27B Q3 | 43.5 | 48.0 | **1.000** | 5/5 | 15.3 GB |
-| Nex-N2-mini Q3 | 136.6 | 127.2 | 0.778 | 5/5 | 16.3 GB |
+| Nex-N2-mini Q3 | 136.6 | 127.2 | 0.778 / 0.833 | 5/5 | 16.3 GB |
 | **byteshape 35B-A3B (Vulkan)** | **127.7** | 91.0 | **1.000** | **5/5** | 19.3 GB |
 | Qwopus3.6-27B-v2 | 65.7 | 44.2 | **1.000** | 5/5 | 19.7 GB |
 | same weights, CUDA Docker + MTP | **143.4** | 114.6 | **1.000** | — | 19.6 GB |
@@ -25,6 +25,7 @@ One GPU, one server at a time, three suites: throughput, 36 tool-call trials, 5 
 | same, CUDA **bare metal** | 135.7 | 107.4 | **1.000** | — | 19.6 GB |
 | Qwen 35B AWQ, vLLM 0.22.1 | 130.6 | **360.3** | 0.167* | 0/5* | 21.8 GB |
 
+† lenient forgives exactly one failure type — calling `list_dir` before the requested `read_file` (protocol-valid, fixable by prompting). Nothing else: missing calls, wrong arguments, and other wrong tools still fail. Recomputed from the raw trials (`results/toolcall_lenient.json`).
 \* not a model problem — see "vLLM output corruption."
 
 ## Five lessons
@@ -32,7 +33,7 @@ One GPU, one server at a time, three suites: throughput, 36 tool-call trials, 5 
 1. **llama.cpp slot-parallelism barely scales**: 4 streams gives 1.25× (Vulkan) to 1.27× (CUDA) aggregate — one fast queue-serial server beats a slot pool.
 2. **MTP speculative decoding helps solo, hurts batched**: +28% single-stream on Gemma 12B, −34% x4 aggregate on CUDA — turn it off past one stream.
 3. **vLLM continuous batching is the real parallel path**: 2.76× at x4 (360 tok/s aggregate, ~90 per stream) on the same card where llama.cpp managed 1.27×.
-4. **Read the failures, not the score**: Gemma 12B's 0.806 toolcall was entirely the model calling `list_dir` before `read_file` — zero malformed calls, a prompting fix.
+4. **Read the failures, not the score**: Gemma 12B's 0.806 strict toolcall is 1.000 lenient — every miss was the model calling `list_dir` before `read_file`, zero malformed calls. The strict/lenient split in the table separates protocol failures from workflow caution.
 5. **Cache-bust everything**: cached prefill medians read 49.9 tok/s where the true number was 2305 (46× off), and throughput suites can't see output corruption.
 
 Two operational rules. Resolve GPUs by name, never enumeration index — Vulkan flipped device order mid-run and silently re-ran one config on the wrong card. And `--max-num-seqs 4` is the flag that got vLLM to fit in 24 GB after the 32k-context startup OOMed.
