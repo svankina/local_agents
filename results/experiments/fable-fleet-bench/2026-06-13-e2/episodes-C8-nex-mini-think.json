@@ -1,0 +1,1027 @@
+{
+ "wall_s": 53.1,
+ "concurrency": 4,
+ "n_episodes": 30,
+ "results": [
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 73,
+   "worker_completion_tokens": 173,
+   "worker_wall_s": 4.06,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 173,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 73,
+   "worker_completion_tokens": 200,
+   "worker_wall_s": 4.87,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 200,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 73,
+   "worker_completion_tokens": 202,
+   "worker_wall_s": 5.19,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 202,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 230,
+   "worker_wall_s": 6.0,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 230,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 157,
+   "worker_wall_s": 4.12,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 157,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 144,
+   "worker_wall_s": 3.95,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 144,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 74,
+   "worker_completion_tokens": 176,
+   "worker_wall_s": 4.55,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 176,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 78,
+   "worker_completion_tokens": 167,
+   "worker_wall_s": 3.7,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 167,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 78,
+   "worker_completion_tokens": 228,
+   "worker_wall_s": 4.59,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 228,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 74,
+   "worker_completion_tokens": 418,
+   "worker_wall_s": 9.34,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 418,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 78,
+   "worker_completion_tokens": 452,
+   "worker_wall_s": 9.51,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 452,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 69,
+   "worker_completion_tokens": 237,
+   "worker_wall_s": 5.03,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 237,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 74,
+   "worker_completion_tokens": 826,
+   "worker_wall_s": 18.06,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 826,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 69,
+   "worker_completion_tokens": 325,
+   "worker_wall_s": 7.55,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 325,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 69,
+   "worker_completion_tokens": 235,
+   "worker_wall_s": 5.48,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 235,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 299,
+   "worker_wall_s": 6.13,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 299,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 122,
+   "worker_wall_s": 2.58,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 122,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 569,
+   "worker_wall_s": 11.86,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 569,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 558,
+   "worker_wall_s": 11.39,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 558,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 233,
+   "worker_wall_s": 5.35,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 233,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 49,
+   "worker_completion_tokens": 271,
+   "worker_wall_s": 5.87,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 271,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 64,
+   "worker_completion_tokens": 69,
+   "worker_wall_s": 1.66,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 69,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 49,
+   "worker_completion_tokens": 317,
+   "worker_wall_s": 6.83,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 317,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 64,
+   "worker_completion_tokens": 68,
+   "worker_wall_s": 1.74,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 68,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 49,
+   "worker_completion_tokens": 488,
+   "worker_wall_s": 11.3,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 488,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 64,
+   "worker_completion_tokens": 88,
+   "worker_wall_s": 2.59,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 88,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 168,
+   "worker_wall_s": 3.84,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 168,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": true,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 127,
+   "worker_wall_s": 3.23,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": true,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 127,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 1253,
+   "worker_wall_s": 27.89,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 1253,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "thinking-leak",
+    "prose"
+   ],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 312,
+   "worker_wall_s": 7.55,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "thinking-leak,prose"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "thinking-leak",
+      "prose"
+     ],
+     "completion_tokens": 312,
+     "finish": "stop"
+    }
+   ]
+  }
+ ]
+}

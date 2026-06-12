@@ -1,0 +1,9 @@
+{
+  "model": "C8-nex-mini",
+  "n": 30,
+  "strict_pass_rate": 0.9,
+  "lenient_pass_rate": 0.9,
+  "violations": {},
+  "aggregate_tok_s": 131.7,
+  "wall_s": 22.1
+}

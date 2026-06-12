@@ -1,0 +1,11 @@
+{
+  "model": "C13-qwopus27b-think",
+  "n": 30,
+  "strict_pass_rate": 0.967,
+  "lenient_pass_rate": 0.967,
+  "violations": {
+    "no-def": 1
+  },
+  "aggregate_tok_s": 60.0,
+  "wall_s": 416.2
+}

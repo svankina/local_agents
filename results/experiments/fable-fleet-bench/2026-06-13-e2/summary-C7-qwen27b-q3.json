@@ -1,0 +1,9 @@
+{
+  "model": "C7-qwen27b-q3",
+  "n": 30,
+  "strict_pass_rate": 0.933,
+  "lenient_pass_rate": 0.933,
+  "violations": {},
+  "aggregate_tok_s": 59.7,
+  "wall_s": 50.6
+}

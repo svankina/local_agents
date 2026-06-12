@@ -128,6 +128,66 @@
         "two-sum-indices"
       ]
     },
+    "C13-qwopus27b": {
+      "n_episodes": 30,
+      "overall_first_pass": 0.6,
+      "format_violation_rate": 0.233,
+      "per_item": {
+        "balanced-brackets": 1.0,
+        "camel-to-snake": 0.33,
+        "chunk-list": 1.0,
+        "flatten-nested": 0.33,
+        "gcd": 0.33,
+        "int-to-roman": 1.0,
+        "merge-intervals": 0.0,
+        "run-length-encode": 1.0,
+        "two-sum-indices": 1.0,
+        "word-frequency": 0.0
+      },
+      "always_solves": [
+        "balanced-brackets",
+        "chunk-list",
+        "int-to-roman",
+        "run-length-encode",
+        "two-sum-indices"
+      ],
+      "struggles_with": [
+        "camel-to-snake",
+        "flatten-nested",
+        "gcd",
+        "merge-intervals",
+        "word-frequency"
+      ]
+    },
+    "C13-qwopus27b-think": {
+      "n_episodes": 30,
+      "overall_first_pass": 0.967,
+      "format_violation_rate": 0.033,
+      "per_item": {
+        "balanced-brackets": 1.0,
+        "camel-to-snake": 1.0,
+        "chunk-list": 1.0,
+        "flatten-nested": 1.0,
+        "gcd": 1.0,
+        "int-to-roman": 1.0,
+        "merge-intervals": 1.0,
+        "run-length-encode": 1.0,
+        "two-sum-indices": 1.0,
+        "word-frequency": 0.67
+      },
+      "always_solves": [
+        "balanced-brackets",
+        "camel-to-snake",
+        "chunk-list",
+        "flatten-nested",
+        "gcd",
+        "int-to-roman",
+        "merge-intervals",
+        "run-length-encode",
+        "two-sum-indices"
+      ],
+      "struggles_with": []
+    },
     "C18-nothink": {
       "n_episodes": 60,
       "overall_first_pass": 0.4,
@@ -459,6 +519,158 @@
       "struggles_with": [
         "camel-to-snake",
         "two-sum-indices"
+      ]
+    },
+    "C6-gemma26b-cmoe-mtp-nothink": {
+      "n_episodes": 30,
+      "overall_first_pass": 0.8,
+      "format_violation_rate": 0.0,
+      "per_item": {
+        "balanced-brackets": 1.0,
+        "camel-to-snake": 0.0,
+        "chunk-list": 1.0,
+        "flatten-nested": 1.0,
+        "gcd": 1.0,
+        "int-to-roman": 1.0,
+        "merge-intervals": 1.0,
+        "run-length-encode": 1.0,
+        "two-sum-indices": 0.0,
+        "word-frequency": 1.0
+      },
+      "always_solves": [
+        "balanced-brackets",
+        "chunk-list",
+        "flatten-nested",
+        "gcd",
+        "int-to-roman",
+        "merge-intervals",
+        "run-length-encode",
+        "word-frequency"
+      ],
+      "struggles_with": [
+        "camel-to-snake",
+        "two-sum-indices"
+      ]
+    },
+    "C7-qwen27b-q3": {
+      "n_episodes": 30,
+      "overall_first_pass": 0.933,
+      "format_violation_rate": 0.0,
+      "per_item": {
+        "balanced-brackets": 1.0,
+        "camel-to-snake": 1.0,
+        "chunk-list": 1.0,
+        "flatten-nested": 1.0,
+        "gcd": 1.0,
+        "int-to-roman": 1.0,
+        "merge-intervals": 1.0,
+        "run-length-encode": 1.0,
+        "two-sum-indices": 1.0,
+        "word-frequency": 0.33
+      },
+      "always_solves": [
+        "balanced-brackets",
+        "camel-to-snake",
+        "chunk-list",
+        "flatten-nested",
+        "gcd",
+        "int-to-roman",
+        "merge-intervals",
+        "run-length-encode",
+        "two-sum-indices"
+      ],
+      "struggles_with": [
+        "word-frequency"
+      ]
+    },
+    "C7-qwen27b-q3-think": {
+      "n_episodes": 30,
+      "overall_first_pass": 0.433,
+      "format_violation_rate": 0.533,
+      "per_item": {
+        "balanced-brackets": 0.0,
+        "camel-to-snake": 0.67,
+        "chunk-list": 0.33,
+        "flatten-nested": 0.33,
+        "gcd": 0.0,
+        "int-to-roman": 1.0,
+        "merge-intervals": 0.33,
+        "run-length-encode": 0.0,
+        "two-sum-indices": 1.0,
+        "word-frequency": 0.67
+      },
+      "always_solves": [
+        "int-to-roman",
+        "two-sum-indices"
+      ],
+      "struggles_with": [
+        "balanced-brackets",
+        "chunk-list",
+        "flatten-nested",
+        "gcd",
+        "merge-intervals",
+        "run-length-encode"
+      ]
+    },
+    "C8-nex-mini": {
+      "n_episodes": 30,
+      "overall_first_pass": 0.9,
+      "format_violation_rate": 0.0,
+      "per_item": {
+        "balanced-brackets": 1.0,
+        "camel-to-snake": 1.0,
+        "chunk-list": 1.0,
+        "flatten-nested": 1.0,
+        "gcd": 1.0,
+        "int-to-roman": 0.0,
+        "merge-intervals": 1.0,
+        "run-length-encode": 1.0,
+        "two-sum-indices": 1.0,
+        "word-frequency": 1.0
+      },
+      "always_solves": [
+        "balanced-brackets",
+        "camel-to-snake",
+        "chunk-list",
+        "flatten-nested",
+        "gcd",
+        "merge-intervals",
+        "run-length-encode",
+        "two-sum-indices",
+        "word-frequency"
+      ],
+      "struggles_with": [
+        "int-to-roman"
+      ]
+    },
+    "C8-nex-mini-think": {
+      "n_episodes": 30,
+      "overall_first_pass": 0.0,
+      "format_violation_rate": 1.0,
+      "per_item": {
+        "balanced-brackets": 0.0,
+        "camel-to-snake": 0.0,
+        "chunk-list": 0.0,
+        "flatten-nested": 0.0,
+        "gcd": 0.0,
+        "int-to-roman": 0.0,
+        "merge-intervals": 0.0,
+        "run-length-encode": 0.0,
+        "two-sum-indices": 0.0,
+        "word-frequency": 0.0
+      },
+      "always_solves": [],
+      "struggles_with": [
+        "balanced-brackets",
+        "camel-to-snake",
+        "chunk-list",
+        "flatten-nested",
+        "gcd",
+        "int-to-roman",
+        "merge-intervals",
+        "run-length-encode",
+        "two-sum-indices",
+        "word-frequency"
       ]
     },
     "diffusiongemma": {
