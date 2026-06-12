@@ -24,7 +24,9 @@ One GPU, one server at a time, three suites: throughput, 36 tool-call trials, 5 
 | same, CUDA, no spec-decode | 138.0 | **174.8** | — | — | 18.9 GB |
 | same, CUDA **bare metal** | 135.7 | 107.4 | **1.000** | — | 19.6 GB |
 | Qwen 35B AWQ, vLLM 0.22.1 | 130.6 | **360.3** | 0.167* | 0/5* | 21.8 GB |
+| Qwen3-30B-A3B GPTQ, vLLM | 183.8 | **534.4** (808.7 @x8) | 0.972 | 3/5† | 22.2 GB |
 
+† agentic 3/5 pending a variance re-run — this suite has swung 3/5↔5/5 on identical weights before.
 † lenient forgives exactly one failure type — calling `list_dir` before the requested `read_file` (protocol-valid, fixable by prompting). Nothing else: missing calls, wrong arguments, and other wrong tools still fail. Recomputed from the raw trials (`results/toolcall_lenient.json`).
 \* not a model problem — see "vLLM output corruption."
 
@@ -32,7 +34,7 @@ One GPU, one server at a time, three suites: throughput, 36 tool-call trials, 5 
 
 1. **llama.cpp slot-parallelism barely scales**: 4 streams gives 1.25× (Vulkan) to 1.27× (CUDA) aggregate — one fast queue-serial server beats a slot pool.
 2. **MTP speculative decoding helps solo, hurts batched**: +28% single-stream on Gemma 12B, −34% x4 aggregate on CUDA — turn it off past one stream.
-3. **vLLM continuous batching is the real parallel path**: 2.76× at x4 (360 tok/s aggregate, ~90 per stream) on the same card where llama.cpp managed 1.27×.
+3. **vLLM continuous batching is the real parallel path**: with a properly supported model (Qwen3-30B-A3B GPTQ), 808.7 tok/s aggregate at x8 — 4.40× scaling, ~101 tok/s per stream, coherent output, real tool calls — where llama.cpp managed 1.27×.
 4. **Read the failures, not the score**: Gemma 12B's 0.806 strict toolcall is 1.000 lenient — every miss was the model calling `list_dir` before `read_file`, zero malformed calls. The strict/lenient split in the table separates protocol failures from workflow caution.
 5. **Cache-bust everything**: cached prefill medians read 49.9 tok/s where the true number was 2305 (46× off), and throughput suites can't see output corruption.
 
@@ -40,13 +42,15 @@ Two operational rules. Resolve GPUs by name, never enumeration index — Vulkan 
 
 ## vLLM output corruption
 
-vLLM posted the best parallel scaling and scored zero on quality: it generated gibberish for every prompt; a temperature-0 "say hello" returned multi-script token salad. We ruled out the tool parser (both candidates fail identically), the chat template (passed explicitly), and mrope config loss (re-injected via `--hf-overrides`). Remaining suspects: vLLM 0.22.1's quantized-MoE path for this VL-flavored architecture, or the community AWQ quant itself. The same weights score 1.000 toolcall through llama.cpp; the elimination log is in the repo.
+The first vLLM config posted the best parallel scaling and scored zero on quality: it generated gibberish for every prompt; a temperature-0 "say hello" returned multi-script token salad. We ruled out the tool parser (both candidates fail identically), the chat template (passed explicitly), and mrope config loss (re-injected via `--hf-overrides`). Remaining suspects: vLLM 0.22.1's quantized-MoE path for this VL-flavored architecture, or the community AWQ quant itself. The same weights score 1.000 toolcall through llama.cpp; the elimination log is in the repo.
+
+Resolution: the corruption is model-specific. Switching to a text-only architecture with an official quant (Qwen3-30B-A3B GPTQ-Int4) produced coherent output and parsed tool calls under the same vLLM image — after two more plumbing rounds (gen-3 Qwen needs `--tool-call-parser hermes`, not `qwen3_xml`; and a thinking model needs probe/token budgets that survive the reasoning channel).
 
 ## The fleet
 
 - **Senior + default worker**: byteshape 35B-A3B via llama.cpp, queue-serial. 100% toolcall, 5/5 agentic, 127–143 tok/s. One model, both jobs.
 - **Budget coexistence**: 26B `-cmoe` senior (3.0 GB) + 12B worker, 11.1 GB peak, measured under concurrent load.
-- **Parallel pool**: vLLM architecture, parked until the serving bug is fixed or a vLLM-first model takes the slot.
+- **Parallel pool**: Qwen3-30B-A3B GPTQ under vLLM — 808.7 tok/s aggregate at x8 (~101 per stream), toolcall 0.972. Agentic scored 3/5 on the first pass; a variance re-run decides whether it takes worker duty or stays a throughput tier.
 
 ## CAD kernel part 1 build
 
