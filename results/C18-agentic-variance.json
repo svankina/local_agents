@@ -1,0 +1,46 @@
+{
+  "runs": [
+    {
+      "run": "take4",
+      "passed": 3,
+      "of": 5,
+      "failed": [
+        "csv-script",
+        "add-flag"
+      ]
+    },
+    {
+      "run": "var2",
+      "passed": 1,
+      "of": 5,
+      "failed": [
+        "bulk-rename",
+        "csv-script",
+        "code-qa",
+        "add-flag"
+      ]
+    },
+    {
+      "run": "var3",
+      "passed": 2,
+      "of": 5,
+      "failed": [
+        "csv-script",
+        "code-qa",
+        "add-flag"
+      ]
+    }
+  ],
+  "aggregate": {
+    "median": 2,
+    "min": 1,
+    "max": 3,
+    "per_task_pass_counts": {
+      "fix-test": 3,
+      "bulk-rename": 2,
+      "csv-script": 0,
+      "code-qa": 1,
+      "add-flag": 0
+    }
+  }
+}

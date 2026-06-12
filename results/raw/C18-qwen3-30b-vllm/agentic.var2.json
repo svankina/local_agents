@@ -1,0 +1,47 @@
+{
+  "config": "C18-qwen3-30b-vllm",
+  "suite": "agentic",
+  "temps": {
+    "0.2": {
+      "passed": 1,
+      "of": 5,
+      "tasks": [
+        {
+          "id": "fix-test",
+          "passed": true,
+          "turns": 6,
+          "wall_s": 8.5,
+          "check_out": ""
+        },
+        {
+          "id": "bulk-rename",
+          "passed": false,
+          "turns": 7,
+          "wall_s": 7.8,
+          "check_out": "./app/cli.py:1:from app.db import fetch_record\n./app/cli.py:4:    import sys; print(fetch_record(sys.argv[1]))\n./app/api.py:1:from app.db import fetch_record\n./app/api.py:4:    return fetch_record(rid)\n"
+        },
+        {
+          "id": "csv-script",
+          "passed": false,
+          "turns": 3,
+          "wall_s": 11.2,
+          "check_out": ""
+        },
+        {
+          "id": "code-qa",
+          "passed": false,
+          "turns": 3,
+          "wall_s": 3.2,
+          "check_out": "grep: ANSWERS.md: No such file or directory\n"
+        },
+        {
+          "id": "add-flag",
+          "passed": false,
+          "turns": 3,
+          "wall_s": 8.7,
+          "check_out": ""
+        }
+      ]
+    }
+  }
+}
