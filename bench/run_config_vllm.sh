@@ -156,7 +156,7 @@ hello = post(
         "model": model,
         "messages": [{"role": "user", "content": "Say hello and name three colors."}],
         "temperature": 0,
-        "max_tokens": 128,
+        "max_tokens": 1024,
     },
     "coherence_hello.json",
 )
@@ -186,7 +186,7 @@ tool = post(
         ],
         "tool_choice": "auto",
         "temperature": 0,
-        "max_tokens": 256,
+        "max_tokens": 1024,
     },
     "coherence_tool.json",
 )
