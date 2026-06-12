@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import pathlib
 import sys
@@ -44,35 +45,91 @@ def insert_docstrings(source: str, item: dict[str, Any], docstrings: dict[str, s
         raise ValueError(f"targets not found without docstrings: {', '.join(unknown)}")
 
     lines = source.splitlines(keepends=True)
-    insertions: list[tuple[int, int, str]] = []
+    operations: list[tuple[int, str, str]] = []
+    named_nodes: dict[str, list[ast.AST]] = {}
+    for qualname, node in ast_walk_named(parse_source(source, item["path"])):
+        named_nodes.setdefault(qualname, []).append(node)
     for qualname in wanted:
-        target = targets[qualname]
-        node = next(n for n in ast_walk_named(parse_source(source, item["path"]), qualname))
-        if not getattr(node, "body", None):
-            raise ValueError(f"target has no body: {qualname}")
-        first_stmt = node.body[0]
-        lineno = first_stmt.lineno
-        indent = " " * first_stmt.col_offset
-        literal = json.dumps(docstrings[qualname], ensure_ascii=False)
-        insertions.append((lineno - 1, first_stmt.col_offset, f"{indent}{literal}\n"))
+        candidate_nodes = [
+            node
+            for node in named_nodes.get(qualname, [])
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
+            and ast.get_docstring(node, clean=False) is None
+        ]
+        if not candidate_nodes:
+            raise ValueError(f"target not found without docstring: {qualname}")
+        for node in candidate_nodes:
+            add_operation(operations, lines, node, qualname, docstrings[qualname])
 
-    for line_index, _col, text in sorted(insertions, key=lambda row: row[0], reverse=True):
-        lines.insert(line_index, text)
+    seen_replacements: set[int] = set()
+    for line_index, op, text in sorted(operations, key=lambda row: row[0], reverse=True):
+        if op == "replace":
+            if line_index in seen_replacements:
+                raise ValueError(f"multiple one-line suite replacements on line {line_index + 1}")
+            seen_replacements.add(line_index)
+            lines[line_index] = text
+        else:
+            lines.insert(line_index, text)
     return "".join(lines)
 
 
-def ast_walk_named(tree, qualname: str):
-    parts = qualname.split(".")
+def add_operation(
+    operations: list[tuple[int, str, str]],
+    lines: list[str],
+    node: ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef,
+    qualname: str,
+    docstring: str,
+) -> None:
+    if not node.body:
+        raise ValueError(f"target has no body: {qualname}")
+    first_stmt = node.body[0]
+    literal = json.dumps(docstring, ensure_ascii=False)
+    suite_line_index = first_stmt.lineno - 1 if first_stmt.lineno != node.lineno else node.lineno - 1
+    suite_line = lines[suite_line_index]
+    suite_text = suite_line[:-1] if suite_line.endswith("\n") else suite_line
+    suite_colon_index = suite_text.rfind(":", 0, first_stmt.col_offset)
+    suite_prefix = suite_text[: suite_colon_index + 1].strip() if suite_colon_index != -1 else ""
+    looks_like_suite_header = suite_prefix.startswith(("def ", "async def ", "class ", ")"))
+    if first_stmt.lineno == node.lineno or (suite_colon_index != -1 and looks_like_suite_header):
+        line_index = suite_line_index
+        original = lines[line_index]
+        newline = "\n" if original.endswith("\n") else ""
+        stripped_newline = original[:-1] if newline else original
+        colon_index = suite_colon_index
+        if colon_index == -1:
+            raise ValueError(f"cannot locate one-line suite colon for {qualname}")
+        block_indent = " " * (node.col_offset + 4)
+        body_text = stripped_newline[colon_index + 1 :].strip()
+        if not body_text:
+            raise ValueError(f"empty one-line suite body for {qualname}")
+        replacement = (
+            stripped_newline[: colon_index + 1]
+            + "\n"
+            + f"{block_indent}{literal}\n"
+            + f"{block_indent}{body_text}"
+            + newline
+        )
+        operations.append((line_index, "replace", replacement))
+        return
 
+    if isinstance(node, ast.ClassDef) and isinstance(
+        first_stmt, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)
+    ) and first_stmt.decorator_list:
+        insertion_line = min(decorator.lineno for decorator in first_stmt.decorator_list) - 1
+        indent = " " * first_stmt.col_offset
+    else:
+        insertion_line = first_stmt.lineno - 1
+        indent = " " * first_stmt.col_offset
+    operations.append((insertion_line, "insert", f"{indent}{literal}\n"))
+
+
+def ast_walk_named(tree):
     def walk_body(body, stack):
         for node in body:
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
                 next_stack = [*stack, node.name]
-                if next_stack == parts:
-                    yield node
+                yield ".".join(next_stack), node
                 yield from walk_body(node.body, next_stack)
-
-    import ast
 
     yield from walk_body(tree.body, [])
 

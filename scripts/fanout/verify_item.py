@@ -17,6 +17,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from fanout_common import (  # noqa: E402
     item_file,
+    params_for,
     parse_source,
     qualname_targets,
     read_json,
@@ -63,10 +64,12 @@ def verify(corpus: pathlib.Path, item: dict[str, Any], modified_path: pathlib.Pa
     pristine_targets = qualname_targets(pristine_tree)
 
     coverage_missing = []
-    all_nodes = collect_nodes(modified_tree)
+    pristine_nodes = collect_nodes_multi(pristine_tree)
+    modified_nodes = collect_nodes_multi(modified_tree)
     for qualname in item["targets"]:
-        node = all_nodes.get(qualname)
-        if node is None or ast.get_docstring(node, clean=False) is None:
+        pairs = list(zip(pristine_nodes.get(qualname, []), modified_nodes.get(qualname, [])))
+        missing_pairs = [pair for pair in pairs if ast.get_docstring(pair[0], clean=False) is None]
+        if not missing_pairs or any(ast.get_docstring(modified, clean=False) is None for _pristine, modified in missing_pairs):
             coverage_missing.append(qualname)
     if coverage_missing:
         return fail("coverage", "missing inserted docstrings: " + ", ".join(coverage_missing))
@@ -77,16 +80,18 @@ def verify(corpus: pathlib.Path, item: dict[str, Any], modified_path: pathlib.Pa
         return fail("ast_equivalence", "AST differs after stripping docstrings")
 
     for qualname in item["targets"]:
-        node = all_nodes[qualname]
-        docstring = ast.get_docstring(node, clean=False) or ""
-        if len(docstring.strip()) < 20 or PLACEHOLDER_RE.search(docstring):
-            return fail("non_placeholder", f"{qualname} docstring is too short or placeholder-like")
-        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
-            target_meta = pristine_targets.get(qualname)
-            params = target_meta.params if target_meta else ()
-            missing = [name for name in params if not word_present(docstring, name)]
-            if missing:
-                return fail("parameter_mention", f"{qualname} missing parameter mention(s): {', '.join(missing)}")
+        pairs = list(zip(pristine_nodes.get(qualname, []), modified_nodes.get(qualname, [])))
+        for pristine_node, modified_node in pairs:
+            if ast.get_docstring(pristine_node, clean=False) is not None:
+                continue
+            docstring = ast.get_docstring(modified_node, clean=False) or ""
+            if len(docstring.strip()) < 20 or PLACEHOLDER_RE.search(docstring):
+                return fail("non_placeholder", f"{qualname} docstring is too short or placeholder-like")
+            if isinstance(pristine_node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                params = params_for(pristine_node)
+                missing = [name for name in params if not word_present(docstring, name)]
+                if missing:
+                    return fail("parameter_mention", f"{qualname} missing parameter mention(s): {', '.join(missing)}")
     return ok()
 
 
@@ -98,6 +103,21 @@ def collect_nodes(tree: ast.AST) -> dict[str, ast.AST]:
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
                 qualname = ".".join([*stack, node.name])
                 nodes[qualname] = node
+                walk_body(node.body, [*stack, node.name])
+
+    if isinstance(tree, ast.Module):
+        walk_body(tree.body, [])
+    return nodes
+
+
+def collect_nodes_multi(tree: ast.AST) -> dict[str, list[ast.AST]]:
+    nodes: dict[str, list[ast.AST]] = {}
+
+    def walk_body(body: list[ast.stmt], stack: list[str]) -> None:
+        for node in body:
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                qualname = ".".join([*stack, node.name])
+                nodes.setdefault(qualname, []).append(node)
                 walk_body(node.body, [*stack, node.name])
 
     if isinstance(tree, ast.Module):

@@ -8,6 +8,7 @@ import copy
 import hashlib
 import json
 import pathlib
+import re
 import subprocess
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -156,3 +157,64 @@ def strip_docstrings(tree: ast.AST) -> ast.AST:
 
 def sorted_item_paths(items_dir: pathlib.Path) -> list[pathlib.Path]:
     return sorted(items_dir.glob("item-*.json"))
+
+
+def v1_url(base: str, path: str) -> str:
+    base = base.rstrip("/")
+    if base.endswith("/v1"):
+        return base + path
+    return base + "/v1" + path
+
+
+def extract_json_object(text: str) -> dict[str, Any]:
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
+        if not match:
+            start = text.find("{")
+            end = text.rfind("}")
+            if start == -1 or end <= start:
+                raise
+            parsed = json.loads(text[start : end + 1])
+        else:
+            parsed = json.loads(match.group(1))
+    if not isinstance(parsed, dict):
+        raise ValueError("assistant response is not a JSON object")
+    docstrings = parsed.get("docstrings")
+    if not isinstance(docstrings, dict):
+        raise ValueError("assistant response missing docstrings object")
+    for key, value in docstrings.items():
+        if not isinstance(key, str) or not isinstance(value, str):
+            raise ValueError("docstrings must map strings to strings")
+    return {"docstrings": docstrings}
+
+
+def write_tokens(out: pathlib.Path, responses: list[dict[str, Any]]) -> None:
+    total_prompt = 0
+    total_completion = 0
+    requests = []
+    for i, body in enumerate(responses, 1):
+        usage = body.get("usage") or {}
+        prompt = usage.get("prompt_tokens") or 0
+        completion = usage.get("completion_tokens") or 0
+        total_prompt += prompt
+        total_completion += completion
+        requests.append(
+            {
+                "request_index": i,
+                "prompt_tokens": prompt,
+                "completion_tokens": completion,
+                "client_wall_s": body.get("_client_wall_s"),
+                "timings": body.get("timings") or None,
+            }
+        )
+    write_json(
+        out / "tokens.json",
+        {
+            "prompt_tokens": total_prompt,
+            "completion_tokens": total_completion,
+            "total_tokens": total_prompt + total_completion,
+            "requests": requests,
+        },
+    )
