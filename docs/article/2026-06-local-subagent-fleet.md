@@ -26,7 +26,7 @@ One GPU, one server at a time, three suites: throughput, 36 tool-call trials, 5 
 | Qwen 35B AWQ, vLLM 0.22.1 | 130.6 | **360.3** | 0.167* | 0/5* | 21.8 GB |
 | Qwen3-30B-A3B GPTQ, vLLM | 183.8 | **534.4** (808.7 @x8) | 0.972 | 3/5† | 22.2 GB |
 
-† agentic 3/5 pending a variance re-run — this suite has swung 3/5↔5/5 on identical weights before.
+† agentic settled by a 3-run variance pass: 3/5, 1/5, 2/5 — `csv-script` and `add-flag` failed in all three runs (systematic, not noise). Throughput tier only.
 † lenient forgives exactly one failure type — calling `list_dir` before the requested `read_file` (protocol-valid, fixable by prompting). Nothing else: missing calls, wrong arguments, and other wrong tools still fail. Recomputed from the raw trials (`results/toolcall_lenient.json`).
 \* not a model problem — see "vLLM output corruption."
 
@@ -50,7 +50,7 @@ Resolution: the corruption is model-specific. Switching to a text-only architect
 
 - **Senior + default worker**: byteshape 35B-A3B via llama.cpp, queue-serial. 100% toolcall, 5/5 agentic, 127–143 tok/s. One model, both jobs.
 - **Budget coexistence**: 26B `-cmoe` senior (3.0 GB) + 12B worker, 11.1 GB peak, measured under concurrent load.
-- **Parallel pool**: Qwen3-30B-A3B GPTQ under vLLM — 808.7 tok/s aggregate at x8 (~101 per stream), toolcall 0.972. Agentic scored 3/5 on the first pass; a variance re-run decides whether it takes worker duty or stays a throughput tier.
+- **Parallel pool (throughput tier)**: Qwen3-30B-A3B GPTQ under vLLM — 808.7 tok/s aggregate at x8 (~101 per stream), toolcall 0.972. A 3-run agentic pass (3/5, 1/5, 2/5; two tasks failed every run) keeps it off autonomous worker duty: use it for parallel fan-out of well-specified single-shot work, not multi-turn coding loops.
 
 ## CAD kernel part 1 build
 
