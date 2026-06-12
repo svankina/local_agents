@@ -13,6 +13,9 @@ docker llama.cpp version: 9592 (ac4cddeb0)
 docker llama.cpp build: built with GNU 14.2.0 for Linux x86_64
 docker image label org.opencontainers.image.version: b9592
 docker image label org.opencontainers.image.revision: ac4cddeb0dbd778f650bf568f6f08344a06abe3a
+baremetal cuda llama.cpp version: 9592 (ac4cddeb0)
+baremetal cuda llama.cpp commit: ac4cddeb0dbd778f650bf568f6f08344a06abe3a
+baremetal cuda build: built with GNU 13.3.0 for Linux x86_64, CUDA toolkit wheel 13.0
 
 huggingface mattbucci/Qwen3.6-35B-A3B-AWQ revision 7525d0f423bd615da6cc3cf3ae6fdae42941ea05
 huggingface mattbucci/Qwen3.6-35B-A3B-AWQ total_bytes 20487590591
