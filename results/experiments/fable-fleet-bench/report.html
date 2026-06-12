@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fleet bench — fake-Fable supervisor experiments</title>
+<style>
+  :root{
+    --bg:#070b14; --panel:#0b1020; --panel2:#0d1520; --line:#1e293b;
+    --green:#22c55e; --cyan:#22d3ee; --yellow:#facc15; --red:#f87171;
+    --text:#e5e7eb; --muted:#94a3b8; --dim:#64748b;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:"IBM Plex Mono","DejaVu Sans Mono",ui-monospace,monospace;
+    font-size:15px; line-height:1.55;
+    background-image:repeating-linear-gradient(0deg, transparent 0 3px, #0b122022 3px 4px);
+  }
+  .wrap{max-width:1060px; margin:0 auto; padding:28px 20px 80px}
+  header{border-top:5px solid var(--green); padding:26px 0 10px; margin-bottom:10px}
+  header h1{font-size:26px; color:var(--text); font-weight:700; letter-spacing:-.5px}
+  header h1 .accent{color:var(--green)}
+  header .sub{color:var(--muted); margin-top:8px; max-width:72ch}
+  header .meta{color:var(--dim); font-size:13px; margin-top:10px}
+  .findings{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin:26px 0}
+  .finding{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; position:relative; overflow:hidden}
+  .finding::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--green)}
+  .finding.warn::before{background:var(--yellow)}
+  .finding.bad::before{background:var(--red)}
+  .finding .big{font-size:30px; font-weight:700; color:var(--green); letter-spacing:-1px}
+  .finding.warn .big{color:var(--yellow)} .finding.bad .big{color:var(--red)}
+  .finding .label{color:var(--muted); font-size:13px; margin-top:4px}
+  section{margin:38px 0}
+  h2{color:var(--cyan); font-size:17px; font-weight:700; margin-bottom:6px}
+  h2 .eid{color:var(--dim); font-weight:400}
+  .q{color:var(--muted); margin-bottom:14px; max-width:78ch}
+  .verdict{border-left:3px solid var(--green); background:var(--panel2); padding:10px 14px; margin:14px 0 6px; color:var(--text); max-width:84ch}
+  .verdict b{color:var(--green)}
+  table{border-collapse:collapse; width:100%; background:var(--panel); border:1px solid var(--line); border-radius:6px; overflow:hidden; font-size:14px}
+  th{color:var(--muted); text-align:left; font-weight:400; padding:9px 12px; border-bottom:2px solid #22d3ee44}
+  td{padding:8px 12px; border-bottom:1px solid #131c2c}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums}
+  .hl{color:var(--green); font-weight:700}
+  .warn{color:var(--yellow)} .bad{color:var(--red)} .dim{color:var(--dim)}
+  .bars{margin:14px 0 4px; display:grid; gap:7px}
+  .bar{display:grid; grid-template-columns:210px 1fr 90px; gap:10px; align-items:center; font-size:13px}
+  .bar .name{color:var(--muted); text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .bar .track{background:#0d1520; border:1px solid var(--line); border-radius:3px; height:20px; position:relative}
+  .bar .fill{position:absolute; inset:0; width:var(--w); background:linear-gradient(90deg,#15803d,var(--green)); border-radius:2px}
+  .bar.c .fill{background:linear-gradient(90deg,#0e7490,var(--cyan))}
+  .bar.y .fill{background:linear-gradient(90deg,#a16207,var(--yellow))}
+  .bar.r .fill{background:linear-gradient(90deg,#b91c1c,var(--red))}
+  .bar .val{color:var(--text); font-variant-numeric:tabular-nums}
+  .note{color:var(--dim); font-size:13px; margin-top:8px; max-width:84ch}
+  footer{margin-top:50px; border-top:1px solid var(--line); padding-top:14px; color:var(--dim); font-size:13px}
+  a{color:var(--cyan)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>fleet bench <span class="accent">/ fake-Fable supervisor experiments</span></h1>
+  <div class="sub">Which local worker completes instruction-bound tasks for the fewest supervisor
+  output tokens and the least wasted wall-clock? Scripted supervisor (zero real Fable spend),
+  real local workers, deterministic property verification — 10 pure-function tasks, 200+ hidden
+  cases each, format strictness counted as failure.</div>
+  <div class="meta">2026-06-13 · RTX 3090 Ti · branch fable-fleet-bench · results/experiments/fable-fleet-bench/</div>
+</header>
+
+<div class="findings">
+  <div class="finding"><div class="big">14×</div><div class="label">tasks/min from thinking-off + retry loop, zero completion loss (E5)</div></div>
+  <div class="finding"><div class="big">100%</div><div class="label">gemma-12B pass rate with reasoning disabled — at 13.7× speed (E2)</div></div>
+  <div class="finding warn"><div class="big">~all</div><div class="label">failures everywhere are reasoning-budget overflow, not capability (E2/E4)</div></div>
+  <div class="finding"><div class="big">97%</div><div class="label">of failures repaired by a bare “wrong, try again” (E3)</div></div>
+</div>
+
+<section>
+  <h2>E1 — plan terseness <span class="eid">does instruction detail pay for itself?</span></h2>
+  <div class="q">Same 10 tasks × 3 seeds on C18 qwen3-30B. Three supervisor plan styles: a one-line
+  terse ask, a medium plan (spec + “no fences, no explanation”), and a detailed plan with examples
+  and a constraint list.</div>
+  <table>
+    <tr><th>style</th><th class="num">first-pass</th><th class="num">completed</th><th class="num">sup tok / completed</th><th class="num">worker tok / episode</th><th>failure signature</th></tr>
+    <tr><td>terse</td><td class="num bad">30%</td><td class="num">27/30</td><td class="num">75.0</td><td class="num">2538</td><td class="dim">17/30 fenced — never told “no markdown”</td></tr>
+    <tr><td class="hl">medium</td><td class="num hl">93%</td><td class="num hl">30/30</td><td class="num hl">68.5</td><td class="num hl">1625</td><td class="dim">2 overthink truncations</td></tr>
+    <tr><td>detailed</td><td class="num warn">80%</td><td class="num">29/30</td><td class="num warn">155.1</td><td class="num">2656</td><td class="dim">5 thinking spirals hit the 3072 cap</td></tr>
+  </table>
+  <div class="verdict"><b>Medium wins everything.</b> Terse fails on format, not logic (lenient rate 70%).
+  Detail backfires: 2.3× the supervision cost, more overthinking, lower first-pass.</div>
+</section>
+
+<section>
+  <h2>E5 — thinking on/off <span class="eid">the throughput lever (C18, fix loop on)</span></h2>
+  <div class="bars">
+    <div class="bar c"><span class="name">thinking-on · tasks/min</span><span class="track"><span class="fill" style="--w:7%"></span></span><span class="val">26.5</span></div>
+    <div class="bar"><span class="name">thinking-off · tasks/min</span><span class="track"><span class="fill" style="--w:100%"></span></span><span class="val">381.2</span></div>
+  </div>
+  <table>
+    <tr><th>mode</th><th class="num">first-pass</th><th class="num">completed</th><th class="num">sup tok / task</th><th class="num">worker tok / episode</th><th class="num">suite wall</th></tr>
+    <tr><td>thinking-on</td><td class="num">90%</td><td class="num">30/30</td><td class="num hl">69.6</td><td class="num">1753</td><td class="num">67.8s</td></tr>
+    <tr><td>thinking-off</td><td class="num warn">43%</td><td class="num hl">30/30</td><td class="num">91.4</td><td class="num hl">127</td><td class="num hl">4.7s</td></tr>
+  </table>
+  <div class="verdict"><b>Thinking-off + retry = 14× throughput at full completion.</b> First-pass halves,
+  but the fix loop recovers everything; failures are pure logic (zero format violations, zero
+  truncations). Cost: a 31% supervisor-token premium. If wall-clock is scarce, this wins big.</div>
+</section>
+
+<section>
+  <h2>E2 — model speed vs error <span class="eid">same suite, single-shot, per model</span></h2>
+  <div class="bars">
+    <div class="bar"><span class="name">gemma-12B no-reasoning · pass</span><span class="track"><span class="fill" style="--w:100%"></span></span><span class="val">100%</span></div>
+    <div class="bar c"><span class="name">C18 30B thinking · pass</span><span class="track"><span class="fill" style="--w:88%"></span></span><span class="val">88%</span></div>
+    <div class="bar c"><span class="name">gemma-12B reasoning · pass</span><span class="track"><span class="fill" style="--w:73%"></span></span><span class="val">73%</span></div>
+    <div class="bar y"><span class="name">C12 byteshape-35B · pass</span><span class="track"><span class="fill" style="--w:67%"></span></span><span class="val">67%</span></div>
+    <div class="bar y"><span class="name">C18 30B no-think · pass</span><span class="track"><span class="fill" style="--w:40%"></span></span><span class="val">40%</span></div>
+    <div class="bar r"><span class="name">diffusiongemma-26B strict · pass</span><span class="track"><span class="fill" style="--w:2%"></span></span><span class="val">0%</span></div>
+  </div>
+  <table>
+    <tr><th>model / mode</th><th class="num">pass</th><th class="num">suite wall</th><th class="num">agg tok/s</th><th>note</th></tr>
+    <tr><td class="hl">gemma-12B llama×4 · no-reasoning</td><td class="num hl">100%</td><td class="num hl">21.6s</td><td class="num">149</td><td class="dim">perfect sheet, 13.7× faster than with reasoning</td></tr>
+    <tr><td>C18 qwen3-30B vLLM×16 · thinking</td><td class="num">88%</td><td class="num">98.6s</td><td class="num">924</td><td class="dim">failures = overthink truncation</td></tr>
+    <tr><td>gemma-12B llama×4 · reasoning</td><td class="num">73%</td><td class="num">295s</td><td class="num">170</td><td class="dim">reasoning strictly harmful here</td></tr>
+    <tr><td>C12 byteshape-35B llama×4 · thinking</td><td class="num">67%</td><td class="num">590s</td><td class="num">113</td><td class="dim">8/9 failures truncation; true logic ≈96%; template ignores reasoning-budget 0</td></tr>
+    <tr><td>C18 qwen3-30B vLLM×16 · no-think</td><td class="num warn">40%</td><td class="num">5.0s</td><td class="num">737</td><td class="dim">the MoE needs its thinking — single-shot; retry loop recovers (E5)</td></tr>
+    <tr><td>diffusiongemma-26B · 1-stream CLI</td><td class="num bad">0% <span class="dim">(80% lenient)</span></td><td class="num">214s</td><td class="num dim">—</td><td class="dim">every reply fenced despite instruction; no server/batching yet (PR #24423)</td></tr>
+  </table>
+  <div class="verdict"><b>Failures are budget overflow, not stupidity.</b> Disable reasoning where the
+  model tolerates it (gemma: yes, C18: no) and most of the error rate evaporates. Reasoning
+  on/off is a per-model decision, not a universal.</div>
+</section>
+
+<section>
+  <h2>E3 — fix informativeness <span class="eid">is detailed feedback worth its tokens?</span></h2>
+  <div class="q">C18 thinking-off (abundant clean logic failures), medium plans, 6 seeds. Two scripted fixes:
+  informative (quotes the failing case) vs minimal (“wrong, try again”).</div>
+  <table>
+    <tr><th>fix style</th><th class="num">r0 failures</th><th class="num">repair rate</th><th class="num">sup tok / completed</th></tr>
+    <tr><td>informative (quotes failing case)</td><td class="num">37</td><td class="num">94.6%</td><td class="num">99.4</td></tr>
+    <tr><td class="hl">minimal (“wrong, try again”)</td><td class="num">37</td><td class="num hl">97.3%</td><td class="num hl">84.6</td></tr>
+  </table>
+  <div class="verdict"><b>A kick is as good as a coach.</b> At this difficulty tier the worker repairs
+  itself on retry; quoting the failure adds cost, not repair. Cheapest supervision: just “try again.”</div>
+</section>
+
+<section>
+  <h2>E4 — temperature <span class="eid">0.0 / 0.2 / 0.6 / 1.0, single-shot</span></h2>
+  <table>
+    <tr><th>temp</th><th class="num">0.0</th><th class="num">0.2</th><th class="num">0.6</th><th class="num">1.0</th></tr>
+    <tr><td>first-pass</td><td class="num">93%</td><td class="num">90%</td><td class="num">90%</td><td class="num">90%</td></tr>
+  </table>
+  <div class="verdict"><b>Null knob.</b> Flat across the range; every failure at every temperature is the
+  same overthink-truncation on the same problems. The thinking budget dominates; temperature is noise.</div>
+</section>
+
+<section>
+  <h2>the recipe this implies</h2>
+  <div class="q">For a real Fable-supervised local fleet, per the data:</div>
+  <table>
+    <tr><th>knob</th><th>setting</th><th>why</th></tr>
+    <tr><td>plan style</td><td class="hl">medium</td><td class="dim">93% first-pass at the lowest sup-token cost (E1)</td></tr>
+    <tr><td>reasoning</td><td class="hl">per-model: gemma off, C18 on (or off + retries for wall-clock)</td><td class="dim">E2 + E5</td></tr>
+    <tr><td>fix messages</td><td class="hl">minimal — “try again”</td><td class="dim">97% repair, 15% cheaper (E3)</td></tr>
+    <tr><td>temperature</td><td class="hl">anything ≤1.0</td><td class="dim">null effect (E4)</td></tr>
+    <tr><td>current best worker</td><td class="hl">gemma-12B-qat, reasoning off</td><td class="dim">100% pass · 83 tasks/min · cheapest supervision measured</td></tr>
+  </table>
+</section>
+
+<footer>
+  fake-Fable harness: bench/fleet_bench/ (fake_supervisor.py · run_experiments.py · run_diffusion_e7.py ·
+  families/pure_fn.py) — every number traces to episodes.json artifacts in this directory.
+  Supervisor cost counted via the serving engine’s /tokenize on the scripted plan + fix messages.
+</footer>
+
+</div>
+</body>
+</html>
