@@ -1,0 +1,55 @@
+{
+  "trial": 1,
+  "client_wall_s": 5.057,
+  "usage": {
+    "completion_tokens": 32,
+    "prompt_tokens": 8167,
+    "total_tokens": 8199,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "server_prompt_eval": {
+    "ms": 3542.55,
+    "n_tokens": 8167,
+    "tokens_per_second": 2305.4,
+    "line": "0.17.456.860 I slot print_timing: id  2 | task 39 | prompt eval time =    3542.55 ms /  8167 tokens (    0.43 ms per token,  2305.40 tokens per second)"
+  },
+  "server_prompt_processing": [
+    {
+      "n_tokens": 8163,
+      "progress": 1.0,
+      "seconds": 3.14,
+      "tokens_per_second": 2596.89,
+      "line": "0.16.623.231 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   8163, progress = 1.00, t =   3.14 s / 2596.89 tokens per second"
+    }
+  ],
+  "raw_log_lines": [
+    "0.12.488.298 I srv  params_from_: Chat format: peg-gemma4",
+    "0.12.488.632 I slot get_availabl: id  2 | task -1 | selected slot by LRU, t_last = -1",
+    "0.12.488.639 I srv  get_availabl: updating prompt cache",
+    "0.12.488.646 I srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000",
+    "0.12.488.653 I srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 32768 tokens, 8589934592 est)",
+    "0.12.488.654 I srv  get_availabl: prompt cache update took 0.01 ms",
+    "0.12.488.775 I slot launch_slot_: id  2 | task 39 | processing task, is_child = 0",
+    "0.12.488.779 I slot process_sing: id  0 | task -1 | saving idle slot to prompt cache",
+    "0.12.488.781 I slot prompt_clear: id  0 | task -1 | clearing prompt with 0 tokens",
+    "0.12.488.885 I slot process_sing: id  1 | task -1 | saving idle slot to prompt cache",
+    "0.12.488.888 I slot prompt_clear: id  1 | task -1 | clearing prompt with 0 tokens",
+    "0.12.488.939 I slot process_sing: id  3 | task -1 | saving idle slot to prompt cache",
+    "0.12.489.583 W srv   prompt_save:  - saving prompt with length 8183, total state size = 447.966 MiB (draft: 0.000 MiB)",
+    "0.13.476.771 I srv        update:  - cache state: 1 prompts, 1090.492 MiB (limits: 8192.000 MiB, 32768 tokens, 61472 est)",
+    "0.13.476.794 I srv        update:    - prompt 0x591f6c61c020:    8183 tokens, checkpoints:  3,  1090.492 MiB",
+    "0.13.476.796 I slot prompt_clear: id  3 | task -1 | clearing prompt with 8183 tokens",
+    "0.13.516.848 I slot create_check: id  2 | task 39 | created context checkpoint 1 of 32 (pos_min = 0, pos_max = 7, n_tokens = 8, size = 2.501 MiB)",
+    "0.16.601.340 I slot create_check: id  2 | task 39 | created context checkpoint 2 of 32 (pos_min = 3043, pos_max = 7650, n_tokens = 7651, size = 320.013 MiB)",
+    "0.16.623.231 I slot print_timing: id  2 | task 39 | prompt processing, n_tokens =   8163, progress = 1.00, t =   3.14 s / 2596.89 tokens per second",
+    "0.16.996.530 I slot create_check: id  2 | task 39 | created context checkpoint 3 of 32 (pos_min = 3555, pos_max = 8162, n_tokens = 8163, size = 320.013 MiB)",
+    "0.17.456.860 I slot print_timing: id  2 | task 39 | prompt eval time =    3542.55 ms /  8167 tokens (    0.43 ms per token,  2305.40 tokens per second)",
+    "0.17.456.872 I slot print_timing: id  2 | task 39 |        eval time =     434.44 ms /    32 tokens (   13.58 ms per token,    73.66 tokens per second)",
+    "0.17.456.872 I slot print_timing: id  2 | task 39 |       total time =    3977.00 ms /  8199 tokens",
+    "0.17.456.874 I slot print_timing: id  2 | task 39 |    graphs reused =         60",
+    "0.17.457.302 I slot      release: id  2 | task 39 | stop processing: n_tokens = 8198, truncated = 0",
+    "0.17.457.320 I srv  update_slots: all slots are idle"
+  ]
+}
