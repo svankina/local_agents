@@ -1,0 +1,232 @@
+{"attempt": 1, "event": "job_start", "item_id": "item-01", "monotonic_s": 44268.620975213, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-01-attempt-1", "ts": "2026-06-12T17:38:24.587+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-02", "monotonic_s": 44268.622098497, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-02-attempt-1", "ts": "2026-06-12T17:38:24.588+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-03", "monotonic_s": 44268.622888948, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-03-attempt-1", "ts": "2026-06-12T17:38:24.589+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-04", "monotonic_s": 44268.623657238, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-04-attempt-1", "ts": "2026-06-12T17:38:24.590+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-05", "monotonic_s": 44268.624243211, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-05-attempt-1", "ts": "2026-06-12T17:38:24.590+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-06", "monotonic_s": 44268.625228753, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-06-attempt-1", "ts": "2026-06-12T17:38:24.591+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-07", "monotonic_s": 44268.626229173, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-07-attempt-1", "ts": "2026-06-12T17:38:24.592+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-08", "monotonic_s": 44268.627321258, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-08-attempt-1", "ts": "2026-06-12T17:38:24.593+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-03", "monotonic_s": 44285.953617465, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:38:41.920+05:30", "wall_s": 17.33015948600223}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-03-attempt-1-insert", "item_id": "item-03", "monotonic_s": 44285.953896405, "ts": "2026-06-12T17:38:41.920+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-03-attempt-1-insert", "item_id": "item-03", "monotonic_s": 44286.070473781, "rc": 0, "ts": "2026-06-12T17:38:42.037+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-03-attempt-1-verify", "item_id": "item-03", "monotonic_s": 44286.070600191, "ts": "2026-06-12T17:38:42.037+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-03-attempt-1-verify", "item_id": "item-03", "monotonic_s": 44286.256751549, "rc": 0, "ts": "2026-06-12T17:38:42.223+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-03", "monotonic_s": 44286.256990743, "ts": "2026-06-12T17:38:42.223+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-09", "monotonic_s": 44286.257345638, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-09-attempt-1", "ts": "2026-06-12T17:38:42.223+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-08", "monotonic_s": 44289.572067463, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:38:45.538+05:30", "wall_s": 20.94425337800203}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-08-attempt-1-insert", "item_id": "item-08", "monotonic_s": 44289.572316085, "ts": "2026-06-12T17:38:45.538+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-08-attempt-1-insert", "item_id": "item-08", "monotonic_s": 44289.659303964, "rc": 0, "ts": "2026-06-12T17:38:45.625+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-08-attempt-1-verify", "item_id": "item-08", "monotonic_s": 44289.659411469, "ts": "2026-06-12T17:38:45.626+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-08-attempt-1-verify", "item_id": "item-08", "monotonic_s": 44289.811791716, "rc": 0, "ts": "2026-06-12T17:38:45.778+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-08", "monotonic_s": 44289.811999971, "ts": "2026-06-12T17:38:45.778+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-10", "monotonic_s": 44289.812347461, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-10-attempt-1", "ts": "2026-06-12T17:38:45.778+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-06", "monotonic_s": 44294.884364471, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:38:50.850+05:30", "wall_s": 26.258551067003282}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-06-attempt-1-insert", "item_id": "item-06", "monotonic_s": 44294.884669841, "ts": "2026-06-12T17:38:50.851+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-06-attempt-1-insert", "item_id": "item-06", "monotonic_s": 44294.976692124, "rc": 0, "ts": "2026-06-12T17:38:50.943+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-06-attempt-1-verify", "item_id": "item-06", "monotonic_s": 44294.976906802, "ts": "2026-06-12T17:38:50.943+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-06-attempt-1-verify", "item_id": "item-06", "monotonic_s": 44295.135918766, "rc": 0, "ts": "2026-06-12T17:38:51.102+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-06", "monotonic_s": 44295.136278409, "ts": "2026-06-12T17:38:51.102+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-11", "monotonic_s": 44295.136766506, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-11-attempt-1", "ts": "2026-06-12T17:38:51.103+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-05", "monotonic_s": 44302.501030168, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:38:58.467+05:30", "wall_s": 33.87638723800046}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-05-attempt-1-insert", "item_id": "item-05", "monotonic_s": 44302.501229336, "ts": "2026-06-12T17:38:58.467+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-05-attempt-1-insert", "item_id": "item-05", "monotonic_s": 44302.601939462, "rc": 0, "ts": "2026-06-12T17:38:58.568+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-05-attempt-1-verify", "item_id": "item-05", "monotonic_s": 44302.602113062, "ts": "2026-06-12T17:38:58.568+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-05-attempt-1-verify", "item_id": "item-05", "monotonic_s": 44302.756239546, "rc": 0, "ts": "2026-06-12T17:38:58.722+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-05", "monotonic_s": 44302.756492477, "ts": "2026-06-12T17:38:58.723+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-12", "monotonic_s": 44302.756870925, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-12-attempt-1", "ts": "2026-06-12T17:38:58.723+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-01", "monotonic_s": 44312.694845771, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:08.661+05:30", "wall_s": 44.073418088002654}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-01-attempt-1-insert", "item_id": "item-01", "monotonic_s": 44312.695081208, "ts": "2026-06-12T17:39:08.661+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-01-attempt-1-insert", "item_id": "item-01", "monotonic_s": 44312.789979895, "rc": 0, "ts": "2026-06-12T17:39:08.756+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-01-attempt-1-verify", "item_id": "item-01", "monotonic_s": 44312.790105033, "ts": "2026-06-12T17:39:08.756+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-01-attempt-1-verify", "item_id": "item-01", "monotonic_s": 44312.972996377, "rc": 1, "ts": "2026-06-12T17:39:08.939+05:30"}
+{"attempt": 1, "event": "verify_fail", "failed_check": "non_placeholder", "item_id": "item-01", "monotonic_s": 44312.973259678, "reason": "_DummyLock.acquire docstring is too short or placeholder-like", "ts": "2026-06-12T17:39:08.939+05:30"}
+{"attempt": 2, "event": "retry_enqueued", "item_id": "item-01", "monotonic_s": 44312.973608661, "reason": "failed_check: non_placeholder\n\nreason: _DummyLock.acquire docstring is too short or placeholder-like\n\nretry_requirement: Rewrite the named target's docstring as a meaningful sentence with at least 20 non-whitespace characters.", "ts": "2026-06-12T17:39:08.940+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-13", "monotonic_s": 44312.973946943, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-13-attempt-1", "ts": "2026-06-12T17:39:08.940+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-04", "monotonic_s": 44314.233970877, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:10.200+05:30", "wall_s": 45.60975088000123}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-04-attempt-1-insert", "item_id": "item-04", "monotonic_s": 44314.234294982, "ts": "2026-06-12T17:39:10.200+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-04-attempt-1-insert", "item_id": "item-04", "monotonic_s": 44314.336483486, "rc": 0, "ts": "2026-06-12T17:39:10.303+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-04-attempt-1-verify", "item_id": "item-04", "monotonic_s": 44314.336619895, "ts": "2026-06-12T17:39:10.303+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-04-attempt-1-verify", "item_id": "item-04", "monotonic_s": 44314.531510293, "rc": 0, "ts": "2026-06-12T17:39:10.498+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-04", "monotonic_s": 44314.531708971, "ts": "2026-06-12T17:39:10.498+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-14", "monotonic_s": 44314.532064266, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-14-attempt-1", "ts": "2026-06-12T17:39:10.498+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-07", "monotonic_s": 44318.150893905, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:14.117+05:30", "wall_s": 49.52418146299897}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-07-attempt-1-insert", "item_id": "item-07", "monotonic_s": 44318.151141986, "ts": "2026-06-12T17:39:14.117+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-07-attempt-1-insert", "item_id": "item-07", "monotonic_s": 44318.26503292, "rc": 0, "ts": "2026-06-12T17:39:14.231+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-07-attempt-1-verify", "item_id": "item-07", "monotonic_s": 44318.265177775, "ts": "2026-06-12T17:39:14.231+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-07-attempt-1-verify", "item_id": "item-07", "monotonic_s": 44318.470485702, "rc": 0, "ts": "2026-06-12T17:39:14.437+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-07", "monotonic_s": 44318.470651817, "ts": "2026-06-12T17:39:14.437+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-15", "monotonic_s": 44318.470921129, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-15-attempt-1", "ts": "2026-06-12T17:39:14.437+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-02", "monotonic_s": 44318.683051315, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:14.649+05:30", "wall_s": 50.060502703003294}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-02-attempt-1-insert", "item_id": "item-02", "monotonic_s": 44318.683293805, "ts": "2026-06-12T17:39:14.649+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-02-attempt-1-insert", "item_id": "item-02", "monotonic_s": 44318.780272623, "rc": 0, "ts": "2026-06-12T17:39:14.746+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-02-attempt-1-verify", "item_id": "item-02", "monotonic_s": 44318.780384967, "ts": "2026-06-12T17:39:14.746+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-02-attempt-1-verify", "item_id": "item-02", "monotonic_s": 44318.961096902, "rc": 0, "ts": "2026-06-12T17:39:14.927+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-02", "monotonic_s": 44318.961352938, "ts": "2026-06-12T17:39:14.927+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-16", "monotonic_s": 44318.961763889, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-16-attempt-1", "ts": "2026-06-12T17:39:14.928+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-10", "monotonic_s": 44319.858738474, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:15.825+05:30", "wall_s": 30.045960596005898}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-10-attempt-1-insert", "item_id": "item-10", "monotonic_s": 44319.858957821, "ts": "2026-06-12T17:39:15.825+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-10-attempt-1-insert", "item_id": "item-10", "monotonic_s": 44319.964750802, "rc": 0, "ts": "2026-06-12T17:39:15.931+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-10-attempt-1-verify", "item_id": "item-10", "monotonic_s": 44319.964858968, "ts": "2026-06-12T17:39:15.931+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-10-attempt-1-verify", "item_id": "item-10", "monotonic_s": 44320.184232152, "rc": 0, "ts": "2026-06-12T17:39:16.150+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-10", "monotonic_s": 44320.1844838, "ts": "2026-06-12T17:39:16.151+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-17", "monotonic_s": 44320.184879081, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-17-attempt-1", "ts": "2026-06-12T17:39:16.151+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-09", "monotonic_s": 44323.103777763, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:19.070+05:30", "wall_s": 36.84602988999541}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-09-attempt-1-insert", "item_id": "item-09", "monotonic_s": 44323.10397644, "ts": "2026-06-12T17:39:19.070+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-09-attempt-1-insert", "item_id": "item-09", "monotonic_s": 44323.208966075, "rc": 0, "ts": "2026-06-12T17:39:19.175+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-09-attempt-1-verify", "item_id": "item-09", "monotonic_s": 44323.209123434, "ts": "2026-06-12T17:39:19.175+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-09-attempt-1-verify", "item_id": "item-09", "monotonic_s": 44323.511759062, "rc": 0, "ts": "2026-06-12T17:39:19.478+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-09", "monotonic_s": 44323.511939755, "ts": "2026-06-12T17:39:19.478+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-18", "monotonic_s": 44323.512269732, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-18-attempt-1", "ts": "2026-06-12T17:39:19.478+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-11", "monotonic_s": 44327.36687897, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:23.333+05:30", "wall_s": 32.22953045900067}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-11-attempt-1-insert", "item_id": "item-11", "monotonic_s": 44327.367244354, "ts": "2026-06-12T17:39:23.333+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-11-attempt-1-insert", "item_id": "item-11", "monotonic_s": 44327.469035734, "rc": 0, "ts": "2026-06-12T17:39:23.435+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-11-attempt-1-verify", "item_id": "item-11", "monotonic_s": 44327.469198994, "ts": "2026-06-12T17:39:23.435+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-11-attempt-1-verify", "item_id": "item-11", "monotonic_s": 44327.617067711, "rc": 0, "ts": "2026-06-12T17:39:23.583+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-11", "monotonic_s": 44327.617301215, "ts": "2026-06-12T17:39:23.583+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-19", "monotonic_s": 44327.617670606, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-19-attempt-1", "ts": "2026-06-12T17:39:23.584+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-12", "monotonic_s": 44339.195612233, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:35.162+05:30", "wall_s": 36.438281795002695}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-12-attempt-1-insert", "item_id": "item-12", "monotonic_s": 44339.195856848, "ts": "2026-06-12T17:39:35.162+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-12-attempt-1-insert", "item_id": "item-12", "monotonic_s": 44339.376365006, "rc": 0, "ts": "2026-06-12T17:39:35.342+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-12-attempt-1-verify", "item_id": "item-12", "monotonic_s": 44339.376484964, "ts": "2026-06-12T17:39:35.343+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-12-attempt-1-verify", "item_id": "item-12", "monotonic_s": 44339.574709104, "rc": 0, "ts": "2026-06-12T17:39:35.541+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-12", "monotonic_s": 44339.574926638, "ts": "2026-06-12T17:39:35.541+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-20", "monotonic_s": 44339.575285189, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-20-attempt-1", "ts": "2026-06-12T17:39:35.541+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-15", "monotonic_s": 44340.774248984, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:36.740+05:30", "wall_s": 22.302855187001114}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-15-attempt-1-insert", "item_id": "item-15", "monotonic_s": 44340.774540969, "ts": "2026-06-12T17:39:36.741+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-15-attempt-1-insert", "item_id": "item-15", "monotonic_s": 44340.886412116, "rc": 0, "ts": "2026-06-12T17:39:36.852+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-15-attempt-1-verify", "item_id": "item-15", "monotonic_s": 44340.88660378, "ts": "2026-06-12T17:39:36.853+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-15-attempt-1-verify", "item_id": "item-15", "monotonic_s": 44341.10069441, "rc": 0, "ts": "2026-06-12T17:39:37.067+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-15", "monotonic_s": 44341.101062018, "ts": "2026-06-12T17:39:37.067+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-21", "monotonic_s": 44341.1016159, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-21-attempt-1", "ts": "2026-06-12T17:39:37.068+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-18", "monotonic_s": 44345.27658241, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:41.243+05:30", "wall_s": 21.763916395000706}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-18-attempt-1-insert", "item_id": "item-18", "monotonic_s": 44345.276848876, "ts": "2026-06-12T17:39:41.243+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-18-attempt-1-insert", "item_id": "item-18", "monotonic_s": 44345.365794354, "rc": 0, "ts": "2026-06-12T17:39:41.332+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-18-attempt-1-verify", "item_id": "item-18", "monotonic_s": 44345.365925764, "ts": "2026-06-12T17:39:41.332+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-18-attempt-1-verify", "item_id": "item-18", "monotonic_s": 44345.535455698, "rc": 0, "ts": "2026-06-12T17:39:41.502+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-18", "monotonic_s": 44345.535698509, "ts": "2026-06-12T17:39:41.502+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-22", "monotonic_s": 44345.536094892, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-22-attempt-1", "ts": "2026-06-12T17:39:41.502+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-19", "monotonic_s": 44348.385685348, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:44.352+05:30", "wall_s": 20.767632766001043}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-19-attempt-1-insert", "item_id": "item-19", "monotonic_s": 44348.385864088, "ts": "2026-06-12T17:39:44.352+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-19-attempt-1-insert", "item_id": "item-19", "monotonic_s": 44348.47880209, "rc": 0, "ts": "2026-06-12T17:39:44.445+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-19-attempt-1-verify", "item_id": "item-19", "monotonic_s": 44348.478931686, "ts": "2026-06-12T17:39:44.445+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-19-attempt-1-verify", "item_id": "item-19", "monotonic_s": 44348.635460213, "rc": 0, "ts": "2026-06-12T17:39:44.602+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-19", "monotonic_s": 44348.635707483, "ts": "2026-06-12T17:39:44.602+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-23", "monotonic_s": 44348.636115949, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-23-attempt-1", "ts": "2026-06-12T17:39:44.602+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-14", "monotonic_s": 44349.84421129, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:45.810+05:30", "wall_s": 35.3117470050056}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-14-attempt-1-insert", "item_id": "item-14", "monotonic_s": 44349.844640756, "ts": "2026-06-12T17:39:45.811+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-14-attempt-1-insert", "item_id": "item-14", "monotonic_s": 44349.947393071, "rc": 0, "ts": "2026-06-12T17:39:45.913+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-14-attempt-1-verify", "item_id": "item-14", "monotonic_s": 44349.947520533, "ts": "2026-06-12T17:39:45.914+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-14-attempt-1-verify", "item_id": "item-14", "monotonic_s": 44350.137443555, "rc": 0, "ts": "2026-06-12T17:39:46.104+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-14", "monotonic_s": 44350.137650528, "ts": "2026-06-12T17:39:46.104+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-24", "monotonic_s": 44350.137986937, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-24-attempt-1", "ts": "2026-06-12T17:39:46.104+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-13", "monotonic_s": 44350.47367504, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:46.440+05:30", "wall_s": 37.49925540899858}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-13-attempt-1-insert", "item_id": "item-13", "monotonic_s": 44350.473967175, "ts": "2026-06-12T17:39:46.440+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-13-attempt-1-insert", "item_id": "item-13", "monotonic_s": 44350.580724458, "rc": 0, "ts": "2026-06-12T17:39:46.547+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-13-attempt-1-verify", "item_id": "item-13", "monotonic_s": 44350.580817886, "ts": "2026-06-12T17:39:46.547+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-13-attempt-1-verify", "item_id": "item-13", "monotonic_s": 44350.765636922, "rc": 0, "ts": "2026-06-12T17:39:46.732+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-13", "monotonic_s": 44350.765834497, "ts": "2026-06-12T17:39:46.732+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-25", "monotonic_s": 44350.766186626, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-25-attempt-1", "ts": "2026-06-12T17:39:46.732+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-17", "monotonic_s": 44354.32505229, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:50.291+05:30", "wall_s": 34.13980286500009}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-17-attempt-1-insert", "item_id": "item-17", "monotonic_s": 44354.325221892, "ts": "2026-06-12T17:39:50.291+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-17-attempt-1-insert", "item_id": "item-17", "monotonic_s": 44354.436605072, "rc": 0, "ts": "2026-06-12T17:39:50.403+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-17-attempt-1-verify", "item_id": "item-17", "monotonic_s": 44354.436765456, "ts": "2026-06-12T17:39:50.403+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-17-attempt-1-verify", "item_id": "item-17", "monotonic_s": 44354.593937486, "rc": 0, "ts": "2026-06-12T17:39:50.560+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-17", "monotonic_s": 44354.594240581, "ts": "2026-06-12T17:39:50.560+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-26", "monotonic_s": 44354.59466629, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-26-attempt-1", "ts": "2026-06-12T17:39:50.561+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-16", "monotonic_s": 44361.594354866, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:39:57.560+05:30", "wall_s": 42.63217836400145}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-16-attempt-1-insert", "item_id": "item-16", "monotonic_s": 44361.594616113, "ts": "2026-06-12T17:39:57.561+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-16-attempt-1-insert", "item_id": "item-16", "monotonic_s": 44361.700964389, "rc": 0, "ts": "2026-06-12T17:39:57.667+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-16-attempt-1-verify", "item_id": "item-16", "monotonic_s": 44361.701146515, "ts": "2026-06-12T17:39:57.667+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-16-attempt-1-verify", "item_id": "item-16", "monotonic_s": 44361.873326913, "rc": 0, "ts": "2026-06-12T17:39:57.839+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-16", "monotonic_s": 44361.873570356, "ts": "2026-06-12T17:39:57.840+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-27", "monotonic_s": 44361.873910662, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-27-attempt-1", "ts": "2026-06-12T17:39:57.840+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-20", "monotonic_s": 44365.999767815, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:01.966+05:30", "wall_s": 26.423976024001604}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-20-attempt-1-insert", "item_id": "item-20", "monotonic_s": 44366.000310416, "ts": "2026-06-12T17:40:01.966+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-20-attempt-1-insert", "item_id": "item-20", "monotonic_s": 44366.092606889, "rc": 0, "ts": "2026-06-12T17:40:02.059+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-20-attempt-1-verify", "item_id": "item-20", "monotonic_s": 44366.092730073, "ts": "2026-06-12T17:40:02.059+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-20-attempt-1-verify", "item_id": "item-20", "monotonic_s": 44366.239317286, "rc": 0, "ts": "2026-06-12T17:40:02.205+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-20", "monotonic_s": 44366.239631623, "ts": "2026-06-12T17:40:02.206+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-28", "monotonic_s": 44366.240104762, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-28-attempt-1", "ts": "2026-06-12T17:40:02.206+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-25", "monotonic_s": 44369.073999743, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:05.040+05:30", "wall_s": 18.307311923999805}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-25-attempt-1-insert", "item_id": "item-25", "monotonic_s": 44369.074275086, "ts": "2026-06-12T17:40:05.040+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-25-attempt-1-insert", "item_id": "item-25", "monotonic_s": 44369.16489744, "rc": 0, "ts": "2026-06-12T17:40:05.131+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-25-attempt-1-verify", "item_id": "item-25", "monotonic_s": 44369.165046192, "ts": "2026-06-12T17:40:05.131+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-25-attempt-1-verify", "item_id": "item-25", "monotonic_s": 44369.446859025, "rc": 0, "ts": "2026-06-12T17:40:05.413+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-25", "monotonic_s": 44369.44721444, "ts": "2026-06-12T17:40:05.413+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-29", "monotonic_s": 44369.447737594, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-29-attempt-1", "ts": "2026-06-12T17:40:05.414+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-26", "monotonic_s": 44376.661080201, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:12.627+05:30", "wall_s": 22.065991518000374}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-26-attempt-1-insert", "item_id": "item-26", "monotonic_s": 44376.661290631, "ts": "2026-06-12T17:40:12.627+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-26-attempt-1-insert", "item_id": "item-26", "monotonic_s": 44376.750912554, "rc": 0, "ts": "2026-06-12T17:40:12.717+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-26-attempt-1-verify", "item_id": "item-26", "monotonic_s": 44376.751079561, "ts": "2026-06-12T17:40:12.717+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-26-attempt-1-verify", "item_id": "item-26", "monotonic_s": 44376.922072845, "rc": 0, "ts": "2026-06-12T17:40:12.888+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-26", "monotonic_s": 44376.922361313, "ts": "2026-06-12T17:40:12.888+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-30", "monotonic_s": 44376.922851163, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-30-attempt-1", "ts": "2026-06-12T17:40:12.889+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-24", "monotonic_s": 44378.376049094, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:14.342+05:30", "wall_s": 28.23735428200598}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-24-attempt-1-insert", "item_id": "item-24", "monotonic_s": 44378.37631543, "ts": "2026-06-12T17:40:14.342+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-24-attempt-1-insert", "item_id": "item-24", "monotonic_s": 44378.47185816, "rc": 0, "ts": "2026-06-12T17:40:14.438+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-24-attempt-1-verify", "item_id": "item-24", "monotonic_s": 44378.471984029, "ts": "2026-06-12T17:40:14.438+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-24-attempt-1-verify", "item_id": "item-24", "monotonic_s": 44378.612866625, "rc": 0, "ts": "2026-06-12T17:40:14.579+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-24", "monotonic_s": 44378.613170633, "ts": "2026-06-12T17:40:14.579+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-31", "monotonic_s": 44378.613561595, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-31-attempt-1", "ts": "2026-06-12T17:40:14.580+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-23", "monotonic_s": 44387.26930343, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:23.235+05:30", "wall_s": 38.63263671599998}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-23-attempt-1-insert", "item_id": "item-23", "monotonic_s": 44387.269636022, "ts": "2026-06-12T17:40:23.236+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-23-attempt-1-insert", "item_id": "item-23", "monotonic_s": 44387.364283551, "rc": 0, "ts": "2026-06-12T17:40:23.330+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-23-attempt-1-verify", "item_id": "item-23", "monotonic_s": 44387.364426253, "ts": "2026-06-12T17:40:23.331+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-23-attempt-1-verify", "item_id": "item-23", "monotonic_s": 44387.545932015, "rc": 0, "ts": "2026-06-12T17:40:23.512+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-23", "monotonic_s": 44387.546164677, "ts": "2026-06-12T17:40:23.512+05:30"}
+{"attempt": 1, "event": "job_start", "item_id": "item-32", "monotonic_s": 44387.546485897, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-32-attempt-1", "ts": "2026-06-12T17:40:23.513+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-28", "monotonic_s": 44389.960024653, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:25.926+05:30", "wall_s": 23.719303811005375}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-28-attempt-1-insert", "item_id": "item-28", "monotonic_s": 44389.960408833, "ts": "2026-06-12T17:40:25.927+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-28-attempt-1-insert", "item_id": "item-28", "monotonic_s": 44390.054715244, "rc": 0, "ts": "2026-06-12T17:40:26.021+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-28-attempt-1-verify", "item_id": "item-28", "monotonic_s": 44390.054827928, "ts": "2026-06-12T17:40:26.021+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-28-attempt-1-verify", "item_id": "item-28", "monotonic_s": 44390.201536902, "rc": 0, "ts": "2026-06-12T17:40:26.168+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-28", "monotonic_s": 44390.20176235, "ts": "2026-06-12T17:40:26.168+05:30"}
+{"attempt": 2, "event": "job_start", "item_id": "item-01", "monotonic_s": 44390.202110021, "out": "/home/svankina/src/local_agents/results/experiments/showcase-fanout/2026-06-12-H-01/workers/item-01-attempt-2", "ts": "2026-06-12T17:40:26.168+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-22", "monotonic_s": 44392.733690565, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:28.700+05:30", "wall_s": 47.19721251500596}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-22-attempt-1-insert", "item_id": "item-22", "monotonic_s": 44392.733888531, "ts": "2026-06-12T17:40:28.700+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-22-attempt-1-insert", "item_id": "item-22", "monotonic_s": 44392.840534121, "rc": 0, "ts": "2026-06-12T17:40:28.807+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-22-attempt-1-verify", "item_id": "item-22", "monotonic_s": 44392.840674809, "ts": "2026-06-12T17:40:28.807+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-22-attempt-1-verify", "item_id": "item-22", "monotonic_s": 44393.057490675, "rc": 0, "ts": "2026-06-12T17:40:29.024+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-22", "monotonic_s": 44393.057702468, "ts": "2026-06-12T17:40:29.024+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-30", "monotonic_s": 44394.848694923, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:30.815+05:30", "wall_s": 17.925429804003215}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-30-attempt-1-insert", "item_id": "item-30", "monotonic_s": 44394.848896005, "ts": "2026-06-12T17:40:30.815+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-30-attempt-1-insert", "item_id": "item-30", "monotonic_s": 44394.930977925, "rc": 0, "ts": "2026-06-12T17:40:30.897+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-30-attempt-1-verify", "item_id": "item-30", "monotonic_s": 44394.931104025, "ts": "2026-06-12T17:40:30.897+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-30-attempt-1-verify", "item_id": "item-30", "monotonic_s": 44395.123891177, "rc": 0, "ts": "2026-06-12T17:40:31.090+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-30", "monotonic_s": 44395.124166851, "ts": "2026-06-12T17:40:31.090+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-31", "monotonic_s": 44395.793206899, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:31.759+05:30", "wall_s": 17.17907012100477}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-31-attempt-1-insert", "item_id": "item-31", "monotonic_s": 44395.793432618, "ts": "2026-06-12T17:40:31.760+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-31-attempt-1-insert", "item_id": "item-31", "monotonic_s": 44395.912248176, "rc": 0, "ts": "2026-06-12T17:40:31.878+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-31-attempt-1-verify", "item_id": "item-31", "monotonic_s": 44395.912381339, "ts": "2026-06-12T17:40:31.878+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-31-attempt-1-verify", "item_id": "item-31", "monotonic_s": 44396.062958551, "rc": 0, "ts": "2026-06-12T17:40:32.029+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-31", "monotonic_s": 44396.063179841, "ts": "2026-06-12T17:40:32.029+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-27", "monotonic_s": 44398.681711214, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:34.648+05:30", "wall_s": 36.80601231599576}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-27-attempt-1-insert", "item_id": "item-27", "monotonic_s": 44398.68299883, "ts": "2026-06-12T17:40:34.649+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-27-attempt-1-insert", "item_id": "item-27", "monotonic_s": 44398.763888015, "rc": 0, "ts": "2026-06-12T17:40:34.730+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-27-attempt-1-verify", "item_id": "item-27", "monotonic_s": 44398.764060132, "ts": "2026-06-12T17:40:34.730+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-27-attempt-1-verify", "item_id": "item-27", "monotonic_s": 44398.957256822, "rc": 0, "ts": "2026-06-12T17:40:34.923+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-27", "monotonic_s": 44398.957594133, "ts": "2026-06-12T17:40:34.924+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-29", "monotonic_s": 44399.58641409, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:35.552+05:30", "wall_s": 30.137137062003603}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-29-attempt-1-insert", "item_id": "item-29", "monotonic_s": 44399.587231012, "ts": "2026-06-12T17:40:35.553+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-29-attempt-1-insert", "item_id": "item-29", "monotonic_s": 44399.675931595, "rc": 0, "ts": "2026-06-12T17:40:35.642+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-29-attempt-1-verify", "item_id": "item-29", "monotonic_s": 44399.676105876, "ts": "2026-06-12T17:40:35.642+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-29-attempt-1-verify", "item_id": "item-29", "monotonic_s": 44399.837611548, "rc": 0, "ts": "2026-06-12T17:40:35.804+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-29", "monotonic_s": 44399.838448397, "ts": "2026-06-12T17:40:35.805+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-32", "monotonic_s": 44400.525141869, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:36.491+05:30", "wall_s": 12.978159477999725}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-32-attempt-1-insert", "item_id": "item-32", "monotonic_s": 44400.525441478, "ts": "2026-06-12T17:40:36.492+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-32-attempt-1-insert", "item_id": "item-32", "monotonic_s": 44400.62275896, "rc": 0, "ts": "2026-06-12T17:40:36.589+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-32-attempt-1-verify", "item_id": "item-32", "monotonic_s": 44400.622903134, "ts": "2026-06-12T17:40:36.589+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-32-attempt-1-verify", "item_id": "item-32", "monotonic_s": 44400.777848353, "rc": 0, "ts": "2026-06-12T17:40:36.744+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-32", "monotonic_s": 44400.778089461, "ts": "2026-06-12T17:40:36.744+05:30"}
+{"attempt": 1, "event": "job_end", "item_id": "item-21", "monotonic_s": 44411.577305805, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:40:47.543+05:30", "wall_s": 70.47518290199514}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_start", "id": "item-21-attempt-1-insert", "item_id": "item-21", "monotonic_s": 44411.577562051, "ts": "2026-06-12T17:40:47.544+05:30"}
+{"attempt": 1, "command": "insert_docstrings", "event": "command_end", "id": "item-21-attempt-1-insert", "item_id": "item-21", "monotonic_s": 44411.662509064, "rc": 0, "ts": "2026-06-12T17:40:47.629+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_start", "id": "item-21-attempt-1-verify", "item_id": "item-21", "monotonic_s": 44411.662631397, "ts": "2026-06-12T17:40:47.629+05:30"}
+{"attempt": 1, "command": "verify_item", "event": "command_end", "id": "item-21-attempt-1-verify", "item_id": "item-21", "monotonic_s": 44411.822875842, "rc": 0, "ts": "2026-06-12T17:40:47.789+05:30"}
+{"attempt": 1, "event": "verify_pass", "item_id": "item-21", "monotonic_s": 44411.823173988, "ts": "2026-06-12T17:40:47.789+05:30"}
+{"attempt": 2, "event": "job_end", "item_id": "item-01", "monotonic_s": 44429.299219073, "rc": 0, "timed_out": false, "ts": "2026-06-12T17:41:05.265+05:30", "wall_s": 39.0966171580003}
+{"attempt": 2, "command": "insert_docstrings", "event": "command_start", "id": "item-01-attempt-2-insert", "item_id": "item-01", "monotonic_s": 44429.299463628, "ts": "2026-06-12T17:41:05.266+05:30"}
+{"attempt": 2, "command": "insert_docstrings", "event": "command_end", "id": "item-01-attempt-2-insert", "item_id": "item-01", "monotonic_s": 44429.388219055, "rc": 0, "ts": "2026-06-12T17:41:05.354+05:30"}
+{"attempt": 2, "command": "verify_item", "event": "command_start", "id": "item-01-attempt-2-verify", "item_id": "item-01", "monotonic_s": 44429.388380843, "ts": "2026-06-12T17:41:05.354+05:30"}
+{"attempt": 2, "command": "verify_item", "event": "command_end", "id": "item-01-attempt-2-verify", "item_id": "item-01", "monotonic_s": 44429.555513272, "rc": 0, "ts": "2026-06-12T17:41:05.522+05:30"}
+{"attempt": 2, "event": "verify_pass", "item_id": "item-01", "monotonic_s": 44429.555738099, "ts": "2026-06-12T17:41:05.522+05:30"}
