@@ -37,10 +37,10 @@ of target symbols (functions, methods, classes) that lack docstrings. Respond
 with a single JSON object and nothing else:
 {"docstrings": {"<qualname>": "<docstring text>", ...}}
 Rules: one entry per target, no extra keys. Docstrings must be plain text
-(no surrounding quotes), accurate to the code, and for every function or
-method every parameter name, excluding self and cls, must appear verbatim in
-that target's docstring. Copy keys exactly as given in the required keys list.
-Do not restate the code. Do not include reasoning."""
+(no surrounding quotes), accurate to the code, and at least 20 non-whitespace characters.
+For every function or method every parameter name, excluding self and cls, must
+appear verbatim in that target's docstring. Copy keys exactly as given in the
+required keys list. Do not restate the code. Do not include reasoning."""
 
 
 def prompt_for(item: dict[str, Any], source: str, feedback: str | None = None) -> str:
@@ -68,6 +68,7 @@ def prompt_for(item: dict[str, Any], source: str, feedback: str | None = None) -
             "EXACT required keys list. Copy these keys exactly as given:",
             required_keys,
             "",
+            "Every docstring must be at least 20 non-whitespace characters and must not be a placeholder.",
             "Every function or method docstring must include each of that target's parameter names verbatim.",
             "",
             "<file>",

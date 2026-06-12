@@ -203,6 +203,11 @@ class Dispatcher:
             f"failed_check: {verify.get('failed_check') or 'unknown'}",
             f"reason: {verify.get('reason') or 'verification failed'}",
         ]
+        if verify.get("failed_check") == "non_placeholder":
+            lines.append(
+                "retry_requirement: Rewrite the named target's docstring as a meaningful "
+                "sentence with at least 20 non-whitespace characters."
+            )
         for filename in ("error.json", "insert.stderr", "verify.stderr", "worker.stderr"):
             path = out / filename
             if not path.exists():
