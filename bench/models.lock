@@ -34,3 +34,9 @@ huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 shard model-00002-of-00004.saf
 huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 shard model-00003-of-00004.safetensors bytes 5371302232
 huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 shard model-00004-of-00004.safetensors bytes 2355565128
 huggingface cyankiwi/North-Mini-Code-1.0-AWQ-INT4 quantization compressed-tensors pack-quantized int4 weights num_bits=4
+
+huggingface Qwen/Qwen3-30B-A3B-GPTQ-Int4 revision 9b534e4318b7ebc3c961a839f13eb18b1833f441
+huggingface Qwen/Qwen3-30B-A3B-GPTQ-Int4 total_bytes 16933256392
+huggingface Qwen/Qwen3-30B-A3B-GPTQ-Int4 weights_bytes 16933256392
+huggingface Qwen/Qwen3-30B-A3B-GPTQ-Int4 shard model.safetensors bytes 16933256392
+huggingface Qwen/Qwen3-30B-A3B-GPTQ-Int4 quantization gptq bits=4 group_size=128 sym=true desc_act=false checkpoint_format=gptq

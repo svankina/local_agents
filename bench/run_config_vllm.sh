@@ -112,7 +112,7 @@ LOG_PID=$!
 
 export BENCH_BASE="http://127.0.0.1:$PORT/v1"
 export BENCH_MODEL="$SERVED_MODEL"
-if [ "$CFG" = "C17-north-mini-vllm" ] && [ -z "${BENCH_THROUGHPUT_STREAMS:-}" ]; then
+if [[ "$CFG" =~ ^C(17|18)- ]] && [ -z "${BENCH_THROUGHPUT_STREAMS:-}" ]; then
   export BENCH_THROUGHPUT_STREAMS="1 2 4 8"
 fi
 
@@ -128,7 +128,7 @@ then
 fi
 nvidia-smi --query-gpu=memory.used --format=csv,noheader | tee "$RAW/vram_loaded.txt"
 
-if [ "$CFG" = "C17-north-mini-vllm" ]; then
+if [[ "$CFG" =~ ^C(17|18)- ]]; then
   if ! python3 - "$CFG" "$SERVED_MODEL" <<'PY'
 import json
 import pathlib
