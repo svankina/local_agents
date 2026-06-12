@@ -58,6 +58,18 @@ C14 uses the official Docker CUDA image `ghcr.io/ggml-org/llama.cpp:server-cuda@
 
 MTP ratio on CUDA is 143.4 / 138.0 = 1.04x for single-stream p1k decode. Verdict: CUDA improves single-stream speed over the C12 Vulkan run and the no-spec CUDA control has better x4 aggregate behavior, but neither CUDA result proves a real parallel worker pool by the >=1.5x x4 aggregate rubric. CUDA+MTP reaches only 114.6 aggregate t/s at x4 with 33.7 t/s per stream, while CUDA without MTP reaches 174.8 aggregate t/s at x4 with 54.4 t/s per stream; the control is the better parallel shape, but still short of the worker-pool threshold.
 
+## C16 Bare-Metal CUDA Addendum
+
+C16 uses native `llama-server-cuda`, built from the same llama.cpp commit as C14 (`version: 9592 (ac4cddeb0)`) with a user-local CUDA 13.0 pip-wheel toolkit. The run uses the same byteshape Qwen3.6 35B IQ4_XS GGUF and MTP flags as C12/C14.
+
+| Config | Backend | MTP | p1k decode t/s | p8k decode t/s | x2 aggregate t/s | x4 aggregate t/s | x4 scaling | x4 per-stream t/s | Toolcall @0.2 | VRAM loaded |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| C12-byteshape-35b | Vulkan b9596 | yes | 127.7 | 127.9 | 9.6 | 91.0 | 0.71x | 31.0 | 1.000 | 19277 MiB |
+| C14-cuda-35b | CUDA Docker b9592 | yes | 143.4 | 149.5 | 96.1 | 114.6 | 0.80x | 33.7 | 1.000 | 19583 MiB |
+| C16-cuda-baremetal | CUDA bare metal b9592 | yes | 135.7 | 136.7 | 92.0 | 107.4 | 0.79x | 31.6 | 1.000 | 19583 MiB |
+
+Docker overhead was not visible in this run: C16 bare metal was 5.4% slower than C14 Docker on single-stream p1k decode, with the same loaded VRAM. Raw C16 logs contain `CUDA0`, `creating MTP draft context`, `draft-mtp`, and `draft acceptance` lines.
+
 ## C15 vLLM Addendum
 
 C15 uses `vllm/vllm-openai:v0.22.1` (local image digest `sha256:953d3a06d5e64ab582985cd7401289d3abf2a2c14ef2158e9a84313daeec77d7`) with `mattbucci/Qwen3.6-35B-A3B-AWQ`. The original 32k startup OOMed during CUDA graph/KV profiling; the successful run used `--max-model-len 16384 --max-num-seqs 4 --gpu-memory-utilization 0.92`.
