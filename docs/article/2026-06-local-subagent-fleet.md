@@ -1,6 +1,6 @@
 # 23× faster, 74% cheaper: Claude Code with local subagents on an RTX 3090 Ti vs Fable 5 doing everything itself
 
-Scope up front, because unbiased benchmarking is the whole point. The 23×/−74% is the work phase of an embarrassingly-parallel fan-out at quality parity — 32/32 verified, both arms. End-to-end the same run is 3.2× faster. Serial multi-turn work is less dramatic: a replayed CAD-kernel build (n=1 per arm, so hold your applause) lands at −33% cloud cost for +19% wall-clock. Every number here is committed with raw logs.
+Scope up front, because unbiased benchmarking is the whole point. The 23×/−74% is the work phase of an embarrassingly-parallel fan-out at quality parity — 32/32 verified, both arms. End-to-end the same run is 3.2× faster. Every number here is committed with raw logs.
 
 The setup: Fable 5 keeps the senior chair — planning, review, merges — and the grunt work goes local on an RTX 3090 Ti (24 GB). Two local configs earned a seat. byteshape's Qwen3.6-35B-A3B IQ4_XS under llama.cpp for queue-serial agentic work (**100% toolcall, 5/5 agentic, 127–143 tok/s**), and Qwen3-30B-A3B GPTQ under vLLM for parallel fan-out. Baseline: Fable 5 doing everything itself.
 
@@ -66,18 +66,7 @@ The first vLLM config posted the best parallel scaling and scored zero on qualit
 - **Budget coexistence**: 26B `-cmoe` senior (3.0 GB) + 12B worker, 11.1 GB peak, measured under concurrent load.
 - **Parallel pool (throughput tier)**: Qwen3-30B-A3B GPTQ under vLLM — 808.7 tok/s aggregate at x8, toolcall 0.972. The agentic variance pass keeps it off autonomous multi-turn duty. Well-specified single-shot fan-out is exactly what the showcase ran on it, though.
 
-## CAD kernel part 1 build (replay)
-
-Replays a small CAD engine build — B-rep kernel -> tessellation -> three.js viewport — against a pinned plan and fixed gates (a shaded box orbiting at 60 fps behind a hard test gate). One completed rep per arm; N≥3 planned, so treat this as preliminary:
-
-| | wall-clock | cloud $ | output tokens |
-|---|---:|---:|---:|
-| original build (cloud-subagent workflow, forensic baseline) | 65.6 min | $29.22 | 162k |
-| A: Fable 5 solo (n=1) | 13.3 min | $13.44 | 51.5k |
-| B: Fable 5 + cloud subagents (n=1) | 16.7 min | $13.30 | — |
-| C: Fable 5 senior + local workers (n=1) | 15.8 min | $9.05 | 50.5k local |
-
-All gates verified in all three arms. Arm B is slower than solo at the same cost — the six worker jobs are dependency-chained, so subagents added handoff overhead without parallelism. Arm C cuts cloud cost 33% vs solo at +19% wall-clock. Its local workers generated 50,536 completion tokens against solo's 51,467 cloud output tokens — nearly token-for-token the same code volume, moved off the cloud. The remaining cost is the senior's 53 supervision turns. One rep each of arms B and C was excluded for documented harness incidents (an inherited-MCP browser grab; a background dispatch that killed a print-mode session), not arm behavior.
+Next post: the same fleet on serial multi-turn work — a full CAD-kernel build replay. Numbers still cooking.
 
 ## Reproduction
 
