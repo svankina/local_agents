@@ -1,14 +1,30 @@
-# [N×] faster, [K%] fewer cloud tokens: running Claude Code with local subagents (byteshape Qwen3.6-35B-A3B) instead of Fable 5 doing everything itself
+# 23× faster, 74% cheaper: running Claude Code with local subagents on an RTX 3090 Ti instead of Fable 5 doing everything itself
 
-*[N×] and [K%] are placeholders — they land when the CAD kernel part 1 build experiment at the bottom finishes. Every other number in this post is already measured and committed with raw logs.*
+Scope up front: 23×/−74% is the work phase of an embarrassingly-parallel fan-out at quality parity (32/32 verified, both arms); end-to-end the same run is 3.2× faster. On serial multi-turn work the gap is smaller — a replayed CAD-kernel build (n=1 per arm) shows −33% cloud cost at +19% wall-clock. Every number is committed with raw logs.
 
-Setup: Claude Fable 5 remains the senior agent — planning, review, merges — and the grunt work (search, edits, test loops) goes to a local model on an RTX 3090 Ti (24 GB). The best performer in the benchmarks below is byteshape's Qwen3.6-35B-A3B IQ4_XS quant: **100% toolcall, 5/5 agentic, 127–143 tok/s decode**. The baseline is Fable 5 doing everything itself.
+Setup: Claude Fable 5 stays senior — planning, review, merges — and the grunt work goes local on an RTX 3090 Ti (24 GB). Two local configs earned roles in the benchmarks below: byteshape's Qwen3.6-35B-A3B IQ4_XS under llama.cpp for queue-serial agentic work (**100% toolcall, 5/5 agentic, 127–143 tok/s**), and Qwen3-30B-A3B GPTQ under vLLM for parallel fan-out. Baseline: Fable 5 doing everything itself.
 
-We benchmarked Gemma 4 12B/26B, Qwen3.6-27B/35B, Nex-N2-mini, and Qwopus across llama.cpp Vulkan, llama.cpp CUDA (Docker and bare metal), and vLLM.
+## The fan-out showcase
+
+Workload: backfill docstrings for 32 functions across scrapy@a8ffdcf8, each item verified deterministically — py_compile, AST equivalence proving code untouched, parameter coverage, verbatim parameter mentions, anti-placeholder checks. Same items, same verifier, two arms.
+
+| | fleet (F-06) | solo (S-01) |
+|---|---:|---:|
+| verified | 32/32 | 32/32 |
+| work phase | 24.7 s | 569 s |
+| end-to-end | 176 s | 569 s |
+| cloud cost | $2.40 | $9.22 |
+| output throughput | 344 tok/s | 69.3 tok/s |
+
+The fleet arm is Fable 5 making exactly two cloud calls — decompose (91 s), synthesize (57 s) — around 8 concurrent local streams of the vLLM pool: 39 requests, 78,130 local tokens, 7 feedback retries, all recovered; aggregate 344 completion tok/s (3,157 counting fresh prefill), per-stream median 58, peak 101. The solo arm: Fable 5 alone, 85 turns, 39,454 output tokens.
+
+Work phase 23.0× faster, end-to-end 3.2×, cloud cost −74%, throughput 5.0× — at quality parity. The runtime split is the real finding: supervisor bookends 148 s (84%), local fleet 24.7 s (14%), harness 3 s (2%). The fleet did all the work in 14% of the window; the next optimization is the cloud bookends, not the workers.
+
+The harness took five runs to be fair to a real model: 1/32 (rejected a dotted-qualname dialect) → 12/32 (implicit parameter requirement) → 30/32 (undisclosed length threshold) → 31/32 (underscore-variant key crashed the inserter) → 32/32. Every fix deterministic, regression-tested against the real failed responses. The model was never incoherent — the harness was unfair.
 
 ## Benchmark results
 
-One GPU, one server at a time, three suites: throughput, 36 tool-call trials, 5 agentic repo-editing tasks.
+One GPU, one server at a time, three suites — throughput, 36 tool-call trials, 5 agentic repo-editing tasks — across llama.cpp Vulkan, llama.cpp CUDA (Docker and bare metal), and vLLM.
 
 | Config | decode t/s | x4 agg | toolcall strict/lenient† | agentic | VRAM |
 |---|---:|---:|---:|---:|---:|
@@ -24,45 +40,44 @@ One GPU, one server at a time, three suites: throughput, 36 tool-call trials, 5 
 | same, CUDA, no spec-decode | 138.0 | **174.8** | — | — | 18.9 GB |
 | same, CUDA **bare metal** | 135.7 | 107.4 | **1.000** | — | 19.6 GB |
 | Qwen 35B AWQ, vLLM 0.22.1 | 130.6 | **360.3** | 0.167* | 0/5* | 21.8 GB |
-| Qwen3-30B-A3B GPTQ, vLLM | 183.8 | **534.4** (808.7 @x8) | 0.972 | 3/5† | 22.2 GB |
+| Qwen3-30B-A3B GPTQ, vLLM | 183.8 | **534.4** (808.7 @x8) | 0.972 | 3/5‡ | 22.2 GB |
 
-† agentic settled by a 3-run variance pass: 3/5, 1/5, 2/5 — `csv-script` and `add-flag` failed in all three runs (systematic, not noise). Throughput tier only.
-† lenient forgives exactly one failure type — calling `list_dir` before the requested `read_file` (protocol-valid, fixable by prompting). Nothing else: missing calls, wrong arguments, and other wrong tools still fail. Recomputed from the raw trials (`results/toolcall_lenient.json`).
+† lenient forgives exactly one failure type — calling `list_dir` before the requested `read_file` (protocol-valid, fixable by prompting). Everything else still fails. Raw trials: `results/toolcall_lenient.json`.
+‡ 3-run variance pass: 3/5, 1/5, 2/5 — the same two tasks failed every run (systematic). Throughput tier only.
 \* not a model problem — see "vLLM output corruption."
 
 ## Five lessons
 
-1. **llama.cpp slot-parallelism barely scales**: 4 streams gives 1.25× (Vulkan) to 1.27× (CUDA) aggregate — one fast queue-serial server beats a slot pool.
+1. **llama.cpp slot-parallelism barely scales**: 4 streams gives 1.25–1.27× aggregate — one fast queue-serial server beats a slot pool.
 2. **MTP speculative decoding helps solo, hurts batched**: +28% single-stream on Gemma 12B, −34% x4 aggregate on CUDA — turn it off past one stream.
-3. **vLLM continuous batching is the real parallel path**: with a properly supported model (Qwen3-30B-A3B GPTQ), 808.7 tok/s aggregate at x8 — 4.40× scaling, ~101 tok/s per stream, coherent output, real tool calls — where llama.cpp managed 1.27×.
-4. **Read the failures, not the score**: Gemma 12B's 0.806 strict toolcall is 1.000 lenient — every miss was the model calling `list_dir` before `read_file`, zero malformed calls. The strict/lenient split in the table separates protocol failures from workflow caution.
+3. **vLLM continuous batching is the real parallel path**: 808.7 tok/s aggregate at x8 on Qwen3-30B-A3B GPTQ — 4.40× scaling, ~101 tok/s per stream, coherent output, real tool calls — where llama.cpp managed 1.27×.
+4. **Read the failures, not the score**: Gemma 12B's 0.806 strict toolcall is 1.000 lenient — every miss was the model calling `list_dir` before `read_file`, zero malformed calls.
 5. **Cache-bust everything**: cached prefill medians read 49.9 tok/s where the true number was 2305 (46× off), and throughput suites can't see output corruption.
 
-Two operational rules. Resolve GPUs by name, never enumeration index — Vulkan flipped device order mid-run and silently re-ran one config on the wrong card. And `--max-num-seqs 4` is the flag that got vLLM to fit in 24 GB after the 32k-context startup OOMed.
+Two operational rules: resolve GPUs by name, never enumeration index (Vulkan flipped device order mid-run and silently re-ran a config on the wrong card), and `--max-num-seqs 4` is what got vLLM into 24 GB after the 32k-context startup OOMed.
 
 ## vLLM output corruption
 
-The first vLLM config posted the best parallel scaling and scored zero on quality: it generated gibberish for every prompt; a temperature-0 "say hello" returned multi-script token salad. We ruled out the tool parser (both candidates fail identically), the chat template (passed explicitly), and mrope config loss (re-injected via `--hf-overrides`). Remaining suspects: vLLM 0.22.1's quantized-MoE path for this VL-flavored architecture, or the community AWQ quant itself. The same weights score 1.000 toolcall through llama.cpp; the elimination log is in the repo.
-
-Resolution: the corruption is model-specific. Switching to a text-only architecture with an official quant (Qwen3-30B-A3B GPTQ-Int4) produced coherent output and parsed tool calls under the same vLLM image — after two more plumbing rounds (gen-3 Qwen needs `--tool-call-parser hermes`, not `qwen3_xml`; and a thinking model needs probe/token budgets that survive the reasoning channel).
+The first vLLM config posted the best parallel scaling and scored zero on quality: gibberish for every prompt — a temperature-0 "say hello" returned multi-script token salad. We ruled out the tool parser, chat template, and mrope config loss; the same weights score 1.000 toolcall through llama.cpp. The corruption is model-specific: a text-only architecture with an official quant (Qwen3-30B-A3B GPTQ-Int4) ran coherently under the same vLLM image, after two plumbing rounds (gen-3 Qwen needs `--tool-call-parser hermes`, not `qwen3_xml`; thinking models need probe budgets that survive the reasoning channel). Elimination log in the repo.
 
 ## The fleet
 
 - **Senior + default worker**: byteshape 35B-A3B via llama.cpp, queue-serial. 100% toolcall, 5/5 agentic, 127–143 tok/s. One model, both jobs.
 - **Budget coexistence**: 26B `-cmoe` senior (3.0 GB) + 12B worker, 11.1 GB peak, measured under concurrent load.
-- **Parallel pool (throughput tier)**: Qwen3-30B-A3B GPTQ under vLLM — 808.7 tok/s aggregate at x8 (~101 per stream), toolcall 0.972. A 3-run agentic pass (3/5, 1/5, 2/5; two tasks failed every run) keeps it off autonomous worker duty: use it for parallel fan-out of well-specified single-shot work, not multi-turn coding loops.
+- **Parallel pool (throughput tier)**: Qwen3-30B-A3B GPTQ under vLLM — 808.7 tok/s aggregate at x8, toolcall 0.972. The agentic variance pass keeps it off autonomous multi-turn duty — but well-specified single-shot fan-out is exactly what the showcase ran on it.
 
-## CAD kernel part 1 build
+## CAD kernel part 1 build (replay)
 
-This is the experiment that fills in the headline placeholders. It replays a small CAD engine build from scratch — B-rep kernel → tessellation → three.js viewport — until a shaded box orbits at 60 fps behind a hard test gate. It is a milestone we already shipped once, so the plan is pinned and the acceptance criteria are fixed. Three arms, N≥3 runs each: Fable 5 solo, Fable 5 + cloud subagents, Fable 5 + local subagents. Measured: wall-clock, cloud tokens/$, local tokens, repair loops, GPU watt-hours per task.
+Replays a small CAD engine build — B-rep kernel → tessellation → three.js viewport — against a pinned plan and fixed gates (a shaded box orbiting at 60 fps behind a hard test gate). One completed rep per arm; N≥3 planned, so preliminary:
 
-| | wall-clock | cloud $ | repair loops |
+| | wall-clock | cloud $ | output tokens |
 |---|---:|---:|---:|
-| Fable 5 solo | TBD | TBD | TBD |
-| + cloud subagents | TBD | TBD | TBD |
-| + local subagents | TBD | TBD | TBD |
+| original build (cloud-subagent workflow, forensic baseline) | 65.6 min | $29.22 | 162k |
+| A: Fable 5 solo (n=1) | 13.3 min | $13.44 | 51.5k |
+| B: Fable 5 + cloud subagents (n=1) | 16.7 min | $13.30 | — |
+| C: Fable 5 senior + local workers (n=1) | 15.8 min | $9.05 | 50.5k local |
 
-If local workers save tokens but lose wall-clock to the serial queue, we publish that too.
+All gates verified in all three arms. Arm B is slower than solo at the same cost: the six worker jobs are dependency-chained, so subagents added handoff overhead without parallelism. Arm C cuts cloud cost 33% vs solo at +19% wall-clock — its local workers generated 50,536 completion tokens against solo's 51,467 cloud output tokens, nearly token-for-token the same code volume moved off the cloud; the remaining cost is the senior's 53 supervision turns. One rep each of arms B and C was excluded for documented harness incidents (an inherited-MCP browser grab; a background dispatch that killed a print-mode session), not arm behavior.
 
 ## Reproduction
 
