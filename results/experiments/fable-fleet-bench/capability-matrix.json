@@ -188,6 +188,66 @@
       ],
       "struggles_with": []
     },
+    "C15-awq35b-nothink": {
+      "n_episodes": 30,
+      "overall_first_pass": 0.0,
+      "format_violation_rate": 1.0,
+      "per_item": {
+        "balanced-brackets": 0.0,
+        "camel-to-snake": 0.0,
+        "chunk-list": 0.0,
+        "flatten-nested": 0.0,
+        "gcd": 0.0,
+        "int-to-roman": 0.0,
+        "merge-intervals": 0.0,
+        "run-length-encode": 0.0,
+        "two-sum-indices": 0.0,
+        "word-frequency": 0.0
+      },
+      "always_solves": [],
+      "struggles_with": [
+        "balanced-brackets",
+        "camel-to-snake",
+        "chunk-list",
+        "flatten-nested",
+        "gcd",
+        "int-to-roman",
+        "merge-intervals",
+        "run-length-encode",
+        "two-sum-indices",
+        "word-frequency"
+      ]
+    },
+    "C15-awq35b-think": {
+      "n_episodes": 30,
+      "overall_first_pass": 0.0,
+      "format_violation_rate": 1.0,
+      "per_item": {
+        "balanced-brackets": 0.0,
+        "camel-to-snake": 0.0,
+        "chunk-list": 0.0,
+        "flatten-nested": 0.0,
+        "gcd": 0.0,
+        "int-to-roman": 0.0,
+        "merge-intervals": 0.0,
+        "run-length-encode": 0.0,
+        "two-sum-indices": 0.0,
+        "word-frequency": 0.0
+      },
+      "always_solves": [],
+      "struggles_with": [
+        "balanced-brackets",
+        "camel-to-snake",
+        "chunk-list",
+        "flatten-nested",
+        "gcd",
+        "int-to-roman",
+        "merge-intervals",
+        "run-length-encode",
+        "two-sum-indices",
+        "word-frequency"
+      ]
+    },
     "C18-nothink": {
       "n_episodes": 60,
       "overall_first_pass": 0.4,

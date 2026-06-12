@@ -126,6 +126,12 @@
     <tr><td>C12 byteshape-35B llama×4 · thinking</td><td class="num">67%</td><td class="num">590s</td><td class="num">113</td><td class="dim">8/9 failures truncation; true logic ≈96%; template ignores reasoning-budget 0</td></tr>
     <tr><td>C18 qwen3-30B vLLM×16 · no-think</td><td class="num warn">40%</td><td class="num">5.0s</td><td class="num">737</td><td class="dim">the MoE needs its thinking — single-shot; retry loop recovers (E5)</td></tr>
     <tr><td>diffusiongemma-26B · 1-stream CLI</td><td class="num bad">0% <span class="dim">(80% lenient)</span></td><td class="num">214s</td><td class="num dim">—</td><td class="dim">every reply fenced despite instruction; no server/batching yet (PR #24423)</td></tr>
+    <tr><td class="hl">C13 Qwopus-27B llama×4 · thinking</td><td class="num hl">97%</td><td class="num">416s</td><td class="num">60</td><td class="dim">best non-gemma score; needs its thinking (60% without)</td></tr>
+    <tr><td class="hl">C7 qwen3.6-27B Q3 llama×4 · no-think</td><td class="num hl">93%</td><td class="num hl">51s</td><td class="num">60</td><td class="dim">a Q3 quant matching C18-think; thinking CRATERS it (43%, 971s)</td></tr>
+    <tr><td class="hl">C8 Nex-N2-mini Q3 llama×4 · no-think</td><td class="num hl">90%</td><td class="num hl">22s</td><td class="num">132</td><td class="dim">speed demon; thinking-mode replies are format chaos (0% strict)</td></tr>
+    <tr><td>C6 gemma-26B cmoe+MTP · no-reason</td><td class="num">80%</td><td class="num">242s</td><td class="num warn">13.5</td><td class="dim">same capability as C4 (serving variant), cmoe offload is slow</td></tr>
+    <tr><td>C15 qwen3.6-35B AWQ vLLM</td><td class="num bad">excluded</td><td class="num dim">—</td><td class="num dim">345</td><td class="dim">emits token salad — broken AWQ quant under v0.22.1</td></tr>
+    <tr><td>C17 North-Mini-Code vLLM</td><td class="num bad">excluded</td><td class="num dim">—</td><td class="num dim">—</td><td class="dim">asymmetric INT4 MoE rejected by vLLM 0.22.1 marlin</td></tr>
   </table>
   <div class="verdict"><b>Failures are budget overflow, not stupidity.</b> Disable reasoning where the
   model tolerates it (gemma: yes, C18: no) and most of the error rate evaporates. Reasoning
@@ -164,7 +170,8 @@
     <tr><td>reasoning</td><td class="hl">per-model: gemma off, C18 on (or off + retries for wall-clock)</td><td class="dim">E2 + E5</td></tr>
     <tr><td>fix messages</td><td class="hl">minimal — “try again”</td><td class="dim">97% repair, 15% cheaper (E3)</td></tr>
     <tr><td>temperature</td><td class="hl">anything ≤1.0</td><td class="dim">null effect (E4)</td></tr>
-    <tr><td>current best worker</td><td class="hl">gemma-12B-qat, reasoning off</td><td class="dim">100% pass · 83 tasks/min · cheapest supervision measured</td></tr>
+    <tr><td>best workers (bench)</td><td class="hl">gemma-12B-nothink 100% · Qwopus-27B-think 97% · qwen27B-Q3-nothink 93% · nex-mini 90% @ 22s</td><td class="dim">think/nothink is per-model — three models invert completely</td></tr>
+    <tr><td>live-run caveat</td><td class="hl">arm G: gemma-12B got 30/32 on real docstrings, 184.5s</td><td class="dim">vs C18 fleet 32/32 @ 24.7s — easy-tier bench wins don't transfer 1:1; engine/batching dominates</td></tr>
   </table>
 </section>
 
@@ -172,6 +179,8 @@
   fake-Fable harness: bench/fleet_bench/ (fake_supervisor.py · run_experiments.py · run_diffusion_e7.py ·
   families/pure_fn.py) — every number traces to episodes.json artifacts in this directory.
   Supervisor cost counted via the serving engine’s /tokenize on the scripted plan + fix messages.
+  Per-model per-item profiles: <a href="capability-matrix.md">capability-matrix.md</a> (27 profiles × 10 items).
+  Live run (real Fable, real scrapy docstrings): results/experiments/showcase-fanout/2026-06-13-G-01.
 </footer>
 
 </div>

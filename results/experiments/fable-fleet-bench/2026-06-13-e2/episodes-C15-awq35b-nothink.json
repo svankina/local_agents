@@ -1,0 +1,967 @@
+{
+ "wall_s": 180.1,
+ "concurrency": 4,
+ "n_episodes": 30,
+ "results": [
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 73,
+   "worker_completion_tokens": 1717,
+   "worker_wall_s": 20.77,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 1717,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 73,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 34.96,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/run-length-encode",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 73,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 36.09,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 36.09,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 33.24,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/balanced-brackets",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 66,
+   "worker_completion_tokens": 2457,
+   "worker_wall_s": 26.75,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 2457,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 74,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 32.13,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 74,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 32.13,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 78,
+   "worker_completion_tokens": 1455,
+   "worker_wall_s": 14.91,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 1455,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 69,
+   "worker_completion_tokens": 49,
+   "worker_wall_s": 1.92,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 49,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/two-sum-indices",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 74,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 33.35,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 78,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 33.86,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/merge-intervals",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 78,
+   "worker_completion_tokens": 2461,
+   "worker_wall_s": 27.68,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 2461,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 69,
+   "worker_completion_tokens": 862,
+   "worker_wall_s": 10.0,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 862,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 715,
+   "worker_wall_s": 7.61,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 715,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/word-frequency",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 69,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 32.95,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 158,
+   "worker_wall_s": 1.89,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 158,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 2577,
+   "worker_wall_s": 27.51,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 2577,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/camel-to-snake",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 71,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 32.44,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 49,
+   "worker_completion_tokens": 6,
+   "worker_wall_s": 0.33,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 6,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 32.71,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 49,
+   "worker_completion_tokens": 843,
+   "worker_wall_s": 8.84,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 843,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 64,
+   "worker_completion_tokens": 834,
+   "worker_wall_s": 8.85,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 834,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/flatten-nested",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 62,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 32.73,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 64,
+   "worker_completion_tokens": 754,
+   "worker_wall_s": 7.98,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 754,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/int-to-roman",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 49,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 32.77,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 11,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 725,
+   "worker_wall_s": 7.89,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 725,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 33,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 526,
+   "worker_wall_s": 5.58,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 526,
+     "finish": "stop"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/chunk-list",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 64,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 30.92,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  },
+  {
+   "item": "pure_fn/gcd",
+   "style": "medium",
+   "temperature": 0.2,
+   "seed": 22,
+   "passed": false,
+   "rounds_used": 1,
+   "first_pass": false,
+   "first_lenient": false,
+   "violations_r0": [
+    "no-def"
+   ],
+   "supervisor_tokens": 56,
+   "worker_completion_tokens": 3072,
+   "worker_wall_s": 26.93,
+   "rounds": [
+    {
+     "round": 0,
+     "strict": {
+      "passed": false,
+      "failed_check": "format",
+      "reason": "no-def"
+     },
+     "lenient_passed": false,
+     "violations": [
+      "no-def"
+     ],
+     "completion_tokens": 3072,
+     "finish": "length"
+    }
+   ]
+  }
+ ]
+}
