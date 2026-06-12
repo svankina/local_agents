@@ -193,11 +193,47 @@ Memory hygiene:
 
 ### Primary Metrics
 
-- Wall-clock total: from first agent prompt after workspace creation to accepted M1 exit.
+- Wall-clock total (time to completion): from first agent prompt after workspace creation to accepted M1 exit.
 - Wall-clock per M1 task: Tasks 1 through 9 from the pinned plan.
-- Cloud input tokens, output tokens, cache-read tokens, cache-write tokens, and cost.
-- Local input tokens, output tokens, decode tokens/sec, prompt tokens/sec, and local server active time.
+- Total tokens used: cloud input/output/cache-read/cache-write tokens and USD cost; local prompt/completion tokens; and the combined per-run total.
+- Average tokens/sec, reported at two levels that must not be conflated:
+  - generation rate: completion tokens / model busy time (server-side timings) — measures the serving stack;
+  - effective pipeline rate: total tokens / run wall-clock — measures the whole loop including tool execution and orchestration overhead.
+- Time spent idling (see Time Accounting below).
+- Time spent thinking: reasoning-channel time and tokens, per tier (see Time Accounting).
 - Quality result: pass/fail plus number of repair loops.
+
+### Time Accounting
+
+Decompose each run's wall clock into non-overlapping buckets so "where did the time go" has a defensible answer. Derive the segmentation by joining per-request timestamps (server logs / OTEL events) with the telemetry timeline:
+
+- `t_generating`: a model (cloud or local) is actively decoding. Split into `t_thinking` (reasoning-channel tokens: `reasoning_content` deltas locally; thinking blocks in cloud usage events) and `t_visible` (everything else). Where the API reports only token counts, estimate time as tokens / that request's measured decode rate and mark the estimate.
+- `t_prefill`: prompt processing time on the local server (from `prompt eval` timings); fold cloud prefill into `t_api_wait` since it is not separable client-side.
+- `t_tool_exec`: time between a tool call being issued and its result being returned (test runs, file edits, bash commands). Dominated by `npm run check` and vitest in this workload.
+- `t_api_wait`: cloud round-trip latency not attributable to generation (queueing, network).
+- `t_idle`: none of the above — the orchestrator is deciding, the queue is empty, or a worker waits on the serial slot. For arm C also report GPU-idle%: fraction of run wall-clock where GPU util < 10% while at least one worker task is pending (from telemetry join); this is the queue-serial contention signal.
+- Sanity rule: buckets + residual must sum to wall-clock within 2%; report the residual.
+
+### Throughput and Efficiency Metrics
+
+- Per-request: time-to-first-token, decode t/s, prompt t/s, prompt size, completion size (local: server `timings`; cloud: OTEL event timing where available).
+- Context growth: prompt tokens per successive request within a task (context-bloat indicator) and cache-hit fraction.
+- Tokens per accepted task and per repair loop: rework cost in tokens, cloud vs local.
+- Turns per task; tool calls per task; tool-call error rate during the real run (malformed call, nonexistent path, wrong-tool retries).
+- Energy (article-friendly): integrate GPU power draw over the run (W → Wh) from telemetry; report Wh per run and Wh per accepted task for arm C, and estimated USD at the local electricity rate. Cloud arms get USD only.
+
+### Hardware Telemetry
+
+Run a sampler for the entire measured window of every run, all arms (baseline arms establish what "cloud-only" load looks like). Sampler: `scripts/telemetry_sampler.py` (to be written at setup; ~50 lines, psutil + nvidia-smi), 1 Hz, appending CSV rows to `results/experiments/m1-replay/<run_id>/telemetry.csv`:
+
+- `ts` (ISO 8601, monotonic offset also recorded)
+- GPU (RTX 3090 Ti via `nvidia-smi --query-gpu`): `gpu_util_pct`, `vram_used_mib`, `power_w`, `temp_c`, `sm_clock_mhz` (thermal-throttle detection)
+- CPU: `cpu_util_pct` overall, `load1`, plus per-core utilization vector (worker tokenization and `npm run check` are CPU-side)
+- Memory: `ram_used_gib`, `ram_available_gib`, `swap_used_gib`
+- Disk: `io_read_mb_s`, `io_write_mb_s` (model load and npm install phases)
+- Network: `net_rx_kb_s`, `net_tx_kb_s` (cloud-arm dependence; also catches registry stalls)
+
+Derived per run (computed in analysis, stored in the run JSON): peak/mean VRAM, mean GPU util during `t_generating` vs overall, GPU-idle% as defined above, peak RAM, mean/peak CPU util, total GPU Wh, max temp and any throttle events. Telemetry alone must never be used to *infer* token counts — it contextualizes the primary metrics.
 
 ### Instrumentation
 
@@ -368,6 +404,10 @@ npm --version > "$RUN_DIR/inputs/npm.version"
 date -Is | tee "$RUN_DIR/started_at.txt"
 # Enable Claude Code OTEL or the local equivalent here.
 # Start a small event logger or append JSON lines manually to "$RUN_DIR/events.jsonl".
+
+# Hardware telemetry sampler (all arms), 1 Hz for the whole measured window:
+python3 scripts/telemetry_sampler.py --out "$RUN_DIR/telemetry.csv" &
+echo $! > "$RUN_DIR/.telemetry.pid"
 ```
 
 For arm C only, start the preregistered native `llama-server` manually and save its log path in `run.json`. Do not use Docker.
@@ -427,10 +467,11 @@ curl -s "http://127.0.0.1:$M1_PORT/metrics" > "$RUN_DIR/local-metrics-final.prom
 ```bash
 git -C "$REPLAY_ROOT" status --short > "$RUN_DIR/final-git-status.txt"
 git -C "$REPLAY_ROOT" log --oneline --decorate --all > "$RUN_DIR/final-git-log.txt"
+kill "$(cat "$RUN_DIR/.telemetry.pid")" 2>/dev/null || true
 date -Is | tee "$RUN_DIR/ended_at.txt"
 ```
 
-Update `run.json` with success/failure, exclusion reason if any, and all usage totals.
+Update `run.json` with success/failure, exclusion reason if any, all usage totals, the time-accounting buckets (`t_generating` split into thinking/visible, `t_prefill`, `t_tool_exec`, `t_api_wait`, `t_idle`, residual), both tokens/sec levels (generation rate and effective pipeline rate), and the derived telemetry summary (peak/mean VRAM, mean GPU util during generation, GPU-idle%, peak RAM, mean/peak CPU, GPU Wh, max temp/throttle events).
 
 ## Results Schema
 
