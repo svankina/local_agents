@@ -1,0 +1,398 @@
+{
+  "config": "C7-qwen27b-q3",
+  "gpu_contended": false,
+  "vram_loaded": "15309 MiB",
+  "toolcall": {
+    "config": "C7-qwen27b-q3",
+    "suite": "toolcall",
+    "temps": {
+      "0.2": {
+        "valid_rate": 1.0,
+        "n": 36,
+        "results": [
+          {
+            "id": "simple-read",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "simple-read",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "simple-read",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "arg-fidelity",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-grep",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "pick-list",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "no-tool-2",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "write-exact",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "nested-json",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "numeric-arg",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "quote-trap",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "chain-first-step",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 0,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 1,
+            "ok": true,
+            "why": "ok"
+          },
+          {
+            "id": "long-path",
+            "trial": 2,
+            "ok": true,
+            "why": "ok"
+          }
+        ]
+      }
+    }
+  },
+  "throughput": {
+    "config": "C7-qwen27b-q3",
+    "suite": "throughput",
+    "single": {
+      "p1k": {
+        "prefill_tps": 48.9,
+        "decode_tps": 43.5,
+        "trials": [
+          {
+            "prefill_tps": 19.94408367363137,
+            "decode_tps": 35.15272003096735,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "wall_s": 56.714
+          },
+          {
+            "prefill_tps": 48.86510786972562,
+            "decode_tps": 43.636881824335305,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 5.975
+          },
+          {
+            "prefill_tps": 49.669079756124816,
+            "decode_tps": 43.47273817796245,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 6.012
+          }
+        ]
+      },
+      "p8k": {
+        "prefill_tps": 46.7,
+        "decode_tps": 42.2,
+        "trials": [
+          {
+            "prefill_tps": 589.2540965967828,
+            "decode_tps": 42.30306477441973,
+            "prompt_n": 7292,
+            "predicted_n": 256,
+            "wall_s": 18.489
+          },
+          {
+            "prefill_tps": 46.715328467153284,
+            "decode_tps": 42.226351387572755,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 6.211
+          },
+          {
+            "prefill_tps": 46.151538576917304,
+            "decode_tps": 42.16307789151012,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 6.226
+          }
+        ]
+      }
+    },
+    "concurrent": {
+      "x2": {
+        "per_stream_decode_tps": 28.1,
+        "aggregate_tps": 25.4,
+        "wall_s": 20.2,
+        "trials": [
+          {
+            "prefill_tps": 88.47246849055281,
+            "decode_tps": 31.59417674893206,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "wall_s": 20.194
+          },
+          {
+            "prefill_tps": 58.67304762591339,
+            "decode_tps": 24.583013041960612,
+            "prompt_n": 516,
+            "predicted_n": 256,
+            "wall_s": 20.165
+          }
+        ]
+      },
+      "x4": {
+        "per_stream_decode_tps": 17.5,
+        "aggregate_tps": 48.0,
+        "wall_s": 21.3,
+        "trials": [
+          {
+            "prefill_tps": 159.86302092420303,
+            "decode_tps": 20.33491768290285,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "wall_s": 21.32
+          },
+          {
+            "prefill_tps": 3.604691505995053,
+            "decode_tps": 14.601304535302075,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 21.246
+          },
+          {
+            "prefill_tps": 161.56800684457846,
+            "decode_tps": 20.338636712303867,
+            "prompt_n": 985,
+            "predicted_n": 256,
+            "wall_s": 21.319
+          },
+          {
+            "prefill_tps": 3.497279990487398,
+            "decode_tps": 14.601367828760635,
+            "prompt_n": 4,
+            "predicted_n": 256,
+            "wall_s": 21.244
+          }
+        ]
+      }
+    }
+  },
+  "agentic": {
+    "config": "C7-qwen27b-q3",
+    "suite": "agentic",
+    "temps": {
+      "0.2": {
+        "passed": 5,
+        "of": 5,
+        "tasks": [
+          {
+            "id": "fix-test",
+            "passed": true,
+            "turns": 8,
+            "wall_s": 18.8,
+            "check_out": ""
+          },
+          {
+            "id": "bulk-rename",
+            "passed": true,
+            "turns": 8,
+            "wall_s": 26.4,
+            "check_out": ""
+          },
+          {
+            "id": "csv-script",
+            "passed": true,
+            "turns": 6,
+            "wall_s": 15.6,
+            "check_out": ""
+          },
+          {
+            "id": "code-qa",
+            "passed": true,
+            "turns": 6,
+            "wall_s": 16.5,
+            "check_out": ""
+          },
+          {
+            "id": "add-flag",
+            "passed": true,
+            "turns": 8,
+            "wall_s": 31.8,
+            "check_out": ""
+          }
+        ]
+      }
+    }
+  }
+}
