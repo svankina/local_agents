@@ -1,0 +1,90 @@
+--- a/package.json
++++ b/package.json
+@@ -0,0 +1,25 @@
++{
++  "name": "custom-cad",
++  "private": true,
++  "version": "0.0.1",
++  "type": "module",
++  "scripts": {
++    "dev": "vite",
++    "build": "tsc --noEmit && vite build",
++    "test": "vitest run --passWithNoTests",
++    "check": "tsc --noEmit && vitest run --passWithNoTests && bash scripts/check-three-imports.sh"
++  },
++  "dependencies": {
++    "three": "^0.184.0",
++    "@types/three": "^0.184.0"
++  },
++  "devDependencies": {
++    "typescript": "^6.0.3",
++    "vite": "^8.0.16",
++    "vitest": "^4.1.8"
++  }
++}
+
+--- a/tsconfig.json
++++ b/tsconfig.json
+@@ -0,0 +1,21 @@
++{
++  "compilerOptions": {
++    "target": "ES2022",
++    "useDefineForClassFields": true,
++    "module": "ESNext",
++    "lib": ["ES2022", "DOM", "DOM.Iterable"],
++    "moduleResolution": "bundler",
++    "verbatimModuleSyntax": true,
++    "noEmit": true,
++    "strict": true,
++    "noUncheckedIndexedAccess": true,
++    "noUnusedLocals": true,
++    "noUnusedParameters": true,
++    "noFallthroughCasesInSwitch": true,
++    "skipLibCheck": true
++  },
++  "include": ["src", "test", "vite.config.ts"]
++}
+
+--- a/vite.config.ts
++++ b/vite.config.ts
+@@ -0,0 +1,9 @@
++import { defineConfig } from 'vitest/config';
++
++export default defineConfig({
++  test: {
++    include: ['test/**/*.test.ts'],
++    environment: 'node',
++  },
++});
+
+--- a/index.html
++++ b/index.html
+@@ -0,0 +1,16 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="UTF-8" />
++    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++    <title>custom_cad</title>
++    <style>
++      html, body { margin: 0; height: 100%; }
++      #app { width: 100%; height: 100%; }
++    </style>
++  </head>
++  <body>
++    <div id="app"></div>
++    <script type="module" src="/src/main.ts"></script>
++  </body>
++</html>
+
+--- a/src/main.ts
++++ b/src/main.ts
+@@ -0,0 +1 @@
++console.log('custom_cad scaffold ok');
+
+--- a/.gitignore
++++ b/.gitignore
+@@ -0,0 +1,4 @@
++node_modules/
++dist/
++.worktrees/

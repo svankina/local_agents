@@ -1,0 +1,9 @@
+{
+  "id": "job-3",
+  "title": "Task 5: half-edge B-rep + validateSolid",
+  "plan_tasks": [
+    5
+  ],
+  "instructions": "Implement plan Task 5 with its tests: half-edge B-rep types and validateSolid.",
+  "gate_command": "npm run check"
+}

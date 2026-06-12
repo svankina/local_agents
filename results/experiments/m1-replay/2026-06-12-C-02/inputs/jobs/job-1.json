@@ -1,0 +1,9 @@
+{
+  "id": "job-1",
+  "title": "Task 1: project scaffold",
+  "plan_tasks": [
+    1
+  ],
+  "instructions": "Implement plan Task 1 exactly: all config files, scripts/check-three-imports.sh, .gitignore, src/main.ts stub, directory gitkeeps. Then run npm install and the gate.",
+  "gate_command": "npm run check"
+}
