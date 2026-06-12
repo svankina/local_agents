@@ -207,6 +207,98 @@ def ease(t: float) -> float:
     return 1 - (1 - t) ** 3
 
 
+def catmull_rom(y0: float, y1: float, y2: float, y3: float, u: float) -> float:
+    u2 = u * u
+    u3 = u2 * u
+    return 0.5 * (
+        (2 * y1)
+        + (-y0 + y2) * u
+        + (2 * y0 - 5 * y1 + 4 * y2 - y3) * u2
+        + (-y0 + 3 * y1 - 3 * y2 + y3) * u3
+    )
+
+
+def smoothed_anchors(values: list[float], running_max: list[float], cap: float) -> list[float]:
+    # Centered display-only smoothing removes one-sample troughs/spikes from the
+    # target path. The velocity filter below is what prevents visible jumps.
+    radius = 8
+    sigma = 3.0
+    anchors: list[float] = []
+    for i in range(len(values)):
+        num = 0.0
+        den = 0.0
+        lo = max(0, i - radius)
+        hi = min(len(values), i + radius + 1)
+        for j in range(lo, hi):
+            weight = math.exp(-0.5 * ((j - i) / sigma) ** 2)
+            num += values[j] * weight
+            den += weight
+        anchors.append(max(0.0, min(cap, running_max[i], num / den)))
+    return anchors
+
+
+def interpolated_anchor(anchors: list[float], t: float, cap: float) -> float:
+    i = max(0, min(len(anchors) - 1, int(math.floor(t))))
+    u = max(0.0, min(1.0, t - i))
+    y0 = anchors[max(0, i - 1)]
+    y1 = anchors[i]
+    y2 = anchors[min(len(anchors) - 1, i + 1)]
+    y3 = anchors[min(len(anchors) - 1, i + 2)]
+    return max(0.0, min(cap, catmull_rom(y0, y1, y2, y3, u)))
+
+
+def build_needle_display_series(
+    values: list[float],
+    cap: float,
+    frames_per_sample: int,
+) -> tuple[list[float], dict[str, float | int]]:
+    running_max: list[float] = []
+    run = 0.0
+    for value in values:
+        run = max(run, value)
+        running_max.append(run)
+
+    anchors = smoothed_anchors(values, running_max, cap)
+    display: list[float] = []
+    pos = max(0.0, min(cap, values[0]))
+    vel = 0.0
+    stiffness = 0.15
+    damping = 0.68
+    max_velocity = cap * 0.0337
+    max_acceleration = cap * 0.0065
+
+    for frame in range(len(values) * frames_per_sample):
+        sample_i = frame // frames_per_sample
+        target = interpolated_anchor(anchors, frame / frames_per_sample, cap)
+        target = min(target, running_max[sample_i])
+        accel = (target - pos) * stiffness - vel * damping
+        accel = max(-max_acceleration, min(max_acceleration, accel))
+        vel = max(-max_velocity, min(max_velocity, vel + accel))
+        pos = max(0.0, min(cap, running_max[sample_i], pos + vel))
+        display.append(pos)
+
+    max_delta = max(abs(display[i + 1] - display[i]) for i in range(len(display) - 1)) if len(display) > 1 else 0.0
+    max_pct = max_delta / cap if cap else 0.0
+    if max_pct >= 0.04:
+        raise SystemExit(
+            f"needle display delta too high: {max_delta:.2f} tok/s ({max_pct:.2%} of full scale)"
+        )
+
+    steepest_i = (
+        max(range(len(values) - 1), key=lambda i: abs(values[i + 1] - values[i]))
+        if len(values) > 1
+        else 0
+    )
+    stats: dict[str, float | int] = {
+        "max_delta": max_delta,
+        "max_pct": max_pct,
+        "max_angle_delta": max_pct * 250.0,
+        "steepest_sample": steepest_i,
+        "steepest_frame": steepest_i * frames_per_sample,
+    }
+    return display, stats
+
+
 def load_replay_series() -> list[dict[str, float | str]]:
     path = DATA / "replay-series.csv"
     if not path.exists():
@@ -349,14 +441,19 @@ def render_demo(lines: list[str]) -> None:
 
     frames: list[Image.Image] = []
     n = len(series)
-    # Motion: SUB eased sub-frames per measured second. The needle and telemetry
-    # bars follow each new sample with a critically-damped chase (convex blend of
-    # measured values - they can never exceed the running measured range). All
-    # printed numbers step on the raw samples only.
-    SUB = 4
-    EASE_NEEDLE = 0.30
+    # Motion: four rendered frames per measured second gives a ~7.5x replay at
+    # 30 fps. The needle follows a Catmull-Rom display target through smoothed
+    # measured anchors, then a velocity-carrying filter limits frame-to-frame
+    # motion. Printed numbers still step on raw measured samples only.
+    FPS = 30
+    FRAMES_PER_SAMPLE = 4
     EASE_BARS = 0.22
-    display_tps = max(0.0, min(cap, float(series[0]["decode_tok_s"])))
+    sample_tps_values = [max(0.0, min(cap, float(row["decode_tok_s"]))) for row in series]
+    needle_display, needle_stats = build_needle_display_series(
+        sample_tps_values,
+        cap,
+        FRAMES_PER_SAMPLE,
+    )
     eased_tel = {
         "gpu": float(series[0]["gpu_util_pct"]),
         "vram": float(series[0]["vram_used_mib"]),
@@ -365,14 +462,21 @@ def render_demo(lines: list[str]) -> None:
         "cpu": float(series[0]["cpu_util_pct"]),
         "ram": float(series[0]["ram_used_gib"]),
     }
+    running_max: list[float] = []
     run_max = 0.0
-    poster_master_index = {}
-    for f in range(n):
-        phase = f / (n - 1)
-        row = series[f]
-        sample_tps = max(0, min(cap, float(row["decode_tok_s"])))
-        new_max = sample_tps > run_max
+    new_max_sample: list[bool] = []
+    for sample_tps in sample_tps_values:
+        new_max_sample.append(sample_tps > run_max)
         run_max = max(run_max, sample_tps)
+        running_max.append(run_max)
+    poster_master_index = {}
+    total_frames = len(needle_display)
+    for frame_i, display_tps in enumerate(needle_display):
+        f = frame_i // FRAMES_PER_SAMPLE
+        sub = frame_i % FRAMES_PER_SAMPLE
+        phase = frame_i / max(1, total_frames - 1)
+        row = series[f]
+        sample_tps = sample_tps_values[f]
         targets = {
             "gpu": float(row["gpu_util_pct"]),
             "vram": float(row["vram_used_mib"]),
@@ -388,27 +492,25 @@ def render_demo(lines: list[str]) -> None:
         if 0.14 < phase < 0.95:
             logs.append(f"$ decode sample {f + 1:03d}: {sample_tps:05.1f} tok/s aggregate")
 
-        for sub in range(SUB):
-            display_tps += (sample_tps - display_tps) * EASE_NEEDLE
-            for k in eased_tel:
-                eased_tel[k] += (targets[k] - eased_tel[k]) * EASE_BARS
+        for k in eased_tel:
+            eased_tel[k] += (targets[k] - eased_tel[k]) * EASE_BARS
 
-            im = Image.new("RGB", (w, h), BG)
-            dr = ImageDraw.Draw(im)
-            dr.rectangle([0, 0, w, 30], fill="#020617")
-            dr.text((18, 8), "measured replay  |  RTX 3090 Ti  |  vLLM x24", font=F15, fill=CYAN)
-            dr.text((w - 268, 8), "Qwen3-30B-A3B GPTQ-Int4", font=F15, fill=MUTED)
+        im = Image.new("RGB", (w, h), BG)
+        dr = ImageDraw.Draw(im)
+        dr.rectangle([0, 0, w, 30], fill="#020617")
+        dr.text((18, 8), "measured replay  |  RTX 3090 Ti  |  vLLM x24", font=F15, fill=CYAN)
+        dr.text((w - 268, 8), "Qwen3-30B-A3B GPTQ-Int4", font=F15, fill=MUTED)
 
-            draw_pane(dr, left, "0: fanout run", GREEN)
-            draw_pane(dr, maxbox, "3: peak", YELLOW)
-            draw_pane(dr, rtop, "1: aggregate decode meter", CYAN)
-            draw_pane(dr, rbot, "2: measured telemetry", PURPLE)
+        draw_pane(dr, left, "0: fanout run", GREEN)
+        draw_pane(dr, maxbox, "3: peak", YELLOW)
+        draw_pane(dr, rtop, "1: aggregate decode meter", CYAN)
+        draw_pane(dr, rbot, "2: measured telemetry", PURPLE)
 
-            draw_text_lines(dr, left, logs, start_y=40, font=F14, max_lines=16)
-            draw_meter(dr, rtop, display_tps, f, cap, streams, readout_tps=sample_tps)
-            draw_max_pane(dr, maxbox, run_max, new_max and sub < SUB // 2)
-            draw_telemetry(dr, rbot, row, eased=eased_tel)
-            frames.append(im)
+        draw_text_lines(dr, left, logs, start_y=40, font=F14, max_lines=16)
+        draw_meter(dr, rtop, display_tps, f, cap, streams, readout_tps=sample_tps)
+        draw_max_pane(dr, maxbox, running_max[f], new_max_sample[f] and sub < FRAMES_PER_SAMPLE // 2)
+        draw_telemetry(dr, rbot, row, eased=eased_tel)
+        frames.append(im)
         poster_master_index[f] = len(frames) - 1
 
     out_frames = [frame.resize((1920, 1080), Image.Resampling.LANCZOS) for frame in frames]
@@ -423,18 +525,6 @@ def render_demo(lines: list[str]) -> None:
     peak_row = max(poster_candidates or range(len(series)), key=lambda i: float(series[i]["decode_tok_s"]))
     out_frames[poster_master_index[peak_row]].save(ASSET / "800-toks-tmux-demo-poster.png")
 
-    # GIF: every other sub-frame at 30ms -> ~16.5 fps with eased deltas (smooth),
-    # holds on first/last frame. MP4 below carries the full 30 fps version.
-    gif_seq = [out_frames[0]] * 8 + out_frames[::2] + [out_frames[-1]] * 14
-    gif_seq[0].save(
-        ASSET / "800-toks-tmux-demo.gif",
-        save_all=True,
-        append_images=gif_seq[1:],
-        duration=60,
-        loop=0,
-        optimize=True,
-    )
-
     if shutil.which("ffmpeg"):
         tmp_dir = ASSET / ".800-toks-frames"
         tmp_dir.mkdir(exist_ok=True)
@@ -445,7 +535,7 @@ def render_demo(lines: list[str]) -> None:
                 "ffmpeg",
                 "-y",
                 "-framerate",
-                "30",
+                str(FPS),
                 "-i",
                 str(tmp_dir / "frame-%04d.png"),
                 "-vf",
@@ -460,9 +550,71 @@ def render_demo(lines: list[str]) -> None:
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
+        palette = tmp_dir / "palette.png"
+        gif_path = ASSET / "800-toks-tmux-demo.gif"
+        gif_settings = [(1280, 30), (1024, 30), (1024, 24)]
+        gif_size_limit = 8 * 1024 * 1024
+        selected_gif: tuple[int, int, int] | None = None
+        for width, gif_fps in gif_settings:
+            vf_base = f"fps={gif_fps},scale={width}:-1:flags=lanczos"
+            subprocess.run(
+                [
+                    "ffmpeg",
+                    "-y",
+                    "-framerate",
+                    str(FPS),
+                    "-i",
+                    str(tmp_dir / "frame-%04d.png"),
+                    "-vf",
+                    f"{vf_base},palettegen=max_colors=128:stats_mode=diff",
+                    str(palette),
+                ],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            subprocess.run(
+                [
+                    "ffmpeg",
+                    "-y",
+                    "-framerate",
+                    str(FPS),
+                    "-i",
+                    str(tmp_dir / "frame-%04d.png"),
+                    "-i",
+                    str(palette),
+                    "-lavfi",
+                    f"{vf_base} [x]; [x][1:v] paletteuse=dither=bayer:bayer_scale=3",
+                    "-loop",
+                    "0",
+                    str(gif_path),
+                ],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            size = gif_path.stat().st_size
+            selected_gif = (width, gif_fps, size)
+            if size <= gif_size_limit:
+                break
+        if palette.exists():
+            palette.unlink()
         for p in tmp_dir.glob("frame-*.png"):
             p.unlink()
         tmp_dir.rmdir()
+        if selected_gif:
+            width, gif_fps, size = selected_gif
+            print(f"gif encode: {width}px {gif_fps}fps {size:,} bytes")
+
+    duration_s = len(out_frames) / FPS
+    time_lapse = n / duration_s
+    print(
+        "needle display: "
+        f"max frame delta {needle_stats['max_delta']:.2f} tok/s "
+        f"({needle_stats['max_pct']:.2%}, {needle_stats['max_angle_delta']:.2f} deg); "
+        f"steepest sample {int(needle_stats['steepest_sample']) + 1}; "
+        f"{duration_s:.1f}s at {time_lapse:.1f}x"
+    )
 
 
 def main() -> None:
