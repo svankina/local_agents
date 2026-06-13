@@ -1,0 +1,323 @@
+{
+  "generated": "2026-06-13",
+  "models": [
+    {
+      "label": "Qwen2.5 1.5B",
+      "size": 0.99,
+      "kind": "dense",
+      "base": 0.44,
+      "warm": 3.88,
+      "cold": 5.36,
+      "warm_min": 3.87,
+      "warm_max": 4.0,
+      "penalty": 3.44,
+      "warm_bw": 0.26,
+      "cold_bw": 0.18
+    },
+    {
+      "label": "Granite3.2 2B",
+      "size": 1.5,
+      "kind": "dense",
+      "base": 0.17,
+      "warm": 2.75,
+      "cold": null,
+      "warm_min": 2.71,
+      "warm_max": 2.77,
+      "penalty": 2.58,
+      "warm_bw": 0.55
+    },
+    {
+      "label": "Qwen2.5 3B",
+      "size": 1.9,
+      "kind": "dense",
+      "base": 0.44,
+      "warm": 3.62,
+      "cold": null,
+      "warm_min": 3.61,
+      "warm_max": 3.76,
+      "penalty": 3.18,
+      "warm_bw": 0.52
+    },
+    {
+      "label": "Phi4-mini 3.8B",
+      "size": 2.5,
+      "kind": "dense",
+      "base": 0.58,
+      "warm": 4.59,
+      "cold": null,
+      "warm_min": 4.32,
+      "warm_max": 4.6,
+      "penalty": 4.01,
+      "warm_bw": 0.54
+    },
+    {
+      "label": "Gemma4 12B QAT",
+      "size": 7.2,
+      "kind": "dense",
+      "base": 1.06,
+      "warm": 7.41,
+      "cold": 14.33,
+      "warm_min": 7.4,
+      "warm_max": 7.43,
+      "penalty": 6.35,
+      "warm_bw": 0.97,
+      "cold_bw": 0.5
+    },
+    {
+      "label": "Qwen3.6 27B Q4",
+      "size": 17.0,
+      "kind": "dense",
+      "base": 0.83,
+      "warm": 18.94,
+      "cold": 17.36,
+      "warm_min": 16.19,
+      "warm_max": 35.53,
+      "penalty": 18.11,
+      "warm_bw": 0.9,
+      "cold_bw": 0.98
+    },
+    {
+      "label": "Qwen3.6 35B-A3B Q4",
+      "size": 22.0,
+      "kind": "MoE 3B active",
+      "base": 0.71,
+      "warm": 8.54,
+      "cold": 27.21,
+      "warm_min": 8.48,
+      "warm_max": 8.89,
+      "penalty": 7.83,
+      "warm_bw": 2.58,
+      "cold_bw": 0.81
+    }
+  ],
+  "roundrobin": [
+    {
+      "regime": "roundrobin",
+      "rep": 0,
+      "model": "qwen2.5:1.5b",
+      "label": "Qwen2.5 1.5B",
+      "size_gb": 0.99,
+      "wall_s": 3.7717,
+      "load_s": 3.6285,
+      "prompt_eval_s": 0.0874,
+      "eval_s": 0.0,
+      "total_s": 3.7198,
+      "resident_after": [
+        "qwen2.5:1.5b"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 1,
+      "model": "granite3.2:2b",
+      "label": "Granite3.2 2B",
+      "size_gb": 1.5,
+      "wall_s": 2.7607,
+      "load_s": 2.6774,
+      "prompt_eval_s": 0.0762,
+      "eval_s": 0.0,
+      "total_s": 2.7584,
+      "resident_after": [
+        "granite3.2:2b",
+        "qwen2.5:1.5b"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 2,
+      "model": "qwen2.5:3b",
+      "label": "Qwen2.5 3B",
+      "size_gb": 1.9,
+      "wall_s": 3.7334,
+      "load_s": 3.6532,
+      "prompt_eval_s": 0.0739,
+      "eval_s": 0.0,
+      "total_s": 3.7308,
+      "resident_after": [
+        "qwen2.5:3b",
+        "granite3.2:2b",
+        "qwen2.5:1.5b"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 3,
+      "model": "phi4-mini:3.8b",
+      "label": "Phi4-mini 3.8B",
+      "size_gb": 2.5,
+      "wall_s": 4.5907,
+      "load_s": 4.554,
+      "prompt_eval_s": 0.0248,
+      "eval_s": 0.0,
+      "total_s": 4.5855,
+      "resident_after": [
+        "phi4-mini:3.8b",
+        "qwen2.5:3b",
+        "granite3.2:2b",
+        "qwen2.5:1.5b"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 4,
+      "model": "gemma4:12b-it-qat",
+      "label": "Gemma4 12B (QAT)",
+      "size_gb": 7.2,
+      "wall_s": 16.384,
+      "load_s": 16.2802,
+      "prompt_eval_s": 0.0987,
+      "eval_s": 0.0,
+      "total_s": 16.382,
+      "resident_after": [
+        "gemma4:12b-it-qat",
+        "phi4-mini:3.8b",
+        "qwen2.5:3b"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 5,
+      "model": "qwen3.6:27b-q4_K_M",
+      "label": "Qwen3.6 27B Q4",
+      "size_gb": 17.0,
+      "wall_s": 30.5056,
+      "load_s": 30.2837,
+      "prompt_eval_s": 0.2171,
+      "eval_s": 0.0,
+      "total_s": 30.5036,
+      "resident_after": [
+        "qwen3.6:27b-q4_K_M"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 6,
+      "model": "qwen3_6_35b_a3b_q4km:latest",
+      "label": "Qwen3.6 35B-A3B Q4",
+      "size_gb": 22.0,
+      "wall_s": 12.4921,
+      "load_s": 12.4585,
+      "prompt_eval_s": 0.0282,
+      "eval_s": 0.0,
+      "total_s": 12.4901,
+      "resident_after": [
+        "qwen3_6_35b_a3b_q4km:latest"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 7,
+      "model": "qwen2.5:1.5b",
+      "label": "Qwen2.5 1.5B",
+      "size_gb": 0.99,
+      "wall_s": 3.6894,
+      "load_s": 3.6046,
+      "prompt_eval_s": 0.0787,
+      "eval_s": 0.0,
+      "total_s": 3.6871,
+      "resident_after": [
+        "qwen2.5:1.5b",
+        "qwen3_6_35b_a3b_q4km:latest"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 8,
+      "model": "granite3.2:2b",
+      "label": "Granite3.2 2B",
+      "size_gb": 1.5,
+      "wall_s": 1.6409,
+      "load_s": 1.4952,
+      "prompt_eval_s": 0.1394,
+      "eval_s": 0.0,
+      "total_s": 1.6385,
+      "resident_after": [
+        "granite3.2:2b",
+        "qwen2.5:1.5b",
+        "qwen3_6_35b_a3b_q4km:latest"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 9,
+      "model": "qwen2.5:3b",
+      "label": "Qwen2.5 3B",
+      "size_gb": 1.9,
+      "wall_s": 17.7516,
+      "load_s": 17.1833,
+      "prompt_eval_s": 0.5625,
+      "eval_s": 0.0,
+      "total_s": 17.7495,
+      "resident_after": [
+        "qwen2.5:3b",
+        "granite3.2:2b",
+        "qwen2.5:1.5b",
+        "qwen3_6_35b_a3b_q4km:latest"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 10,
+      "model": "phi4-mini:3.8b",
+      "label": "Phi4-mini 3.8B",
+      "size_gb": 2.5,
+      "wall_s": 27.2333,
+      "load_s": 27.1122,
+      "prompt_eval_s": 0.1116,
+      "eval_s": 0.0,
+      "total_s": 27.23,
+      "resident_after": [
+        "phi4-mini:3.8b",
+        "qwen2.5:3b",
+        "granite3.2:2b",
+        "qwen2.5:1.5b",
+        "qwen3_6_35b_a3b_q4km:latest"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 11,
+      "model": "gemma4:12b-it-qat",
+      "label": "Gemma4 12B (QAT)",
+      "size_gb": 7.2,
+      "wall_s": 28.7477,
+      "load_s": 28.6403,
+      "prompt_eval_s": 0.1025,
+      "eval_s": 0.0,
+      "total_s": 28.7461,
+      "resident_after": [
+        "gemma4:12b-it-qat"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 12,
+      "model": "qwen3.6:27b-q4_K_M",
+      "label": "Qwen3.6 27B Q4",
+      "size_gb": 17.0,
+      "wall_s": 20.686,
+      "load_s": 20.4383,
+      "prompt_eval_s": 0.2426,
+      "eval_s": 0.0,
+      "total_s": 20.684,
+      "resident_after": [
+        "qwen3.6:27b-q4_K_M"
+      ]
+    },
+    {
+      "regime": "roundrobin",
+      "rep": 13,
+      "model": "qwen3_6_35b_a3b_q4km:latest",
+      "label": "Qwen3.6 35B-A3B Q4",
+      "size_gb": 22.0,
+      "wall_s": 13.4399,
+      "load_s": 13.4053,
+      "prompt_eval_s": 0.0295,
+      "eval_s": 0.0,
+      "total_s": 13.438,
+      "resident_after": [
+        "qwen3_6_35b_a3b_q4km:latest"
+      ]
+    }
+  ]
+}

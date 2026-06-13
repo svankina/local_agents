@@ -1,0 +1,8 @@
+{"regime": "cold", "rep": 0, "model": "qwen2.5:1.5b", "load_s": 4.704, "total_s": 4.828}
+{"regime": "cold", "rep": 0, "model": "gemma4:12b-it-qat", "load_s": 14.158, "total_s": 14.287}
+{"regime": "cold", "rep": 0, "model": "qwen3.6:27b-q4_K_M", "load_s": 17.041, "total_s": 17.289}
+{"regime": "cold", "rep": 0, "model": "qwen3_6_35b_a3b_q4km:latest", "load_s": 27.484, "total_s": 27.538}
+{"regime": "cold", "rep": 1, "model": "qwen2.5:1.5b", "load_s": 6.006, "total_s": 6.109}
+{"regime": "cold", "rep": 1, "model": "gemma4:12b-it-qat", "load_s": 14.498, "total_s": 14.637}
+{"regime": "cold", "rep": 1, "model": "qwen3.6:27b-q4_K_M", "load_s": 17.669, "total_s": 17.929}
+{"regime": "cold", "rep": 1, "model": "qwen3_6_35b_a3b_q4km:latest", "load_s": 26.941, "total_s": 26.986}
