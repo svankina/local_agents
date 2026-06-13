@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 .worktrees/
 docs/article/agent.json
+results/
+.playwright-mcp/
+data/
