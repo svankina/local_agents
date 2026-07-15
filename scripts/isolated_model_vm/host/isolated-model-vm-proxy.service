@@ -1,0 +1,26 @@
+[Unit]
+Description=Loopback-only proxy to the networkless model VM
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/socat TCP4-LISTEN:8089,bind=127.0.0.1,reuseaddr,fork VSOCK-CONNECT:5:8089
+Restart=always
+RestartSec=2
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_VSOCK AF_INET
+RestrictNamespaces=true
+LockPersonality=true
+RestrictSUIDSGID=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+UMask=0077
+
+[Install]
+WantedBy=default.target
