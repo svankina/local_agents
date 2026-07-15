@@ -16,3 +16,12 @@ Evidence and constraints:
 - Decision: 128k is demonstrated on an RTX 3090 with Q3_K_M. Q3_K_L at 128k with q8 KV is the conservative highest-quality standard quant likely to fit. A 262k trial is plausible with Q3_K_M and q4 KV, but is not yet demonstrated for this exact MTP-preserved artifact and should not replace the 128k default until a local NIAH/long-context quality check passes.
 
 Suggested 128k llama.cpp flags: `-ngl 99 --jinja -fa on -c 131072 --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 2 --no-spec-draft-backend-sampling --mmproj <mmproj.gguf>`.
+
+## 2026-07-15 — workstation GPU/display architecture
+
+- RX 580: PCI `0000:08:00.0`, ID `1002:67df`, kernel driver `amdgpu`, DRM `card0`. The 4K monitor is connected to its HDMI output. Xorg screen `AMDGPU(0)` uses this GPU, and `xrandr --listproviders` exposes only the RX 580.
+- RTX 3090 Ti: PCI `0000:42:00.0`, ID `10de:2203`; audio function `0000:42:00.1`, ID `10de:1aef`; DRM `card1`. Firmware nevertheless marks the NVIDIA function `boot_vga=1` and AMD `boot_vga=0`.
+- `/etc/X11/xorg.conf.d/20-amdgpu-only.conf` explicitly pins the Xorg screen to AMD `PCI:8:0:0` and disables `AutoAddGPU`, so rendering/display selection is correct.
+- Ubuntu `gpu-manager` generates `/usr/share/X11/xorg.conf.d/11-nvidia-prime.conf`, whose NVIDIA OutputClass sets `PrimaryGPU=Yes`. At boot, systemd-logind gives Xorg an fd for both `card0` and NVIDIA `card1`; Xorg therefore keeps the NVIDIA DRM module busy even though it does not use the 3090 Ti as a screen/provider. Evidence: current `~/.local/share/xorg/Xorg.1.log` lines 58–68 and `fuser /dev/dri/card1`.
+- Dynamic libvirt detachment deadlocks if NVIDIA user processes or Xorg's `card1` fd remain. Checking only `nvidia-smi --query-compute-apps` is insufficient because it omits DRM/graphics clients.
+- Best-fit architecture is to keep AMD as seat0/display and assign NVIDIA DRM to a separate unused logind seat (for example with a persistent `loginctl attach`/udev seat rule). This preserves host CUDA availability while preventing Xorg from opening `card1`. Validate live seat reassignment before considering boot-time VFIO binding.
