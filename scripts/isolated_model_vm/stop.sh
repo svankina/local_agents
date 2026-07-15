@@ -20,6 +20,10 @@ if [[ $(virsh domstate "$VM_NAME") != "shut off" ]]; then
   exit 1
 fi
 
+modprobe nvidia 2>/dev/null || true
+modprobe nvidia_uvm 2>/dev/null || true
+modprobe nvidia_drm 2>/dev/null || true
 systemctl start nvidia-persistenced.service 2>/dev/null || true
+systemctl start plexmediaserver.service
 systemctl start homer-asr.service
 runuser -u ai-server -- env XDG_RUNTIME_DIR=/run/user/1011 systemctl --user start whisper-server.service
