@@ -10,6 +10,6 @@ modelRoles:
   vision: llama.cpp/Qwen3.6-35B-A3B-uncensored-heretic-Native-MTP-Preserved-Q3_K_L.gguf
 defaultThinkingLevel: off
 providers:
-  webSearch: duckduckgo
+  webSearch: exa
 task:
   maxConcurrency: 1
