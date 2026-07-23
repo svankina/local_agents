@@ -39,7 +39,6 @@ systemctl stop plexmediaserver.service
 runuser -u ai-server -- env XDG_RUNTIME_DIR=/run/user/1011 systemctl --user stop whisper-server.service
 systemctl stop nvidia-persistenced.service 2>/dev/null || true
 terminate_gpu_users
-modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
 virsh start "$VM_NAME"
 trap - ERR INT TERM
 

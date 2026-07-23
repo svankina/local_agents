@@ -5,7 +5,6 @@ After=systemd-modules-load.service
 [Service]
 Type=oneshot
 ExecStart=/usr/sbin/modprobe nvidia
-ExecStart=/usr/bin/nvidia-modprobe -c 0 -u
 RemainAfterExit=yes
 
 [Install]

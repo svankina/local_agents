@@ -43,6 +43,7 @@ virt-install \
   --cpu host-passthrough \
   --machine q35 \
   --osinfo ubuntu24.04 \
+  --boot uefi,firmware.feature0.name=enrolled-keys,firmware.feature0.enabled=no,firmware.feature1.name=secure-boot,firmware.feature1.enabled=no \
   --import \
   --disk "path=$VM_DISK,bus=scsi,cache=none,discard=unmap" \
   --controller type=scsi,model=virtio-scsi \

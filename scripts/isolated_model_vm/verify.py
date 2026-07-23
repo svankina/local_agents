@@ -87,8 +87,13 @@ for _ in range(180):
         time.sleep(2)
 else:
     raise TimeoutError("llama-server did not become healthy")
+unauthenticated_probe = urllib.request.Request(
+    BASE + "/v1/chat/completions",
+    b"{}",
+    {"Content-Type": "application/json"},
+)
 try:
-    urllib.request.urlopen(BASE + "/v1/models", timeout=2)
+    urllib.request.urlopen(unauthenticated_probe, timeout=2)
 except urllib.error.HTTPError as auth_error:
     if auth_error.code != 401:
         raise AssertionError(f"unauthenticated API returned HTTP {auth_error.code}, expected 401") from auth_error
@@ -113,6 +118,7 @@ vision = request(
             ],
         }],
         "temperature": 0,
+        "chat_template_kwargs": {"enable_thinking": False},
         "max_tokens": 64,
     },
 )
