@@ -160,7 +160,7 @@ def enable() -> None:
         if not existing:
             virsh("attach-interface", VM, "network", LIBVIRT_NETWORK, "--model", "virtio", "--live")
         interface = wait_for_guest_interface()
-        config = f"[Match]\nName={interface}\n\n[Network]\nDHCP=yes\n".encode()
+        config = f"[Match]\nName={interface}\n\n[Link]\nMTUBytes=1400\n\n[Network]\nDHCP=yes\n".encode()
         require_guest_success("/usr/bin/mkdir", ["-p", "/etc/systemd/network"])
         guest_write(NETWORK_CONFIG, config, "0644")
         require_guest_success(
