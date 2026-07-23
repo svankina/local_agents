@@ -19,7 +19,6 @@ terminate_gpu_users() {
 }
 
 if [[ $(virsh domstate "$VM_NAME") == running ]]; then
-  runuser -u svankina -- env XDG_RUNTIME_DIR=/run/user/1000 systemctl --user start isolated-model-vm-proxy.service
   exit 0
 fi
 
@@ -41,5 +40,3 @@ systemctl stop nvidia-persistenced.service 2>/dev/null || true
 terminate_gpu_users
 virsh start "$VM_NAME"
 trap - ERR INT TERM
-
-runuser -u svankina -- env XDG_RUNTIME_DIR=/run/user/1000 systemctl --user start isolated-model-vm-proxy.service

@@ -74,19 +74,22 @@ virt-customize -a "$VM_DISK" \
   --copy-in "$CUDA_LIB":/opt/cuda \
   --copy-in "$SCRIPT_DIR/guest/nvidia-driver-ready.service":/etc/systemd/system \
   --copy-in "$SCRIPT_DIR/guest/llama-server.service":/etc/systemd/system \
-  --copy-in "$SCRIPT_DIR/guest/llama-vsock-proxy.service":/etc/systemd/system \
+  --mkdir /etc/systemd/system/serial-getty@ttyS0.service.d \
+  --copy-in "$SCRIPT_DIR/guest/llm-chat":/usr/local/bin \
+  --copy-in "$SCRIPT_DIR/guest/serial-console-autologin.conf":/etc/systemd/system/serial-getty@ttyS0.service.d \
   --run-command 'mv /opt/llama.cpp-cuda-b9592 /opt/llama.cpp' \
   --run-command 'useradd --system --home-dir /var/lib/llama --shell /usr/sbin/nologin llm' \
+  --run-command 'useradd --create-home --groups llm --shell /bin/bash chat && passwd --lock chat' \
   --run-command 'chown llm:llm /var/lib/llama' \
   --run-command 'chown root:llm /etc/llama/api.key && chmod 0440 /etc/llama/api.key' \
   --run-command 'chown -R root:root /opt/models /opt/llama.cpp /opt/cuda' \
   --run-command 'chmod -R go-w /opt/models /opt/llama.cpp /opt/cuda' \
   --run-command 'chmod 0444 /opt/models/*.gguf' \
+  --run-command 'chmod 0755 /usr/local/bin/llm-chat' \
   --run-command 'passwd --lock root' \
   --run-command 'rm -f /etc/netplan/*' \
   --run-command 'systemctl mask ssh.service ssh.socket systemd-networkd.service systemd-networkd.socket systemd-resolved.service NetworkManager.service NetworkManager-wait-online.service ModemManager.service apt-daily.service apt-daily.timer apt-daily-upgrade.service apt-daily-upgrade.timer unattended-upgrades.service' \
-  --run-command 'systemctl enable qemu-guest-agent.service nvidia-driver-ready.service llama-server.service llama-vsock-proxy.service'
+  --run-command 'systemctl enable qemu-guest-agent.service nvidia-driver-ready.service llama-server.service'
 
 virt-cat -a "$VM_DISK" /etc/systemd/system/llama-server.service >/dev/null
-virt-cat -a "$VM_DISK" /etc/systemd/system/llama-vsock-proxy.service >/dev/null
 trap - ERR

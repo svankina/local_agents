@@ -7,7 +7,6 @@ if [[ ${EUID} -ne 0 ]]; then
 fi
 
 VM_NAME=isolated-qwen36
-VM_CID=5
 STATE_DIR=/home/svankina/.local/share/isolated-model-vm
 PREPARED_DISK="$STATE_DIR/images/${VM_NAME}.prepared.qcow2"
 VM_DISK="/var/lib/libvirt/images/${VM_NAME}.qcow2"
@@ -50,7 +49,6 @@ virt-install \
   --hostdev 0000:42:00.0 \
   --hostdev 0000:42:00.1 \
   --network none \
-  --vsock "cid.address=$VM_CID,cid.auto=no" \
   --channel unix,target.type=virtio,target.name=org.qemu.guest_agent.0 \
   --rng /dev/urandom \
   --graphics none \

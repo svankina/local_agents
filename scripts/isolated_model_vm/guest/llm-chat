@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+import json
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+BASE_URL = "http://127.0.0.1:8089/v1/chat/completions"
+API_KEY = Path("/etc/llama/api.key").read_text().strip()
+
+
+def complete(messages: list[dict[str, str]]) -> str:
+    payload = {
+        "messages": messages,
+        "temperature": 0.7,
+        "max_tokens": 2048,
+        "chat_template_kwargs": {"enable_thinking": False},
+    }
+    request = urllib.request.Request(
+        BASE_URL,
+        json.dumps(payload).encode(),
+        {
+            "Authorization": f"Bearer {API_KEY}",
+            "Content-Type": "application/json",
+        },
+    )
+    with urllib.request.urlopen(request, timeout=600) as response:
+        body = json.load(response)
+    return body["choices"][0]["message"]["content"].strip()
+
+
+def main() -> None:
+    messages: list[dict[str, str]] = []
+    print("Local Qwen3.6 chat. Commands: /new, /exit")
+    while True:
+        try:
+            prompt = input("\nyou> ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print()
+            return
+        if not prompt:
+            continue
+        if prompt in {"/exit", "/quit"}:
+            return
+        if prompt == "/new":
+            messages.clear()
+            print("Conversation cleared.")
+            continue
+
+        messages.append({"role": "user", "content": prompt})
+        try:
+            answer = complete(messages)
+        except urllib.error.HTTPError as error:
+            detail = error.read().decode(errors="replace")
+            print(f"error: HTTP {error.code}: {detail}")
+            messages.pop()
+            continue
+        except (OSError, ValueError, KeyError) as error:
+            print(f"error: {error}")
+            messages.pop()
+            continue
+
+        print(f"\nllm> {answer}")
+        messages.append({"role": "assistant", "content": answer})
+
+
+if __name__ == "__main__":
+    main()

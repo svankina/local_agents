@@ -7,7 +7,6 @@ if [[ ${EUID} -ne 0 ]]; then
 fi
 
 VM_NAME=isolated-qwen36
-runuser -u svankina -- env XDG_RUNTIME_DIR=/run/user/1000 systemctl --user stop isolated-model-vm-proxy.service || true
 if [[ $(virsh domstate "$VM_NAME") == running ]]; then
   virsh shutdown "$VM_NAME"
   for _ in $(seq 1 60); do
