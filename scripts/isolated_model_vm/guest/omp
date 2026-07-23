@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export PI_CODING_AGENT_DIR="${PI_CODING_AGENT_DIR:-$HOME/.omp/agent}"
+export PATH="$HOME/.bun/bin:/opt/omp:$PATH"
+exec "$HOME/.bun/bin/omp" "$@"

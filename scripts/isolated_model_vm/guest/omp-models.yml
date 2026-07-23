@@ -1,0 +1,7 @@
+providers:
+  llama.cpp:
+    baseUrl: http://127.0.0.1:8089
+    api: openai-completions
+    apiKey: "!cat /etc/llama/api.key"
+    discovery:
+      type: llama.cpp
