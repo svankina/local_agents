@@ -1,14 +1,14 @@
 setupVersion: 1
 enabledModels:
-  - llama.cpp/Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf
+  - llama.cpp/Qwen3.6-27B-Uncensored-HauhauCS-Aggressive-Q3_K_P.gguf
 modelRoles:
-  default: llama.cpp/Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf
-  smol: llama.cpp/Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf
-  task: llama.cpp/Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf
-  slow: llama.cpp/Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf
-  plan: llama.cpp/Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf
-  vision: llama.cpp/Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf
-defaultThinkingLevel: off
+  default: llama.cpp/Qwen3.6-27B-Uncensored-HauhauCS-Aggressive-Q3_K_P.gguf
+  smol: llama.cpp/Qwen3.6-27B-Uncensored-HauhauCS-Aggressive-Q3_K_P.gguf
+  task: llama.cpp/Qwen3.6-27B-Uncensored-HauhauCS-Aggressive-Q3_K_P.gguf
+  slow: llama.cpp/Qwen3.6-27B-Uncensored-HauhauCS-Aggressive-Q3_K_P.gguf
+  plan: llama.cpp/Qwen3.6-27B-Uncensored-HauhauCS-Aggressive-Q3_K_P.gguf
+  vision: llama.cpp/Qwen3.6-27B-Uncensored-HauhauCS-Aggressive-Q3_K_P.gguf
+defaultThinkingLevel: max
 providers:
   webSearch: exa
 task:

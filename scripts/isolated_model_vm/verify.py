@@ -15,7 +15,7 @@ REMOTE_API_PORT = 8089
 ROOT = Path(__file__).resolve().parents[2]
 IMAGE = ROOT / "docs/article/assets/fastfetch-3090ti.png"
 API_KEY = Path.home() / ".local/share/isolated-model-vm/api.key"
-MODEL = "/opt/models/Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf"
+MODEL = "/opt/models/Qwen3.6-27B-Uncensored-HauhauCS-Aggressive-Q3_K_P.gguf"
 TOKEN = API_KEY.read_text().strip()
 
 
@@ -174,8 +174,8 @@ else:
 
 props = request("/props")
 context = props.get("default_generation_settings", {}).get("n_ctx")
-if context != 131072:
-    raise AssertionError(f"server context is {context}, expected 131072")
+if context != 262144:
+    raise AssertionError(f"server context is {context}, expected 262144")
 
 image_url = "data:image/png;base64," + base64.b64encode(IMAGE.read_bytes()).decode()
 vision = request(
