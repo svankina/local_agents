@@ -78,6 +78,7 @@ virt-customize -a "$VM_DISK" \
   --copy-in "$OMP_BUN":/opt/omp \
   --copy-in "$SCRIPT_DIR/guest/nvidia-driver-ready.service":/etc/systemd/system \
   --copy-in "$SCRIPT_DIR/guest/llama-server.service":/etc/systemd/system \
+  --copy-in "$SCRIPT_DIR/guest/ssh-vsock-proxy.service":/etc/systemd/system \
   --mkdir /etc/systemd/system/serial-getty@ttyS0.service.d \
   --copy-in "$SCRIPT_DIR/guest/llm-chat":/usr/local/bin \
   --copy-in "$SCRIPT_DIR/guest/omp":/usr/local/bin \
@@ -85,12 +86,17 @@ virt-customize -a "$VM_DISK" \
   --run-command 'mv /opt/llama.cpp-cuda-b9592 /opt/llama.cpp' \
   --run-command 'useradd --system --home-dir /var/lib/llama --shell /usr/sbin/nologin llm' \
   --run-command 'useradd --create-home --groups llm --shell /bin/bash chat && passwd --lock chat' \
+  --mkdir /home/chat/.ssh \
+  --copy-in "$SCRIPT_DIR/guest/authorized_keys":/home/chat/.ssh \
+  --mkdir /etc/ssh/sshd_config.d \
+  --copy-in "$SCRIPT_DIR/guest/sshd-vsock.conf":/etc/ssh/sshd_config.d \
   --run-command 'runuser -u chat -- env HOME=/home/chat PATH=/opt/omp:/usr/bin:/bin /opt/omp/bun install -g @oh-my-pi/pi-coding-agent@17.0.8' \
   --run-command 'install -d -o chat -g chat /home/chat/.omp/agent' \
   --copy-in "$SCRIPT_DIR/guest/omp-config.yml":/home/chat/.omp/agent \
   --copy-in "$SCRIPT_DIR/guest/omp-models.yml":/home/chat/.omp/agent \
   --run-command 'mv /home/chat/.omp/agent/omp-config.yml /home/chat/.omp/agent/config.yml && mv /home/chat/.omp/agent/omp-models.yml /home/chat/.omp/agent/models.yml' \
   --run-command 'chown chat:chat /home/chat/.omp/agent/config.yml /home/chat/.omp/agent/models.yml && chmod 0600 /home/chat/.omp/agent/config.yml /home/chat/.omp/agent/models.yml' \
+  --run-command 'chown -R chat:chat /home/chat/.ssh && chmod 0700 /home/chat/.ssh && chmod 0600 /home/chat/.ssh/authorized_keys' \
   --run-command 'chown llm:llm /var/lib/llama' \
   --run-command 'chown root:llm /etc/llama/api.key && chmod 0440 /etc/llama/api.key' \
   --run-command 'chown -R root:root /opt/models /opt/llama.cpp /opt/cuda' \
@@ -101,8 +107,9 @@ virt-customize -a "$VM_DISK" \
   --run-command 'passwd --lock root' \
   --run-command 'rm -f /etc/resolv.conf && install -m 000 /dev/null /etc/resolv.conf' \
   --run-command 'rm -f /etc/netplan/*' \
-  --run-command 'systemctl mask ssh.service ssh.socket systemd-networkd.service systemd-networkd.socket systemd-resolved.service NetworkManager.service NetworkManager-wait-online.service ModemManager.service apt-daily.service apt-daily.timer apt-daily-upgrade.service apt-daily-upgrade.timer unattended-upgrades.service' \
-  --run-command 'systemctl enable qemu-guest-agent.service nvidia-driver-ready.service llama-server.service'
+  --run-command 'systemctl mask systemd-networkd.service systemd-networkd.socket systemd-resolved.service NetworkManager.service NetworkManager-wait-online.service ModemManager.service apt-daily.service apt-daily.timer apt-daily-upgrade.service apt-daily-upgrade.timer unattended-upgrades.service' \
+  --run-command 'systemctl disable ssh.socket' \
+  --run-command 'systemctl enable qemu-guest-agent.service nvidia-driver-ready.service llama-server.service ssh.service ssh-vsock-proxy.service'
 
 virt-cat -a "$VM_DISK" /etc/systemd/system/llama-server.service >/dev/null
 trap - ERR

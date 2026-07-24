@@ -50,6 +50,7 @@ virt-install \
   --hostdev 0000:42:00.1 \
   --network none \
   --channel unix,target.type=virtio,target.name=org.qemu.guest_agent.0 \
+  --vsock cid.address=36,cid.auto=no \
   --rng /dev/urandom \
   --graphics none \
   --console pty,target.type=serial \

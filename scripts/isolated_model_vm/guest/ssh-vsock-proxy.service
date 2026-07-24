@@ -1,0 +1,26 @@
+[Unit]
+Description=Expose loopback SSH over host/guest vsock
+After=ssh.service
+Requires=ssh.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/socat VSOCK-LISTEN:2222,reuseaddr,fork TCP4:127.0.0.1:22
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_VSOCK AF_INET
+RestrictNamespaces=true
+LockPersonality=true
+RestrictSUIDSGID=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target
