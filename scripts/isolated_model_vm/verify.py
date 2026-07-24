@@ -118,6 +118,37 @@ code, api_mode, error = qga("/usr/bin/stat", ["-c", "%U:%G %a", "/etc/llama/api.
 if code != 0 or api_mode != "root:llm 440":
     raise AssertionError(f"API key permissions are not locked down: {api_mode!r} {error!r}")
 
+browser_probe = """
+from pathlib import Path
+import subprocess
+
+matches = list(Path("/home/chat/.omp/puppeteer/chrome").glob("linux-*/chrome-linux64/chrome"))
+if len(matches) != 1:
+    raise SystemExit(f"expected one OMP Chrome executable, found {matches}")
+result = subprocess.run(
+    [
+        str(matches[0]),
+        "--headless",
+        "--no-sandbox",
+        "--disable-gpu",
+        "--dump-dom",
+        "data:text/html,<title>OMP Browser Ready</title><h1>offline-browser-ok</h1>",
+    ],
+    capture_output=True,
+    text=True,
+    timeout=30,
+)
+if result.returncode:
+    raise SystemExit(result.stderr)
+print(result.stdout)
+"""
+code, browser_html, error = qga(
+    "/usr/sbin/runuser",
+    ["-u", "chat", "--", "/usr/bin/env", "HOME=/home/chat", "/usr/bin/python3", "-c", browser_probe],
+)
+if code != 0 or "offline-browser-ok" not in browser_html:
+    raise AssertionError(f"OMP Chrome failed offline launch: {browser_html!r} {error!r}")
+
 for _ in range(180):
     try:
         health = request("/health", timeout=2)
@@ -177,6 +208,7 @@ result = {
     "model_permissions": model_mode,
     "api_key_permissions": api_mode,
     "model_writable_by_service": False,
+    "browser_offline_launch": True,
     "vision_answer": answer,
 }
 json.dump(result, sys.stdout, indent=2)

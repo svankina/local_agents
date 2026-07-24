@@ -94,7 +94,9 @@ virt-customize -a "$VM_DISK" \
   --copy-in "$SCRIPT_DIR/guest/authorized_keys":/home/chat/.ssh \
   --mkdir /etc/ssh/sshd_config.d \
   --copy-in "$SCRIPT_DIR/guest/sshd-vsock.conf":/etc/ssh/sshd_config.d \
+  --run-command 'set -e; apt-get update; export DEBIAN_FRONTEND=noninteractive; apt-get install -y --no-install-recommends unzip libasound2t64 libatk-bridge2.0-0t64 libatk1.0-0t64 libcups2t64 libcairo2 libpango-1.0-0 libxcomposite1 libxdamage1 libxfixes3 libatspi2.0-0t64 libgbm1 libnss3 libx11-xcb1 libxrandr2 xdg-utils; rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*' \
   --run-command 'runuser -u chat -- env HOME=/home/chat PATH=/opt/omp:/usr/bin:/bin /opt/omp/bun install -g @oh-my-pi/pi-coding-agent@17.0.8' \
+  --run-command "runuser -u chat -- env HOME=/home/chat PATH=/opt/omp:/usr/bin:/bin /opt/omp/bun -e 'const m = await import(\"/home/chat/.bun/install/global/node_modules/@oh-my-pi/pi-coding-agent/src/tools/browser/launch.ts\"); console.log(await m.ensureChromiumExecutable())'" \
   --run-command 'install -d -o chat -g chat /home/chat/.omp/agent' \
   --copy-in "$SCRIPT_DIR/guest/omp-config.yml":/home/chat/.omp/agent \
   --copy-in "$SCRIPT_DIR/guest/omp-models.yml":/home/chat/.omp/agent \
