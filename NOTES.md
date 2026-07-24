@@ -41,8 +41,8 @@ Suggested 128k llama.cpp flags: `-ngl 99 --jinja -fa on -c 131072 --cache-type-k
 - Current unit: `/etc/systemd/system/llama-server.service`, Q3_K_L + BF16 mmproj, 131,072 context, q8 K/V, MTP, no explicit `--parallel`, and `Restart=on-failure`. llama.cpp auto-selects four slots and enables prompt caching/context checkpoints.
 - Root-fix direction: disable prompt-cache state saves (`--cache-ram 0`) or provide materially more VM RAM/swap; reducing context also lowers the failure envelope. Disabling the cache is the narrow first fix because the observed allocation spike occurs in `prompt_save`. Verify with a conversation near 122k tokens followed by another turn while watching the kernel journal for OOM records.
 
-## 2026-07-24 — VM access to Pi dashboard gateway
+## 2026-07-24 — Host access to VM HTTP server
 
 - Libvirt guest `isolated-qwen36` currently leases `192.168.122.76/24`; the host-side `virbr0` address is `192.168.122.1/24`.
-- `pi-dashboard-gateway.service` listens only on host loopback because its unit sets `GATEWAY_HOST=127.0.0.1`. Host loopback returns HTTP 200, while `192.168.122.76:8888` refuses the connection.
-- From inside the guest, `192.168.122.76` is the guest itself, not the host. To expose the gateway only to libvirt guests, bind it to `192.168.122.1` and access `http://192.168.122.1:8888/`; binding to `0.0.0.0` is broader than necessary.
+- The guest is reachable from the host. Its Python HTTP server listens on `0.0.0.0:8000`, and `http://192.168.122.76:8000/` returns HTTP 200.
+- Nothing in the guest listens on port 8888, so `http://192.168.122.76:8888/` is refused. The separate host-side `pi-dashboard-gateway.service` owns port 8888 only on `127.0.0.1`.
