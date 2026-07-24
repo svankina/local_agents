@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ ${EUID} -ne 0 ]]; then
-  echo "start.sh must run as root" >&2
-  exit 1
-fi
 
 VM_NAME=isolated-qwen36
+VIRSH=(virsh -c qemu:///system)
 GPU_ADDRESS=0000:42:00.0
 AUDIO_ADDRESS=0000:42:00.1
 
@@ -16,7 +13,7 @@ current_driver() {
   [[ -L $link ]] && basename "$(readlink -f "$link")" || printf '%s\n' unbound
 }
 
-if [[ $(virsh domstate "$VM_NAME") == running ]]; then
+if [[ $("${VIRSH[@]}" domstate "$VM_NAME") == running ]]; then
   exit 0
 fi
 
@@ -28,4 +25,4 @@ if [[ $gpu_driver != vfio-pci || $audio_driver != vfio-pci ]]; then
   exit 1
 fi
 
-virsh start "$VM_NAME"
+"${VIRSH[@]}" start "$VM_NAME"

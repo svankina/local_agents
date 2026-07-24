@@ -90,12 +90,25 @@ EOF
   make_domain_static
   kernelstub --add-options "$KERNEL_OPTION"
   update-initramfs -u
-  echo 'VM GPU mode configured. Reboot is required; no live driver detach was attempted.'
+  if [[ $(current_driver "$GPU_ADDRESS") == nvidia ]]; then
+    echo 'VM GPU mode configured, but the running NVIDIA 580 driver panics during normal shutdown.' >&2
+    echo 'Do not use reboot or poweroff for this one transition. Upgrade NVIDIA first, or sync filesystems and use an explicitly planned hard reset.' >&2
+  else
+    echo 'VM GPU mode configured. A normal reboot is required; no live driver detach was attempted.'
+  fi
 }
 
 configure_host_mode() {
   require_root host
   require_vm_stopped
+  local nvidia_version nvidia_major
+  nvidia_version=$(modinfo -F version nvidia)
+  nvidia_major=${nvidia_version%%.*}
+  if (( nvidia_major < 590 )); then
+    echo "Refusing host GPU mode with NVIDIA $nvidia_version: NVIDIA documents shutdown panics in the 580 branch." >&2
+    echo 'Upgrade to NVIDIA 590 or newer before returning the GPU to the host.' >&2
+    exit 1
+  fi
   rm -f "$VFIO_CONFIG"
   kernelstub --delete-options "$KERNEL_OPTION"
   update-initramfs -u
