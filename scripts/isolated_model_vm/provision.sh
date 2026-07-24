@@ -37,7 +37,7 @@ XML=$(mktemp)
 trap 'rm -f "$XML"' EXIT
 virt-install \
   --name "$VM_NAME" \
-  --memory 16384 \
+  --memory 32768 \
   --vcpus 12 \
   --cpu host-passthrough \
   --machine q35 \
@@ -55,6 +55,18 @@ virt-install \
   --console pty,target.type=serial \
   --noautoconsole \
   --print-xml >"$XML"
+
+python3 - "$XML" <<'PY'
+import sys
+import xml.etree.ElementTree as ET
+
+path = sys.argv[1]
+tree = ET.parse(path)
+root = tree.getroot()
+for hostdev in root.findall("./devices/hostdev[@type='pci']"):
+    hostdev.set("managed", "no")
+tree.write(path, encoding="unicode")
+PY
 
 if grep -q '<interface' "$XML"; then
   echo 'Refusing VM definition containing a network interface' >&2

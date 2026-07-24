@@ -7,36 +7,25 @@ if [[ ${EUID} -ne 0 ]]; then
 fi
 
 VM_NAME=isolated-qwen36
-terminate_gpu_users() {
-  local devices=(/dev/nvidia*)
-  [[ -e "${devices[0]}" ]] || return 0
-  fuser -k -TERM "${devices[@]}" 2>/dev/null || true
-  for _ in $(seq 1 10); do
-    fuser -s "${devices[@]}" 2>/dev/null || return 0
-    sleep 1
-  done
-  fuser -k -KILL "${devices[@]}" 2>/dev/null || true
+GPU_ADDRESS=0000:42:00.0
+AUDIO_ADDRESS=0000:42:00.1
+
+current_driver() {
+  local address=$1
+  local link="/sys/bus/pci/devices/$address/driver"
+  [[ -L $link ]] && basename "$(readlink -f "$link")" || printf '%s\n' unbound
 }
 
 if [[ $(virsh domstate "$VM_NAME") == running ]]; then
   exit 0
 fi
 
-restore_host_gpu_services() {
-  modprobe nvidia 2>/dev/null || true
-  modprobe nvidia_uvm 2>/dev/null || true
-  modprobe nvidia_drm 2>/dev/null || true
-  systemctl start nvidia-persistenced.service 2>/dev/null || true
-  systemctl start plexmediaserver.service
-  systemctl start homer-asr.service
-  runuser -u ai-server -- env XDG_RUNTIME_DIR=/run/user/1011 systemctl --user start whisper-server.service
-}
-trap restore_host_gpu_services ERR INT TERM
+gpu_driver=$(current_driver "$GPU_ADDRESS")
+audio_driver=$(current_driver "$AUDIO_ADDRESS")
+if [[ $gpu_driver != vfio-pci || $audio_driver != vfio-pci ]]; then
+  echo "Refusing unsafe live GPU detach: $GPU_ADDRESS uses $gpu_driver; $AUDIO_ADDRESS uses $audio_driver." >&2
+  echo "Run gpu_mode.sh vm, reboot, then start the VM. Dynamic NVIDIA/VFIO rebinding is prohibited." >&2
+  exit 1
+fi
 
-systemctl stop homer-asr.service
-systemctl stop plexmediaserver.service
-runuser -u ai-server -- env XDG_RUNTIME_DIR=/run/user/1011 systemctl --user stop whisper-server.service
-systemctl stop nvidia-persistenced.service 2>/dev/null || true
-terminate_gpu_users
 virsh start "$VM_NAME"
-trap - ERR INT TERM

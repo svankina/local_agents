@@ -24,6 +24,7 @@ ExecStart=/opt/llama.cpp/bin/llama-server \
   --spec-type draft-mtp \
   --spec-draft-n-max 2 \
   --no-spec-draft-backend-sampling \
+  --cache-ram 0 \
   --host 127.0.0.1 \
   --port 8089
 Restart=on-failure
