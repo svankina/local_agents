@@ -8,5 +8,5 @@ providers:
         name: Gemma 4 31B QAT Uncensored Balanced (local)
         reasoning: true
         input: [text, image]
-        contextWindow: 262144
+        contextWindow: 131072
         maxTokens: 32768

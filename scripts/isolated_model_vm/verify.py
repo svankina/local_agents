@@ -143,8 +143,8 @@ else:
 
 props = request("/props")
 context = props.get("default_generation_settings", {}).get("n_ctx")
-if context != 262144:
-    raise AssertionError(f"server context is {context}, expected 262144")
+if context != 131072:
+    raise AssertionError(f"server context is {context}, expected 131072")
 
 image_url = "data:image/png;base64," + base64.b64encode(IMAGE.read_bytes()).decode()
 vision = request(

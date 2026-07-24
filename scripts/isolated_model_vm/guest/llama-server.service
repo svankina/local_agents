@@ -11,16 +11,17 @@ Environment=LD_LIBRARY_PATH=/opt/llama.cpp/lib:/opt/cuda/lib
 ExecStart=/opt/llama.cpp/bin/llama-server \
   -m /opt/models/Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf \
   --mmproj /opt/models/mmproj-Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-BF16.gguf \
+  --no-mmproj-offload \
   --model-draft /opt/models/mtp-gemma-4-31B-it.gguf \
   --api-key-file /etc/llama/api.key \
   --offline \
   --no-ui \
   --no-slots \
   --parallel 1 \
-  -ngl 40 \
+  -ngl 99 \
   --jinja \
   -fa on \
-  -c 262144 \
+  -c 131072 \
   --batch-size 512 \
   --ubatch-size 256 \
   --cache-type-k q4_0 \
