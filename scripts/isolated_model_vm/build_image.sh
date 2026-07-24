@@ -79,6 +79,7 @@ virt-customize -a "$VM_DISK" \
   --copy-in "$SCRIPT_DIR/guest/nvidia-driver-ready.service":/etc/systemd/system \
   --copy-in "$SCRIPT_DIR/guest/llama-server.service":/etc/systemd/system \
   --copy-in "$SCRIPT_DIR/guest/ssh-vsock-proxy.service":/etc/systemd/system \
+  --copy-in "$SCRIPT_DIR/guest/wait-for-cuda":/usr/local/sbin \
   --mkdir /etc/systemd/system/serial-getty@ttyS0.service.d \
   --copy-in "$SCRIPT_DIR/guest/llm-chat":/usr/local/bin \
   --copy-in "$SCRIPT_DIR/guest/omp":/usr/local/bin \
@@ -104,6 +105,7 @@ virt-customize -a "$VM_DISK" \
   --run-command 'chmod 0444 /opt/models/*.gguf' \
   --run-command 'chmod 0755 /usr/local/bin/llm-chat' \
   --run-command 'chmod 0755 /opt/omp/bun /usr/local/bin/omp' \
+  --run-command 'chmod 0755 /usr/local/sbin/wait-for-cuda' \
   --run-command 'passwd --lock root' \
   --run-command 'rm -f /etc/resolv.conf && install -m 000 /dev/null /etc/resolv.conf' \
   --run-command 'rm -f /etc/netplan/*' \

@@ -1,10 +1,10 @@
 [Unit]
-Description=Load NVIDIA driver for the passed-through GPU
+Description=Wait for CUDA on the passed-through GPU
 After=systemd-modules-load.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/sbin/modprobe nvidia
+ExecStart=/usr/local/sbin/wait-for-cuda
 RemainAfterExit=yes
 
 [Install]

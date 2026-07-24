@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+modprobe nvidia
+modprobe nvidia_uvm
+
+last_output=
+for _ in $(seq 1 60); do
+  if last_output=$(env \
+    LD_LIBRARY_PATH=/opt/llama.cpp/lib:/opt/cuda/lib \
+    /opt/llama.cpp/bin/llama-cli --list-devices 2>&1) &&
+    [[ $last_output == *"CUDA0: NVIDIA GeForce RTX 3090 Ti"* ]]; then
+    printf '%s\n' "$last_output"
+    exit 0
+  fi
+  sleep 1
+done
+
+printf 'CUDA did not become ready within 60 seconds. Last probe:\n%s\n' "$last_output" >&2
+exit 1
