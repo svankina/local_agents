@@ -9,8 +9,9 @@ fi
 STATE_DIR="$HOME/.local/share/isolated-model-vm"
 BASE_IMAGE="$STATE_DIR/images/noble-server-cloudimg-amd64.img"
 VM_DISK="$STATE_DIR/images/isolated-qwen36.prepared.qcow2"
-MODEL="$STATE_DIR/models/Qwen3.6-35B-A3B-uncensored-heretic-Native-MTP-Preserved-Q3_K_L.gguf"
-MMPROJ="$STATE_DIR/models/Qwen3.6-35B-A3B-uncensored-heretic-Native-MTP-Preserved-mmproj-BF16.gguf"
+MODEL="$STATE_DIR/models/Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf"
+MMPROJ="$STATE_DIR/models/mmproj-Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-BF16.gguf"
+DRAFT="$STATE_DIR/models/mtp-gemma-4-31B-it.gguf"
 API_KEY="$STATE_DIR/api.key"
 LLAMA_DIR="$HOME/.local/opt/llama.cpp-cuda-b9592"
 CUDA_LIB="$HOME/.local/opt/cuda-pip-cu13/lib/python3.12/site-packages/nvidia/cu13/lib"
@@ -25,8 +26,9 @@ exec > >(tee "$STATE_DIR/build-image.log") 2>&1
 
 printf '%s  %s\n' \
   ffe6203da54deeb6db5d2a98a83f9ec8e55f149d3f7ba622e1abe5fa966ee3d6 "$BASE_IMAGE" \
-  6bddab4c45de8718e4c30fed6d8ab9f71f68ff4509cf7683e578d312a5822d4b "$MODEL" \
-  d6050bb82a0187e1b0655f1c5daef60c9479273fbd7402ff25d3137df2e071ce "$MMPROJ" \
+  71667f9e601a4b914a98425c59150b731f6e15d260d661dbd1f1ee07469fc7db "$MODEL" \
+  7bef0d0fb3e85fc2941ec5f1c375febf3742645f158132a43ced557093aea841 "$MMPROJ" \
+  b5c4e583fc5982439080114bbc1b7edaec361f9d4c9193d6bed606a3de401b62 "$DRAFT" \
   | sha256sum --check --strict
 [[ -x "$LLAMA_DIR/bin/llama-server" ]]
 [[ -f "$CUDA_LIB/libcudart.so.13" ]]
@@ -73,6 +75,7 @@ virt-customize -a "$VM_DISK" \
   --copy-in "$MODEL":/opt/models \
   --copy-in "$MMPROJ":/opt/models \
   --copy-in "$API_KEY":/etc/llama \
+  --copy-in "$DRAFT":/opt/models \
   --copy-in "$LLAMA_DIR":/opt \
   --copy-in "$CUDA_LIB":/opt/cuda \
   --copy-in "$OMP_BUN":/opt/omp \

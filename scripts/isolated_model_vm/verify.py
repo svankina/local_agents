@@ -1,20 +1,60 @@
 #!/usr/bin/env python3
+import atexit
 import base64
 import json
 import subprocess
 import sys
+import socket
 import time
 import urllib.request
 import urllib.error
 from pathlib import Path
 
 VM = "isolated-qwen36"
-BASE = "http://127.0.0.1:8089"
+REMOTE_API_PORT = 8089
 ROOT = Path(__file__).resolve().parents[2]
 IMAGE = ROOT / "docs/article/assets/fastfetch-3090ti.png"
 API_KEY = Path.home() / ".local/share/isolated-model-vm/api.key"
-MODEL = "/opt/models/Qwen3.6-35B-A3B-uncensored-heretic-Native-MTP-Preserved-Q3_K_L.gguf"
+MODEL = "/opt/models/Gemma4-31B-QAT-Uncensored-HauhauCS-Balanced-Q4_K_M.gguf"
 TOKEN = API_KEY.read_text().strip()
+
+
+def start_api_tunnel() -> tuple[subprocess.Popen[str], str]:
+    with socket.socket() as reservation:
+        reservation.bind(("127.0.0.1", 0))
+        local_port = reservation.getsockname()[1]
+
+    tunnel = subprocess.Popen(
+        [
+            "ssh",
+            "-N",
+            "-o",
+            "BatchMode=yes",
+            "-o",
+            "ExitOnForwardFailure=yes",
+            "-L",
+            f"127.0.0.1:{local_port}:127.0.0.1:{REMOTE_API_PORT}",
+            VM,
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    for _ in range(50):
+        if tunnel.poll() is not None:
+            error = tunnel.stderr.read() if tunnel.stderr else ""
+            raise RuntimeError(f"SSH API tunnel exited: {error.strip()}")
+        try:
+            with socket.create_connection(("127.0.0.1", local_port), timeout=0.2):
+                return tunnel, f"http://127.0.0.1:{local_port}"
+        except OSError:
+            time.sleep(0.1)
+    tunnel.terminate()
+    raise TimeoutError("SSH API tunnel did not become ready")
+
+
+TUNNEL, BASE = start_api_tunnel()
+atexit.register(TUNNEL.terminate)
 
 
 def run(*args: str) -> str:
@@ -103,8 +143,8 @@ else:
 
 props = request("/props")
 context = props.get("default_generation_settings", {}).get("n_ctx")
-if context != 131072:
-    raise AssertionError(f"server context is {context}, expected 131072")
+if context != 262144:
+    raise AssertionError(f"server context is {context}, expected 262144")
 
 image_url = "data:image/png;base64," + base64.b64encode(IMAGE.read_bytes()).decode()
 vision = request(
