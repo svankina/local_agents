@@ -92,3 +92,14 @@ Performance trap: a shell loop calling `guestfish`/`virt-ls` once per file boots
 appliance every iteration — a 200-file compare took 20 minutes. Do all guest work in ONE
 `guestfish --ro -a IMG -i` session (or one `virt-copy-out`), and write output to a file rather
 than through `head`, which kills the script with SIGPIPE (exit 141).
+
+Why libguestfs needs root here at all: `/boot/vmlinuz-*` is mode `0600 root:root` on Pop!_OS, so
+supermin cannot build its appliance as a normal user — `cp: cannot open
+'/boot/vmlinuz-7.0.11-76070011-generic' for reading: Permission denied`, surfacing as the useless
+`supermin exited with error status 1`. That is independent of the qcow2's own `0600` perms, so
+loosening the image perms alone would not make guest reads unprivileged.
+
+Ready-to-run helper (needs one `psudo` approval):
+`/tmp/pi-sudo-vm-finish.sh {sweep|rescue <guest-path>|delete}` — `sweep` writes a `virt-ls -lR`
+inventory of `/home /root /srv /opt` to `/tmp/vm-sweep.log`, `rescue` copies another guest path
+into the repo, `delete` undefines the domain (`--nvram`) and removes the qcow2.
