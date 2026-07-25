@@ -72,3 +72,23 @@ the 2026-07-15 note above. The name `seat-vfio` is now historical only.
 Still on disk: libvirt guest `isolated-qwen36` (defined, shut off, autostart disabled),
 `/var/lib/libvirt/images/isolated-qwen36.qcow2` — 80 GiB capacity, **38.49 GiB allocated**.
 Deleting the domain + qcow2 reclaims that; nothing else depends on it.
+
+## 2026-07-25 — recovering files from the `isolated-qwen36` guest
+
+`/home/chat/amp` was copied out of the shut-off guest to `local_agents/amp` (200 files,
+18,516,324 B; gitignored via `/amp/`). Integrity checked host-side: 0 unreadable, 0 zero-byte,
+`node_modules/playwright` resolves at 1.61.1 matching `package.json`. Two guest-generated
+filenames are malformed model output and were kept verbatim: a directory `local:` and
+`temp_note.txt}<tool_call|><|tool_call>call:browser{action:`.
+
+How to pull more out (the qcow2 is `libvirt-qemu:kvm 0600`, so every read needs root):
+
+```
+sudo LIBGUESTFS_BACKEND=direct virt-copy-out \
+  -a /var/lib/libvirt/images/isolated-qwen36.qcow2 -i /home/chat/<dir> <hostdir>
+```
+
+Performance trap: a shell loop calling `guestfish`/`virt-ls` once per file boots the libguestfs
+appliance every iteration — a 200-file compare took 20 minutes. Do all guest work in ONE
+`guestfish --ro -a IMG -i` session (or one `virt-copy-out`), and write output to a file rather
+than through `head`, which kills the script with SIGPIPE (exit 141).
