@@ -77,9 +77,12 @@ virt-customize -a "$VM_DISK" \
   --copy-in "$CUDA_LIB":/opt/cuda \
   --copy-in "$OMP_BUN":/opt/omp \
   --copy-in "$SCRIPT_DIR/guest/nvidia-driver-ready.service":/etc/systemd/system \
+  --copy-in "$SCRIPT_DIR/guest/nvidia-power-limit.service":/etc/systemd/system \
+  --copy-in "$SCRIPT_DIR/guest/omp-warmup.service":/etc/systemd/system \
   --copy-in "$SCRIPT_DIR/guest/llama-server.service":/etc/systemd/system \
   --copy-in "$SCRIPT_DIR/guest/ssh-vsock-proxy.service":/etc/systemd/system \
   --copy-in "$SCRIPT_DIR/guest/wait-for-cuda":/usr/local/sbin \
+  --copy-in "$SCRIPT_DIR/guest/warm-omp":/usr/local/sbin \
   --mkdir /etc/systemd/system/serial-getty@ttyS0.service.d \
   --copy-in "$SCRIPT_DIR/guest/llm-chat":/usr/local/bin \
   --copy-in "$SCRIPT_DIR/guest/omp":/usr/local/bin \
@@ -107,13 +110,13 @@ virt-customize -a "$VM_DISK" \
   --run-command 'chmod 0444 /opt/models/*.gguf' \
   --run-command 'chmod 0755 /usr/local/bin/llm-chat' \
   --run-command 'chmod 0755 /opt/omp/bun /usr/local/bin/omp' \
-  --run-command 'chmod 0755 /usr/local/sbin/wait-for-cuda' \
+  --run-command 'chmod 0755 /usr/local/sbin/wait-for-cuda /usr/local/sbin/warm-omp' \
   --run-command 'passwd --lock root' \
   --run-command 'rm -f /etc/resolv.conf && install -m 000 /dev/null /etc/resolv.conf' \
   --run-command 'rm -f /etc/netplan/*' \
   --run-command 'systemctl mask systemd-networkd.service systemd-networkd.socket systemd-resolved.service NetworkManager.service NetworkManager-wait-online.service ModemManager.service apt-daily.service apt-daily.timer apt-daily-upgrade.service apt-daily-upgrade.timer unattended-upgrades.service' \
   --run-command 'systemctl disable ssh.socket' \
-  --run-command 'systemctl enable qemu-guest-agent.service nvidia-driver-ready.service llama-server.service ssh.service ssh-vsock-proxy.service'
+  --run-command 'systemctl enable qemu-guest-agent.service nvidia-driver-ready.service nvidia-power-limit.service llama-server.service omp-warmup.service ssh.service ssh-vsock-proxy.service'
 
 virt-cat -a "$VM_DISK" /etc/systemd/system/llama-server.service >/dev/null
 trap - ERR

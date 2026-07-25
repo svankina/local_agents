@@ -1,0 +1,17 @@
+[Unit]
+Description=Limit passed-through RTX 3090 Ti to 350 W
+After=nvidia-driver-ready.service
+Requires=nvidia-driver-ready.service
+Before=llama-server.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/nvidia-smi -i 0 -pl 350
+RemainAfterExit=yes
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

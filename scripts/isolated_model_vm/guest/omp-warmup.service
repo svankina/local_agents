@@ -1,0 +1,19 @@
+[Unit]
+Description=Warm llama.cpp with the standard OMP agent prefix
+After=llama-server.service
+Requires=llama-server.service
+
+[Service]
+Type=oneshot
+User=chat
+Group=chat
+WorkingDirectory=/home/chat
+Environment=HOME=/home/chat
+Environment=PATH=/home/chat/.bun/bin:/opt/omp:/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/local/sbin/warm-omp
+RemainAfterExit=yes
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

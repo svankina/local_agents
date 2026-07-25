@@ -1,7 +1,7 @@
 [Unit]
 Description=Network-isolated Qwen3.6 27B Aggressive multimodal server
-After=nvidia-driver-ready.service
-Requires=nvidia-driver-ready.service
+After=nvidia-driver-ready.service nvidia-power-limit.service
+Requires=nvidia-driver-ready.service nvidia-power-limit.service
 
 [Service]
 Type=simple
@@ -31,7 +31,8 @@ ExecStart=/opt/llama.cpp/bin/llama-server \
   --min-p 0.0 \
   --presence-penalty 1.5 \
   --repeat-penalty 1.0 \
-  --cache-ram 0 \
+  --cache-ram 2048 \
+  --cache-idle-slots \
   --host 127.0.0.1 \
   --port 8089
 Restart=on-failure

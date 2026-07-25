@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+base=http://127.0.0.1:8089
+token=$(< /etc/llama/api.key)
+for _ in $(seq 1 120); do
+  if curl --silent --show-error --fail \
+    --header "Authorization: Bearer $token" \
+    "$base/health" >/dev/null; then
+    exec /usr/local/bin/omp \
+      --print \
+      --no-session \
+      --no-title \
+      --thinking off \
+      --max-time 120 \
+      --cwd /home/chat \
+      'Reply with exactly: warm'
+  fi
+  sleep 2
+done
+
+echo "llama-server did not become healthy" >&2
+exit 1

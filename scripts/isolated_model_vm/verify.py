@@ -108,6 +108,22 @@ if code != 0 or routes:
 code, gpu, error = qga("/usr/bin/nvidia-smi", ["--query-gpu=name,memory.total", "--format=csv,noheader"])
 if code != 0 or "RTX 3090 Ti" not in gpu:
     raise AssertionError(f"passed-through GPU unavailable: {gpu!r} {error!r}")
+code, power_limit, error = qga(
+    "/usr/bin/nvidia-smi",
+    ["--query-gpu=power.limit", "--format=csv,noheader,nounits"],
+)
+if code != 0 or power_limit != "350.00":
+    raise AssertionError(f"GPU power limit is not 350 W: {power_limit!r} {error!r}")
+code, server_command, error = qga(
+    "/usr/bin/systemctl",
+    ["show", "llama-server.service", "--property=ExecStart", "--value"],
+)
+if code != 0 or "--cache-ram 2048" not in server_command or "--cache-idle-slots" not in server_command:
+    raise AssertionError(f"bounded prompt cache is not configured: {server_command!r} {error!r}")
+for unit in ("nvidia-power-limit.service", "omp-warmup.service"):
+    code, enabled, error = qga("/usr/bin/systemctl", ["is-enabled", unit])
+    if code != 0 or enabled != "enabled":
+        raise AssertionError(f"{unit} is not enabled: {enabled!r} {error!r}")
 code, model_mode, error = qga("/usr/bin/stat", ["-c", "%U:%G %a", MODEL])
 if code != 0 or model_mode != "root:root 444":
     raise AssertionError(f"model permissions are not locked down: {model_mode!r} {error!r}")
@@ -202,6 +218,9 @@ result = {
     "network_devices": links.splitlines(),
     "routes": [],
     "gpu": gpu,
+    "power_limit_watts": 350,
+    "prompt_cache_mebibytes": 2048,
+    "startup_warmup_enabled": True,
     "context_tokens": context,
     "unauthenticated_status": 401,
     "health": health,
