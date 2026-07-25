@@ -126,3 +126,10 @@ qcow2 is deleted.
 flags without root by running the command against a throwaway `qemu-img create` file — an
 "invalid option" error proves a bad flag, while the supermin/vmlinuz failure proves the flags
 parsed and only privilege is missing.
+
+Rescue verification: guest-vs-host file counts match for `amp` (200/200) and `.ssh` (1/1).
+`.omp` reads 481 guest vs 477 host, and that gap is benign — the four missing entries are
+`agent.db-{shm,wal}` and `history.db-{shm,wal}`. Opening the databases host-side to check them
+checkpointed each WAL back into its `.db` and removed the sidecars; `agent.db` grew 128K → 140K
+accordingly. All three DBs report `integrity_check = ok`, and `history.db` still holds 222
+`history` rows with a matching 222-row FTS index, so nothing was lost.
