@@ -46,3 +46,29 @@ Suggested 128k llama.cpp flags: `-ngl 99 --jinja -fa on -c 131072 --cache-type-k
 - Libvirt guest `isolated-qwen36` currently leases `192.168.122.76/24`; the host-side `virbr0` address is `192.168.122.1/24`.
 - The guest is reachable from the host. Its Python HTTP server listens on `0.0.0.0:8000`, and `http://192.168.122.76:8000/` returns HTTP 200.
 - Nothing in the guest listens on port 8888, so `http://192.168.122.76:8888/` is refused. The separate host-side `pi-dashboard-gateway.service` owns port 8888 only on `127.0.0.1`.
+
+## 2026-07-25 — NVIDIA VM passthrough decommissioned (permanent)
+
+The RTX 3090 Ti is a **host-only CUDA GPU again**. No VM gets it — do not re-add vfio
+passthrough for the NVIDIA card. Verified live: `Kernel driver in use: nvidia`,
+`nvidia-smi` reports 0 MiB / 24564 MiB used, `llama-server-cuda --list-devices` sees
+`CUDA0 ... 23841 MiB free`. No reboot was needed; the rebind was done live.
+
+What was removed (backups in `/root/vfio-decommission-20260725/`):
+
+- Kernel cmdline: `kernelstub -d "vfio-pci.ids=10de:2203,10de:1aef"`. Remaining user options
+  are `splash loglevel=0 iommu=pt nvidia-drm.modeset=1 quiet systemd.show_status=false`.
+- `/etc/modprobe.d/vfio-qwen.conf` (vfio-pci ids + `softdep nvidia pre: vfio-pci`).
+- `/etc/modprobe.d/blacklist-nvidia-vfio.conf` (blacklist + `install nvidia /bin/false` wall
+  that existed only to stop the driverless udev load/unload loop).
+- `/etc/initramfs-tools/modules`: `vfio`, `vfio_pci`, `vfio_iommu_type1` commented out;
+  `update-initramfs -u -k all` run.
+
+Deliberately kept: `/etc/udev/rules.d/72-seat-pci-pci-0000_42_00_0.rules` (assigns the NVIDIA
+card to `seat-vfio`) and `/etc/X11/xorg.conf.d/20-amdgpu-only.conf`. Together they stop Xorg
+from opening `card1` while leaving host CUDA fully available — the architecture recommended in
+the 2026-07-15 note above. The name `seat-vfio` is now historical only.
+
+Still on disk: libvirt guest `isolated-qwen36` (defined, shut off, autostart disabled),
+`/var/lib/libvirt/images/isolated-qwen36.qcow2` — 80 GiB capacity, **38.49 GiB allocated**.
+Deleting the domain + qcow2 reclaims that; nothing else depends on it.
