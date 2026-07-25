@@ -103,3 +103,26 @@ Ready-to-run helper (needs one `psudo` approval):
 `/tmp/pi-sudo-vm-finish.sh {sweep|rescue <guest-path>|delete}` — `sweep` writes a `virt-ls -lR`
 inventory of `/home /root /srv /opt` to `/tmp/vm-sweep.log`, `rescue` copies another guest path
 into the repo, `delete` undefines the domain (`--nvram`) and removes the qcow2.
+
+Full guest sweep (2026-07-25, `virt-ls -lRh /home /root /srv /opt`, 72,754 lines in
+`/tmp/vm-sweep.log`). Only three things in the guest were user-generated; everything else is
+re-installable:
+
+| Path | Files | Size | Disposition |
+|---|---|---|---|
+| `/home/chat/amp` | 200 | 19 MB | → `local_agents/amp` (gitignored) |
+| `/home/chat/.omp` | 481 | 406 MB (382 MB is a puppeteer browser download) | → `~/vm-rescue/isolated-qwen36/.omp` |
+| `/home/chat/.bash_history`, `.ssh/authorized_keys` | 2 | 638 B | → `~/vm-rescue/isolated-qwen36/` |
+| `/home/chat/.bun` | 65,785 | — | bun cache, discarded |
+| `/opt/cuda`, `/opt/llama.cpp` | — | ~850 MB | redistributable binaries, discarded |
+| `/root`, `/srv` | 0 user files | — | empty |
+
+`agent.db` from the guest passes `pragma integrity_check` = `ok`; `history.db` has 9 schema
+objects and `blobs/` holds 74 screenshots. Nothing else in the guest needs rescuing before the
+qcow2 is deleted.
+
+`virt-ls` flag traps (1.52.0): there is **no `-i/--inspector`** (inspection is implicit with
+`-a`) and no `--ro` (always read-only); `-h` is rejected unless combined with `-lR`. Validate
+flags without root by running the command against a throwaway `qemu-img create` file — an
+"invalid option" error proves a bad flag, while the supermin/vmlinuz failure proves the flags
+parsed and only privilege is missing.
